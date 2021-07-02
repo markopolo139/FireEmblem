@@ -44,6 +44,13 @@ public enum Stats {
         }
     };
 
+    Stats(int value) {
+        mValue = value;
+    }
+
+    Stats() {
+    }
+
     private int mValue = 0;
 
     public int getValue() {
