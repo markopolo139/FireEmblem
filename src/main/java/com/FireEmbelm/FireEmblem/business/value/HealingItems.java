@@ -1,23 +1,25 @@
 package com.FireEmbelm.FireEmblem.business.value;
 
 public enum HealingItems implements Equipment {
-    VULNERARY("Vulnerary", 10, 3, 300, ItemCategory.RECOVERY_ITEM),
-    CONCOCTIONS("Concoctions", 20, 2, 600, ItemCategory.RECOVERY_ITEM),
-    ELIXIR("Elixir", 30, 1, 900, ItemCategory.RECOVERY_ITEM),
-    MEND("Mend", 25, 10, 1200, ItemCategory.STAFF),
-    HEAL("Heal", 15, 20, 600, ItemCategory.STAFF);
+    VULNERARY("Vulnerary", 10, 3, 300, 1, ItemCategory.RECOVERY_ITEM),
+    CONCOCTIONS("Concoctions", 20, 2, 600, 1, ItemCategory.RECOVERY_ITEM),
+    ELIXIR("Elixir", 30, 1, 900, 1, ItemCategory.RECOVERY_ITEM),
+    MEND("Mend", 25, 10, 1500, 2, ItemCategory.STAFF),
+    HEAL("Heal", 15, 20, 800, 2, ItemCategory.STAFF);
 
     private final String mItemName;
     private final int mHealValue;
     private int mItemUses;
     private final int mWorth;
+    private final int mRange;
     private final ItemCategory mItemCategory;
 
-    HealingItems(String itemName, int healValue, int itemUses, int worth, ItemCategory itemCategory) {
+    HealingItems(String itemName, int healValue, int itemUses, int worth, int range, ItemCategory itemCategory) {
         this.mItemName = itemName;
         this.mHealValue = healValue;
         this.mItemUses = itemUses;
         mWorth = worth;
+        mRange = range;
         this.mItemCategory = itemCategory;
     }
 
@@ -53,7 +55,7 @@ public enum HealingItems implements Equipment {
 
     @Override
     public int getRange() {
-        return 1;
+        return mRange;
     }
 
     @Override
