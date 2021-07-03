@@ -2,6 +2,12 @@ package com.FireEmbelm.FireEmblem.business.value;
 
 //TODO : remember to give stats value when getting from base
 public enum Stats {
+    HEALTH {
+        @Override
+        public String getShortName() {
+            return "Hp";
+        }
+    },
     STRENGTH {
         @Override
         public String getShortName() {
