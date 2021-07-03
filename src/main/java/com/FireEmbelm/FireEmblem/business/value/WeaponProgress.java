@@ -4,12 +4,13 @@ package com.FireEmbelm.FireEmblem.business.value;
 public class WeaponProgress {
 
     private final ItemCategory mItemCategory;
-    private int mProgress;
+    private int mProgress = 0;
     private int rank = 1;
 
-    public WeaponProgress(ItemCategory itemCategory, int progress) {
+    public WeaponProgress(ItemCategory itemCategory, int progress, int rank) {
         mItemCategory = itemCategory;
         mProgress = progress;
+        this.rank = rank;
     }
 
     public ItemCategory getItemCategory() {
