@@ -1,5 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.value;
 
+import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
+
 public enum Spots {
     FORREST(1,0,10,2),
     FORT(2,20,20,1),
@@ -13,6 +15,7 @@ public enum Spots {
     private final int mMoveCost;
     private int mHeight = 0;
     private int mWidth = 0;
+    private BaseCharacter mCharacterOnSpot = null;
 
     public int getDefBoost() {
         return mDefBoost;
@@ -44,6 +47,14 @@ public enum Spots {
 
     public void setWidth(int width) {
         this.mWidth = width;
+    }
+
+    public BaseCharacter getCharacterOnSpot() {
+        return mCharacterOnSpot;
+    }
+
+    public void setCharacterOnSpot(BaseCharacter characterOnSpot) {
+        mCharacterOnSpot = characterOnSpot;
     }
 
     public void setPosition(int height, int width) {
