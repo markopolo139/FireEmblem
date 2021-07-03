@@ -95,4 +95,27 @@ public abstract class BaseCharacter {
         mCharacterClass = characterClass;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseCharacter that = (BaseCharacter) o;
+        return getLevel() == that.getLevel()
+                && getExp() == that.getExp()
+                && getRemainingHealth() == that.getRemainingHealth()
+                && Objects.equals(getName(), that.getName())
+                && Arrays.equals(getStats(), that.getStats())
+                && Arrays.equals(getEquipment(), that.getEquipment())
+                && Arrays.equals(getWeaponProgresses(), that.getWeaponProgresses())
+                && getCharacterClass() == that.getCharacterClass();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(getName(), getLevel(), getExp(), getRemainingHealth(), getCharacterClass());
+        result = 31 * result + Arrays.hashCode(getStats());
+        result = 31 * result + Arrays.hashCode(getEquipment());
+        result = 31 * result + Arrays.hashCode(getWeaponProgresses());
+        return result;
+    }
 }

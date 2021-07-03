@@ -1,5 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.value;
 
+import java.util.Objects;
+
 //TODO: all weapon category for one character
 public class WeaponProgress {
 
@@ -31,5 +33,20 @@ public class WeaponProgress {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WeaponProgress that = (WeaponProgress) o;
+        return getProgress() == that.getProgress()
+                && getRank() == that.getRank()
+                && getItemCategory() == that.getItemCategory();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getItemCategory(), getProgress(), getRank());
     }
 }
