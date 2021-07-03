@@ -69,9 +69,10 @@ public enum Stats {
         return mChanceToIncrease;
     }
 
-    public void setValueAndChances(int value, int chances) {
+    public Stats setValueAndChances(int value, int chances) {
         mValue = value;
         mChanceToIncrease = chances;
+        return this;
     }
 
     public abstract String getShortName();

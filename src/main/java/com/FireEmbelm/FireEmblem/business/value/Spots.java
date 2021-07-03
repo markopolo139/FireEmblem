@@ -2,6 +2,7 @@ package com.FireEmbelm.FireEmblem.business.value;
 
 import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
 
+//TODO : remember to give position when getting from base
 public enum Spots {
     FORREST(1,0,10,2),
     FORT(2,20,20,1),
@@ -57,9 +58,10 @@ public enum Spots {
         mCharacterOnSpot = characterOnSpot;
     }
 
-    public void setPosition(int height, int width) {
+    public Spots setPosition(int height, int width) {
         mHeight = height;
         mWidth = width;
+        return this;
     }
 
     Spots(int defBoost, int percentHeal, int avoBoost, int moveCost) {
