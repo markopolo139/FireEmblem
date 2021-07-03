@@ -11,6 +11,8 @@ public enum Spots {
     private final int mPercentHeal;
     private final int mAvoBoost;
     private final int mMoveCost;
+    private int mHeight = 0;
+    private int mWidth = 0;
 
     public int getDefBoost() {
         return mDefBoost;
@@ -28,10 +30,32 @@ public enum Spots {
         return mMoveCost;
     }
 
+    public int getHeight() {
+        return mHeight;
+    }
+
+    public void setHeight(int height) {
+        this.mHeight = height;
+    }
+
+    public int getWidth() {
+        return mWidth;
+    }
+
+    public void setWidth(int width) {
+        this.mWidth = width;
+    }
+
+    public void setPosition(int height, int width) {
+        mHeight = height;
+        mWidth = width;
+    }
+
     Spots(int defBoost, int percentHeal, int avoBoost, int moveCost) {
         mDefBoost = defBoost;
         mPercentHeal = percentHeal;
         mAvoBoost = avoBoost;
         mMoveCost = moveCost;
     }
+
 }
