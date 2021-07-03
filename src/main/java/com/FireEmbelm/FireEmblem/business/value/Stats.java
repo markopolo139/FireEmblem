@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.value;
 
+//TODO : remember to give stats value when getting from base
 public enum Stats {
     STRENGTH {
         @Override
@@ -44,14 +45,16 @@ public enum Stats {
         }
     };
 
-    Stats(int value) {
+    Stats(int value, int chanceToIncrease) {
         mValue = value;
+        mChanceToIncrease = chanceToIncrease;
     }
 
     Stats() {
     }
 
     private int mValue = 0;
+    private int mChanceToIncrease = 0;
 
     public int getValue() {
         return mValue;
@@ -59,6 +62,14 @@ public enum Stats {
 
     public void setValue(int value) {
         this.mValue = value;
+    }
+
+    public int getChanceToIncrease() {
+        return mChanceToIncrease;
+    }
+
+    public void setChanceToIncrease(int chanceToIncrease) {
+        mChanceToIncrease = chanceToIncrease;
     }
 
     public abstract String getShortName();
