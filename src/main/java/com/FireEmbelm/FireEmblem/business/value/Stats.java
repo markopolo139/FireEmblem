@@ -51,11 +51,6 @@ public enum Stats {
         }
     };
 
-    Stats(int value, int chanceToIncrease) {
-        mValue = value;
-        mChanceToIncrease = chanceToIncrease;
-    }
-
     Stats() {
     }
 
@@ -74,8 +69,9 @@ public enum Stats {
         return mChanceToIncrease;
     }
 
-    public void setChanceToIncrease(int chanceToIncrease) {
-        mChanceToIncrease = chanceToIncrease;
+    public void setValueAndChances(int value, int chances) {
+        mValue = value;
+        mChanceToIncrease = chances;
     }
 
     public abstract String getShortName();
