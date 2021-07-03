@@ -1,7 +1,9 @@
 package com.FireEmbelm.FireEmblem.business.utils;
 
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidRankException;
+import com.FireEmbelm.FireEmblem.business.value.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.Stats;
+import com.FireEmbelm.FireEmblem.business.value.WeaponProgress;
 
 public class Utils {
 
@@ -44,4 +46,16 @@ public class Utils {
                 Stats.RESISTANCE.setValueAndChances(resValue, resChances)
         };
     }
+
+    public static WeaponProgress[] startUpWeaponProgress() {
+        return new WeaponProgress[] {
+                new WeaponProgress(ItemCategory.AXE,0,1),
+                new WeaponProgress(ItemCategory.STAFF,0,1),
+                new WeaponProgress(ItemCategory.SWORD,0,1),
+                new WeaponProgress(ItemCategory.LANCE,0,1),
+                new WeaponProgress(ItemCategory.BOW,0,1),
+                new WeaponProgress(ItemCategory.TOME,0,1),
+        };
+    }
+
 }
