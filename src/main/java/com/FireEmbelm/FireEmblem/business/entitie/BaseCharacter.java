@@ -1,12 +1,10 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
-import com.FireEmbelm.FireEmblem.business.utils.Utils;
 import com.FireEmbelm.FireEmblem.business.value.*;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-//TODO : did move in this turn only in base
 public abstract class BaseCharacter {
 
     private String mName;
@@ -20,6 +18,7 @@ public abstract class BaseCharacter {
     private CharacterClass mCharacterClass;
     private CharacterBattleStats mCharacterBattleStats;
     private CharacterState mCharacterState;
+    private boolean mMoved;
 
     public int getLevel() {
         return mLevel;
@@ -105,10 +104,18 @@ public abstract class BaseCharacter {
         mCharacterState = characterState;
     }
 
+    public boolean isMoved() {
+        return mMoved;
+    }
+
+    public void setMoved(boolean moved) {
+        this.mMoved = moved;
+    }
+
     public BaseCharacter(
             String name, int level, int exp, int remainingHealth, Stats[] stats, Equipment currentEquipedItem,
             Equipment[] equipment, WeaponProgress[] weaponProgresses, CharacterClass characterClass,
-            CharacterState characterState
+            CharacterState characterState, boolean moved
     ) {
         mName = name;
         mLevel = level;
@@ -121,6 +128,7 @@ public abstract class BaseCharacter {
         mCharacterClass = characterClass;
         mCharacterBattleStats = new CharacterBattleStats(this);
         mCharacterState = characterState;
+        mMoved = moved;
     }
 
     @Override
@@ -137,7 +145,8 @@ public abstract class BaseCharacter {
                 && Arrays.equals(getEquipment(), that.getEquipment())
                 && Arrays.equals(getWeaponProgresses(), that.getWeaponProgresses())
                 && getCharacterClass() == that.getCharacterClass()
-                && getCharacterState() == that.getCharacterState();
+                && getCharacterState() == that.getCharacterState()
+                && isMoved() == that.isMoved();
     }
 
     @Override
