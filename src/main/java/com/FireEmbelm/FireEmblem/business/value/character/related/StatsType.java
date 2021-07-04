@@ -1,7 +1,6 @@
-package com.FireEmbelm.FireEmblem.business.value;
+package com.FireEmbelm.FireEmblem.business.value.character.related;
 
-//TODO : remember to give stats value when getting from base
-public enum Stats {
+public enum StatsType {
     HEALTH {
         @Override
         public String getShortName() {
@@ -51,34 +50,13 @@ public enum Stats {
         }
     };
 
-    Stats() {
-    }
-
-    private int mValue = 0;
-    private int mChanceToIncrease = 0;
-
-    public int getValue() {
-        return mValue;
-    }
-
-    public void setValue(int value) {
-        this.mValue = value;
-    }
-
-    public int getChanceToIncrease() {
-        return mChanceToIncrease;
-    }
-
-    public Stats setValueAndChances(int value, int chances) {
-        mValue = value;
-        mChanceToIncrease = chances;
-        return this;
+    StatsType() {
     }
 
     public abstract String getShortName();
 
-    public static Stats getFromShortName(String shortName) {
-        for (Stats s : Stats.values()) {
+    public static StatsType getFromShortName(String shortName) {
+        for (StatsType s : StatsType.values()) {
             if (s.getShortName().equals(shortName)) {
                 return s;
             }

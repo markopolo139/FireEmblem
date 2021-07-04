@@ -5,6 +5,7 @@ import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategor
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
+import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -151,7 +152,7 @@ public enum CharacterClass  {
     private final String mClassName;
     private final int mMovement;
     private final Collection<ItemCategory> mAllowedWeapons;
-    private final HashMap<String, Stats> mBonusStats;
+    private final HashMap<StatsType, Stats> mBonusStats;
 
     public String getClassName() {
         return mClassName;
@@ -165,12 +166,12 @@ public enum CharacterClass  {
         return mAllowedWeapons;
     }
 
-    public HashMap<String, Stats> getBonusStats() {
+    public HashMap<StatsType, Stats> getBonusStats() {
         return mBonusStats;
     }
 
     CharacterClass(
-            String className, int movement, Collection<ItemCategory> allowedWeapons, HashMap<String, Stats> bonusStats
+            String className, int movement, Collection<ItemCategory> allowedWeapons, HashMap<StatsType, Stats> bonusStats
     ) {
         mClassName = className;
         mMovement = movement;

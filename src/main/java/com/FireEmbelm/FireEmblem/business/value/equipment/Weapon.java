@@ -1,6 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.value.equipment;
 
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
+import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
 import java.util.Arrays;
@@ -85,8 +86,8 @@ public class Weapon implements Equipment {
     }
 
     public Weapon(
-            String name, int rank, int might, int hit, int avo,
-            int crit, int uses, int range, int worth, Stats[] bonusStats, ItemCategory itemCategory
+            String name, int rank, int might, int hit, int avo, int crit,
+            int uses, int range, int worth, Stats[] bonusStats, ItemCategory itemCategory
     ) {
         mName = name;
         mRank = rank;

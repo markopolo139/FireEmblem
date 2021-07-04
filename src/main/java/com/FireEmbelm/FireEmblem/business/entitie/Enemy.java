@@ -1,8 +1,9 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
+import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class Enemy extends BaseCharacter {
     }
 
     public Enemy(
-            int level, int exp, int remainingHealth, HashMap<String, Stats> stats, Equipment currentEquipedItem,
+            int level, int exp, int remainingHealth, HashMap<StatsType, Stats> stats, Equipment currentEquipedItem,
             Equipment[] equipment, HashMap<String, WeaponProgress> weaponProgresses, CharacterClass characterClass,
             CharacterState characterState, boolean moved, Equipment dropItem, boolean boss, int goldDrop
     ) {

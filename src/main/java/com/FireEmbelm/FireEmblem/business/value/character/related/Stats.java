@@ -1,59 +1,8 @@
 package com.FireEmbelm.FireEmblem.business.value.character.related;
 
-//TODO : remember to give stats value when getting from base
-public enum Stats {
-    HEALTH {
-        @Override
-        public String getShortName() {
-            return "Hp";
-        }
-    },
-    STRENGTH {
-        @Override
-        public String getShortName() {
-            return "STR";
-        }
-    },
-    MAGICK {
-        @Override
-        public String getShortName() {
-            return "MAG";
-        }
-    },
-    DEFENSE {
-        @Override
-        public String getShortName() {
-            return "DEF";
-        }
-    },
-    RESISTANCE {
-        @Override
-        public String getShortName() {
-            return "RES";
-        }
-    },
-    LUCK {
-        @Override
-        public String getShortName() {
-            return "LCK";
-        }
-    },
-    SKILL {
-        @Override
-        public String getShortName() {
-            return "SKILL";
-        }
-    },
-    SPEED {
-        @Override
-        public String getShortName() {
-            return "SPD";
-        }
-    };
+public class Stats {
 
-    Stats() {
-    }
-
+    private final StatsType mStatsType;
     private int mValue = 0;
     private int mChanceToIncrease = 0;
 
@@ -69,20 +18,22 @@ public enum Stats {
         return mChanceToIncrease;
     }
 
-    public Stats setValueAndChances(int value, int chances) {
-        mValue = value;
-        mChanceToIncrease = chances;
-        return this;
+    public void setChanceToIncrease(int chanceToIncrease) {
+        mChanceToIncrease = chanceToIncrease;
     }
 
-    public abstract String getShortName();
+    public StatsType getStatsType() {
+        return mStatsType;
+    }
 
-    public static Stats getFromShortName(String shortName) {
-        for (Stats s : Stats.values()) {
-            if (s.getShortName().equals(shortName)) {
-                return s;
-            }
-        }
-        throw new IllegalStateException("Invalid short name");
+    public void setValueAndChances(int value, int chances) {
+        mValue = value;
+        mChanceToIncrease = chances;
+    }
+
+    public Stats(StatsType statsType, int value, int chanceToIncrease) {
+        mStatsType = statsType;
+        mValue = value;
+        mChanceToIncrease = chanceToIncrease;
     }
 }

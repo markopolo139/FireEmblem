@@ -1,9 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
-import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterBattleStats;
-import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
-import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
-import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
+import com.FireEmbelm.FireEmblem.business.value.character.related.*;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 
 import java.util.Arrays;
@@ -16,7 +13,7 @@ public abstract class BaseCharacter {
     private int mLevel;
     private int mExp;
     private int mRemainingHealth;
-    private HashMap<String, Stats> mStats;
+    private HashMap<StatsType, Stats> mStats;
     private Equipment mCurrentEquipedItem;
     private Equipment[] mEquipment;
     private HashMap<String, WeaponProgress> mWeaponProgresses;
@@ -57,11 +54,11 @@ public abstract class BaseCharacter {
         mEquipment = equipment;
     }
 
-    public HashMap<String, Stats> getStats() {
+    public HashMap<StatsType, Stats> getStats() {
         return mStats;
     }
 
-    public void setStats(HashMap<String, Stats> stats) {
+    public void setStats(HashMap<StatsType, Stats> stats) {
         mStats = stats;
     }
 
@@ -118,7 +115,7 @@ public abstract class BaseCharacter {
     }
 
     public BaseCharacter(
-            String name, int level, int exp, int remainingHealth, HashMap<String, Stats> stats,
+            String name, int level, int exp, int remainingHealth, HashMap<StatsType, Stats> stats,
             Equipment currentEquipedItem, Equipment[] equipment, HashMap<String, WeaponProgress> weaponProgresses,
             CharacterClass characterClass, CharacterState characterState, boolean moved
     ) {

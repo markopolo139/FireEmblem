@@ -2,9 +2,9 @@ package com.FireEmbelm.FireEmblem.business.utils;
 
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidRankException;
 import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
-import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
+import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class Utils {
         }
     }
 
-    public static HashMap<String, Stats> createStats(
+    public static HashMap<StatsType, Stats> createStats(
             int hpValue, int hpChances,
             int strValue, int strChances,
             int magValue, int magChances,
@@ -41,18 +41,18 @@ public class Utils {
             int luckValue, int luckChances,
             int defValue, int defChances,
             int resValue, int resChances){
-        return (HashMap<String, Stats>) (Stream.of(
+        return (HashMap<StatsType, Stats>) (Stream.of(
                 new Object[][] {
-                        { Stats.HEALTH.name(), Stats.HEALTH.setValueAndChances(hpValue, hpChances) },
-                        { Stats.STRENGTH.name(), Stats.STRENGTH.setValueAndChances(strValue, strChances) },
-                        { Stats.MAGICK.name(), Stats.MAGICK.setValueAndChances(magValue, magChances) },
-                        { Stats.SKILL.name(), Stats.SKILL.setValueAndChances(skillValue, skillChances) },
-                        { Stats.SPEED.name(), Stats.SPEED.setValueAndChances(spdValue, spdChances) },
-                        { Stats.LUCK.name(), Stats.LUCK.setValueAndChances(luckValue, luckChances) },
-                        { Stats.DEFENSE.name(), Stats.DEFENSE.setValueAndChances(defValue, defChances) },
-                        { Stats.RESISTANCE.name(), Stats.RESISTANCE.setValueAndChances(resValue, resChances) }
+                        { StatsType.HEALTH, new Stats(StatsType.HEALTH, hpValue, hpChances) },
+                        { StatsType.STRENGTH, new Stats(StatsType.STRENGTH, strValue, strChances) },
+                        { StatsType.MAGICK, new Stats(StatsType.MAGICK, magValue, magChances) },
+                        { StatsType.SKILL, new Stats(StatsType.SKILL, skillValue, skillChances) },
+                        { StatsType.SPEED, new Stats(StatsType.SPEED, spdValue, spdChances) },
+                        { StatsType.LUCK, new Stats(StatsType.LUCK, luckValue, luckChances) },
+                        { StatsType.DEFENSE, new Stats(StatsType.DEFENSE, defValue, defChances) },
+                        { StatsType.RESISTANCE, new Stats(StatsType.RESISTANCE, resValue, resChances) }
                 }
-        ).collect(Collectors.toMap(data -> (String) data[0], data -> (Stats) data[2])));
+        ).collect(Collectors.toMap(data -> (StatsType) data[0], data -> (Stats) data[2])));
     }
 
     public static HashMap<String, WeaponProgress> startUpWeaponProgress() {
