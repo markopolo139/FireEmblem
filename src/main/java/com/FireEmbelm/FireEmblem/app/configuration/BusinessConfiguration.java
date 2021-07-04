@@ -1,6 +1,7 @@
 package com.FireEmbelm.FireEmblem.app.configuration;
 
 import com.FireEmbelm.FireEmblem.business.service.ShopService;
+import com.FireEmbelm.FireEmblem.business.service.generators.FieldGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -13,5 +14,11 @@ public class BusinessConfiguration {
     @Scope("Singleton")
     public ShopService getShopService() {
         return new ShopService();
+    }
+
+    @Bean
+    @Scope("Singleton")
+    public FieldGenerator getFieldGenerator() {
+        return new FieldGenerator();
     }
 }
