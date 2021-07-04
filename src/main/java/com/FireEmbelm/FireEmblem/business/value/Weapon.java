@@ -7,7 +7,7 @@ public class Weapon implements Equipment {
 
     private final String mName;
     private final int mRank;
-    private final int mMt;
+    private final int mMight;
     private final int mHit;
     private final int mAvo;
     private final int mCrit;
@@ -21,8 +21,8 @@ public class Weapon implements Equipment {
         return mRank;
     }
 
-    public int getMt() {
-        return mMt;
+    public int getMight() {
+        return mMight;
     }
 
     public int getHit() {
@@ -70,7 +70,7 @@ public class Weapon implements Equipment {
     public String getDescription() {
         return "Name = '" + mName+
                 "\n Rank = " + mRank +
-                "\n Mt = " + mMt +
+                "\n Mt = " + mMight +
                 "\n Hit = " + mHit +
                 "\n Avo = " + mAvo +
                 "\n Crit = " + mCrit +
@@ -82,12 +82,12 @@ public class Weapon implements Equipment {
     }
 
     public Weapon(
-            String name, int rank, int mt, int hit, int avo,
+            String name, int rank, int might, int hit, int avo,
             int crit, int uses, int range, int worth, Stats[] bonusStats, ItemCategory itemCategory
     ) {
         mName = name;
         mRank = rank;
-        mMt = mt;
+        mMight = might;
         mHit = hit;
         mAvo = avo;
         mCrit = crit;
@@ -104,7 +104,7 @@ public class Weapon implements Equipment {
         if (o == null || getClass() != o.getClass()) return false;
         Weapon weapon = (Weapon) o;
         return getRank() == weapon.getRank()
-                && getMt() == weapon.getMt()
+                && getMight() == weapon.getMight()
                 && getHit() == weapon.getHit()
                 && getAvo() == weapon.getAvo()
                 && getCrit() == weapon.getCrit()
@@ -120,7 +120,7 @@ public class Weapon implements Equipment {
     public int hashCode() {
         int result = Objects.hash(
                 getName(), getRank(),
-                getMt(), getHit(), getAvo(),
+                getMight(), getHit(), getAvo(),
                 getCrit(), getUses(), getRange(),
                 getWorth(), getItemCategory()
         );

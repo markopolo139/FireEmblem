@@ -5,6 +5,8 @@ public interface Equipment {
 
     String getName();
 
+    int getMight();
+
     int getWorth();
 
     int getRange();

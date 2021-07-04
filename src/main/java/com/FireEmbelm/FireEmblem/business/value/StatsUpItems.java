@@ -30,6 +30,11 @@ public enum StatsUpItems implements Equipment {
     }
 
     @Override
+    public int getMight() {
+        return 0;
+    }
+
+    @Override
     public int getWorth() {
         return mWorth;
     }
