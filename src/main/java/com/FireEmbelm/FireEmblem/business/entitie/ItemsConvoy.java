@@ -7,10 +7,19 @@ import java.util.stream.Collectors;
 
 public class ItemsConvoy {
 
+    private int mMoney;
     private final Collection<Equipment> mEquipmentCollection;
 
     public Collection<Equipment> getEquipmentCollection() {
         return mEquipmentCollection;
+    }
+
+    public int getMoney() {
+        return mMoney;
+    }
+
+    public void setMoney(int money) {
+        mMoney = money;
     }
 
     public Collection<Equipment> getWeapons() {
@@ -43,8 +52,8 @@ public class ItemsConvoy {
                 .collect(Collectors.toList());
     }
 
-    public ItemsConvoy(Collection<Equipment> equipmentCollection) {
+    public ItemsConvoy(int money, Collection<Equipment> equipmentCollection) {
+        mMoney = money;
         mEquipmentCollection = equipmentCollection;
     }
-
 }
