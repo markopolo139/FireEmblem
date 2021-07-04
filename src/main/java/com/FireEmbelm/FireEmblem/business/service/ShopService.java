@@ -2,9 +2,8 @@ package com.FireEmbelm.FireEmblem.business.service;
 
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.TooSmallAmountOfMoneyException;
-import com.FireEmbelm.FireEmblem.business.value.Equipment;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 

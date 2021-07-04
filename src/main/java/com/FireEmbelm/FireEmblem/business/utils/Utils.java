@@ -1,12 +1,11 @@
 package com.FireEmbelm.FireEmblem.business.utils;
 
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidRankException;
-import com.FireEmbelm.FireEmblem.business.value.ItemCategory;
-import com.FireEmbelm.FireEmblem.business.value.Stats;
-import com.FireEmbelm.FireEmblem.business.value.WeaponProgress;
+import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
+import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

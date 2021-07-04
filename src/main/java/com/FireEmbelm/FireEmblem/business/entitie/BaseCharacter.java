@@ -1,6 +1,10 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
-import com.FireEmbelm.FireEmblem.business.value.*;
+import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterBattleStats;
+import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
+import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
+import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 
 import java.util.Arrays;
 import java.util.HashMap;

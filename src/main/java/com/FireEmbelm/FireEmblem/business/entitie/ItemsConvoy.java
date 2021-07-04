@@ -1,6 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
-import com.FireEmbelm.FireEmblem.business.value.*;
+import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

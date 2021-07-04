@@ -1,8 +1,8 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
 import com.FireEmbelm.FireEmblem.business.utils.Utils;
-import com.FireEmbelm.FireEmblem.business.value.ItemCategory;
-import com.FireEmbelm.FireEmblem.business.value.Stats;
+import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
 
 import java.util.Arrays;
 import java.util.Collection;
