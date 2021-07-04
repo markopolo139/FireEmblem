@@ -62,4 +62,13 @@ public enum HealingItems implements Equipment {
     public int getUses() {
         return mItemUses;
     }
+
+    @Override
+    public String getDescription() {
+        return "ItemName = '" + mItemName +
+                "\n HealValue = " + mHealValue +
+                "\n ItemUses = " + mItemUses +
+                "\n Worth = " + mWorth +
+                "\n Range = " + mRange;
+    }
 }

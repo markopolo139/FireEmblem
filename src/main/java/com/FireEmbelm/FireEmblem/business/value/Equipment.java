@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.value;
 
+//TODO : ask Janek
 public interface Equipment {
 
     String getName();
@@ -11,5 +12,8 @@ public interface Equipment {
     int getUses();
 
     ItemCategory getItemCategory();
+
+    //Description should be in frontEnd
+    String getDescription();
 
 }

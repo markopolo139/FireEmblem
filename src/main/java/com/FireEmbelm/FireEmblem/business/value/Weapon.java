@@ -66,6 +66,21 @@ public class Weapon implements Equipment {
         return mItemCategory;
     }
 
+    @Override
+    public String getDescription() {
+        return "Name = '" + mName+
+                "\n Rank = " + mRank +
+                "\n Mt = " + mMt +
+                "\n Hit = " + mHit +
+                "\n Avo = " + mAvo +
+                "\n Crit = " + mCrit +
+                "\n Uses = " + mUses +
+                "\n Range = " + mRange +
+                "\n Worth = " + mWorth +
+                "\n BonusStats = " + Arrays.toString(mBonusStats) +
+                "\n ItemCategory = " + mItemCategory;
+    }
+
     public Weapon(
             String name, int rank, int mt, int hit, int avo,
             int crit, int uses, int range, int worth, Stats[] bonusStats, ItemCategory itemCategory

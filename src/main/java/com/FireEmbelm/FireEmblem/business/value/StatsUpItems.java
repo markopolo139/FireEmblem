@@ -48,4 +48,9 @@ public enum StatsUpItems implements Equipment {
     public ItemCategory getItemCategory() {
         return ItemCategory.STATS_UP_ITEMS;
     }
+
+    @Override
+    public String getDescription() {
+        return "Boost named after stat by one or two points";
+    }
 }
