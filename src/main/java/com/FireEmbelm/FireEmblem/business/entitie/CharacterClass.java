@@ -1,7 +1,9 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
 import com.FireEmbelm.FireEmblem.business.utils.Utils;
+import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
 
 import java.util.Arrays;
@@ -14,7 +16,7 @@ public enum CharacterClass  {
     LORD(
             "Lord",
             5,
-            Collections.singletonList(ItemCategory.SWORD),
+            Collections.singletonList(WeaponCategory.SWORD),
             Utils.createStats(
                     18,40,
                     6,20,
@@ -29,7 +31,7 @@ public enum CharacterClass  {
     CAVALRY(
             "Cavalry",
             7,
-            Arrays.asList(ItemCategory.SWORD, ItemCategory.LANCE),
+            Arrays.asList(WeaponCategory.SWORD, WeaponCategory.LANCE),
             Utils.createStats(
                     18,45,
                     6,20,
@@ -44,7 +46,7 @@ public enum CharacterClass  {
     KNIGHT(
             "Knight",
             4,
-            Collections.singletonList(ItemCategory.LANCE),
+            Collections.singletonList(WeaponCategory.LANCE),
             Utils.createStats(
                     18,50,
                     8,25,
@@ -59,7 +61,7 @@ public enum CharacterClass  {
     MYRMIDON(
             "Myrmidon",
             5,
-            Collections.singletonList(ItemCategory.SWORD),
+            Collections.singletonList(WeaponCategory.SWORD),
             Utils.createStats(
                     16,40,
                     4,20,
@@ -74,7 +76,7 @@ public enum CharacterClass  {
     FIGHTER(
             "Fighter",
             5,
-            Collections.singletonList(ItemCategory.AXE),
+            Collections.singletonList(WeaponCategory.AXE),
             Utils.createStats(
                     20,45,
                     8,25,
@@ -89,7 +91,7 @@ public enum CharacterClass  {
     MERCENARY(
             "Mercenary",
             5,
-            Collections.singletonList(ItemCategory.SWORD),
+            Collections.singletonList(WeaponCategory.SWORD),
             Utils.createStats(
                     18,45,
                     5,20,
@@ -104,7 +106,7 @@ public enum CharacterClass  {
     ARCHER(
             "Archer",
             5,
-            Collections.singletonList(ItemCategory.BOW),
+            Collections.singletonList(WeaponCategory.BOW),
             Utils.createStats(
                     16,45,
                     5,15,
@@ -119,7 +121,7 @@ public enum CharacterClass  {
     MAGE(
             "Mage",
             5,
-            Collections.singletonList(ItemCategory.TOME),
+            Collections.singletonList(WeaponCategory.TOME),
             Utils.createStats(
                     16,35,
                     0,0,
@@ -134,7 +136,7 @@ public enum CharacterClass  {
     PRIEST(
             "Priest",
             5,
-            Collections.singletonList(ItemCategory.STAFF),
+            Collections.singletonList(ConsumableItemCategory.STAFF),
             Utils.createStats(
                     16,35,
                     0,5,
