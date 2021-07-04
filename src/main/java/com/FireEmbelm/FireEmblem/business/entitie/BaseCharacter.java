@@ -3,6 +3,7 @@ package com.FireEmbelm.FireEmblem.business.entitie;
 import com.FireEmbelm.FireEmblem.business.value.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Objects;
 
 public abstract class BaseCharacter {
@@ -11,10 +12,10 @@ public abstract class BaseCharacter {
     private int mLevel;
     private int mExp;
     private int mRemainingHealth;
-    private Stats[] mStats;
+    private HashMap<String, Stats> mStats;
     private Equipment mCurrentEquipedItem;
     private Equipment[] mEquipment;
-    private WeaponProgress[] mWeaponProgresses;
+    private HashMap<String, WeaponProgress> mWeaponProgresses;
     private CharacterClass mCharacterClass;
     private CharacterBattleStats mCharacterBattleStats;
     private CharacterState mCharacterState;
@@ -44,14 +45,6 @@ public abstract class BaseCharacter {
         mRemainingHealth = remainingHealth;
     }
 
-    public Stats[] getStats() {
-        return mStats;
-    }
-
-    public void setStats(Stats[] stats) {
-        mStats = stats;
-    }
-
     public Equipment[] getEquipment() {
         return mEquipment;
     }
@@ -60,11 +53,19 @@ public abstract class BaseCharacter {
         mEquipment = equipment;
     }
 
-    public WeaponProgress[] getWeaponProgresses() {
+    public HashMap<String, Stats> getStats() {
+        return mStats;
+    }
+
+    public void setStats(HashMap<String, Stats> stats) {
+        mStats = stats;
+    }
+
+    public HashMap<String, WeaponProgress> getWeaponProgresses() {
         return mWeaponProgresses;
     }
 
-    public void setWeaponProgresses(WeaponProgress[] weaponProgresses) {
+    public void setWeaponProgresses(HashMap<String, WeaponProgress> weaponProgresses) {
         mWeaponProgresses = weaponProgresses;
     }
 
@@ -113,9 +114,9 @@ public abstract class BaseCharacter {
     }
 
     public BaseCharacter(
-            String name, int level, int exp, int remainingHealth, Stats[] stats, Equipment currentEquipedItem,
-            Equipment[] equipment, WeaponProgress[] weaponProgresses, CharacterClass characterClass,
-            CharacterState characterState, boolean moved
+            String name, int level, int exp, int remainingHealth, HashMap<String, Stats> stats,
+            Equipment currentEquipedItem, Equipment[] equipment, HashMap<String, WeaponProgress> weaponProgresses,
+            CharacterClass characterClass, CharacterState characterState, boolean moved
     ) {
         mName = name;
         mLevel = level;
@@ -139,25 +140,24 @@ public abstract class BaseCharacter {
         return getLevel() == that.getLevel()
                 && getExp() == that.getExp()
                 && getRemainingHealth() == that.getRemainingHealth()
+                && isMoved() == that.isMoved()
                 && Objects.equals(getName(), that.getName())
-                && Arrays.equals(getStats(), that.getStats())
+                && Objects.equals(getStats(), that.getStats())
                 && Objects.equals(getCurrentEquipedItem(), that.getCurrentEquipedItem())
                 && Arrays.equals(getEquipment(), that.getEquipment())
-                && Arrays.equals(getWeaponProgresses(), that.getWeaponProgresses())
+                && Objects.equals(getWeaponProgresses(), that.getWeaponProgresses())
                 && getCharacterClass() == that.getCharacterClass()
-                && getCharacterState() == that.getCharacterState()
-                && isMoved() == that.isMoved();
+                && Objects.equals(getCharacterBattleStats(), that.getCharacterBattleStats())
+                && getCharacterState() == that.getCharacterState();
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(
-                getName(), getLevel(), getExp(), getRemainingHealth(), getCharacterClass(), getCharacterState()
+                getName(), getLevel(), getExp(), getRemainingHealth(), getStats(), getCurrentEquipedItem(),
+                getWeaponProgresses(), getCharacterClass(), getCharacterBattleStats(), getCharacterState(), isMoved()
         );
-        result = 31 * result + getCurrentEquipedItem().hashCode();
-        result = 31 * result + Arrays.hashCode(getStats());
         result = 31 * result + Arrays.hashCode(getEquipment());
-        result = 31 * result + Arrays.hashCode(getWeaponProgresses());
         return result;
     }
 }

@@ -5,6 +5,7 @@ import com.FireEmbelm.FireEmblem.business.value.Equipment;
 import com.FireEmbelm.FireEmblem.business.value.Stats;
 import com.FireEmbelm.FireEmblem.business.value.WeaponProgress;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Enemy extends BaseCharacter {
@@ -38,8 +39,8 @@ public class Enemy extends BaseCharacter {
     }
 
     public Enemy(
-            int level, int exp, int remainingHealth, Stats[] stats, Equipment currentEquipedItem,
-            Equipment[] equipment, WeaponProgress[] weaponProgresses, CharacterClass characterClass,
+            int level, int exp, int remainingHealth, HashMap<String, Stats> stats, Equipment currentEquipedItem,
+            Equipment[] equipment, HashMap<String, WeaponProgress> weaponProgresses, CharacterClass characterClass,
             CharacterState characterState, boolean moved, Equipment dropItem, boolean boss, int goldDrop
     ) {
         super(

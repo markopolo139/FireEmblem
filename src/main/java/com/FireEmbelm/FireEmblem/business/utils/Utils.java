@@ -5,6 +5,11 @@ import com.FireEmbelm.FireEmblem.business.value.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.Stats;
 import com.FireEmbelm.FireEmblem.business.value.WeaponProgress;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class Utils {
 
     public static char changeToCharRank(int rank) throws InvalidRankException {
@@ -26,7 +31,7 @@ public class Utils {
         }
     }
 
-    public static Stats[] createStats(
+    public static HashMap<String, Stats> createStats(
             int hpValue, int hpChances,
             int strValue, int strChances,
             int magValue, int magChances,
@@ -35,27 +40,31 @@ public class Utils {
             int luckValue, int luckChances,
             int defValue, int defChances,
             int resValue, int resChances){
-        return new Stats[] {
-                Stats.HEALTH.setValueAndChances(hpValue, hpChances),
-                Stats.STRENGTH.setValueAndChances(strValue, strChances),
-                Stats.MAGICK.setValueAndChances(magValue, magChances),
-                Stats.SKILL.setValueAndChances(skillValue, skillChances),
-                Stats.SPEED.setValueAndChances(spdValue, spdChances),
-                Stats.LUCK.setValueAndChances(luckValue, luckChances),
-                Stats.DEFENSE.setValueAndChances(defValue, defChances),
-                Stats.RESISTANCE.setValueAndChances(resValue, resChances)
-        };
+        return (HashMap<String, Stats>) (Stream.of(
+                new Object[][] {
+                        { Stats.HEALTH.name(), Stats.HEALTH.setValueAndChances(hpValue, hpChances) },
+                        { Stats.STRENGTH.name(), Stats.STRENGTH.setValueAndChances(strValue, strChances) },
+                        { Stats.MAGICK.name(), Stats.MAGICK.setValueAndChances(magValue, magChances) },
+                        { Stats.SKILL.name(), Stats.SKILL.setValueAndChances(skillValue, skillChances) },
+                        { Stats.SPEED.name(), Stats.SPEED.setValueAndChances(spdValue, spdChances) },
+                        { Stats.LUCK.name(), Stats.LUCK.setValueAndChances(luckValue, luckChances) },
+                        { Stats.DEFENSE.name(), Stats.DEFENSE.setValueAndChances(defValue, defChances) },
+                        { Stats.RESISTANCE.name(), Stats.RESISTANCE.setValueAndChances(resValue, resChances) }
+                }
+        ).collect(Collectors.toMap(data -> (String) data[0], data -> (Stats) data[2])));
     }
 
-    public static WeaponProgress[] startUpWeaponProgress() {
-        return new WeaponProgress[] {
-                new WeaponProgress(ItemCategory.AXE,0,1),
-                new WeaponProgress(ItemCategory.STAFF,0,1),
-                new WeaponProgress(ItemCategory.SWORD,0,1),
-                new WeaponProgress(ItemCategory.LANCE,0,1),
-                new WeaponProgress(ItemCategory.BOW,0,1),
-                new WeaponProgress(ItemCategory.TOME,0,1),
-        };
+    public static HashMap<String, WeaponProgress> startUpWeaponProgress() {
+        return (HashMap<String, WeaponProgress>) (Stream.of(
+               new Object[][] {
+                       { ItemCategory.AXE.name(), new WeaponProgress(ItemCategory.AXE,0,1) },
+                       { ItemCategory.STAFF.name(), new WeaponProgress(ItemCategory.STAFF,0,1) },
+                       { ItemCategory.SWORD.name(), new WeaponProgress(ItemCategory.SWORD,0,1) },
+                       { ItemCategory.LANCE.name(), new WeaponProgress(ItemCategory.LANCE,0,1) },
+                       { ItemCategory.BOW.name(), new WeaponProgress(ItemCategory.BOW,0,1) },
+                       { ItemCategory.TOME.name(), new WeaponProgress(ItemCategory.TOME,0,1) }
+               }
+        ).collect(Collectors.toMap(data -> (String) data[0], data -> (WeaponProgress) data[1])));
     }
 
 }

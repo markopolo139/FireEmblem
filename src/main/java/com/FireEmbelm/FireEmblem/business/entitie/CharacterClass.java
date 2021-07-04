@@ -4,11 +4,17 @@ import com.FireEmbelm.FireEmblem.business.utils.Utils;
 import com.FireEmbelm.FireEmblem.business.value.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.Stats;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+
+//TODO : change to normal class in future
 public enum CharacterClass  {
     LORD(
             "Lord",
             5,
-            new ItemCategory[] {ItemCategory.SWORD},
+            Collections.singletonList(ItemCategory.SWORD),
             Utils.createStats(
                     18,40,
                     6,20,
@@ -23,7 +29,7 @@ public enum CharacterClass  {
     CAVALRY(
             "Cavalry",
             7,
-            new ItemCategory[] {ItemCategory.SWORD, ItemCategory.LANCE},
+            Arrays.asList(ItemCategory.SWORD, ItemCategory.LANCE),
             Utils.createStats(
                     18,45,
                     6,20,
@@ -38,7 +44,7 @@ public enum CharacterClass  {
     KNIGHT(
             "Knight",
             4,
-            new ItemCategory[] {ItemCategory.LANCE},
+            Collections.singletonList(ItemCategory.LANCE),
             Utils.createStats(
                     18,50,
                     8,25,
@@ -53,7 +59,7 @@ public enum CharacterClass  {
     MYRMIDON(
             "Myrmidon",
             5,
-            new ItemCategory[] {ItemCategory.SWORD},
+            Collections.singletonList(ItemCategory.SWORD),
             Utils.createStats(
                     16,40,
                     4,20,
@@ -68,7 +74,7 @@ public enum CharacterClass  {
     FIGHTER(
             "Fighter",
             5,
-            new ItemCategory[] {ItemCategory.AXE},
+            Collections.singletonList(ItemCategory.AXE),
             Utils.createStats(
                     20,45,
                     8,25,
@@ -83,7 +89,7 @@ public enum CharacterClass  {
     MERCENARY(
             "Mercenary",
             5,
-            new ItemCategory[] {ItemCategory.SWORD},
+            Collections.singletonList(ItemCategory.SWORD),
             Utils.createStats(
                     18,45,
                     5,20,
@@ -98,7 +104,7 @@ public enum CharacterClass  {
     ARCHER(
             "Archer",
             5,
-            new ItemCategory[] {ItemCategory.BOW},
+            Collections.singletonList(ItemCategory.BOW),
             Utils.createStats(
                     16,45,
                     5,15,
@@ -113,7 +119,7 @@ public enum CharacterClass  {
     MAGE(
             "Mage",
             5,
-            new ItemCategory[] {ItemCategory.TOME},
+            Collections.singletonList(ItemCategory.TOME),
             Utils.createStats(
                     16,35,
                     0,0,
@@ -128,7 +134,7 @@ public enum CharacterClass  {
     PRIEST(
             "Priest",
             5,
-            new ItemCategory[] {ItemCategory.STAFF},
+            Collections.singletonList(ItemCategory.STAFF),
             Utils.createStats(
                     16,35,
                     0,5,
@@ -143,8 +149,8 @@ public enum CharacterClass  {
 
     private final String mClassName;
     private final int mMovement;
-    private final ItemCategory[] mAllowedWeapons;
-    private final Stats[] mBonusStats;
+    private final Collection<ItemCategory> mAllowedWeapons;
+    private final HashMap<String, Stats> mBonusStats;
 
     public String getClassName() {
         return mClassName;
@@ -154,20 +160,20 @@ public enum CharacterClass  {
         return mMovement;
     }
 
-    public ItemCategory[] getAllowedWeapons() {
+    public Collection<ItemCategory> getAllowedWeapons() {
         return mAllowedWeapons;
     }
 
-    public Stats[] getBonusStats() {
+    public HashMap<String, Stats> getBonusStats() {
         return mBonusStats;
     }
 
-    CharacterClass(String className, int movement, ItemCategory[] allowedWeapons, Stats[] bonusStats) {
+    CharacterClass(
+            String className, int movement, Collection<ItemCategory> allowedWeapons, HashMap<String, Stats> bonusStats
+    ) {
         mClassName = className;
         mMovement = movement;
         mAllowedWeapons = allowedWeapons;
         mBonusStats = bonusStats;
     }
-
-
 }
