@@ -1,7 +1,9 @@
 package com.FireEmbelm.FireEmblem.business.utils;
 
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidRankException;
+import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
 import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 
@@ -56,12 +58,12 @@ public class Utils {
     public static HashMap<String, WeaponProgress> startUpWeaponProgress() {
         return (HashMap<String, WeaponProgress>) (Stream.of(
                new Object[][] {
-                       { ItemCategory.AXE.name(), new WeaponProgress(ItemCategory.AXE,0,1) },
-                       { ItemCategory.STAFF.name(), new WeaponProgress(ItemCategory.STAFF,0,1) },
-                       { ItemCategory.SWORD.name(), new WeaponProgress(ItemCategory.SWORD,0,1) },
-                       { ItemCategory.LANCE.name(), new WeaponProgress(ItemCategory.LANCE,0,1) },
-                       { ItemCategory.BOW.name(), new WeaponProgress(ItemCategory.BOW,0,1) },
-                       { ItemCategory.TOME.name(), new WeaponProgress(ItemCategory.TOME,0,1) }
+                       { WeaponCategory.AXE.name(), new WeaponProgress(WeaponCategory.AXE,0,1) },
+                       { ConsumableItemCategory.STAFF.name(), new WeaponProgress(ConsumableItemCategory.STAFF,0,1) },
+                       { WeaponCategory.SWORD.name(), new WeaponProgress(WeaponCategory.SWORD,0,1) },
+                       { WeaponCategory.LANCE.name(), new WeaponProgress(WeaponCategory.LANCE,0,1) },
+                       { WeaponCategory.BOW.name(), new WeaponProgress(WeaponCategory.BOW,0,1) },
+                       { WeaponCategory.TOME.name(), new WeaponProgress(WeaponCategory.TOME,0,1) }
                }
         ).collect(Collectors.toMap(data -> (String) data[0], data -> (WeaponProgress) data[1])));
     }

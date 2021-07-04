@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.value.equipment;
 
+import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
 //TODO: master_seal and hear_seal will have special effect
@@ -53,7 +54,7 @@ public enum StatsUpItems implements Equipment {
 
     @Override
     public ItemCategory getItemCategory() {
-        return ItemCategory.STATS_UP_ITEMS;
+        return ConsumableItemCategory.STATS_UP_ITEMS;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.value.equipment;
 
+import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
 public enum Seals implements Equipment {
@@ -49,7 +50,7 @@ public enum Seals implements Equipment {
 
     @Override
     public ItemCategory getItemCategory() {
-        return ItemCategory.SEALS;
+        return ConsumableItemCategory.SEALS;
     }
 
     @Override
