@@ -2,7 +2,6 @@ package com.FireEmbelm.FireEmblem.business.value.equipment;
 
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
-//TODO : ask Janek
 public interface Equipment {
 
     String getName();

@@ -3,7 +3,6 @@ package com.FireEmbelm.FireEmblem.business.value.equipment;
 import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
-//TODO: master_seal and hear_seal will have special effect
 public enum StatsUpItems implements Equipment {
     STRENGTH_UP("Str UP", 1, 2000),
     MAGICK_UP("Mag UP", 1, 2000),

@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-//TODO : change to normal class in future
 public enum CharacterClass  {
     LORD(
             "Lord",

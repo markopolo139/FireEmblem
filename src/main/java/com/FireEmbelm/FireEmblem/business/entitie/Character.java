@@ -7,7 +7,6 @@ import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress
 
 import java.util.HashMap;
 
-//TODO : maybe abilities, add chances to increase to characters
 public class Character extends BaseCharacter {
     public Character(
             String name, int level, int exp, int remainingHealth, HashMap<String, Stats> stats,
