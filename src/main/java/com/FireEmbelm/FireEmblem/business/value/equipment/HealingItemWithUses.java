@@ -51,6 +51,7 @@ public class HealingItemWithUses implements Equipment{
         return mHealingItems.getDescription();
     }
 
+    @Override
     public void setUses(int uses) {
         mUses = uses;
     }

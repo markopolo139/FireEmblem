@@ -14,6 +14,8 @@ public interface Equipment {
 
     int getUses();
 
+    void setUses(int uses);
+
     ItemCategory getItemCategory();
 
     //Description should be in frontEnd

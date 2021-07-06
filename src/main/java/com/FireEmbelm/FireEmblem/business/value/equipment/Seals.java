@@ -49,6 +49,10 @@ public enum Seals implements Equipment {
     }
 
     @Override
+    public void setUses(int uses) {
+    }
+
+    @Override
     public ItemCategory getItemCategory() {
         return ConsumableItemCategory.SEALS;
     }

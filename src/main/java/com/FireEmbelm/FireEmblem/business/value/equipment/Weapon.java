@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
+//TODO : create in base all weapons
 public class Weapon implements Equipment {
 
     private final String mName;
@@ -66,6 +67,7 @@ public class Weapon implements Equipment {
         return mUses;
     }
 
+    @Override
     public void setUses(int uses) {
         mUses = uses;
     }

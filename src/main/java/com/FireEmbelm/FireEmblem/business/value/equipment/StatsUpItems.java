@@ -52,6 +52,10 @@ public enum StatsUpItems implements Equipment {
     }
 
     @Override
+    public void setUses(int uses) {
+    }
+
+    @Override
     public ItemCategory getItemCategory() {
         return ConsumableItemCategory.STATS_UP_ITEMS;
     }

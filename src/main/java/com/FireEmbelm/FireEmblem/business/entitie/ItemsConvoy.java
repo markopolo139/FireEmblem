@@ -45,7 +45,7 @@ public class ItemsConvoy {
 
     public Collection<Equipment> getHealingItems() {
         return mEquipmentCollection.stream()
-                .filter(i -> i instanceof HealingItems)
+                .filter(i -> i instanceof HealingItemWithUses)
                 .collect(Collectors.toList());
     }
 
