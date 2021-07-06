@@ -15,7 +15,7 @@ public class ShopService {
 
     private static final double SELL_PERCENTAGE = 0.8;
 
-    public void buyItem(int randomItemId, List<Equipment> randomEquipment, ItemsConvoy itemsConvoy)
+    public void buyItem(int randomItemId, ArrayList<Equipment> randomEquipment, ItemsConvoy itemsConvoy)
             throws TooSmallAmountOfMoneyException {
 
         if(randomItemId < 0 || randomItemId > randomEquipment.size())
@@ -35,7 +35,7 @@ public class ShopService {
         if(itemsConvoyId < 0 || itemsConvoyId > itemsConvoy.getEquipmentCollection().size())
             throw new IndexOutOfBoundsException("Selected ID is out of bounds");
 
-        Equipment selectedItem = ((ArrayList<Equipment>) itemsConvoy.getEquipmentCollection()).get(itemsConvoyId);
+        Equipment selectedItem =  itemsConvoy.getEquipmentCollection().get(itemsConvoyId);
         itemsConvoy.getEquipmentCollection().remove(selectedItem);
         itemsConvoy.setMoney(itemsConvoy.getMoney() + (int) (selectedItem.getWorth() * SELL_PERCENTAGE));
 

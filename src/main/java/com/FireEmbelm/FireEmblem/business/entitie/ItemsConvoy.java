@@ -3,6 +3,7 @@ package com.FireEmbelm.FireEmblem.business.entitie;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,9 +11,9 @@ import java.util.stream.Collectors;
 public class ItemsConvoy {
 
     private int mMoney;
-    private final List<Equipment> mEquipmentCollection;
+    private final ArrayList<Equipment> mEquipmentCollection;
 
-    public List<Equipment> getEquipmentCollection() {
+    public ArrayList<Equipment> getEquipmentCollection() {
         return mEquipmentCollection;
     }
 
@@ -54,7 +55,7 @@ public class ItemsConvoy {
                 .collect(Collectors.toList());
     }
 
-    public ItemsConvoy(int money, List<Equipment> equipmentCollection) {
+    public ItemsConvoy(int money, ArrayList<Equipment> equipmentCollection) {
         mMoney = money;
         mEquipmentCollection = equipmentCollection;
     }
