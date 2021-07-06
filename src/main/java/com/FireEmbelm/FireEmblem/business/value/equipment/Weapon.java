@@ -5,6 +5,7 @@ import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Weapon implements Equipment {
@@ -18,7 +19,7 @@ public class Weapon implements Equipment {
     private final int mUses;
     private final int mRange;
     private final int mWorth;
-    private final Stats[] mBonusStats;
+    private final HashMap<StatsType, Stats> mBonusStats;
     private final ItemCategory mItemCategory;
 
     public int getRank() {
@@ -41,7 +42,7 @@ public class Weapon implements Equipment {
         return mCrit;
     }
 
-    public Stats[] getBonusStats() {
+    public HashMap<StatsType, Stats> getBonusStats() {
         return mBonusStats;
     }
 
@@ -81,13 +82,13 @@ public class Weapon implements Equipment {
                 "\n Uses = " + mUses +
                 "\n Range = " + mRange +
                 "\n Worth = " + mWorth +
-                "\n BonusStats = " + Arrays.toString(mBonusStats) +
+                "\n BonusStats = " + mBonusStats +
                 "\n ItemCategory = " + mItemCategory;
     }
 
     public Weapon(
             String name, int rank, int might, int hit, int avo, int crit,
-            int uses, int range, int worth, Stats[] bonusStats, ItemCategory itemCategory
+            int uses, int range, int worth, HashMap<StatsType, Stats> bonusStats, ItemCategory itemCategory
     ) {
         mName = name;
         mRank = rank;
@@ -116,19 +117,15 @@ public class Weapon implements Equipment {
                 && getRange() == weapon.getRange()
                 && getWorth() == weapon.getWorth()
                 && Objects.equals(getName(), weapon.getName())
-                && Arrays.equals(getBonusStats(), weapon.getBonusStats())
-                && getItemCategory() == weapon.getItemCategory();
+                && Objects.equals(getBonusStats(), weapon.getBonusStats())
+                && Objects.equals(getItemCategory(), weapon.getItemCategory());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(
-                getName(), getRank(),
-                getMight(), getHit(), getAvo(),
-                getCrit(), getUses(), getRange(),
-                getWorth(), getItemCategory()
+        return Objects.hash(
+                getName(), getRank(), getMight(), getHit(), getAvo(),
+                getCrit(), getUses(), getRange(), getWorth(), getBonusStats(), getItemCategory()
         );
-        result = 31 * result + Arrays.hashCode(getBonusStats());
-        return result;
     }
 }
