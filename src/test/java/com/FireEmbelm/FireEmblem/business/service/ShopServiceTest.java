@@ -27,10 +27,10 @@ public class ShopServiceTest {
                 MONEY,
                 new ArrayList<>(
                         Arrays.asList(
-                                HealingItems.HEAL,
-                                HealingItems.VULNERARY,
-                                HealingItems.VULNERARY,
-                                HealingItems.CONCOCTIONS,
+                                new HealingItemWithUses(HealingItems.HEAL, 20),
+                                new HealingItemWithUses(HealingItems.VULNERARY,3),
+                                new HealingItemWithUses(HealingItems.VULNERARY,3),
+                                new HealingItemWithUses(HealingItems.CONCOCTIONS,3),
                                 Seals.MASTER_SEAL,
                                 StatsUpItems.DEFENSE_UP,
                                 new Weapon(
@@ -60,20 +60,20 @@ public class ShopServiceTest {
 
         mRandomItems = new ArrayList<>(
                 Arrays.asList(
-                    HealingItems.MEND,
-                    HealingItems.ELIXIR,
-                    Seals.HEART_SEAL,
-                    StatsUpItems.STRENGTH_UP,
-                    new Weapon(
-                            "Iron Sword",2,5,95, 0,
-                            0,50,1, 520, new HashMap<>(), WeaponCategory.SWORD
-                    ),
-                    new Weapon(
-                            "Too expensive",2,5,95, 0,
-                            0,50,1, TOO_EXPENSIVE, new HashMap<>(), WeaponCategory.SWORD
-                    )
-            )
-        );
+                        new HealingItemWithUses(HealingItems.MEND, 20),
+                        new HealingItemWithUses(HealingItems.ELIXIR, 1),
+                        Seals.HEART_SEAL,
+                        StatsUpItems.STRENGTH_UP,
+                        new Weapon(
+                                "Iron Sword",2,5,95, 0,
+                                0,50,1, 520, new HashMap<>(), WeaponCategory.SWORD
+                        ),
+                        new Weapon(
+                                "Too expensive",2,5,95, 0,
+                                0,50,1, TOO_EXPENSIVE, new HashMap<>(), WeaponCategory.SWORD
+                        )
+                )
+            );
     }
 
     @Test
