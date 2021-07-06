@@ -9,6 +9,6 @@ public enum WeaponCategory implements ItemCategory{
 
     @Override
     public String getName() {
-        return this.getName();
+        return this.name();
     }
 }
