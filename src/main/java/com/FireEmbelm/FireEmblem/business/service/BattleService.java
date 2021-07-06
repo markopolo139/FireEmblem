@@ -15,7 +15,6 @@ import java.util.Random;
 
 //TODO : test
 // front-end inform user if using weapon with last use
-// include spots bonus in calculation
 // in interactor : check status (if dead, set spot to null and save dead character, and spot with null) (if alive, save spot with character
 public class BattleService {
 
@@ -36,7 +35,7 @@ public class BattleService {
             throw new NoWeaponException("Can't attack without a weapon");
 
         isDefenderInWeaponRange(attackerSpot,defenderSpot);
-        calculateDamageAndSetRemainingHp(attacker,defender);
+        calculateDamageAndSetRemainingHp(attackerSpot,defenderSpot);
 
         if(defender.getCharacterState().equals(CharacterState.ALIVE)) {
 
@@ -45,7 +44,7 @@ public class BattleService {
             if (defender.getCurrentEquipedItem().getRange() == attacker.getCurrentEquipedItem().getRange()
                 && defender.getCurrentEquipedItem().getItemCategory() instanceof WeaponCategory) {
 
-                calculateDamageAndSetRemainingHp(defender,attacker);
+                calculateDamageAndSetRemainingHp(defenderSpot, attackerSpot);
                 gettingExpAndMoney(defender, attacker, itemsConvoy);
                 mCharacterDevelopmentService.increaseWeaponProgress(defender);
 
@@ -56,7 +55,7 @@ public class BattleService {
             else {
                 if(isDoubleAttack(attacker,defender)) {
 
-                    calculateDamageAndSetRemainingHp(attacker,defender);
+                    calculateDamageAndSetRemainingHp(attackerSpot, defenderSpot);
                     gettingExpAndMoney(attacker, defender, itemsConvoy);
 
                 }
@@ -71,6 +70,8 @@ public class BattleService {
         updateWeaponUse(attacker);
         updateWeaponUse(defender);
 
+        attacker.setMoved(true);
+
     }
 
     public void isDefenderInWeaponRange(Spot attackerSpot, Spot defenderSpot) throws OutOfRangeException {
@@ -81,27 +82,35 @@ public class BattleService {
             throw new OutOfRangeException("Attacked character is out of range, with current equiped weapon");
     }
 
-    public void calculateDamageAndSetRemainingHp(BaseCharacter attackingCharacter, BaseCharacter defendingCharacter) {
-        if(didAttackHit(attackingCharacter.getCharacterBattleStats(),
-                        defendingCharacter.getCharacterBattleStats())) {
+    public void calculateDamageAndSetRemainingHp(Spot attackingCharacterSpot, Spot defendingCharacterSpot) {
 
-            int howMuchDamageDealt = attackingCharacter.getCharacterBattleStats().getAttack()
-                    - defendingCharacter.getStats().get(StatsType.DEFENSE).getValue();
+        if(didAttackHit(attackingCharacterSpot, defendingCharacterSpot)) {
 
-            if(isAttackCrit(attackingCharacter.getCharacterBattleStats(), defendingCharacter))
+            int howMuchDamageDealt = attackingCharacterSpot.getCharacterOnSpot().getCharacterBattleStats().getAttack()
+                    - ( defendingCharacterSpot.getCharacterOnSpot().getStats().get(StatsType.DEFENSE).getValue()
+                    + defendingCharacterSpot.getSpotsType().getDefBoost() );
+
+            if(isAttackCrit(
+                    attackingCharacterSpot.getCharacterOnSpot().getCharacterBattleStats(),
+                    defendingCharacterSpot.getCharacterOnSpot())
+            )
                 howMuchDamageDealt *= 3;
 
-            defendingCharacter.setRemainingHealth(defendingCharacter.getRemainingHealth() - howMuchDamageDealt);
+            defendingCharacterSpot.getCharacterOnSpot().setRemainingHealth(
+                    defendingCharacterSpot.getCharacterOnSpot().getRemainingHealth() - howMuchDamageDealt
+            );
 
-            if (defendingCharacter.getRemainingHealth() <= 0) {
-                defendingCharacter.setCharacterState(CharacterState.DEAD);
+            if (defendingCharacterSpot.getCharacterOnSpot().getRemainingHealth() <= 0) {
+                defendingCharacterSpot.getCharacterOnSpot().setCharacterState(CharacterState.DEAD);
             }
 
         }
     }
 
-    public boolean didAttackHit(CharacterBattleStats attackingStats, CharacterBattleStats defendingStats) {
-        return (attackingStats.getHitRate() - defendingStats.getAvoid()) >= mRandom.nextInt(101);
+    public boolean didAttackHit(Spot attackingSpot, Spot defendingSpot) {
+        return ( attackingSpot.getCharacterOnSpot().getCharacterBattleStats().getHitRate()
+                - defendingSpot.getCharacterOnSpot().getCharacterBattleStats().getAvoid()
+                - defendingSpot.getSpotsType().getAvoBoost() ) >= mRandom.nextInt(101);
     }
 
     public boolean isAttackCrit(CharacterBattleStats attackingStats, BaseCharacter defendingCharacter) {
