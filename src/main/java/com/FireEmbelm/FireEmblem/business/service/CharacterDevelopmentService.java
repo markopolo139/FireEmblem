@@ -9,26 +9,28 @@ import java.util.Random;
 
 //TODO : test
 // character promote in future
-// ask where put this
 public class CharacterDevelopmentService {
 
-    private Random mRandom = new Random();
+    private final Random mRandom = new Random();
 
     public void increaseWeaponProgress(BaseCharacter baseCharacter) {
 
-        baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquipedItem().getItemCategory()).setProgress(
+        baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquipedItem().getItemCategory().getName()).setProgress(
                 baseCharacter.getWeaponProgresses()
-                        .get(baseCharacter.getCurrentEquipedItem().getItemCategory()).getProgress() + 5
+                        .get(baseCharacter.getCurrentEquipedItem().getItemCategory().getName()).getProgress() + 5
         );
 
         if (
                 baseCharacter.getWeaponProgresses()
-                .get(baseCharacter.getCurrentEquipedItem().getItemCategory()).getProgress() == 100
+                .get(baseCharacter.getCurrentEquipedItem().getItemCategory().getName()).getProgress() == 100
         ) {
-            baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquipedItem().getItemCategory()).setRank(
+            baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquipedItem().getItemCategory().getName()).setRank(
                     baseCharacter.getWeaponProgresses()
-                            .get(baseCharacter.getCurrentEquipedItem().getItemCategory()).getRank() + 1
+                            .get(baseCharacter.getCurrentEquipedItem().getItemCategory().getName()).getRank() + 1
             );
+
+            baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquipedItem().getItemCategory().getName())
+                    .setProgress(0);
         }
     }
 
