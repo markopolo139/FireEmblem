@@ -16,7 +16,7 @@ public class Weapon implements Equipment {
     private final int mHit;
     private final int mAvo;
     private final int mCrit;
-    private final int mUses;
+    private int mUses;
     private final int mRange;
     private final int mWorth;
     private final HashMap<StatsType, Stats> mBonusStats;
@@ -64,6 +64,10 @@ public class Weapon implements Equipment {
     @Override
     public int getUses() {
         return mUses;
+    }
+
+    public void setUses(int uses) {
+        mUses = uses;
     }
 
     @Override
