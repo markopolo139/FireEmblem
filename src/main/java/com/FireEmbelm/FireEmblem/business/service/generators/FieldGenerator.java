@@ -8,15 +8,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-//TODO : test
 public class FieldGenerator {
 
-    private static final int NUMBER_OF_PROBABILITIES = 16;
+    private static final int NUMBER_OF_PROBABILITIES = 22;
     private static final int RANDOM_HEIGHT = 7;
     private static final int RANDOM_WIDTH = 8;
 
     private final Random mRandomNumber = new Random();
-    private List<SpotsType> mSpotsTypeProbabilities;
+    private  List<SpotsType> mSpotsTypeProbabilities;
 
     public Spot[][] generateNewField() {
          int height = 10 + mRandomNumber.nextInt(RANDOM_HEIGHT);
@@ -51,9 +50,15 @@ public class FieldGenerator {
            add(SpotsType.FORREST);
            add(SpotsType.FORREST);
            add(SpotsType.FORREST);
+           add(SpotsType.FORREST);
            add(SpotsType.GRASS);
            add(SpotsType.GRASS);
            add(SpotsType.GRASS);
+           add(SpotsType.GRASS);
+           add(SpotsType.GRASS);
+           add(SpotsType.GRASS);
+           add(SpotsType.PLAIN);
+           add(SpotsType.PLAIN);
            add(SpotsType.PLAIN);
            add(SpotsType.PLAIN);
            add(SpotsType.PLAIN);
