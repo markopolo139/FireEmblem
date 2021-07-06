@@ -33,6 +33,10 @@ public class Spot {
         return mHeight;
     }
 
+    public SpotsType getSpotsType() {
+        return mSpotsType;
+    }
+
     public Spot(SpotsType spotsType, int height, int width, BaseCharacter characterOnSpot) {
         mSpotsType = spotsType;
         mHeight = height;
