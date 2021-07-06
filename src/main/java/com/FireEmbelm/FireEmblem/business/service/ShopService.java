@@ -6,25 +6,27 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 //TODO : test,
+// in front-end write id
 // interactor gives random items (items in base will have levels [1 - 5lv of highest level player character, 2 -10lv]
 public class ShopService {
 
     private static final double SELL_PERCENTAGE = 0.8;
 
-    public void buyItem(int randomItemId, Collection<Equipment> randomEquipment, ItemsConvoy itemsConvoy)
+    public void buyItem(int randomItemId, List<Equipment> randomEquipment, ItemsConvoy itemsConvoy)
             throws TooSmallAmountOfMoneyException {
 
         if(randomItemId < 0 || randomItemId > randomEquipment.size())
             throw new IndexOutOfBoundsException("Selected ID is out of bounds");
 
-        Equipment selectedItem = ((ArrayList<Equipment>) randomEquipment).get(randomItemId);
+        Equipment selectedItem = randomEquipment.get(randomItemId);
 
         if(itemsConvoy.getMoney() < selectedItem.getWorth())
             throw new TooSmallAmountOfMoneyException();
 
-        randomEquipment.remove(selectedItem);
+        randomEquipment.remove(randomItemId);
         itemsConvoy.getEquipmentCollection().add(selectedItem);
         itemsConvoy.setMoney(itemsConvoy.getMoney() - selectedItem.getWorth());
     }

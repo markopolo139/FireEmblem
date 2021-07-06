@@ -4,14 +4,15 @@ import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemsConvoy {
 
     private int mMoney;
-    private final Collection<Equipment> mEquipmentCollection;
+    private final List<Equipment> mEquipmentCollection;
 
-    public Collection<Equipment> getEquipmentCollection() {
+    public List<Equipment> getEquipmentCollection() {
         return mEquipmentCollection;
     }
 
@@ -53,7 +54,7 @@ public class ItemsConvoy {
                 .collect(Collectors.toList());
     }
 
-    public ItemsConvoy(int money, Collection<Equipment> equipmentCollection) {
+    public ItemsConvoy(int money, List<Equipment> equipmentCollection) {
         mMoney = money;
         mEquipmentCollection = equipmentCollection;
     }

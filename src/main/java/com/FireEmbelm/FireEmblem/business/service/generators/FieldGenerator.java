@@ -5,6 +5,7 @@ import com.FireEmbelm.FireEmblem.business.value.Field.SpotsType;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 //TODO : test
@@ -15,7 +16,7 @@ public class FieldGenerator {
     private static final int RANDOM_WIDTH = 8;
 
     private final Random mRandomNumber = new Random();
-    private Collection<SpotsType> mSpotsTypeProbabilities;
+    private List<SpotsType> mSpotsTypeProbabilities;
 
     public Spot[][] generateNewField() {
          int height = 10 + mRandomNumber.nextInt(RANDOM_HEIGHT);
@@ -34,7 +35,7 @@ public class FieldGenerator {
 
     private Spot randomSpotWithPosition(int height, int width) {
         return new Spot(
-                ((ArrayList<SpotsType>) mSpotsTypeProbabilities).get(mRandomNumber.nextInt(NUMBER_OF_PROBABILITIES)),
+                mSpotsTypeProbabilities.get(mRandomNumber.nextInt(NUMBER_OF_PROBABILITIES)),
                 height,
                 width,
                 null
