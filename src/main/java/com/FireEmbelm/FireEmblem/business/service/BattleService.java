@@ -86,9 +86,7 @@ public class BattleService {
 
         if(didAttackHit(attackingCharacterSpot, defendingCharacterSpot)) {
 
-            int howMuchDamageDealt = attackingCharacterSpot.getCharacterOnSpot().getCharacterBattleStats().getAttack()
-                    - ( defendingCharacterSpot.getCharacterOnSpot().getStats().get(StatsType.DEFENSE).getValue()
-                    + defendingCharacterSpot.getSpotsType().getDefBoost() );
+            int howMuchDamageDealt = calculateDamageDealt(attackingCharacterSpot, defendingCharacterSpot);
 
             if(isAttackCrit(
                     attackingCharacterSpot.getCharacterOnSpot().getCharacterBattleStats(),
@@ -107,6 +105,20 @@ public class BattleService {
         }
     }
 
+    public int calculateDamageDealt(Spot attackingCharacterSpot, Spot defendingCharacterSpot) {
+        if(! attackingCharacterSpot.getCharacterOnSpot().getCurrentEquipedItem().getItemCategory().equals(WeaponCategory.TOME)) {
+            return  attackingCharacterSpot.getCharacterOnSpot().getCharacterBattleStats().getAttack()
+                    - ( defendingCharacterSpot.getCharacterOnSpot().getStats().get(StatsType.DEFENSE).getValue()
+                    + defendingCharacterSpot.getSpotsType().getDefBoost()
+                    + defendingCharacterSpot.getCharacterOnSpot().getCharacterClass().getBonusStats().get(StatsType.DEFENSE).getValue());
+        }
+        else {
+            return  attackingCharacterSpot.getCharacterOnSpot().getCharacterBattleStats().getAttack()
+                    - ( defendingCharacterSpot.getCharacterOnSpot().getStats().get(StatsType.RESISTANCE).getValue()
+                    + defendingCharacterSpot.getCharacterOnSpot().getCharacterClass().getBonusStats().get(StatsType.RESISTANCE).getValue());
+        }
+    }
+
     public boolean didAttackHit(Spot attackingSpot, Spot defendingSpot) {
         return ( attackingSpot.getCharacterOnSpot().getCharacterBattleStats().getHitRate()
                 - defendingSpot.getCharacterOnSpot().getCharacterBattleStats().getAvoid()
@@ -119,8 +131,10 @@ public class BattleService {
     }
 
     public boolean isDoubleAttack(BaseCharacter attacker, BaseCharacter defender) {
-        return ( attacker.getStats().get(StatsType.SPEED).getValue()
-                - defender.getStats().get(StatsType.SPEED).getValue() ) >= 5;
+        return ( (attacker.getStats().get(StatsType.SPEED).getValue()
+                + attacker.getCharacterClass().getBonusStats().get(StatsType.SPEED).getValue())
+                - (defender.getStats().get(StatsType.SPEED).getValue()
+                + defender.getCharacterClass().getBonusStats().get(StatsType.SPEED).getValue() )) >= 5;
     }
 
     public void gettingExpAndMoney(BaseCharacter getExperience, BaseCharacter checkIfDead, ItemsConvoy itemsConvoy) {

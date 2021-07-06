@@ -56,23 +56,28 @@ public class CharacterBattleStats {
         if( !(currentEquipedItem.getItemCategory() instanceof ConsumableItemCategory) ) {
             calculateAttack(baseCharacter, currentEquipedItem);
             mHitRate = ((Weapon) currentEquipedItem).getHit()
-                    + ( (baseCharacter.getStats().get(StatsType.SKILL).getValue() * 3
+                    + ( ( ( baseCharacter.getStats().get(StatsType.SKILL).getValue()
+                    + baseCharacter.getCharacterClass().getBonusStats().get(StatsType.SKILL).getValue() ) * 3
                     + baseCharacter.getStats().get(StatsType.LUCK).getValue()) / 2 );
             mCritical = ((Weapon) currentEquipedItem).getCrit()
-                    + (baseCharacter.getStats().get(StatsType.SKILL).getValue() / 2);
+                    + ( ( baseCharacter.getStats().get(StatsType.SKILL).getValue()
+                    +  baseCharacter.getCharacterClass().getBonusStats().get(StatsType.SKILL).getValue() )/ 2 );
         }
 
-        mAvoid = (baseCharacter.getStats().get(StatsType.SPEED).getValue() * 3
-                + baseCharacter.getStats().get(StatsType.LUCK).getValue()) / 2;
+        mAvoid = ( ( baseCharacter.getStats().get(StatsType.SPEED).getValue()
+                +  baseCharacter.getCharacterClass().getBonusStats().get(StatsType.SPEED).getValue() ) * 3
+                + baseCharacter.getStats().get(StatsType.LUCK).getValue() ) / 2;
     }
 
     public void calculateAttack(BaseCharacter baseCharacter, Equipment currentEquipedItem) {
 
         if(currentEquipedItem.getItemCategory().equals(WeaponCategory.TOME)) {
-            mAttack = baseCharacter.getStats().get(StatsType.MAGICK).getValue() + currentEquipedItem.getMight();
+            mAttack = baseCharacter.getStats().get(StatsType.MAGICK).getValue() + currentEquipedItem.getMight()
+                    + baseCharacter.getCharacterClass().getBonusStats().get(StatsType.MAGICK).getValue();
         }
         else {
-            mAttack = baseCharacter.getStats().get(StatsType.STRENGTH).getValue() + currentEquipedItem.getMight();
+            mAttack = baseCharacter.getStats().get(StatsType.STRENGTH).getValue() + currentEquipedItem.getMight()
+                    + baseCharacter.getCharacterClass().getBonusStats().get(StatsType.STRENGTH).getValue();
         }
     }
 }
