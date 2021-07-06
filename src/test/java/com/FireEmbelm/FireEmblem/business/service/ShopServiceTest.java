@@ -86,7 +86,7 @@ public class ShopServiceTest {
         Assertions.assertEquals(mRandomItems.size(), 5);
         Assertions.assertEquals(
                 mItemsConvoy.getEquipmentCollection().get(mItemsConvoy.getEquipmentCollection().size() - 1),
-                HealingItems.MEND);
+                new HealingItemWithUses(HealingItems.MEND, 20));
 
     }
 

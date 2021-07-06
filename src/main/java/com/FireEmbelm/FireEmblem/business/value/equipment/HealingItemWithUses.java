@@ -2,6 +2,8 @@ package com.FireEmbelm.FireEmblem.business.value.equipment;
 
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
+import java.util.Objects;
+
 //TODO : create in base all healing items
 public class HealingItemWithUses implements Equipment{
 
@@ -59,5 +61,18 @@ public class HealingItemWithUses implements Equipment{
     public HealingItemWithUses(HealingItems healingItems, int uses) {
         mHealingItems = healingItems;
         mUses = uses;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HealingItemWithUses that = (HealingItemWithUses) o;
+        return getUses() == that.getUses() && getHealingItems() == that.getHealingItems();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getHealingItems(), getUses());
     }
 }
