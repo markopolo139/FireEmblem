@@ -52,7 +52,7 @@ public class Utils {
                         { StatsType.DEFENSE, new Stats(StatsType.DEFENSE, defValue, defChances) },
                         { StatsType.RESISTANCE, new Stats(StatsType.RESISTANCE, resValue, resChances) }
                 }
-        ).collect(Collectors.toMap(data -> (StatsType) data[0], data -> (Stats) data[2])));
+        ).collect(Collectors.toMap(data -> (StatsType) data[0], data -> (Stats) data[1])));
     }
 
     public static HashMap<String, WeaponProgress> startUpWeaponProgress() {

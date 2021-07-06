@@ -25,32 +25,32 @@ public class ItemsConvoy {
         mMoney = money;
     }
 
-    public Collection<Equipment> getWeapons() {
-        return mEquipmentCollection.stream()
+    public ArrayList<Equipment> getWeapons() {
+        return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i instanceof Weapon)
                 .collect(Collectors.toList());
     }
 
-    public Collection<Equipment> getSeals() {
-        return mEquipmentCollection.stream()
+    public ArrayList<Equipment> getSeals() {
+        return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i instanceof Seals)
                 .collect(Collectors.toList());
     }
 
-    public Collection<Equipment> getStatsUpItems() {
-        return mEquipmentCollection.stream()
+    public ArrayList<Equipment> getStatsUpItems() {
+        return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i instanceof StatsUpItems)
                 .collect(Collectors.toList());
     }
 
-    public Collection<Equipment> getHealingItems() {
-        return mEquipmentCollection.stream()
+    public ArrayList<Equipment> getHealingItems() {
+        return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i instanceof HealingItemWithUses)
                 .collect(Collectors.toList());
     }
 
-    public Collection<Equipment> getByItemCategory(ItemCategory itemCategory) {
-        return mEquipmentCollection.stream()
+    public ArrayList<Equipment> getByItemCategory(ItemCategory itemCategory) {
+        return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i.getItemCategory().equals(itemCategory))
                 .collect(Collectors.toList());
     }
