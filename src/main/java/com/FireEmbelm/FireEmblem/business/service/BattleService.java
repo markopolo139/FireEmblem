@@ -1,15 +1,20 @@
 package com.FireEmbelm.FireEmblem.business.service;
 
 import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
+import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
+import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.NoWeaponException;
 import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
 import com.FireEmbelm.FireEmblem.business.value.Field.Spot;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 
 //TODO : test
-// in future include boss to calculating exp
+// front-end inform user if using weapon with last use
+// calculating hit, avo, crit
 // in interactor : check status (if dead, set spot to null and save dead character, and spot with null) (if alive, save spot with character
 public class BattleService {
 
@@ -19,11 +24,8 @@ public class BattleService {
         return mCharacterDevelopmentService;
     }
 
-    public BattleService(CharacterDevelopmentService characterDevelopmentService) {
-        mCharacterDevelopmentService = characterDevelopmentService;
-    }
-
-    public void initialiseBattle(Spot attackerSpot, Spot defenderSpot) throws NoWeaponException, OutOfRangeException {
+    public void initialiseBattle(Spot attackerSpot, Spot defenderSpot, ItemsConvoy itemsConvoy)
+            throws NoWeaponException, OutOfRangeException {
 
         BaseCharacter attacker = attackerSpot.getCharacterOnSpot();
         BaseCharacter defender = defenderSpot.getCharacterOnSpot();
@@ -42,23 +44,30 @@ public class BattleService {
                 && defender.getCurrentEquipedItem().getItemCategory() instanceof WeaponCategory) {
 
                 calculateDamageAndSetRemainingHp(defender,attacker);
-                calculateExperience(defender,attacker);
+                gettingExpAndMoney(defender, attacker, itemsConvoy);
                 mCharacterDevelopmentService.increaseWeaponProgress(defender);
+
+                if(defender.getCharacterState().equals(CharacterState.DEAD))
+                    addWeaponAndMoneyFromEnemy(defender, itemsConvoy);
 
             }
             else {
                 if(isDoubleAttack(attacker,defender)) {
 
                     calculateDamageAndSetRemainingHp(attacker,defender);
-                    calculateExperience(attacker,defender);
+                    gettingExpAndMoney(attacker, defender, itemsConvoy);
+
                 }
             }
         }
         else {
             mCharacterDevelopmentService.increaseExpDead(attacker,defender);
+            addWeaponAndMoneyFromEnemy(defender, itemsConvoy);
         }
 
         mCharacterDevelopmentService.increaseWeaponProgress(attacker);
+        updateWeaponUse(attacker);
+        updateWeaponUse(defender);
 
     }
 
@@ -87,13 +96,42 @@ public class BattleService {
         }
     }
 
-    public void calculateExperience(BaseCharacter getExperience, BaseCharacter checkIfDead) {
+    public void gettingExpAndMoney(BaseCharacter getExperience, BaseCharacter checkIfDead, ItemsConvoy itemsConvoy) {
 
         if(checkIfDead.getCharacterState().equals(CharacterState.DEAD)) {
             mCharacterDevelopmentService.increaseExpDead(getExperience,checkIfDead);
+            addWeaponAndMoneyFromEnemy(checkIfDead, itemsConvoy);
+
         }
         else {
             mCharacterDevelopmentService.increaseExpNotDead(getExperience,checkIfDead);
         }
+    }
+
+    public void addWeaponAndMoneyFromEnemy(BaseCharacter deadCharacter, ItemsConvoy itemsConvoy) {
+        if(deadCharacter instanceof Enemy) {
+
+            itemsConvoy.setMoney(itemsConvoy.getMoney() + ((Enemy) deadCharacter).getGoldDrop());
+
+            if(((Enemy) deadCharacter).getDropItem() != null)
+                itemsConvoy.getEquipmentCollection().add(((Enemy) deadCharacter).getDropItem());
+
+        }
+    }
+
+    public void updateWeaponUse(BaseCharacter baseCharacter) {
+
+        if(baseCharacter.getCharacterState().equals(CharacterState.DEAD)) {
+            return;
+        }
+
+        baseCharacter.getCurrentEquipedItem().setUses(baseCharacter.getCurrentEquipedItem().getUses() - 1);
+        if (baseCharacter.getCurrentEquipedItem().getUses() == 0) {
+            baseCharacter.setCurrentEquipedItem(null);
+        }
+    }
+
+    public BattleService(CharacterDevelopmentService characterDevelopmentService) {
+        mCharacterDevelopmentService = characterDevelopmentService;
     }
 }
