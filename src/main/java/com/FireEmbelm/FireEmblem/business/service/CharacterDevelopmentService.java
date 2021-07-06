@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 //TODO : test
-// lv up, character promote
+// character promote in future
 // ask where put this
 public class CharacterDevelopmentService {
 
