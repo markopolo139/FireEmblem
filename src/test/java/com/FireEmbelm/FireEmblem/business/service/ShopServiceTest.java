@@ -35,24 +35,24 @@ public class ShopServiceTest {
                                 StatsUpItems.DEFENSE_UP,
                                 new Weapon(
                                         "Bronze Sword",1,3,100, 0,
-                                        0,50,1, 350, new HashMap<>(), WeaponCategory.SWORD
+                                        0,50,1, 350, WeaponCategory.SWORD
                                 ),
                                 new Weapon(
                                         "Bronze Lance",1,3,90, 0,
-                                        0,50,1, 350, new HashMap<>(), WeaponCategory.LANCE
+                                        0,50,1, 350, WeaponCategory.LANCE
                                 ),
                                 new Weapon(
                                         "Bronze Axe",1,4,80, 0,
-                                        0,50,1, 400, new HashMap<>(), WeaponCategory.AXE
+                                        0,50,1, 400, WeaponCategory.AXE
                                 ),
                                 new Weapon(
                                         "Fire",1,2,90, 0,
-                                        0,50,2, 540, new HashMap<>(), WeaponCategory.TOME
+                                        0,50,2, 540, WeaponCategory.TOME
                                 ),
                                 new Weapon(
                                         "After sell can buy",1,2,90, 0,
-                                        0,50,2, (int) ((TOO_EXPENSIVE - MONEY) * 1.25)
-                                        , new HashMap<>(), WeaponCategory.TOME
+                                        0,50,2, (int) ((TOO_EXPENSIVE - MONEY) * 1.25),
+                                        WeaponCategory.TOME
                                 )
                         )
                 )
@@ -66,11 +66,11 @@ public class ShopServiceTest {
                         StatsUpItems.STRENGTH_UP,
                         new Weapon(
                                 "Iron Sword",2,5,95, 0,
-                                0,50,1, 520, new HashMap<>(), WeaponCategory.SWORD
+                                0,50,1, 520, WeaponCategory.SWORD
                         ),
                         new Weapon(
                                 "Too expensive",2,5,95, 0,
-                                0,50,1, TOO_EXPENSIVE, new HashMap<>(), WeaponCategory.SWORD
+                                0,50,1, TOO_EXPENSIVE, WeaponCategory.SWORD
                         )
                 )
             );

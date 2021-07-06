@@ -7,18 +7,20 @@ import com.FireEmbelm.FireEmblem.business.exceptions.NoWeaponException;
 import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
 import com.FireEmbelm.FireEmblem.business.value.Field.Spot;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
+import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterBattleStats;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
+
+import java.util.Random;
 
 //TODO : test
 // front-end inform user if using weapon with last use
-// calculating hit, avo, crit
+// include spots bonus in calculation
 // in interactor : check status (if dead, set spot to null and save dead character, and spot with null) (if alive, save spot with character
 public class BattleService {
 
-    private CharacterDevelopmentService mCharacterDevelopmentService;
+    private final Random mRandom = new Random();
+    private final CharacterDevelopmentService mCharacterDevelopmentService;
 
     public CharacterDevelopmentService getCharacterDevelopmentService() {
         return mCharacterDevelopmentService;
@@ -48,7 +50,7 @@ public class BattleService {
                 mCharacterDevelopmentService.increaseWeaponProgress(defender);
 
                 if(defender.getCharacterState().equals(CharacterState.DEAD))
-                    addWeaponAndMoneyFromEnemy(defender, itemsConvoy);
+                    addWeaponAndMoneyFromEnemyToConvoy(defender, itemsConvoy);
 
             }
             else {
@@ -62,7 +64,7 @@ public class BattleService {
         }
         else {
             mCharacterDevelopmentService.increaseExpDead(attacker,defender);
-            addWeaponAndMoneyFromEnemy(defender, itemsConvoy);
+            addWeaponAndMoneyFromEnemyToConvoy(defender, itemsConvoy);
         }
 
         mCharacterDevelopmentService.increaseWeaponProgress(attacker);
@@ -79,28 +81,44 @@ public class BattleService {
             throw new OutOfRangeException("Attacked character is out of range, with current equiped weapon");
     }
 
+    public void calculateDamageAndSetRemainingHp(BaseCharacter attackingCharacter, BaseCharacter defendingCharacter) {
+        if(didAttackHit(attackingCharacter.getCharacterBattleStats(),
+                        defendingCharacter.getCharacterBattleStats())) {
+
+            int howMuchDamageDealt = attackingCharacter.getCharacterBattleStats().getAttack()
+                    - defendingCharacter.getStats().get(StatsType.DEFENSE).getValue();
+
+            if(isAttackCrit(attackingCharacter.getCharacterBattleStats(), defendingCharacter))
+                howMuchDamageDealt *= 3;
+
+            defendingCharacter.setRemainingHealth(defendingCharacter.getRemainingHealth() - howMuchDamageDealt);
+
+            if (defendingCharacter.getRemainingHealth() <= 0) {
+                defendingCharacter.setCharacterState(CharacterState.DEAD);
+            }
+
+        }
+    }
+
+    public boolean didAttackHit(CharacterBattleStats attackingStats, CharacterBattleStats defendingStats) {
+        return (attackingStats.getHitRate() - defendingStats.getAvoid()) >= mRandom.nextInt(101);
+    }
+
+    public boolean isAttackCrit(CharacterBattleStats attackingStats, BaseCharacter defendingCharacter) {
+        return (attackingStats.getCritical() - defendingCharacter.getStats().get(StatsType.LUCK).getValue())
+                >= mRandom.nextInt(101);
+    }
+
     public boolean isDoubleAttack(BaseCharacter attacker, BaseCharacter defender) {
         return ( attacker.getStats().get(StatsType.SPEED).getValue()
                 - defender.getStats().get(StatsType.SPEED).getValue() ) >= 5;
-    }
-
-    public void calculateDamageAndSetRemainingHp(BaseCharacter attackingCharacter, BaseCharacter defendingCharacter) {
-
-        int howMuchDamageDealt = attackingCharacter.getCharacterBattleStats().getAttack()
-                - defendingCharacter.getStats().get(StatsType.DEFENSE).getValue();
-
-        defendingCharacter.setRemainingHealth(defendingCharacter.getRemainingHealth() - howMuchDamageDealt);
-
-        if (defendingCharacter.getRemainingHealth() <= 0) {
-            defendingCharacter.setCharacterState(CharacterState.DEAD);
-        }
     }
 
     public void gettingExpAndMoney(BaseCharacter getExperience, BaseCharacter checkIfDead, ItemsConvoy itemsConvoy) {
 
         if(checkIfDead.getCharacterState().equals(CharacterState.DEAD)) {
             mCharacterDevelopmentService.increaseExpDead(getExperience,checkIfDead);
-            addWeaponAndMoneyFromEnemy(checkIfDead, itemsConvoy);
+            addWeaponAndMoneyFromEnemyToConvoy(checkIfDead, itemsConvoy);
 
         }
         else {
@@ -108,7 +126,7 @@ public class BattleService {
         }
     }
 
-    public void addWeaponAndMoneyFromEnemy(BaseCharacter deadCharacter, ItemsConvoy itemsConvoy) {
+    public void addWeaponAndMoneyFromEnemyToConvoy(BaseCharacter deadCharacter, ItemsConvoy itemsConvoy) {
         if(deadCharacter instanceof Enemy) {
 
             itemsConvoy.setMoney(itemsConvoy.getMoney() + ((Enemy) deadCharacter).getGoldDrop());
