@@ -5,5 +5,10 @@ public enum WeaponCategory implements ItemCategory{
     AXE,
     LANCE,
     TOME,
-    BOW
+    BOW;
+
+    @Override
+    public String getName() {
+        return this.getName();
+    }
 }
