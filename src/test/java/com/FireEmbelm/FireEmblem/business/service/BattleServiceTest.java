@@ -76,11 +76,13 @@ public class BattleServiceTest {
                         1,0
                 ),
                 mItemsConvoy.getWeapons().get(0),
-                new Equipment[]{
-                        mItemsConvoy.getEquipmentCollection().get(0),
-                        mItemsConvoy.getEquipmentCollection().get(0),
-                        mItemsConvoy.getWeapons().get(0)
-                },
+                new ArrayList<>(
+                        Arrays.asList(
+                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getWeapons().get(0)
+                        )
+                ),
                 Utils.startUpWeaponProgress(),
                 CharacterClass.LORD,
                 CharacterState.ALIVE,
@@ -102,11 +104,13 @@ public class BattleServiceTest {
                         1,0
                 ),
                 mItemsConvoy.getWeapons().get(1),
-                new Equipment[]{
-                        mItemsConvoy.getEquipmentCollection().get(0),
-                        mItemsConvoy.getEquipmentCollection().get(0),
-                        mItemsConvoy.getWeapons().get(0)
-                },
+                new ArrayList<>(
+                        Arrays.asList(
+                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getWeapons().get(0)
+                        )
+                ),
                 Utils.startUpWeaponProgress(),
                 CharacterClass.LORD,
                 CharacterState.ALIVE,

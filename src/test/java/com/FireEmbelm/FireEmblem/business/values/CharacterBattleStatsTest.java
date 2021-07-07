@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 public class CharacterBattleStatsTest {
 
     private Character mCharacter;
@@ -36,7 +38,7 @@ public class CharacterBattleStatsTest {
                         "Iron Sword",2,5,95, 0,
                         0,50,1, 520, WeaponCategory.SWORD
                 ),
-                new Equipment[]{},
+                new ArrayList<>(),
                 Utils.startUpWeaponProgress(),
                 CharacterClass.LORD,
                 CharacterState.ALIVE,

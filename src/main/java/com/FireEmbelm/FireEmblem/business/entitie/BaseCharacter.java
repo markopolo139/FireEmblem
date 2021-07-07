@@ -3,10 +3,12 @@ package com.FireEmbelm.FireEmblem.business.entitie;
 import com.FireEmbelm.FireEmblem.business.value.character.related.*;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
+//TODO : promoting character(boolean isPromote)
 public abstract class BaseCharacter {
 
     private String mName;
@@ -15,7 +17,7 @@ public abstract class BaseCharacter {
     private int mRemainingHealth;
     private HashMap<StatsType, Stats> mStats;
     private Equipment mCurrentEquipedItem;
-    private Equipment[] mEquipment;
+    private ArrayList<Equipment> mEquipment;
     private HashMap<String, WeaponProgress> mWeaponProgresses;
     private CharacterClass mCharacterClass;
     private CharacterBattleStats mCharacterBattleStats;
@@ -46,11 +48,11 @@ public abstract class BaseCharacter {
         mRemainingHealth = remainingHealth;
     }
 
-    public Equipment[] getEquipment() {
+    public ArrayList<Equipment> getEquipment() {
         return mEquipment;
     }
 
-    public void setEquipment(Equipment[] equipment) {
+    public void setEquipment(ArrayList<Equipment> equipment) {
         mEquipment = equipment;
     }
 
@@ -116,7 +118,7 @@ public abstract class BaseCharacter {
 
     public BaseCharacter(
             String name, int level, int exp, int remainingHealth, HashMap<StatsType, Stats> stats,
-            Equipment currentEquipedItem, Equipment[] equipment, HashMap<String, WeaponProgress> weaponProgresses,
+            Equipment currentEquipedItem, ArrayList<Equipment> equipment, HashMap<String, WeaponProgress> weaponProgresses,
             CharacterClass characterClass, CharacterState characterState, boolean moved
     ) {
         mName = name;
@@ -145,7 +147,7 @@ public abstract class BaseCharacter {
                 && Objects.equals(getName(), that.getName())
                 && Objects.equals(getStats(), that.getStats())
                 && Objects.equals(getCurrentEquipedItem(), that.getCurrentEquipedItem())
-                && Arrays.equals(getEquipment(), that.getEquipment())
+                && Objects.equals(getEquipment(), that.getEquipment())
                 && Objects.equals(getWeaponProgresses(), that.getWeaponProgresses())
                 && getCharacterClass() == that.getCharacterClass()
                 && Objects.equals(getCharacterBattleStats(), that.getCharacterBattleStats())
@@ -158,7 +160,7 @@ public abstract class BaseCharacter {
                 getName(), getLevel(), getExp(), getRemainingHealth(), getStats(), getCurrentEquipedItem(),
                 getWeaponProgresses(), getCharacterClass(), getCharacterBattleStats(), getCharacterState(), isMoved()
         );
-        result = 31 * result + Arrays.hashCode(getEquipment());
+        result = 31 * result + getEquipment().hashCode();
         return result;
     }
 }
