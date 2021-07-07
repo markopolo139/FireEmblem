@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
-//TODO : promoting character(boolean isPromote)
 public abstract class BaseCharacter {
 
     private String mName;

@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
+//TODO : add promoted classes
 public enum CharacterClass  {
     LORD(
             "Lord",
@@ -26,7 +27,8 @@ public enum CharacterClass  {
                     0,0,
                     7,10,
                     0,5
-            )
+            ),
+            false
     ),
     CAVALRY(
             "Cavalry",
@@ -41,7 +43,8 @@ public enum CharacterClass  {
                     0,0,
                     7,10,
                     0,5
-            )
+            ),
+            false
     ),
     KNIGHT(
             "Knight",
@@ -56,7 +59,8 @@ public enum CharacterClass  {
                     0,0,
                     11,15,
                     0,5
-            )
+            ),
+            false
     ),
     MYRMIDON(
             "Myrmidon",
@@ -71,7 +75,8 @@ public enum CharacterClass  {
                     0,0,
                     4,5,
                     1,5
-            )
+            ),
+            false
     ),
     FIGHTER(
             "Fighter",
@@ -86,7 +91,8 @@ public enum CharacterClass  {
                     0,0,
                     4,10,
                     0,5
-            )
+            ),
+            false
     ),
     MERCENARY(
             "Mercenary",
@@ -101,7 +107,8 @@ public enum CharacterClass  {
                     0,0,
                     5,10,
                     0,5
-            )
+            ),
+            false
     ),
     ARCHER(
             "Archer",
@@ -116,7 +123,8 @@ public enum CharacterClass  {
                     0,0,
                     5,10,
                     0,5
-            )
+            ),
+            false
     ),
     MAGE(
             "Mage",
@@ -131,7 +139,8 @@ public enum CharacterClass  {
                     0,0,
                     2,5,
                     3,10
-            )
+            ),
+            false
     ),
     PRIEST(
             "Priest",
@@ -146,13 +155,15 @@ public enum CharacterClass  {
                     0,0,
                     1,5,
                     6,15
-            )
+            ),
+            false
     );
 
     private final String mClassName;
     private final int mMovement;
     private final Collection<ItemCategory> mAllowedWeapons;
     private final HashMap<StatsType, Stats> mBonusStats;
+    private final boolean mPromotedClass;
 
     public String getClassName() {
         return mClassName;
@@ -170,12 +181,18 @@ public enum CharacterClass  {
         return mBonusStats;
     }
 
+    public boolean isPromotedClass() {
+        return mPromotedClass;
+    }
+
     CharacterClass(
-            String className, int movement, Collection<ItemCategory> allowedWeapons, HashMap<StatsType, Stats> bonusStats
+            String className, int movement, Collection<ItemCategory> allowedWeapons,
+            HashMap<StatsType, Stats> bonusStats, boolean promotedClass
     ) {
         mClassName = className;
         mMovement = movement;
         mAllowedWeapons = allowedWeapons;
         mBonusStats = bonusStats;
+        mPromotedClass = promotedClass;
     }
 }
