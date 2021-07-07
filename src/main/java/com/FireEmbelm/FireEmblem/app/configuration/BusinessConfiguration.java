@@ -1,8 +1,7 @@
 package com.FireEmbelm.FireEmblem.app.configuration;
 
-import com.FireEmbelm.FireEmblem.business.service.BattleService;
-import com.FireEmbelm.FireEmblem.business.service.CharacterDevelopmentService;
-import com.FireEmbelm.FireEmblem.business.service.ShopService;
+import com.FireEmbelm.FireEmblem.business.service.*;
+import com.FireEmbelm.FireEmblem.business.service.generators.EnemyGenerator;
 import com.FireEmbelm.FireEmblem.business.service.generators.FieldGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +26,31 @@ public class BusinessConfiguration {
     @Bean
     @Scope("Singleton")
     public BattleService getBattleService() {
-        return new BattleService(new CharacterDevelopmentService());
+        return new BattleService(getCharacterDevelopmentService());
     }
+
+    @Bean
+    @Scope("Singleton")
+    public EnemyGenerator getEnemyGenerator() {
+        return new EnemyGenerator();
+    }
+
+    @Bean
+    @Scope("Singleton")
+    public BoardService getBoardService() {
+        return new BoardService();
+    }
+
+    @Bean
+    @Scope("Singleton")
+    public CharacterDevelopmentService getCharacterDevelopmentService() {
+        return new CharacterDevelopmentService();
+    }
+
+    @Bean
+    @Scope("Singleton")
+    public EquipmentManagementService getEquipmentManagementService() {
+        return new EquipmentManagementService();
+    }
+
 }
