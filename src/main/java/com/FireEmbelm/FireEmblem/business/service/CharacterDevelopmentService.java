@@ -7,8 +7,6 @@ import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import java.util.HashMap;
 import java.util.Random;
 
-//TODO : test
-// character promote in future
 public class CharacterDevelopmentService {
 
     private final Random mRandom = new Random();
