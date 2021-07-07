@@ -62,7 +62,7 @@ public class CharacterDevelopmentTest {
                 15,
                 Utils.createStats(
                         1,100,
-                        1,0,
+                        1,80,
                         1,0,
                         1,0,
                         1,0,
@@ -179,6 +179,11 @@ public class CharacterDevelopmentTest {
 
     @Test
     void testLevelUp() {
+        mCharacter.setExp(99);
+        mCharacterDevelopmentService.increaseExpDead(mCharacter,mEnemy);
+
+        Assertions.assertEquals(2,mCharacter.getLevel());
+        Assertions.assertEquals(0,mCharacter.getExp());
 
     }
 }
