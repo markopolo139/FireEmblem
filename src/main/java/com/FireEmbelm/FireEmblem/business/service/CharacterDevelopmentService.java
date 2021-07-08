@@ -9,6 +9,8 @@ import java.util.Random;
 
 public class CharacterDevelopmentService {
 
+    public static final int LEVEL_CUP = 20;
+
     private final Random mRandom = new Random();
 
     public void increaseWeaponProgress(BaseCharacter baseCharacter) {
@@ -71,6 +73,9 @@ public class CharacterDevelopmentService {
     }
 
     public void levelUp(BaseCharacter levelUpCharacter) {
+
+        if (levelUpCharacter.getLevel() >= LEVEL_CUP)
+            return;
 
         HashMap<StatsType, Stats> classBonusStats = levelUpCharacter.getCharacterClass().getBonusStats();
         int randomNumber;
