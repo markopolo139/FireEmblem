@@ -6,6 +6,7 @@ import com.FireEmbelm.FireEmblem.business.exceptions.EquipmentLimitException;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 
 import java.util.Collection;
@@ -64,14 +65,24 @@ public class EquipmentManagementService {
     }
 
     public void equipItem(Character character, int equipmentId) throws InvalidEquipmentException {
-        if(character.getEquipment().get(equipmentId) == null)
+
+        Equipment selectedItem = character.getEquipment().get(equipmentId);
+
+        if(selectedItem == null)
             throw new InvalidEquipmentException();
 
-        if( (!character.getCharacterClass().getAllowedWeapons().contains(character.getEquipment().get(equipmentId).getItemCategory())
-                && character.getEquipment().get(equipmentId).getItemCategory() instanceof WeaponCategory)
-                || character.getEquipment().get(equipmentId).getItemCategory() instanceof ConsumableItemCategory)
+        if(selectedItem.getItemCategory() instanceof ConsumableItemCategory)
             throw new InvalidEquipmentException();
 
-        character.setCurrentEquipedItem(character.getEquipment().get(equipmentId));
+        if( (!character.getCharacterClass().getAllowedWeapons().contains(selectedItem.getItemCategory())
+                && selectedItem.getItemCategory() instanceof WeaponCategory))
+            throw new InvalidEquipmentException();
+
+        if(selectedItem instanceof Weapon) {
+            if(((Weapon) selectedItem).getRank() > character.getWeaponProgresses().get(selectedItem.getItemCategory()).getRank())
+                throw new InvalidEquipmentException();
+        }
+
+        character.setCurrentEquipedItem(selectedItem);
     }
 }

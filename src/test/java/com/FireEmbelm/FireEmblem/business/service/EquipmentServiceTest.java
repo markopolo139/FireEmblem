@@ -4,6 +4,7 @@ import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.EquipmentLimitException;
+import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.utils.Utils;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
@@ -21,6 +22,7 @@ public class EquipmentServiceTest {
 
     private EquipmentManagementService mEquipmentManagementService = new EquipmentManagementService();
     private Character mCharacter;
+    private Character mCharacter2;
     private ItemsConvoy mItemsConvoy;
 
     @BeforeEach
@@ -37,6 +39,10 @@ public class EquipmentServiceTest {
                                 StatsUpItems.DEFENSE_UP,
                                 new Weapon(
                                         "Bronze Sword",1,3,100, 0,
+                                        0,50,1, 350, WeaponCategory.SWORD
+                                ),
+                                new Weapon(
+                                        "Iron Sword",2,3,100, 0,
                                         0,50,1, 350, WeaponCategory.SWORD
                                 ),
                                 new Weapon(
@@ -75,7 +81,40 @@ public class EquipmentServiceTest {
                         Arrays.asList(
                                 mItemsConvoy.getEquipmentCollection().get(0),
                                 mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getWeapons().get(0)
+                                mItemsConvoy.getWeapons().get(0),
+                                mItemsConvoy.getWeapons().get(2),
+                                mItemsConvoy.getWeapons().get(1)
+                        )
+                ),
+                Utils.startUpWeaponProgress(),
+                CharacterClass.LORD,
+                CharacterState.ALIVE,
+                false
+        );
+
+        mCharacter2 = new Character(
+                "TestCharacter2",
+                1,
+                0,
+                15,
+                Utils.createStats(
+                        1,100,
+                        1,80,
+                        1,0,
+                        1,0,
+                        1,0,
+                        1,0,
+                        1,0,
+                        1,0
+                ),
+                mItemsConvoy.getWeapons().get(0),
+                new ArrayList<>(
+                        Arrays.asList(
+                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getWeapons().get(0),
+                                mItemsConvoy.getWeapons().get(2),
+                                mItemsConvoy.getWeapons().get(1)
                         )
                 ),
                 Utils.startUpWeaponProgress(),
@@ -92,9 +131,6 @@ public class EquipmentServiceTest {
         Assertions.assertTrue(mCharacter.getEquipment().contains(Seals.MASTER_SEAL));
         Assertions.assertFalse(mItemsConvoy.getEquipmentCollection().contains(Seals.MASTER_SEAL));
 
-        mEquipmentManagementService.getEquipmentForCharacterFromConvoy(mCharacter,mItemsConvoy,4);
-        mEquipmentManagementService.getEquipmentForCharacterFromConvoy(mCharacter,mItemsConvoy,4);
-
         Assertions.assertThrows(EquipmentLimitException.class,
                 () -> mEquipmentManagementService.getEquipmentForCharacterFromConvoy(mCharacter,mItemsConvoy,4));
 
@@ -106,14 +142,14 @@ public class EquipmentServiceTest {
     void testGivingToConvoy() {
         mEquipmentManagementService.giveEquipmentFromCharacterToConvoy(mCharacter,mItemsConvoy,0);
 
-        Assertions.assertEquals(2,mCharacter.getEquipment().size());
-        Assertions.assertEquals(11,mItemsConvoy.getEquipmentCollection().size());
+        Assertions.assertEquals(4,mCharacter.getEquipment().size());
+        Assertions.assertEquals(12,mItemsConvoy.getEquipmentCollection().size());
 
         mEquipmentManagementService.giveEquipmentFromCharacterToConvoy(mCharacter,mItemsConvoy,1);
 
-        Assertions.assertEquals(1,mCharacter.getEquipment().size());
+        Assertions.assertEquals(3,mCharacter.getEquipment().size());
         Assertions.assertNull(mCharacter.getCurrentEquipedItem());
-        Assertions.assertEquals(12,mItemsConvoy.getEquipmentCollection().size());
+        Assertions.assertEquals(13,mItemsConvoy.getEquipmentCollection().size());
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
                 () -> mEquipmentManagementService.giveEquipmentFromCharacterToConvoy(mCharacter,mItemsConvoy,6));
@@ -127,6 +163,35 @@ public class EquipmentServiceTest {
         Assertions.assertEquals(0,mCharacter.getEquipment().size());
         Assertions.assertNull(mCharacter.getCurrentEquipedItem());
 
-        Assertions.assertEquals(13,mItemsConvoy.getEquipmentCollection().size());
+        Assertions.assertEquals(16,mItemsConvoy.getEquipmentCollection().size());
+    }
+
+    @Test
+    void testTrade() throws EquipmentLimitException {
+        mEquipmentManagementService.trade(mCharacter,mCharacter2,2);
+
+        Assertions.assertNull(mCharacter.getCurrentEquipedItem());
+        Assertions.assertEquals(4,mCharacter.getEquipment().size());
+        Assertions.assertEquals(6,mCharacter2.getEquipment().size());
+
+        Assertions.assertThrows(EquipmentLimitException.class,
+                () -> mEquipmentManagementService.trade(mCharacter,mCharacter2,0));
+    }
+
+    @Test
+    void testEquip() throws InvalidEquipmentException {
+        Assertions.assertThrows(InvalidEquipmentException.class,
+                () -> mEquipmentManagementService.equipItem(mCharacter,0));
+
+        Assertions.assertThrows(InvalidEquipmentException.class,
+                () -> mEquipmentManagementService.equipItem(mCharacter,4));
+
+        Assertions.assertThrows(InvalidEquipmentException.class,
+                () -> mEquipmentManagementService.equipItem(mCharacter,3));
+
+        mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD).setRank(2);
+        mEquipmentManagementService.equipItem(mCharacter,4);
+
+        Assertions.assertEquals(mItemsConvoy.getWeapons().get(1), mCharacter.getCurrentEquipedItem());
     }
 }
