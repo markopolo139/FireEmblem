@@ -77,6 +77,7 @@ public abstract class BaseCharacter {
 
     public void setCharacterClass(CharacterClass characterClass) {
         mCharacterClass = characterClass;
+        mCharacterBattleStats.calculateBattleStats(this);
     }
 
     public String getName() {
@@ -89,6 +90,7 @@ public abstract class BaseCharacter {
 
     public void setCurrentEquipedItem(Equipment currentEquipedItem) {
         mCurrentEquipedItem = currentEquipedItem;
+        mCharacterBattleStats.calculateBattleStats(this);
     }
 
     public CharacterBattleStats getCharacterBattleStats() {

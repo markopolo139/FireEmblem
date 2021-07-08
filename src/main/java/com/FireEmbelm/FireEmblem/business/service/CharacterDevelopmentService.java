@@ -90,5 +90,6 @@ public class CharacterDevelopmentService {
         }
 
         levelUpCharacter.setLevel(levelUpCharacter.getLevel() + 1);
+        levelUpCharacter.getCharacterBattleStats().calculateBattleStats(levelUpCharacter);
     }
 }

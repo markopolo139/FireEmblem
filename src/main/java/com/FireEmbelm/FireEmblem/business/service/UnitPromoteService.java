@@ -36,7 +36,5 @@ public class UnitPromoteService {
         if(!character.getCharacterClass().getAllowedWeapons().contains(character.getCurrentEquipedItem().getItemCategory())) {
             character.setCurrentEquipedItem(null);
         }
-
-        character.getCharacterBattleStats().calculateBattleStats(character);
     }
 }
