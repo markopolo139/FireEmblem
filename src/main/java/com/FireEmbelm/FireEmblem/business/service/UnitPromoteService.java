@@ -17,21 +17,18 @@ public class UnitPromoteService {
 
     public static final int PROMOTE_EDGE = 15;
 
-    private List<CharacterClass> mPossibleClasses;
-
-    public Collection<CharacterClass> getPossibleClassesToPromote(Character character, Seals seals)
+    public List<CharacterClass> getPossibleClassesToPromote(Character character, Seals seals)
             throws PromoteException, CharacterLevelException {
 
         if(character.getLevel() < PROMOTE_EDGE)
             throw new CharacterLevelException();
 
-        mPossibleClasses = seals.possiblePromoteClass(character);
-        return mPossibleClasses;
+        return seals.possiblePromoteClass(character);;
     }
 
-    public void promoteCharacter(Character character, int possibleClassId) {
+    public void promoteCharacter(Character character, List<CharacterClass> possibleClass, int possibleClassId) {
 
-        character.setCharacterClass(mPossibleClasses.get(possibleClassId));
+        character.setCharacterClass(possibleClass.get(possibleClassId));
         character.setLevel(1);
         character.setExp(0);
         character.setRemainingHealth(
