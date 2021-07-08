@@ -1,18 +1,30 @@
 package com.FireEmbelm.FireEmblem.business.value.equipment;
 
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
+import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
+import com.FireEmbelm.FireEmblem.business.exceptions.PromoteException;
 import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
-//TODO : create promoting
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+//TODO : create promoting system
 public enum Seals implements Equipment {
     MASTER_SEAL(
             "Master Seal", 2500,
             "Master Seal - enable to promote to higher class from lv 15"
     ) {
         @Override
-        public void promoteCharacter(Character character) {
+        public List<CharacterClass> possiblePromoteClass(Character character) throws PromoteException {
 
+            if(character.getCharacterClass().isPromotedClass())
+                throw new PromoteException("Can't promote to higher class");
+
+            return character.getCharacterClass().getPromoteToClasses();
         }
     },
     HEART_SEAL(
@@ -20,8 +32,10 @@ public enum Seals implements Equipment {
             "Heart Seal - enable to change to another class, chosen randomly"
     ){
         @Override
-        public void promoteCharacter(Character character) {
-
+        public List<CharacterClass> possiblePromoteClass(Character character) {
+            return Arrays.stream(CharacterClass.values())
+                    .filter(i -> !i.isPromotedClass() && i != character.getCharacterClass())
+                    .collect(Collectors.toList());
         }
     };
 
@@ -29,7 +43,7 @@ public enum Seals implements Equipment {
     private final int mWorth;
     private final String mDescription;
 
-    public abstract void promoteCharacter(Character character);
+    public abstract List<CharacterClass> possiblePromoteClass(Character character) throws PromoteException;
 
     Seals(String itemName, int worth, String description) {
         mItemName = itemName;

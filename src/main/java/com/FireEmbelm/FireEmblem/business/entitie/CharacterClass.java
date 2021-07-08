@@ -7,10 +7,7 @@ import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public enum CharacterClass  {
     GREAT_LORD(
@@ -318,15 +315,14 @@ public enum CharacterClass  {
             ),
             false,
             Collections.singletonList(WAR_MONK)
-    )
-    ;
+    );
 
     private final String mClassName;
     private final int mMovement;
-    private final Collection<ItemCategory> mAllowedWeapons;
+    private final List<ItemCategory> mAllowedWeapons;
     private final HashMap<StatsType, Stats> mBonusStats;
     private final boolean mPromotedClass;
-    private final Collection<CharacterClass> mPromoteToClasses;
+    private final List<CharacterClass> mPromoteToClasses;
 
     public String getClassName() {
         return mClassName;
@@ -336,7 +332,7 @@ public enum CharacterClass  {
         return mMovement;
     }
 
-    public Collection<ItemCategory> getAllowedWeapons() {
+    public List<ItemCategory> getAllowedWeapons() {
         return mAllowedWeapons;
     }
 
@@ -348,13 +344,13 @@ public enum CharacterClass  {
         return mPromotedClass;
     }
 
-    public Collection<CharacterClass> getPromoteToClasses() {
+    public List<CharacterClass> getPromoteToClasses() {
         return mPromoteToClasses;
     }
 
     CharacterClass(
-            String className, int movement, Collection<ItemCategory> allowedWeapons,
-            HashMap<StatsType, Stats> bonusStats, boolean promotedClass, Collection<CharacterClass> promoteToClasses
+            String className, int movement, List<ItemCategory> allowedWeapons,
+            HashMap<StatsType, Stats> bonusStats, boolean promotedClass, List<CharacterClass> promoteToClasses
     ) {
         mClassName = className;
         mMovement = movement;
