@@ -2,6 +2,7 @@ package com.FireEmbelm.FireEmblem.business.service;
 
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
+import com.FireEmbelm.FireEmblem.business.exceptions.CharacterLevelException;
 import com.FireEmbelm.FireEmblem.business.exceptions.PromoteException;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
@@ -17,7 +18,10 @@ public class UnitPromoteService {
     private List<CharacterClass> mPossibleClasses;
 
     public Collection<CharacterClass> getPossibleClassesToPromote(Character character, Seals seals)
-            throws PromoteException {
+            throws PromoteException, CharacterLevelException {
+
+        if(character.getLevel() < 15)
+            throw new CharacterLevelException();
 
         mPossibleClasses = seals.possiblePromoteClass(character);
         return mPossibleClasses;
