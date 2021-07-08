@@ -2,13 +2,14 @@ package com.FireEmbelm.FireEmblem.business.value.equipment;
 
 import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 
 public enum HealingItems {
     VULNERARY("Vulnerary", 10, 300, 1, ConsumableItemCategory.RECOVERY_ITEM),
     CONCOCTIONS("Concoctions", 20 , 600, 1, ConsumableItemCategory.RECOVERY_ITEM),
     ELIXIR("Elixir", 30, 900, 1, ConsumableItemCategory.RECOVERY_ITEM),
-    MEND("Mend", 25, 1500, 2, ConsumableItemCategory.STAFF),
-    HEAL("Heal", 15, 800, 2, ConsumableItemCategory.STAFF);
+    MEND("Mend", 25, 1500, 2, WeaponCategory.STAFF),
+    HEAL("Heal", 15, 800, 2, WeaponCategory.STAFF);
 
     private final String mItemName;
     private final int mHealValue;

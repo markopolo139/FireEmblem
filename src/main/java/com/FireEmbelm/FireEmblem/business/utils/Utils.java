@@ -59,7 +59,7 @@ public class Utils {
         return (HashMap<String, WeaponProgress>) (Stream.of(
                new Object[][] {
                        { WeaponCategory.AXE.name(), new WeaponProgress(WeaponCategory.AXE,0,1) },
-                       { ConsumableItemCategory.STAFF.name(), new WeaponProgress(ConsumableItemCategory.STAFF,0,1) },
+                       { WeaponCategory.STAFF.name(), new WeaponProgress(WeaponCategory.STAFF,0,1) },
                        { WeaponCategory.SWORD.name(), new WeaponProgress(WeaponCategory.SWORD,0,1) },
                        { WeaponCategory.LANCE.name(), new WeaponProgress(WeaponCategory.LANCE,0,1) },
                        { WeaponCategory.BOW.name(), new WeaponProgress(WeaponCategory.BOW,0,1) },
