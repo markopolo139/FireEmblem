@@ -15,7 +15,7 @@ import java.util.List;
 // front end must give only seals there
 public class UnitPromoteService {
 
-    public static final int PROMOTE_EDGE = 15;
+    public static final int PROMOTE_EDGE = 10;
 
     public List<CharacterClass> getPossibleClassesToPromote(Character character, Seals seals)
             throws PromoteException, CharacterLevelException {
@@ -23,7 +23,7 @@ public class UnitPromoteService {
         if(character.getLevel() < PROMOTE_EDGE)
             throw new CharacterLevelException();
 
-        return seals.possiblePromoteClass(character);;
+        return seals.possiblePromoteClass(character);
     }
 
     public void promoteCharacter(Character character, List<CharacterClass> possibleClass, int possibleClassId) {
