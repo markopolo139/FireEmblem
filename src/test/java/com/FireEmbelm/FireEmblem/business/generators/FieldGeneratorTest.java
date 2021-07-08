@@ -5,13 +5,15 @@ import com.FireEmbelm.FireEmblem.business.value.Field.Spot;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
+
 public class FieldGeneratorTest {
 
     private final FieldGenerator mFieldGenerator = new FieldGenerator();
 
     @Test
     void testGenerator() {
-        Spot[][] field = mFieldGenerator.generateNewField();
+        Collection<Spot> field = mFieldGenerator.generateNewField();
 
         Assertions.assertNotNull(field);
     }
