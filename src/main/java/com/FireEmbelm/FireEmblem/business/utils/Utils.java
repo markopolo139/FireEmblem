@@ -55,17 +55,17 @@ public class Utils {
         ).collect(Collectors.toMap(data -> (StatsType) data[0], data -> (Stats) data[1])));
     }
 
-    public static HashMap<String, WeaponProgress> startUpWeaponProgress() {
-        return (HashMap<String, WeaponProgress>) (Stream.of(
+    public static HashMap<WeaponCategory, WeaponProgress> startUpWeaponProgress() {
+        return (HashMap<WeaponCategory, WeaponProgress>) (Stream.of(
                new Object[][] {
-                       { WeaponCategory.AXE.name(), new WeaponProgress(WeaponCategory.AXE,0,1) },
-                       { WeaponCategory.STAFF.name(), new WeaponProgress(WeaponCategory.STAFF,0,1) },
-                       { WeaponCategory.SWORD.name(), new WeaponProgress(WeaponCategory.SWORD,0,1) },
-                       { WeaponCategory.LANCE.name(), new WeaponProgress(WeaponCategory.LANCE,0,1) },
-                       { WeaponCategory.BOW.name(), new WeaponProgress(WeaponCategory.BOW,0,1) },
-                       { WeaponCategory.TOME.name(), new WeaponProgress(WeaponCategory.TOME,0,1) }
+                       { WeaponCategory.AXE, new WeaponProgress(WeaponCategory.AXE,0,1) },
+                       { WeaponCategory.STAFF, new WeaponProgress(WeaponCategory.STAFF,0,1) },
+                       { WeaponCategory.SWORD, new WeaponProgress(WeaponCategory.SWORD,0,1) },
+                       { WeaponCategory.LANCE, new WeaponProgress(WeaponCategory.LANCE,0,1) },
+                       { WeaponCategory.BOW, new WeaponProgress(WeaponCategory.BOW,0,1) },
+                       { WeaponCategory.TOME, new WeaponProgress(WeaponCategory.TOME,0,1) }
                }
-        ).collect(Collectors.toMap(data -> (String) data[0], data -> (WeaponProgress) data[1])));
+        ).collect(Collectors.toMap(data -> (WeaponCategory) data[0], data -> (WeaponProgress) data[1])));
     }
 
 }

@@ -115,7 +115,7 @@ public class CharacterDevelopmentTest {
                 1000
         );
 
-        mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD.name()).setProgress(95);
+        mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD).setProgress(95);
     }
 
     @Test
@@ -171,14 +171,14 @@ public class CharacterDevelopmentTest {
     void testWeaponProgress() {
         mCharacterDevelopmentService.increaseWeaponProgress(mCharacter);
 
-        Assertions.assertEquals(0,mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD.name()).getProgress());
-        Assertions.assertEquals(2,mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD.name()).getRank());
+        Assertions.assertEquals(0,mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD).getProgress());
+        Assertions.assertEquals(2,mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD).getRank());
 
         mCharacter.setCurrentEquipedItem(mItemsConvoy.getWeapons().get(2));
         mCharacterDevelopmentService.increaseWeaponProgress(mCharacter);
 
-        Assertions.assertEquals(5,mCharacter.getWeaponProgresses().get(WeaponCategory.AXE.name()).getProgress());
-        Assertions.assertEquals(1,mCharacter.getWeaponProgresses().get(WeaponCategory.AXE.name()).getRank());
+        Assertions.assertEquals(5,mCharacter.getWeaponProgresses().get(WeaponCategory.AXE).getProgress());
+        Assertions.assertEquals(1,mCharacter.getWeaponProgresses().get(WeaponCategory.AXE).getRank());
     }
 
     @Test

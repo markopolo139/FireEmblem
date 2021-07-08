@@ -3,6 +3,10 @@ package com.FireEmbelm.FireEmblem.business.service;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.EquipmentLimitException;
+import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
+import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 
 import java.util.Collection;
 
@@ -44,5 +48,30 @@ public class EquipmentManagementService {
             character.setCurrentEquipedItem(null);
         }
 
+    }
+
+    public void trade(Character tradeFrom, Character tradeTo, int equipmentId) throws EquipmentLimitException {
+
+        if(tradeTo.getEquipment().size() >= 6)
+            throw new EquipmentLimitException();
+
+        if(tradeFrom.getEquipment().get(equipmentId).equals(tradeFrom.getCurrentEquipedItem()))
+            tradeFrom.setCurrentEquipedItem(null);
+
+        tradeTo.getEquipment().add(tradeFrom.getEquipment().get(equipmentId));
+        tradeFrom.getEquipment().remove(equipmentId);
+
+    }
+
+    public void equipItem(Character character, int equipmentId) throws InvalidEquipmentException {
+        if(character.getEquipment().get(equipmentId) == null)
+            throw new InvalidEquipmentException();
+
+        if( (!character.getCharacterClass().getAllowedWeapons().contains(character.getEquipment().get(equipmentId).getItemCategory())
+                && character.getEquipment().get(equipmentId).getItemCategory() instanceof WeaponCategory)
+                || character.getEquipment().get(equipmentId).getItemCategory() instanceof ConsumableItemCategory)
+            throw new InvalidEquipmentException();
+
+        character.setCurrentEquipedItem(character.getEquipment().get(equipmentId));
     }
 }

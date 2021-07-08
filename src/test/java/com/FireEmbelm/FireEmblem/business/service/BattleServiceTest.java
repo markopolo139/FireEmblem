@@ -120,7 +120,7 @@ public class BattleServiceTest {
                 1000
         );
 
-        mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD.name()).setProgress(95);
+        mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD).setProgress(95);
 
         mAttackerSpot.setCharacterOnSpot(mCharacter);
         mDefenderSpot.setCharacterOnSpot(mEnemy);

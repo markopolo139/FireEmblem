@@ -88,7 +88,7 @@ public class EnemyGenerator {
             enemy.setDropItem(enemy.getCurrentEquipedItem());
 
         for(WeaponCategory wc : enemy.getCharacterClass().getAllowedWeapons()) {
-            enemy.getWeaponProgresses().put(wc.getName(),new WeaponProgress(wc,0, enemyWeaponRank));
+            enemy.getWeaponProgresses().put(wc,new WeaponProgress(wc,0, enemyWeaponRank));
         }
 
         enemy.getEquipment().add(enemy.getCurrentEquipedItem());

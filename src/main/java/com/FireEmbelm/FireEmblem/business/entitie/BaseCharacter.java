@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
+import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.*;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 
@@ -17,7 +18,7 @@ public abstract class BaseCharacter {
     private HashMap<StatsType, Stats> mStats;
     private Equipment mCurrentEquipedItem;
     private ArrayList<Equipment> mEquipment;
-    private HashMap<String, WeaponProgress> mWeaponProgresses;
+    private HashMap<WeaponCategory, WeaponProgress> mWeaponProgresses;
     private CharacterClass mCharacterClass;
     private CharacterBattleStats mCharacterBattleStats;
     private CharacterState mCharacterState;
@@ -63,11 +64,11 @@ public abstract class BaseCharacter {
         mStats = stats;
     }
 
-    public HashMap<String, WeaponProgress> getWeaponProgresses() {
+    public HashMap<WeaponCategory, WeaponProgress> getWeaponProgresses() {
         return mWeaponProgresses;
     }
 
-    public void setWeaponProgresses(HashMap<String, WeaponProgress> weaponProgresses) {
+    public void setWeaponProgresses(HashMap<WeaponCategory, WeaponProgress> weaponProgresses) {
         mWeaponProgresses = weaponProgresses;
     }
 
@@ -117,7 +118,7 @@ public abstract class BaseCharacter {
 
     public BaseCharacter(
             String name, int level, int exp, int remainingHealth, HashMap<StatsType, Stats> stats,
-            Equipment currentEquipedItem, ArrayList<Equipment> equipment, HashMap<String, WeaponProgress> weaponProgresses,
+            Equipment currentEquipedItem, ArrayList<Equipment> equipment, HashMap<WeaponCategory, WeaponProgress> weaponProgresses,
             CharacterClass characterClass, CharacterState characterState, boolean moved
     ) {
         mName = name;

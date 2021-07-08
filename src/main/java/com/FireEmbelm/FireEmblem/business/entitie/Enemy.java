@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
+import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
@@ -42,7 +43,7 @@ public class Enemy extends BaseCharacter {
 
     public Enemy(
             int level, int exp, int remainingHealth, HashMap<StatsType, Stats> stats, Equipment currentEquipedItem,
-            ArrayList<Equipment> equipment, HashMap<String, WeaponProgress> weaponProgresses, CharacterClass characterClass,
+            ArrayList<Equipment> equipment, HashMap<WeaponCategory, WeaponProgress> weaponProgresses, CharacterClass characterClass,
             CharacterState characterState, boolean moved, Equipment dropItem, boolean boss, int goldDrop
     ) {
         super(

@@ -37,8 +37,8 @@ public class BusinessConfiguration {
 
     @Bean
     @Scope("Singleton")
-    public BoardService getBoardService() {
-        return new BoardService();
+    public FieldService getBoardService() {
+        return new FieldService();
     }
 
     @Bean
