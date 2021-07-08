@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.business.service.generators;
 
-import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.service.CharacterDevelopmentService;
@@ -8,6 +7,7 @@ import com.FireEmbelm.FireEmblem.business.utils.Utils;
 import com.FireEmbelm.FireEmblem.business.value.Field.Spot;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
+import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 
@@ -26,45 +26,45 @@ public class EnemyGenerator {
         int howManyEnemies = (int) (field.size() / 6.25);
         int randomNumber;
         Collection<Enemy> enemies = new ArrayList<>();
+        List<CharacterClass> allowedEnemyClass = Arrays.stream(CharacterClass.values())
+                .filter(i -> i != CharacterClass.PRIEST && i != CharacterClass.LORD && !i.isPromotedClass())
+                .collect(Collectors.toList());
 
         while(howManyEnemies > 0) {
             randomNumber = mRandom.nextInt(field.size());
 
-            if(field.get(randomNumber).getCharacterOnSpot() == null) {
+            if(field.get(randomNumber).getCharacterOnSpot() == null && field.get(randomNumber).getHeight() > 3) {
 
                 Enemy enemy = new Enemy(
                         1,
                         0,
                         0,
                         Utils.createStats(
-                                1, 10 + mRandom.nextInt(50),
-                                1, 5 + mRandom.nextInt(20),
-                                1, 5 + mRandom.nextInt(20),
+                                1, 10 + mRandom.nextInt(65),
+                                1, 5 + mRandom.nextInt(15),
+                                1, 5 + mRandom.nextInt(15),
                                 1, 10 + mRandom.nextInt(20),
-                                1, 5 + mRandom.nextInt(15),
+                                1, 5 + mRandom.nextInt(10),
                                 1, 3 + mRandom.nextInt(5),
-                                1, 5 + mRandom.nextInt(15),
-                                1, 5 + mRandom.nextInt(15)
+                                1, 5 + mRandom.nextInt(10),
+                                1, 5 + mRandom.nextInt(10)
                         ),
                         null,
                         new ArrayList<>(),
                         new HashMap<>(),
-                        CharacterClass.values()[
-                                mRandom.nextInt(
-                                        (int) (Arrays.stream(CharacterClass.values())
-                                                .filter(i -> !i.isPromotedClass()).count() - 1)
-                                ) + 1
-                                ],
+                        allowedEnemyClass.get(mRandom.nextInt(allowedEnemyClass.size())),
                         CharacterState.ALIVE,
                         false,
                         null,
                         false,
-                        BASE_MONEY + mRandom.nextInt(201)
+                        ( (BASE_MONEY + mRandom.nextInt(201) ) / 10) * 10
                 );
 
                 field.get(randomNumber).setCharacterOnSpot(enemy);
                 setWeaponAndWeaponProgressForEnemy(enemy, allWeapon, highestLevel);
                 levelUpEnemies(enemy, highestLevel);
+
+                enemies.add(enemy);
 
                 howManyEnemies--;
             }
@@ -112,5 +112,8 @@ public class EnemyGenerator {
         for(int i = 1; i < highLv; i++) {
             mCharacterDevelopmentService.levelUp(enemy);
         }
+
+        enemy.setRemainingHealth(enemy.getStats().get(StatsType.HEALTH).getValue()
+                + enemy.getCharacterClass().getBonusStats().get(StatsType.HEALTH).getValue());
     }
 }

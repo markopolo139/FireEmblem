@@ -11,6 +11,7 @@ public class FieldGeneratorTest {
 
     private final FieldGenerator mFieldGenerator = new FieldGenerator();
 
+    //DO manual debug to test
     @Test
     void testGenerator() {
         Collection<Spot> field = mFieldGenerator.generateNewField();
