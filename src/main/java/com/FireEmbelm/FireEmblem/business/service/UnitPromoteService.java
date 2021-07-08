@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-//TODO : think where to put or is there correct
+//TODO :
 // front end must give only seals there
 public class UnitPromoteService {
 
