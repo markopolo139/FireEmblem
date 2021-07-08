@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.value.equipment;
 
+import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
@@ -20,7 +21,7 @@ public class Weapon implements Equipment {
     private int mUses;
     private final int mRange;
     private final int mWorth;
-    private final ItemCategory mItemCategory;
+    private final WeaponCategory mItemCategory;
 
     public int getRank() {
         return mRank;
@@ -88,7 +89,7 @@ public class Weapon implements Equipment {
 
     public Weapon(
             String name, int rank, int might, int hit, int avo, int crit,
-            int uses, int range, int worth, ItemCategory itemCategory
+            int uses, int range, int worth, WeaponCategory itemCategory
     ) {
         mName = name;
         mRank = rank;

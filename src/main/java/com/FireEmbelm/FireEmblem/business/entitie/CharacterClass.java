@@ -319,7 +319,7 @@ public enum CharacterClass  {
 
     private final String mClassName;
     private final int mMovement;
-    private final List<ItemCategory> mAllowedWeapons;
+    private final List<WeaponCategory> mAllowedWeapons;
     private final HashMap<StatsType, Stats> mBonusStats;
     private final boolean mPromotedClass;
     private final List<CharacterClass> mPromoteToClasses;
@@ -332,7 +332,7 @@ public enum CharacterClass  {
         return mMovement;
     }
 
-    public List<ItemCategory> getAllowedWeapons() {
+    public List<WeaponCategory> getAllowedWeapons() {
         return mAllowedWeapons;
     }
 
@@ -349,7 +349,7 @@ public enum CharacterClass  {
     }
 
     CharacterClass(
-            String className, int movement, List<ItemCategory> allowedWeapons,
+            String className, int movement, List<WeaponCategory> allowedWeapons,
             HashMap<StatsType, Stats> bonusStats, boolean promotedClass, List<CharacterClass> promoteToClasses
     ) {
         mClassName = className;
