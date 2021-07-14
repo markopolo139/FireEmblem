@@ -1,8 +1,10 @@
 package com.FireEmbelm.FireEmblem.business.service;
 
 import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
+import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
+import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
 import com.FireEmbelm.FireEmblem.business.exceptions.NoWeaponException;
 import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
 import com.FireEmbelm.FireEmblem.business.value.Field.Spot;
@@ -26,10 +28,17 @@ public class BattleService {
     }
 
     public void initialiseBattle(Spot attackerSpot, Spot defenderSpot, ItemsConvoy itemsConvoy)
-            throws NoWeaponException, OutOfRangeException {
+            throws NoWeaponException, OutOfRangeException, InvalidSpotException {
 
         BaseCharacter attacker = attackerSpot.getCharacterOnSpot();
         BaseCharacter defender = defenderSpot.getCharacterOnSpot();
+
+        if(attacker == null || defender == null)
+            throw new InvalidSpotException("Can't battle with empty spot");
+
+        if((attacker instanceof Enemy && defender instanceof Enemy)
+                || (attacker instanceof Character && defender instanceof Character))
+            throw new InvalidSpotException("Can't attack the same type of characters");
 
         if( !(attacker.getCurrentEquipedItem().getItemCategory() instanceof WeaponCategory) )
             throw new NoWeaponException("Can't attack without a weapon");
