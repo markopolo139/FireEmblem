@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-//TODO :
-// front end must give only seals there
 public class UnitPromoteService {
 
     public static final int PROMOTE_EDGE = 10;
