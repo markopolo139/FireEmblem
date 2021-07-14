@@ -2,28 +2,35 @@ package com.FireEmbelm.FireEmblem.business.value.equipment;
 
 import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 
 public enum StatsUpItems implements Equipment {
-    STRENGTH_UP("Str UP", 1, 2000),
-    MAGICK_UP("Mag UP", 1, 2000),
-    DEFENSE_UP("Def UP", 2, 2000),
-    RESISTANCE_UP("Res UP", 2, 2000),
-    LUCK_UP("Lck UP", 3, 2000),
-    SKILL_UP("Skill UP", 3, 2000),
-    SPEED_UP("Spd UP", 1, 2000);
+    STRENGTH_UP("Str UP", 1, 2000, StatsType.STRENGTH),
+    MAGICK_UP("Mag UP", 1, 2000, StatsType.MAGICK),
+    DEFENSE_UP("Def UP", 2, 2000, StatsType.DEFENSE),
+    RESISTANCE_UP("Res UP", 2, 2000, StatsType.RESISTANCE),
+    LUCK_UP("Lck UP", 3, 2000, StatsType.LUCK),
+    SKILL_UP("Skill UP", 3, 2000, StatsType.SKILL),
+    SPEED_UP("Spd UP", 1, 2000, StatsType.SPEED);
 
     private final String mItemName;
     private final int mHowMuchStatUp;
     private final int mWorth;
+    private final StatsType mBoostedStat;
 
-    StatsUpItems(String itemName, int howMuchStatUp, int worth) {
+    StatsUpItems(String itemName, int howMuchStatUp, int worth, StatsType boostedStat) {
         mItemName = itemName;
         mHowMuchStatUp = howMuchStatUp;
         mWorth = worth;
+        mBoostedStat = boostedStat;
     }
 
     public int getHowMuchStatUp() {
         return mHowMuchStatUp;
+    }
+
+    public StatsType getBoostedStat() {
+        return mBoostedStat;
     }
 
     @Override
