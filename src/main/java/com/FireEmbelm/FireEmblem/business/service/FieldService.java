@@ -130,4 +130,16 @@ public class FieldService {
 
     }
 
+    public void placeCharacter(Character character, Spot spot) throws InvalidSpotException {
+
+        if(spot.getHeight() > 2)
+            throw new InvalidSpotException("Spot is too far");
+
+        if(spot.getCharacterOnSpot() != null)
+            throw new InvalidSpotException("Can't place character on another character");
+
+        spot.setCharacterOnSpot(character);
+
+    }
+
 }
