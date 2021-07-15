@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CharacterBattleStatsTest {
 
@@ -38,7 +39,14 @@ public class CharacterBattleStatsTest {
                         "Iron Sword",2,5,95, 0,
                         0,50,1, 520, WeaponCategory.SWORD
                 ),
-                new ArrayList<>(),
+                new ArrayList<>(
+                        Collections.singleton(
+                                new Weapon(
+                                        "Iron Sword",2,5,95, 0,
+                                        0,50,1, 520, WeaponCategory.SWORD
+                                )
+                        )
+                ),
                 Utils.startUpWeaponProgress(),
                 CharacterClass.LORD,
                 CharacterState.ALIVE,

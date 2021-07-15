@@ -126,8 +126,8 @@ public abstract class BaseCharacter {
         mExp = exp;
         mRemainingHealth = remainingHealth;
         mStats = stats;
-        mCurrentEquipedItem = currentEquipedItem;
         mEquipment = equipment;
+        mCurrentEquipedItem = mEquipment.stream().filter(i -> i.equals(currentEquipedItem)).findAny().orElse(null);
         mWeaponProgresses = weaponProgresses;
         mCharacterClass = characterClass;
         mCharacterBattleStats = new CharacterBattleStats(this);

@@ -108,7 +108,8 @@ public class BattleServiceTest {
                         Arrays.asList(
                                 mItemsConvoy.getEquipmentCollection().get(0),
                                 mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getWeapons().get(0)
+                                mItemsConvoy.getWeapons().get(0),
+                                mItemsConvoy.getWeapons().get(1)
                         )
                 ),
                 Utils.startUpWeaponProgress(),

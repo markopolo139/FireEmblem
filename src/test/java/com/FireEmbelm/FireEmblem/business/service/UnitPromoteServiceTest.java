@@ -7,6 +7,7 @@ import com.FireEmbelm.FireEmblem.business.exceptions.PromoteException;
 import com.FireEmbelm.FireEmblem.business.utils.Utils;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class UnitPromoteServiceTest {
@@ -43,7 +45,14 @@ public class UnitPromoteServiceTest {
                         "Bronze Sword",1,3,100, 0,
                         0,50,1, 350, WeaponCategory.SWORD
                 ),
-                new ArrayList<>(),
+                new ArrayList<>(
+                        Collections.singletonList(
+                                new Weapon(
+                                        "Bronze Sword", 1, 3, 100, 0,
+                                        0, 50, 1, 350, WeaponCategory.SWORD
+                                )
+                        )
+                ),
                 Utils.startUpWeaponProgress(),
                 CharacterClass.LORD,
                 CharacterState.ALIVE,
