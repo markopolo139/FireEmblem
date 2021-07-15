@@ -1,6 +1,4 @@
-package com.FireEmbelm.FireEmblem.business.value.Field;
-
-import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
+package com.FireEmbelm.FireEmblem.business.value.field;
 
 public enum SpotsType {
     FORREST(1,0,10,2),
