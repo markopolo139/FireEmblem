@@ -1,23 +1,24 @@
 package com.FireEmbelm.FireEmblem.business.value.character.related;
 
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 
 import java.util.Objects;
 
 public class WeaponProgress {
 
-    private final ItemCategory mItemCategory;
+    private final WeaponCategory mWeaponCategory;
     private int mProgress = 0;
     private int rank = 1;
 
-    public WeaponProgress(ItemCategory itemCategory, int progress, int rank) {
-        mItemCategory = itemCategory;
+    public WeaponProgress(WeaponCategory WeaponCategory, int progress, int rank) {
+        mWeaponCategory = WeaponCategory;
         mProgress = progress;
         this.rank = rank;
     }
 
-    public ItemCategory getItemCategory() {
-        return mItemCategory;
+    public WeaponCategory getWeaponCategory() {
+        return mWeaponCategory;
     }
 
     public int getProgress() {
@@ -43,11 +44,11 @@ public class WeaponProgress {
         WeaponProgress that = (WeaponProgress) o;
         return getProgress() == that.getProgress()
                 && getRank() == that.getRank()
-                && getItemCategory() == that.getItemCategory();
+                && getWeaponCategory() == that.getWeaponCategory();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getItemCategory(), getProgress(), getRank());
+        return Objects.hash(getWeaponCategory(), getProgress(), getRank());
     }
 }
