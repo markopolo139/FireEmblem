@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.business.value.character.related;
 
-import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 
 import java.util.Objects;
@@ -9,12 +8,12 @@ public class WeaponProgress {
 
     private final WeaponCategory mWeaponCategory;
     private int mProgress = 0;
-    private int rank = 1;
+    private int mRank = 1;
 
     public WeaponProgress(WeaponCategory WeaponCategory, int progress, int rank) {
         mWeaponCategory = WeaponCategory;
         mProgress = progress;
-        this.rank = rank;
+        this.mRank = rank;
     }
 
     public WeaponCategory getWeaponCategory() {
@@ -26,7 +25,7 @@ public class WeaponProgress {
     }
 
     public int getRank() {
-        return rank;
+        return mRank;
     }
 
     public void setProgress(int progress) {
@@ -34,7 +33,7 @@ public class WeaponProgress {
     }
 
     public void setRank(int rank) {
-        this.rank = rank;
+        this.mRank = rank;
     }
 
     @Override
