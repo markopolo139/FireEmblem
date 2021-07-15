@@ -14,7 +14,6 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//TODO : give highest level ( + 20 if promote)
 public class EnemyGenerator {
 
     public static final int BASE_MONEY = 400;

@@ -4,7 +4,6 @@ import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
 import java.util.Objects;
 
-//TODO: all weapon category for one character
 public class WeaponProgress {
 
     private final ItemCategory mItemCategory;

@@ -17,7 +17,6 @@ import java.util.Random;
 
 //TODO :
 // front-end inform user if using weapon with last use
-// in interactor : check status (if dead, set spot to null and save dead character, and spot with null) (if alive, save spot with character
 public class BattleService {
 
     private final Random mRandom = new Random();

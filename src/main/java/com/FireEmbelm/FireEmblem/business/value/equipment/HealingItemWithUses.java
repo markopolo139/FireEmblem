@@ -4,7 +4,6 @@ import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 
 import java.util.Objects;
 
-//TODO : create in base all healing items
 public class HealingItemWithUses implements Equipment{
 
     private HealingItems mHealingItems;

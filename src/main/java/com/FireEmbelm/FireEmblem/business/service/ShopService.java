@@ -10,7 +10,6 @@ import java.util.List;
 
 //TODO :
 // in front-end write id
-// interactor gives random items (items in base will have levels [1 - 5lv of highest level player character, 2 -10lv]
 public class ShopService {
 
     private static final double SELL_PERCENTAGE = 0.8;
