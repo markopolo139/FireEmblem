@@ -12,49 +12,49 @@ import org.springframework.context.annotation.Scope;
 public class BusinessConfiguration {
 
     @Bean
-    @Scope("Singleton")
+    @Scope("singleton")
     public ShopService getShopService() {
         return new ShopService();
     }
 
     @Bean
-    @Scope("Singleton")
+    @Scope("singleton")
     public FieldGenerator getFieldGenerator() {
         return new FieldGenerator();
     }
 
     @Bean
-    @Scope("Singleton")
+    @Scope("singleton")
     public BattleService getBattleService() {
         return new BattleService(getCharacterDevelopmentService());
     }
 
     @Bean
-    @Scope("Singleton")
+    @Scope("singleton")
     public EnemyGenerator getEnemyGenerator() {
         return new EnemyGenerator();
     }
 
     @Bean
-    @Scope("Singleton")
+    @Scope("singleton")
     public FieldService getBoardService() {
         return new FieldService();
     }
 
     @Bean
-    @Scope("Singleton")
+    @Scope("singleton")
     public CharacterDevelopmentService getCharacterDevelopmentService() {
         return new CharacterDevelopmentService();
     }
 
     @Bean
-    @Scope("Singleton")
+    @Scope("singleton")
     public EquipmentManagementService getEquipmentManagementService() {
         return new EquipmentManagementService();
     }
 
     @Bean
-    @Scope("Singleton")
+    @Scope("singleton")
     public UnitPromoteService getUnitPromoteService() {
         return new UnitPromoteService();
     }
