@@ -46,8 +46,35 @@ public class EnemyEntity {
 
     public int goldDrop;
 
-    @Embedded
-    public EquipmentEmbeddable equipmentEmbeddable;
+    @ElementCollection
+    @CollectionTable(name = "enemies_equipment_heal_items", joinColumns = {
+            @JoinColumn(name = "enemy_id ")
+    })
+    @Nullable
+    public List<HealingItemEmbeddable> healingItems;
+
+    @ElementCollection
+    @CollectionTable(name = "enemies_equipment_weapons", joinColumns = {
+            @JoinColumn(name = "enemy_id ")
+    })
+    @Nullable
+    public List<WeaponEmbeddable> weapons;
+
+    @ElementCollection
+    @CollectionTable(name = "enemies_equipment_seals", joinColumns = {
+            @JoinColumn(name = "enemy_id ")
+    })
+    @Nullable
+    @Enumerated(EnumType.STRING)
+    public List<Seals> seals;
+
+    @ElementCollection
+    @CollectionTable(name = "enemies_equipment_stats_up", joinColumns = {
+            @JoinColumn(name = "enemy_id ")
+    })
+    @Nullable
+    @Enumerated(EnumType.STRING)
+    public List<StatsUpItems> statsUpItems;
 
     @ElementCollection
     @CollectionTable(name = "enemies_stats", joinColumns = {
@@ -61,39 +88,12 @@ public class EnemyEntity {
     })
     public List<WeaponProgressEmbeddable> weaponProgress;
 
-    @CollectionTable(name = "enemies_equipment_heal_items", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
-    })
-    public List<HealingItemEmbeddable> getHealingItems() {
-        return equipmentEmbeddable.healingItems;
-    }
-
-    @CollectionTable(name = "enemies_equipment_weapons", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
-    })
-    public List<WeaponEmbeddable> getWeapons() {
-        return equipmentEmbeddable.weapons;
-    }
-
-    @CollectionTable(name = "enemies_equipment_seals", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
-    })
-    public List<Seals> getSeals() {
-        return equipmentEmbeddable.seals;
-    }
-
-    @CollectionTable(name = "enemies_equipment_stats_up", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
-    })
-    public List<StatsUpItems> getStatsUpItems() {
-        return equipmentEmbeddable.statsUpItems;
-    }
-
     public EnemyEntity(
-            Long enemyId, String name, int level, int exp, int remainingHealth,
-            @Nullable Integer currentEquipedItemId, CharacterClass characterClass, CharacterState characterState,
-            boolean moved, int dropItemId, boolean boss, int goldDrop, EquipmentEmbeddable equipmentEmbeddable,
-            List<StatEmbeddable> stats, List<WeaponProgressEmbeddable> weaponProgress
+            Long enemyId, String name, int level, int exp, int remainingHealth, @Nullable Integer currentEquipedItemId,
+            CharacterClass characterClass, CharacterState characterState, boolean moved, int dropItemId, boolean boss,
+            int goldDrop, @Nullable List<HealingItemEmbeddable> healingItems, @Nullable List<WeaponEmbeddable> weapons,
+            @Nullable List<Seals> seals, @Nullable List<StatsUpItems> statsUpItems, List<StatEmbeddable> stats,
+            List<WeaponProgressEmbeddable> weaponProgress
     ) {
         this.enemyId = enemyId;
         this.name = name;
@@ -107,7 +107,10 @@ public class EnemyEntity {
         this.dropItemId = dropItemId;
         this.boss = boss;
         this.goldDrop = goldDrop;
-        this.equipmentEmbeddable = equipmentEmbeddable;
+        this.healingItems = healingItems;
+        this.weapons = weapons;
+        this.seals = seals;
+        this.statsUpItems = statsUpItems;
         this.stats = stats;
         this.weaponProgress = weaponProgress;
     }

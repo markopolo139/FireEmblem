@@ -40,8 +40,35 @@ public class CharacterEntity {
 
     public boolean moved;
 
-    @Embedded
-    public EquipmentEmbeddable equipmentEmbeddable;
+    @ElementCollection
+    @CollectionTable(name = "character_equipment_heal_items", joinColumns = {
+            @JoinColumn(name = "character_id")
+    })
+    @Nullable
+    public List<HealingItemEmbeddable> healingItems;
+
+    @ElementCollection
+    @CollectionTable(name = "character_equipment_weapons", joinColumns = {
+            @JoinColumn(name = "character_id")
+    })
+    @Nullable
+    public List<WeaponEmbeddable> weapons;
+
+    @ElementCollection
+    @CollectionTable(name = "character_equipment_seals", joinColumns = {
+            @JoinColumn(name = "character_id")
+    })
+    @Nullable
+    @Enumerated(EnumType.STRING)
+    public List<Seals> seals;
+
+    @ElementCollection
+    @CollectionTable(name = "character_equipment_stats_up", joinColumns = {
+            @JoinColumn(name = "character_id")
+    })
+    @Nullable
+    @Enumerated(EnumType.STRING)
+    public List<StatsUpItems> statsUpItems;
 
     @ElementCollection
     @CollectionTable(name = "character_stats", joinColumns = {
@@ -51,45 +78,20 @@ public class CharacterEntity {
 
     @ElementCollection
     @CollectionTable(name = "character_weapon_progress", joinColumns = {
-            @JoinColumn(name = "character_id ")
+            @JoinColumn(name = "character_id")
     })
     public List<WeaponProgressEmbeddable> weaponProgress;
-
-    @CollectionTable(name = "character_equipment_heal_items", joinColumns = {
-            @JoinColumn(name = "character_id ")
-    })
-    public List<HealingItemEmbeddable> getHealingItems() {
-        return equipmentEmbeddable.healingItems;
-    }
-
-    @CollectionTable(name = "character_equipment_weapons", joinColumns = {
-            @JoinColumn(name = "character_id ")
-    })
-    public List<WeaponEmbeddable> getWeapons() {
-        return equipmentEmbeddable.weapons;
-    }
-
-    @CollectionTable(name = "character_equipment_seals", joinColumns = {
-            @JoinColumn(name = "character_id ")
-    })
-    public List<Seals> getSeals() {
-        return equipmentEmbeddable.seals;
-    }
-
-    @CollectionTable(name = "character_equipment_stats_up", joinColumns = {
-            @JoinColumn(name = "character_id ")
-    })
-    public List<StatsUpItems> getStatsUpItems() {
-        return equipmentEmbeddable.statsUpItems;
-    }
 
     private CharacterEntity() {
     }
 
     public CharacterEntity(
             Long characterId, String name, int level, int exp, int remainingHealth,
-            @Nullable Integer currentEquipedItemId, CharacterClass characterClass, CharacterState characterState,
-            boolean moved, EquipmentEmbeddable equipmentEmbeddable, List<StatEmbeddable> stats, List<WeaponProgressEmbeddable> weaponProgress
+            @Nullable Integer currentEquipedItemId, CharacterClass characterClass,
+            CharacterState characterState, boolean moved, @Nullable List<HealingItemEmbeddable> healingItems,
+            @Nullable List<WeaponEmbeddable> weapons, @Nullable List<Seals> seals,
+            @Nullable List<StatsUpItems> statsUpItems, List<StatEmbeddable> stats,
+            List<WeaponProgressEmbeddable> weaponProgress
     ) {
         this.characterId = characterId;
         this.name = name;
@@ -100,7 +102,10 @@ public class CharacterEntity {
         this.characterClass = characterClass;
         this.characterState = characterState;
         this.moved = moved;
-        this.equipmentEmbeddable = equipmentEmbeddable;
+        this.healingItems = healingItems;
+        this.weapons = weapons;
+        this.seals = seals;
+        this.statsUpItems = statsUpItems;
         this.stats = stats;
         this.weaponProgress = weaponProgress;
     }
