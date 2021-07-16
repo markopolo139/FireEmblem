@@ -53,4 +53,10 @@ public class BusinessConfiguration {
         return new EquipmentManagementService();
     }
 
+    @Bean
+    @Scope("Singleton")
+    public UnitPromoteService getUnitPromoteService() {
+        return new UnitPromoteService();
+    }
+
 }
