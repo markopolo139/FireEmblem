@@ -1,7 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.generators;
 
 import com.FireEmbelm.FireEmblem.business.service.generators.FieldGenerator;
-import com.FireEmbelm.FireEmblem.business.value.Field.Spot;
+import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

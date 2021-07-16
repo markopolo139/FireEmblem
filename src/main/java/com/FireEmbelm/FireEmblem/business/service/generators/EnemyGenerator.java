@@ -4,7 +4,7 @@ import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.service.CharacterDevelopmentService;
 import com.FireEmbelm.FireEmblem.business.utils.Utils;
-import com.FireEmbelm.FireEmblem.business.value.Field.Spot;
+import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;

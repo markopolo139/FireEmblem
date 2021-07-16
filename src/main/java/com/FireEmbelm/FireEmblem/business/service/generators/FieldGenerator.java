@@ -1,7 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.service.generators;
 
-import com.FireEmbelm.FireEmblem.business.value.Field.Spot;
-import com.FireEmbelm.FireEmblem.business.value.Field.SpotsType;
+import com.FireEmbelm.FireEmblem.business.value.field.Spot;
+import com.FireEmbelm.FireEmblem.business.value.field.SpotsType;
 
 import java.util.ArrayList;
 import java.util.Collection;
