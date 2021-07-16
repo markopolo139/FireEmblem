@@ -66,7 +66,7 @@ public class EnemyEntity {
     })
     @Nullable
     @Enumerated(EnumType.STRING)
-    public List<Seals> seals;
+    public List<Seals> sealType;
 
     @ElementCollection
     @CollectionTable(name = "enemies_equipment_stats_up", joinColumns = {
@@ -74,7 +74,7 @@ public class EnemyEntity {
     })
     @Nullable
     @Enumerated(EnumType.STRING)
-    public List<StatsUpItems> statsUpItems;
+    public List<StatsUpItems> statUpType;
 
     @ElementCollection
     @CollectionTable(name = "enemies_stats", joinColumns = {
@@ -92,7 +92,7 @@ public class EnemyEntity {
             Long enemyId, String name, int level, int exp, int remainingHealth, @Nullable Integer currentEquipedItemId,
             CharacterClass characterClass, CharacterState characterState, boolean moved, int dropItemId, boolean boss,
             int goldDrop, @Nullable List<HealingItemEmbeddable> healingItems, @Nullable List<WeaponEmbeddable> weapons,
-            @Nullable List<Seals> seals, @Nullable List<StatsUpItems> statsUpItems, List<StatEmbeddable> stats,
+            @Nullable List<Seals> sealType, @Nullable List<StatsUpItems> statUpType, List<StatEmbeddable> stats,
             List<WeaponProgressEmbeddable> weaponProgress
     ) {
         this.enemyId = enemyId;
@@ -109,8 +109,8 @@ public class EnemyEntity {
         this.goldDrop = goldDrop;
         this.healingItems = healingItems;
         this.weapons = weapons;
-        this.seals = seals;
-        this.statsUpItems = statsUpItems;
+        this.sealType = sealType;
+        this.statUpType = statUpType;
         this.stats = stats;
         this.weaponProgress = weaponProgress;
     }

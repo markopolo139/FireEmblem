@@ -38,7 +38,7 @@ public class ItemsConvoyEntity {
     })
     @Nullable
     @Enumerated(EnumType.STRING)
-    public List<Seals> seals;
+    public List<Seals> sealType;
 
     @ElementCollection
     @CollectionTable(name = "player_stat_up_items", joinColumns = {
@@ -46,17 +46,17 @@ public class ItemsConvoyEntity {
     })
     @Nullable
     @Enumerated(EnumType.STRING)
-    public List<StatsUpItems> statsUpItems;
+    public List<StatsUpItems> statUpType;
 
     public ItemsConvoyEntity(
             Long convoyId, @Nullable List<HealingItemEmbeddable> healingItems, @Nullable List<WeaponEmbeddable> weapons,
-            @Nullable List<Seals> seals, @Nullable List<StatsUpItems> statsUpItems
+            @Nullable List<Seals> sealType, @Nullable List<StatsUpItems> statUpType
     ) {
         this.convoyId = convoyId;
         this.healingItems = healingItems;
         this.weapons = weapons;
-        this.seals = seals;
-        this.statsUpItems = statsUpItems;
+        this.sealType = sealType;
+        this.statUpType = statUpType;
     }
 
     private ItemsConvoyEntity() {
@@ -70,12 +70,12 @@ public class ItemsConvoyEntity {
         return Objects.equals(convoyId, that.convoyId)
                 && Objects.equals(healingItems, that.healingItems)
                 && Objects.equals(weapons, that.weapons)
-                && Objects.equals(seals, that.seals)
-                && Objects.equals(statsUpItems, that.statsUpItems);
+                && Objects.equals(sealType, that.sealType)
+                && Objects.equals(statUpType, that.statUpType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(convoyId, healingItems, weapons, seals, statsUpItems);
+        return Objects.hash(convoyId, healingItems, weapons, sealType, statUpType);
     }
 }

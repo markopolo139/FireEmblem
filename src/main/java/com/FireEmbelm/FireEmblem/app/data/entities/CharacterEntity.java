@@ -60,7 +60,7 @@ public class CharacterEntity {
     })
     @Nullable
     @Enumerated(EnumType.STRING)
-    public List<Seals> seals;
+    public List<Seals> sealType;
 
     @ElementCollection
     @CollectionTable(name = "character_equipment_stats_up", joinColumns = {
@@ -68,7 +68,7 @@ public class CharacterEntity {
     })
     @Nullable
     @Enumerated(EnumType.STRING)
-    public List<StatsUpItems> statsUpItems;
+    public List<StatsUpItems> statUpType;
 
     @ElementCollection
     @CollectionTable(name = "character_stats", joinColumns = {
@@ -90,7 +90,7 @@ public class CharacterEntity {
             @Nullable Integer currentEquipedItemId, CharacterClass characterClass,
             CharacterState characterState, boolean moved, @Nullable List<HealingItemEmbeddable> healingItems,
             @Nullable List<WeaponEmbeddable> weapons, @Nullable List<Seals> seals,
-            @Nullable List<StatsUpItems> statsUpItems, List<StatEmbeddable> stats,
+            @Nullable List<StatsUpItems> statUpType, List<StatEmbeddable> stats,
             List<WeaponProgressEmbeddable> weaponProgress
     ) {
         this.characterId = characterId;
@@ -104,8 +104,8 @@ public class CharacterEntity {
         this.moved = moved;
         this.healingItems = healingItems;
         this.weapons = weapons;
-        this.seals = seals;
-        this.statsUpItems = statsUpItems;
+        this.sealType = seals;
+        this.statUpType = statUpType;
         this.stats = stats;
         this.weaponProgress = weaponProgress;
     }

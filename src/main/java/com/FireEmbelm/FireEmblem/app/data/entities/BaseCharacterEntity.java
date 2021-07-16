@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.app.data.entities;
 
-import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.EquipmentEmbeddable;
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.StatEmbeddable;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;

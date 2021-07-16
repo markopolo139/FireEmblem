@@ -11,14 +11,14 @@ import java.util.Objects;
 public class StatEmbeddable {
 
     @Enumerated(EnumType.STRING)
-    public StatsType statsType;
+    public StatsType statType;
 
     public int value;
 
     public int increaseChance;
 
     public StatEmbeddable(StatsType statsType, int value, int increaseChance) {
-        this.statsType = statsType;
+        this.statType = statsType;
         this.value = value;
         this.increaseChance = increaseChance;
     }
@@ -31,11 +31,11 @@ public class StatEmbeddable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StatEmbeddable that = (StatEmbeddable) o;
-        return value == that.value && increaseChance == that.increaseChance && statsType == that.statsType;
+        return value == that.value && increaseChance == that.increaseChance && statType == that.statType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(statsType, value, increaseChance);
+        return Objects.hash(statType, value, increaseChance);
     }
 }
