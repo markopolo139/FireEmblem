@@ -23,10 +23,12 @@ public class SpotEntity {
 
     @OneToOne
     @Nullable
+    @JoinColumn(name = "character_id")
     public CharacterEntity characterId;
 
     @OneToOne
     @Nullable
+    @JoinColumn(name = "enemy_id")
     public EnemyEntity enemyId;
 
     public SpotEntity(
