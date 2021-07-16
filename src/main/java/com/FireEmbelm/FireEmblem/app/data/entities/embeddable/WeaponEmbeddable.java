@@ -2,6 +2,7 @@ package com.FireEmbelm.FireEmblem.app.data.entities.embeddable;
 
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,7 +18,10 @@ public class WeaponEmbeddable {
     public int avo;
     public int crit;
     public int uses;
+
+    @Column(name = "\"range\"")
     public int range;
+
     public int worth;
 
     @Enumerated(EnumType.STRING)
