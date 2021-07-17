@@ -3,11 +3,11 @@ package com.FireEmbelm.FireEmblem.business.service;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
-import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItemWithUses;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
+import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 
 import java.util.Collection;
 

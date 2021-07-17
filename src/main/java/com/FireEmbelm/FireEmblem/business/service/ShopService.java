@@ -5,8 +5,6 @@ import com.FireEmbelm.FireEmblem.business.exceptions.TooSmallAmountOfMoneyExcept
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 //TODO :
 // in front-end write id

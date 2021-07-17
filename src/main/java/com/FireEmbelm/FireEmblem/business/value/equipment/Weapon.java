@@ -1,7 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.value.equipment;
 
-import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 
 import java.util.Objects;
 

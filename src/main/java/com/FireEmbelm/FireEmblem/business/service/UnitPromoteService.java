@@ -7,8 +7,6 @@ import com.FireEmbelm.FireEmblem.business.exceptions.PromoteException;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class UnitPromoteService {

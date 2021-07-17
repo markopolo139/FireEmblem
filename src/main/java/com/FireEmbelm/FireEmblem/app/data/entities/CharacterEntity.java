@@ -1,6 +1,9 @@
 package com.FireEmbelm.FireEmblem.app.data.entities;
 
-import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.*;
+import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.HealingItemEmbeddable;
+import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.StatEmbeddable;
+import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponEmbeddable;
+import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponProgressEmbeddable;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;

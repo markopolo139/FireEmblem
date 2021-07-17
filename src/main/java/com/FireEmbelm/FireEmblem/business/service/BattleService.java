@@ -7,11 +7,11 @@ import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
 import com.FireEmbelm.FireEmblem.business.exceptions.NoWeaponException;
 import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
-import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterBattleStats;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
+import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 
 import java.util.Random;
 

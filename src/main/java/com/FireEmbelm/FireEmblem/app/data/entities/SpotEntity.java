@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.app.data.entities;
 
-import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.value.field.SpotsType;
 import org.springframework.lang.Nullable;
 
