@@ -194,7 +194,8 @@ create table base_character_stats(
 );
 
 create table player_convoy(
-    convoy_id int not null primary key auto_increment
+    convoy_id int not null primary key auto_increment,
+    money int not null
 );
 
 CREATE TABLE player_healing_items(

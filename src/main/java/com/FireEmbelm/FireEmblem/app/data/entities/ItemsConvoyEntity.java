@@ -18,6 +18,8 @@ public class ItemsConvoyEntity {
     @GeneratedValue
     public Long convoyId;
 
+    public int money;
+
     @ElementCollection
     @CollectionTable(name = "player_healing_items", joinColumns = {
             @JoinColumn(name = "convoy_id  ")
@@ -49,10 +51,11 @@ public class ItemsConvoyEntity {
     public List<StatsUpItems> statUpType;
 
     public ItemsConvoyEntity(
-            Long convoyId, @Nullable List<HealingItemEmbeddable> healingItems, @Nullable List<WeaponEmbeddable> weapons,
-            @Nullable List<Seals> sealType, @Nullable List<StatsUpItems> statUpType
+            Long convoyId, int money, @Nullable List<HealingItemEmbeddable> healingItems,
+            @Nullable List<WeaponEmbeddable> weapons, @Nullable List<Seals> sealType, @Nullable List<StatsUpItems> statUpType
     ) {
         this.convoyId = convoyId;
+        this.money = money;
         this.healingItems = healingItems;
         this.weapons = weapons;
         this.sealType = sealType;
@@ -67,7 +70,8 @@ public class ItemsConvoyEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItemsConvoyEntity that = (ItemsConvoyEntity) o;
-        return Objects.equals(convoyId, that.convoyId)
+        return money == that.money
+                && Objects.equals(convoyId, that.convoyId)
                 && Objects.equals(healingItems, that.healingItems)
                 && Objects.equals(weapons, that.weapons)
                 && Objects.equals(sealType, that.sealType)
@@ -76,6 +80,6 @@ public class ItemsConvoyEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(convoyId, healingItems, weapons, sealType, statUpType);
+        return Objects.hash(convoyId, money, healingItems, weapons, sealType, statUpType);
     }
 }
