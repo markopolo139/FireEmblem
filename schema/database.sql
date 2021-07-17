@@ -217,18 +217,18 @@ create table player_weapons(
     uses int not null,
     `range` int not null,
     worth int not null,
-    itemCategory ENUM('SWORD','AXE','LANCE','TOME','BOW','STAFF') not null,
+    item_category ENUM('SWORD','AXE','LANCE','TOME','BOW','STAFF') not null,
     constraint weapon_to_convoy foreign key (convoy_id) references player_convoy (convoy_id)
 );
 
-CREATE TABLE player_stat_up_items(
+CREATE TABLE player_seals(
     convoy_id int not null ,
     key (convoy_id),
     seal_type ENUM('MASTER_SEAL','HEART_SEAL') not null,
     constraint seal_to_convoy foreign key (convoy_id) references player_convoy (convoy_id)
 );
 
-create table player_seals(
+create table player_stat_up_items(
     convoy_id int not null,
     key (convoy_id),
     stat_up_type ENUM('STRENGTH_UP','MAGICK_UP','DEFENSE_UP','RESISTANCE_UP','LUCK_UP','SKILL_UP','SPEED_UP') not null,
@@ -242,7 +242,7 @@ INSERT INTO `all_healing_items` (`heal_item_id`, `heal_type`, `uses`) VALUES
 (4, 'MEND', 20),
 (5, 'HEAL', 30);
 
-INSERT INTO `all_weapons` (`weapon_id`, `name`, `rank`, `might`, `hit`, `avo`, `crit`, `uses`, `range`, `worth`, `itemCategory`, `quality`) VALUES
+INSERT INTO `all_weapons` (`weapon_id`, `name`, `rank`, `might`, `hit`, `avo`, `crit`, `uses`, `range`, `worth`, `item_category`, `quality`) VALUES
 (1, 'Bronze Sword', 1, 3, 100, 0, 0, 50, 1, 350, 'SWORD', 1),
 (2, 'Iron Sword', 2, 5, 95, 0, 0, 40, 1, 520, 'SWORD', 2),
 (3, 'Steel Sword', 3, 8, 90, 0, 0, 35, 1, 840, 'SWORD', 3),
