@@ -1,10 +1,8 @@
 package com.FireEmbelm.FireEmblem.business.entitie;
 
 import com.FireEmbelm.FireEmblem.business.utils.Utils;
-import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
-import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
-import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
+import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 
 import java.util.*;
@@ -320,7 +318,7 @@ public enum CharacterClass  {
     private final String mClassName;
     private final int mMovement;
     private final List<WeaponCategory> mAllowedWeapons;
-    private final HashMap<StatsType, Stats> mBonusStats;
+    private final HashMap<StatsType, Stat> mBonusStats;
     private final boolean mPromotedClass;
     private final List<CharacterClass> mPromoteToClasses;
 
@@ -336,7 +334,7 @@ public enum CharacterClass  {
         return mAllowedWeapons;
     }
 
-    public HashMap<StatsType, Stats> getBonusStats() {
+    public HashMap<StatsType, Stat> getBonusStats() {
         return mBonusStats;
     }
 
@@ -350,7 +348,7 @@ public enum CharacterClass  {
 
     CharacterClass(
             String className, int movement, List<WeaponCategory> allowedWeapons,
-            HashMap<StatsType, Stats> bonusStats, boolean promotedClass, List<CharacterClass> promoteToClasses
+            HashMap<StatsType, Stat> bonusStats, boolean promotedClass, List<CharacterClass> promoteToClasses
     ) {
         mClassName = className;
         mMovement = movement;

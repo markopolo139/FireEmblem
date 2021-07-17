@@ -5,7 +5,6 @@ import com.FireEmbelm.FireEmblem.business.value.character.related.*;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -15,7 +14,7 @@ public abstract class BaseCharacter {
     private int mLevel;
     private int mExp;
     private int mRemainingHealth;
-    private HashMap<StatsType, Stats> mStats;
+    private HashMap<StatsType, Stat> mStats;
     private Equipment mCurrentEquipedItem;
     private ArrayList<Equipment> mEquipment;
     private HashMap<WeaponCategory, WeaponProgress> mWeaponProgresses;
@@ -56,11 +55,11 @@ public abstract class BaseCharacter {
         mEquipment = equipment;
     }
 
-    public HashMap<StatsType, Stats> getStats() {
+    public HashMap<StatsType, Stat> getStats() {
         return mStats;
     }
 
-    public void setStats(HashMap<StatsType, Stats> stats) {
+    public void setStats(HashMap<StatsType, Stat> stats) {
         mStats = stats;
     }
 
@@ -117,7 +116,7 @@ public abstract class BaseCharacter {
     }
 
     public BaseCharacter(
-            String name, int level, int exp, int remainingHealth, HashMap<StatsType, Stats> stats,
+            String name, int level, int exp, int remainingHealth, HashMap<StatsType, Stat> stats,
             Equipment currentEquipedItem, ArrayList<Equipment> equipment, HashMap<WeaponCategory, WeaponProgress> weaponProgresses,
             CharacterClass characterClass, CharacterState characterState, boolean moved
     ) {

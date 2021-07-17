@@ -1,6 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.value.character.related;
 
-public class Stats {
+public class Stat {
 
     private final StatsType mStatsType;
     private int mValue = 0;
@@ -31,7 +31,7 @@ public class Stats {
         mChanceToIncrease = chances;
     }
 
-    public Stats(StatsType statsType, int value, int chanceToIncrease) {
+    public Stat(StatsType statsType, int value, int chanceToIncrease) {
         mStatsType = statsType;
         mValue = value;
         mChanceToIncrease = chanceToIncrease;

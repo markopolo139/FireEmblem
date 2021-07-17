@@ -3,8 +3,6 @@ package com.FireEmbelm.FireEmblem.business.service;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.TooSmallAmountOfMoneyException;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
-import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
-import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

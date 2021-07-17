@@ -1,7 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.service;
 
 import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
-import com.FireEmbelm.FireEmblem.business.value.character.related.Stats;
+import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 
 import java.util.HashMap;
@@ -77,18 +77,18 @@ public class CharacterDevelopmentService {
         if (levelUpCharacter.getLevel() >= LEVEL_CUP)
             return;
 
-        HashMap<StatsType, Stats> classBonusStats = levelUpCharacter.getCharacterClass().getBonusStats();
+        HashMap<StatsType, Stat> classBonusStats = levelUpCharacter.getCharacterClass().getBonusStats();
         int randomNumber;
         int totalIncreaseChance;
         boolean didIncrease = false;
 
         while(!didIncrease) {
-            for(Stats stats : levelUpCharacter.getStats().values()) {
+            for(Stat stat : levelUpCharacter.getStats().values()) {
                 randomNumber = mRandom.nextInt(101);
                 totalIncreaseChance =
-                        stats.getChanceToIncrease() + classBonusStats.get(stats.getStatsType()).getChanceToIncrease();
+                        stat.getChanceToIncrease() + classBonusStats.get(stat.getStatsType()).getChanceToIncrease();
                 if(randomNumber <= totalIncreaseChance) {
-                    stats.setValue(stats.getValue() + 1);
+                    stat.setValue(stat.getValue() + 1);
                     didIncrease = true;
                 }
             }
