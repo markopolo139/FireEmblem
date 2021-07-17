@@ -112,7 +112,7 @@ public class Weapon implements Equipment {
                 && getRange() == weapon.getRange()
                 && getWorth() == weapon.getWorth()
                 && Objects.equals(getName(), weapon.getName())
-                && Objects.equals(getItemCategory(), weapon.getItemCategory());
+                && getItemCategory() == weapon.getItemCategory();
     }
 
     @Override

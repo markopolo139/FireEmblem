@@ -1,5 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.value.character.related;
 
+import java.util.Objects;
+
 public class Stat {
 
     private final StatsType mStatsType;
@@ -35,5 +37,20 @@ public class Stat {
         mStatsType = statsType;
         mValue = value;
         mChanceToIncrease = chanceToIncrease;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Stat stat = (Stat) o;
+        return getValue() == stat.getValue()
+                && getChanceToIncrease() == stat.getChanceToIncrease()
+                && getStatsType() == stat.getStatsType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStatsType(), getValue(), getChanceToIncrease());
     }
 }

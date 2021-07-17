@@ -2,6 +2,8 @@ package com.FireEmbelm.FireEmblem.business.value.field;
 
 import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
 
+import java.util.Objects;
+
 public class Spot {
 
     private SpotsType mSpotsType;
@@ -42,5 +44,21 @@ public class Spot {
         mHeight = height;
         mWidth = width;
         mCharacterOnSpot = characterOnSpot;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Spot spot = (Spot) o;
+        return getHeight() == spot.getHeight()
+                && getWidth() == spot.getWidth()
+                && getSpotsType() == spot.getSpotsType()
+                && Objects.equals(getCharacterOnSpot(), spot.getCharacterOnSpot());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSpotsType(), getHeight(), getWidth(), getCharacterOnSpot());
     }
 }

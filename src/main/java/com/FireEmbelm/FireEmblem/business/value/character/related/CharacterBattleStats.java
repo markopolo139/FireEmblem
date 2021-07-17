@@ -6,6 +6,8 @@ import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 
+import java.util.Objects;
+
 public class CharacterBattleStats {
 
     private int mAttack = 0;
@@ -83,5 +85,21 @@ public class CharacterBattleStats {
             mAttack = baseCharacter.getStats().get(StatsType.STRENGTH).getValue() + currentEquipedItem.getMight()
                     + baseCharacter.getCharacterClass().getBonusStats().get(StatsType.STRENGTH).getValue();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CharacterBattleStats that = (CharacterBattleStats) o;
+        return getAttack() == that.getAttack()
+                && getHitRate() == that.getHitRate()
+                && getCritical() == that.getCritical()
+                && getAvoid() == that.getAvoid();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAttack(), getHitRate(), getCritical(), getAvoid());
     }
 }

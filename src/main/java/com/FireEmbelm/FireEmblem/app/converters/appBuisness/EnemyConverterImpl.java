@@ -33,32 +33,41 @@ public class EnemyConverterImpl implements EnemyConverter {
 
     @Override
     public Enemy convertToEnemy(EnemyEntity enemyEntity) {
-        Enemy enemy = new Enemy(
-                enemyEntity.level,
-                enemyEntity.exp,
-                enemyEntity.remainingHealth,
-                mStatConverter.convertListToHashMap(enemyEntity.stats),
-                null,
-                new ArrayList<>(
-                        (List<? extends Equipment>) Stream.of(
-                                mWeaponConverter.convertListToWeapon(enemyEntity.weapons),
-                                mHealingItemConverter.convertListToHealingItem(enemyEntity.healingItems),
-                                enemyEntity.sealType,
-                                enemyEntity.statUpType
-                        )
-                ),
-                mWeaponProgressConverter.convertListToHashMap(enemyEntity.weaponProgress),
-                enemyEntity.characterClass,
-                enemyEntity.characterState,
-                enemyEntity.moved,
-                null,
-                enemyEntity.boss,
-                enemyEntity.goldDrop
-        );
 
-        if(enemyEntity.currentEquipedItemId !=null) {
-            enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyEntity.currentEquipedItemId));
-            enemy.setDropItem(enemy.getCurrentEquipedItem());
+        Enemy enemy;
+
+        if(enemyEntity == null) {
+            enemy = null;
+        }
+
+        else{
+            enemy = new Enemy(
+                    enemyEntity.level,
+                    enemyEntity.exp,
+                    enemyEntity.remainingHealth,
+                    mStatConverter.convertListToHashMap(enemyEntity.stats),
+                    null,
+                    new ArrayList<>(
+                            (List<? extends Equipment>) Stream.of(
+                                    mWeaponConverter.convertListToWeapon(enemyEntity.weapons),
+                                    mHealingItemConverter.convertListToHealingItem(enemyEntity.healingItems),
+                                    enemyEntity.sealType,
+                                    enemyEntity.statUpType
+                            )
+                    ),
+                    mWeaponProgressConverter.convertListToHashMap(enemyEntity.weaponProgress),
+                    enemyEntity.characterClass,
+                    enemyEntity.characterState,
+                    enemyEntity.moved,
+                    null,
+                    enemyEntity.boss,
+                    enemyEntity.goldDrop
+            );
+
+            if(enemyEntity.currentEquipedItemId !=null) {
+                enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyEntity.currentEquipedItemId));
+                enemy.setDropItem(enemy.getCurrentEquipedItem());
+            }
         }
 
         return enemy;
@@ -66,6 +75,10 @@ public class EnemyConverterImpl implements EnemyConverter {
 
     @Override
     public EnemyEntity convertToEntity(Enemy enemy) {
+
+        if(enemy == null)
+            return null;
+
         return new EnemyEntity(
                 null,
                 enemy.getName(),
