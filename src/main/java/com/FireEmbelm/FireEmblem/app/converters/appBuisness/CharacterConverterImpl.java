@@ -30,35 +30,46 @@ public class CharacterConverterImpl implements CharacterConverter {
 
     @Override
     public Character convertToCharacter(CharacterEntity characterEntity) {
-        Character character = new Character(
-                characterEntity.name,
-                characterEntity.level,
-                characterEntity.exp,
-                characterEntity.remainingHealth,
-                mStatConverter.convertListToHashMap(characterEntity.stats),
-                null,
-                new ArrayList<>(
-                        (List<? extends Equipment>) Stream.of(
-                                mWeaponConverter.convertListToWeapon(characterEntity.weapons),
-                                mHealingItemConverter.convertListToHealingItem(characterEntity.healingItems),
-                                characterEntity.sealType,
-                                characterEntity.statUpType
-                        )
-                ),
-                mWeaponProgressConverter.convertListToHashMap(characterEntity.weaponProgress),
-                characterEntity.characterClass,
-                characterEntity.characterState,
-                characterEntity.moved
-        );
+        Character character;
 
-        if(characterEntity.currentEquipedItemId !=null)
-            character.setCurrentEquipedItem(character.getEquipment().get(characterEntity.currentEquipedItemId));
+        if (characterEntity == null)
+            character = null;
 
+        else {
+            character = new Character(
+                    characterEntity.name,
+                    characterEntity.level,
+                    characterEntity.exp,
+                    characterEntity.remainingHealth,
+                    mStatConverter.convertListToHashMap(characterEntity.stats),
+                    null,
+                    new ArrayList<>(
+                            (List<? extends Equipment>) Stream.of(
+                                    mWeaponConverter.convertListToWeapon(characterEntity.weapons),
+                                    mHealingItemConverter.convertListToHealingItem(characterEntity.healingItems),
+                                    characterEntity.sealType,
+                                    characterEntity.statUpType
+                            )
+                    ),
+                    mWeaponProgressConverter.convertListToHashMap(characterEntity.weaponProgress),
+                    characterEntity.characterClass,
+                    characterEntity.characterState,
+                    characterEntity.moved
+            );
+
+            if(characterEntity.currentEquipedItemId !=null)
+                character.setCurrentEquipedItem(character.getEquipment().get(characterEntity.currentEquipedItemId));
+
+        }
         return character;
     }
 
     @Override
     public CharacterEntity convertToEntity(Character character) {
+
+        if (character == null)
+            return null;
+
         return new CharacterEntity(
                 null,
                 character.getName(),

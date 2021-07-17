@@ -23,7 +23,6 @@ public class EnemyEntity {
     @GeneratedValue
     public Long enemyId;
 
-    @NaturalId
     public String name;
 
     public int level;

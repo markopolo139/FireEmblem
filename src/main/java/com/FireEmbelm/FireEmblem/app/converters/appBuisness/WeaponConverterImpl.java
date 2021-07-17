@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 public class WeaponConverterImpl implements WeaponConverter {
     @Override
     public Weapon convertToWeapon(WeaponEmbeddable weaponEmbeddable) {
+
+        if(weaponEmbeddable == null)
+            return null;
+
         return new Weapon(
                 weaponEmbeddable.name,
                 weaponEmbeddable.rank,
@@ -28,6 +32,10 @@ public class WeaponConverterImpl implements WeaponConverter {
 
     @Override
     public WeaponEmbeddable convertToEntity(Weapon weapon) {
+
+        if(weapon == null)
+            return null;
+
         return new WeaponEmbeddable(
                 weapon.getName(),
                 weapon.getRank(),

@@ -11,11 +11,19 @@ import java.util.stream.Collectors;
 public class HealingItemsConverterImpl implements HealingItemConverter {
     @Override
     public HealingItemWithUses convertToHealingItem(HealingItemEmbeddable healingItemEmbeddable) {
+
+        if (healingItemEmbeddable == null)
+            return null;
+
         return new HealingItemWithUses(healingItemEmbeddable.healType,healingItemEmbeddable.uses);
     }
 
     @Override
     public HealingItemEmbeddable convertToEntity(HealingItemWithUses healingItemWithUses) {
+
+        if(healingItemWithUses == null)
+            return null;
+
         return new HealingItemEmbeddable(healingItemWithUses.getHealingItems(), healingItemWithUses.getUses());
     }
 
