@@ -47,14 +47,12 @@ public class EnemyConverterImpl implements EnemyConverter {
                     enemyEntity.remainingHealth,
                     mStatConverter.convertListToHashMap(enemyEntity.stats),
                     null,
-                    new ArrayList<>(
-                            (List<? extends Equipment>) Stream.of(
+                    Stream.of(
                                     mWeaponConverter.convertListToWeapon(enemyEntity.weapons),
                                     mHealingItemConverter.convertListToHealingItem(enemyEntity.healingItems),
                                     enemyEntity.sealType,
                                     enemyEntity.statUpType
-                            )
-                    ),
+                    ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
                     mWeaponProgressConverter.convertListToHashMap(enemyEntity.weaponProgress),
                     enemyEntity.characterClass,
                     enemyEntity.characterState,

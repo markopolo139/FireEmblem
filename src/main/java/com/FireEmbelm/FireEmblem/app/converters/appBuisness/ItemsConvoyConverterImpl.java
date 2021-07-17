@@ -25,16 +25,16 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
 
     @Override
     public ItemsConvoy convertToItemsConvoy(ItemsConvoyEntity itemsConvoyEntity) {
+
+
         return new ItemsConvoy(
                 itemsConvoyEntity.money,
-                new ArrayList<>(
-                        (Collection<? extends Equipment>) Stream.of(
-                                mHealingItemConverter.convertListToHealingItem(itemsConvoyEntity.healingItems),
-                                mWeaponConverter.convertListToWeapon(itemsConvoyEntity.weapons),
-                                itemsConvoyEntity.sealType,
-                                itemsConvoyEntity.statUpType
-                        )
-                )
+                Stream.of(
+                        mHealingItemConverter.convertListToHealingItem(itemsConvoyEntity.healingItems),
+                        mWeaponConverter.convertListToWeapon(itemsConvoyEntity.weapons),
+                        itemsConvoyEntity.sealType,
+                        itemsConvoyEntity.statUpType
+                ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new))
         );
     }
 

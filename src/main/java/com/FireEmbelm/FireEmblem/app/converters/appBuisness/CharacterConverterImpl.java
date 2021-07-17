@@ -43,14 +43,12 @@ public class CharacterConverterImpl implements CharacterConverter {
                     characterEntity.remainingHealth,
                     mStatConverter.convertListToHashMap(characterEntity.stats),
                     null,
-                    new ArrayList<>(
-                            (List<? extends Equipment>) Stream.of(
+                    Stream.of(
                                     mWeaponConverter.convertListToWeapon(characterEntity.weapons),
                                     mHealingItemConverter.convertListToHealingItem(characterEntity.healingItems),
                                     characterEntity.sealType,
                                     characterEntity.statUpType
-                            )
-                    ),
+                    ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
                     mWeaponProgressConverter.convertListToHashMap(characterEntity.weaponProgress),
                     characterEntity.characterClass,
                     characterEntity.characterState,
