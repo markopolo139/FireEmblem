@@ -167,7 +167,7 @@ CREATE TABLE all_weapons (
     uses int not null,
     `range` int not null,
     worth int not null,
-    itemCategory ENUM('SWORD','AXE','LANCE','TOME','BOW','STAFF') not null,
+    item_category ENUM('SWORD','AXE','LANCE','TOME','BOW','STAFF') not null,
     quality int not null
 );
 

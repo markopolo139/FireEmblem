@@ -24,6 +24,9 @@ public class WeaponEntity {
         this.quality = quality;
     }
 
+    private WeaponEntity() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
