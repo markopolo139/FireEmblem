@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
@@ -27,7 +28,7 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
         return new ItemsConvoy(
                 itemsConvoyEntity.money,
                 new ArrayList<>(
-                        (Collection<? extends Equipment>) Arrays.asList(
+                        (Collection<? extends Equipment>) Stream.of(
                                 mHealingItemConverter.convertListToHealingItem(itemsConvoyEntity.healingItems),
                                 mWeaponConverter.convertListToWeapon(itemsConvoyEntity.weapons),
                                 itemsConvoyEntity.sealType,
@@ -43,19 +44,16 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
                 null,
                 itemsConvoy.getMoney(),
                 mHealingItemConverter.convertListToEntity(
-                        new ArrayList<>(
-                                (Collection<? extends HealingItemWithUses>) itemsConvoy.getHealingItems()
-                        )),
-                mWeaponConverter.convertListToEntity(
-                        new ArrayList<>(
-                                (Collection<? extends Weapon>) itemsConvoy.getWeapons()
-                        )),
-                new ArrayList<>(
-                        (Collection<? extends Seals>) itemsConvoy.getByItemCategory(ConsumableItemCategory.SEALS)
+                        itemsConvoy.getHealingItems().stream()
+                                .map(i -> (HealingItemWithUses) i).collect(Collectors.toList())
                 ),
-                new ArrayList<>(
-                        (Collection<? extends StatsUpItems>) itemsConvoy.getByItemCategory(ConsumableItemCategory.STATS_UP_ITEMS)
-                )
+                mWeaponConverter.convertListToEntity(
+                        itemsConvoy.getWeapons().stream()
+                                .map(i -> (Weapon) i).collect(Collectors.toList())),
+                itemsConvoy.getByItemCategory(ConsumableItemCategory.SEALS).stream()
+                        .map(i -> (Seals) i).collect(Collectors.toList()),
+                itemsConvoy.getByItemCategory(ConsumableItemCategory.STATS_UP_ITEMS).stream()
+                        .map(i -> (StatsUpItems) i).collect(Collectors.toList())
         );
     }
 
