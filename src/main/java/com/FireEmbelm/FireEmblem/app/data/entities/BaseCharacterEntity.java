@@ -16,7 +16,7 @@ public class BaseCharacterEntity {
 
     @Id
     @GeneratedValue
-    public Long characterId;
+    public Long baseCharacterId;
 
     @NaturalId
     public String name;
@@ -45,11 +45,11 @@ public class BaseCharacterEntity {
     public List<StatEmbeddable> stats;
 
     public BaseCharacterEntity(
-            Long characterId, String name, int level, int exp, int remainingHealth,
+            Long baseCharacterId, String name, int level, int exp, int remainingHealth,
             @Nullable Integer currentEquipedItemId, CharacterClass characterClass,
             CharacterState characterState, boolean moved, List<StatEmbeddable> stats
     ) {
-        this.characterId = characterId;
+        this.baseCharacterId = baseCharacterId;
         this.name = name;
         this.level = level;
         this.exp = exp;
