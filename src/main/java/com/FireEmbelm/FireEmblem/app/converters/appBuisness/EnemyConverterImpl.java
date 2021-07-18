@@ -65,6 +65,7 @@ public class EnemyConverterImpl implements EnemyConverter {
             if(enemyEntity.currentEquipedItemId !=null) {
                 enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyEntity.currentEquipedItemId));
                 enemy.setDropItem(enemy.getCurrentEquipedItem());
+                enemy.getCharacterBattleStats().calculateBattleStats(enemy);
             }
         }
 
@@ -106,8 +107,8 @@ public class EnemyConverterImpl implements EnemyConverter {
                 enemy.getEquipment().stream()
                         .filter(i -> i instanceof StatsUpItems)
                         .map(i -> (StatsUpItems) i).collect(Collectors.toList()),
-                mStatConverter.convertListToEntity((List<Stat>) enemy.getStats().values()),
-                mWeaponProgressConverter.convertListToEntity((List<WeaponProgress>) enemy.getWeaponProgresses().values())
+                mStatConverter.convertListToEntity(new ArrayList<>(enemy.getStats().values())),
+                mWeaponProgressConverter.convertListToEntity(new ArrayList<>(enemy.getWeaponProgresses().values()))
         );
     }
 

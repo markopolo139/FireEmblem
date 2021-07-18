@@ -55,8 +55,10 @@ public class CharacterConverterImpl implements CharacterConverter {
                     characterEntity.moved
             );
 
-            if(characterEntity.currentEquipedItemId !=null)
+            if(characterEntity.currentEquipedItemId !=null) {
                 character.setCurrentEquipedItem(character.getEquipment().get(characterEntity.currentEquipedItemId));
+                character.getCharacterBattleStats().calculateBattleStats(character);
+            }
 
         }
         return character;
@@ -94,8 +96,8 @@ public class CharacterConverterImpl implements CharacterConverter {
                 character.getEquipment().stream()
                         .filter(i -> i instanceof StatsUpItems)
                         .map(i -> (StatsUpItems) i).collect(Collectors.toList()),
-                mStatConverter.convertListToEntity((List<Stat>) character.getStats().values()),
-                mWeaponProgressConverter.convertListToEntity((List<WeaponProgress>) character.getWeaponProgresses().values())
+                mStatConverter.convertListToEntity(new ArrayList<>(character.getStats().values())),
+                mWeaponProgressConverter.convertListToEntity(new ArrayList<>(character.getWeaponProgresses().values()))
         );
     }
 
