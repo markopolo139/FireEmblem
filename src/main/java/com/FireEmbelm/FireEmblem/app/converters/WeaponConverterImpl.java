@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class WeaponConverterImpl implements WeaponConverter {
     @Override
-    public Weapon convertToWeapon(WeaponEmbeddable weaponEmbeddable) {
+    public Weapon convertEntityToWeapon(WeaponEmbeddable weaponEmbeddable) {
 
         if(weaponEmbeddable == null)
             return null;
@@ -51,8 +51,8 @@ public class WeaponConverterImpl implements WeaponConverter {
     }
 
     @Override
-    public List<Weapon> convertListToWeapon(List<WeaponEmbeddable> weaponEmbeddables) {
-        return weaponEmbeddables.stream().map(this::convertToWeapon).collect(Collectors.toList());
+    public List<Weapon> convertEntityListToWeapon(List<WeaponEmbeddable> weaponEmbeddables) {
+        return weaponEmbeddables.stream().map(this::convertEntityToWeapon).collect(Collectors.toList());
     }
 
     @Override

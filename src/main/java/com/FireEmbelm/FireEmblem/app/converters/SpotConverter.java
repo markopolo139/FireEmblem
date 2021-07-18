@@ -9,9 +9,9 @@ import java.util.List;
 @Component
 public interface SpotConverter {
 
-    Spot convertToSpot(SpotEntity spotEntity);
+    Spot convertEntityToSpot(SpotEntity spotEntity);
     SpotEntity convertToEntity(Spot spot);
-    List<Spot> convertListToSpot(List<SpotEntity> spotEntities);
+    List<Spot> convertEntityListToSpot(List<SpotEntity> spotEntities);
     List<SpotEntity> convertListToEntity(List<Spot> spots);
 
 }

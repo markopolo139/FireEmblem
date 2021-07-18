@@ -9,9 +9,10 @@ import java.util.List;
 @Component
 public interface HealingItemConverter {
 
-    HealingItemWithUses convertToHealingItem(HealingItemEmbeddable healingItemEmbeddable);
+    HealingItemWithUses convertEntityToHealingItem(HealingItemEmbeddable healingItemEmbeddable);
     HealingItemEmbeddable convertToEntity(HealingItemWithUses healingItemWithUses);
-    List<HealingItemWithUses> convertListToHealingItem(List<HealingItemEmbeddable> healingItemEmbeddables);
+
+    List<HealingItemWithUses> convertEntityListToHealingItem(List<HealingItemEmbeddable> healingItemEmbeddables);
     List<HealingItemEmbeddable> convertListToEntity(List<HealingItemWithUses> healingItemWithUses);
 
 }

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Component
 public class StatConverterImpl implements StatConverter {
     @Override
-    public Stat convertToStat(StatEmbeddable statEmbeddable) {
+    public Stat convertEntityToStat(StatEmbeddable statEmbeddable) {
         return new Stat(
                 statEmbeddable.statType,
                 statEmbeddable.value,
@@ -30,9 +30,9 @@ public class StatConverterImpl implements StatConverter {
     }
 
     @Override
-    public HashMap<StatsType, Stat> convertListToHashMap(List<StatEmbeddable> statEmbeddables) {
+    public HashMap<StatsType, Stat> convertEntityListToHashMap(List<StatEmbeddable> statEmbeddables) {
         return (HashMap<StatsType, Stat>)
-                statEmbeddables.stream().collect(Collectors.toMap(data -> data.statType, this::convertToStat));
+                statEmbeddables.stream().collect(Collectors.toMap(data -> data.statType, this::convertEntityToStat));
     }
 
     @Override

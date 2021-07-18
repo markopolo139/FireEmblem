@@ -20,14 +20,14 @@ public class SpotConverterImpl implements SpotConverter {
     private EnemyConverter mEnemyConverter;
 
     @Override
-    public Spot convertToSpot(SpotEntity spotEntity) {
+    public Spot convertEntityToSpot(SpotEntity spotEntity) {
         return new Spot(
                 spotEntity.spotType,
                 spotEntity.height,
                 spotEntity.width,
                 spotEntity.characterId != null ?
-                        mCharacterConverter.convertToCharacter(spotEntity.characterId)
-                        : mEnemyConverter.convertToEnemy(spotEntity.enemyId)
+                        mCharacterConverter.convertEntityToCharacter(spotEntity.characterId)
+                        : mEnemyConverter.convertEntityToEnemy(spotEntity.enemyId)
         );
     }
 
@@ -46,8 +46,8 @@ public class SpotConverterImpl implements SpotConverter {
     }
 
     @Override
-    public List<Spot> convertListToSpot(List<SpotEntity> spotEntities) {
-        return spotEntities.stream().map(this::convertToSpot).collect(Collectors.toList());
+    public List<Spot> convertEntityListToSpot(List<SpotEntity> spotEntities) {
+        return spotEntities.stream().map(this::convertEntityToSpot).collect(Collectors.toList());
     }
 
     @Override

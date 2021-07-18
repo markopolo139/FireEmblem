@@ -27,7 +27,7 @@ public class EnemyConverterImpl implements EnemyConverter {
     private HealingItemConverter mHealingItemConverter;
 
     @Override
-    public Enemy convertToEnemy(EnemyEntity enemyEntity) {
+    public Enemy convertEntityToEnemy(EnemyEntity enemyEntity) {
 
         Enemy enemy;
 
@@ -40,15 +40,15 @@ public class EnemyConverterImpl implements EnemyConverter {
                     enemyEntity.level,
                     enemyEntity.exp,
                     enemyEntity.remainingHealth,
-                    mStatConverter.convertListToHashMap(enemyEntity.stats),
+                    mStatConverter.convertEntityListToHashMap(enemyEntity.stats),
                     null,
                     Stream.of(
-                                    mWeaponConverter.convertListToWeapon(enemyEntity.weapons),
-                                    mHealingItemConverter.convertListToHealingItem(enemyEntity.healingItems),
+                                    mWeaponConverter.convertEntityListToWeapon(enemyEntity.weapons),
+                                    mHealingItemConverter.convertEntityListToHealingItem(enemyEntity.healingItems),
                                     enemyEntity.sealType,
                                     enemyEntity.statUpType
                     ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
-                    mWeaponProgressConverter.convertListToHashMap(enemyEntity.weaponProgress),
+                    mWeaponProgressConverter.convertEntityListToHashMap(enemyEntity.weaponProgress),
                     enemyEntity.characterClass,
                     enemyEntity.characterState,
                     enemyEntity.moved,
@@ -108,8 +108,8 @@ public class EnemyConverterImpl implements EnemyConverter {
     }
 
     @Override
-    public List<Enemy> convertListToEnemy(List<EnemyEntity> enemyEntities) {
-        return enemyEntities.stream().map(this::convertToEnemy).collect(Collectors.toList());
+    public List<Enemy> convertEntityListToEnemy(List<EnemyEntity> enemyEntities) {
+        return enemyEntities.stream().map(this::convertEntityToEnemy).collect(Collectors.toList());
     }
 
     @Override

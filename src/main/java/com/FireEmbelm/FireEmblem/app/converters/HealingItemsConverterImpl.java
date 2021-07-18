@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class HealingItemsConverterImpl implements HealingItemConverter {
     @Override
-    public HealingItemWithUses convertToHealingItem(HealingItemEmbeddable healingItemEmbeddable) {
+    public HealingItemWithUses convertEntityToHealingItem(HealingItemEmbeddable healingItemEmbeddable) {
 
         if (healingItemEmbeddable == null)
             return null;
@@ -28,8 +28,8 @@ public class HealingItemsConverterImpl implements HealingItemConverter {
     }
 
     @Override
-    public List<HealingItemWithUses> convertListToHealingItem(List<HealingItemEmbeddable> healingItemEmbeddables) {
-        return healingItemEmbeddables.stream().map(this::convertToHealingItem).collect(Collectors.toList());
+    public List<HealingItemWithUses> convertEntityListToHealingItem(List<HealingItemEmbeddable> healingItemEmbeddables) {
+        return healingItemEmbeddables.stream().map(this::convertEntityToHealingItem).collect(Collectors.toList());
     }
 
     @Override

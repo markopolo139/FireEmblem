@@ -9,9 +9,9 @@ import java.util.List;
 @Component
 public interface WeaponConverter {
 
-    Weapon convertToWeapon(WeaponEmbeddable weaponEmbeddable);
+    Weapon convertEntityToWeapon(WeaponEmbeddable weaponEmbeddable);
     WeaponEmbeddable convertToEntity(Weapon weapon);
-    List<Weapon> convertListToWeapon(List<WeaponEmbeddable> weaponEmbeddables);
+    List<Weapon> convertEntityListToWeapon(List<WeaponEmbeddable> weaponEmbeddables);
     List<WeaponEmbeddable> convertListToEntity(List<Weapon> weapons);
 
 }

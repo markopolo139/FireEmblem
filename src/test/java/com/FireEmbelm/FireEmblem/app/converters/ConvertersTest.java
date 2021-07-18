@@ -133,7 +133,7 @@ public class ConvertersTest {
                 )
         );
 
-        Character converted = mCharacterConverter.convertToCharacter(characterEntity);
+        Character converted = mCharacterConverter.convertEntityToCharacter(characterEntity);
 
         CharacterEntity convertedEntity = mCharacterConverter.convertToEntity(character);
 
@@ -197,7 +197,7 @@ public class ConvertersTest {
                 )
         );
 
-        Enemy converted = mEnemyConverter.convertToEnemy(enemyEntity);
+        Enemy converted = mEnemyConverter.convertEntityToEnemy(enemyEntity);
 
         EnemyEntity convertedEntity = mEnemyConverter.convertToEntity(enemy);
 
@@ -220,7 +220,7 @@ public class ConvertersTest {
 
         Assertions.assertEquals(
                 healingItemWithUses,
-                mHealingItemConverter.convertToHealingItem(healingItemEmbeddable)
+                mHealingItemConverter.convertEntityToHealingItem(healingItemEmbeddable)
         );
     }
 
@@ -250,7 +250,7 @@ public class ConvertersTest {
                 Collections.singletonList(StatsUpItems.STRENGTH_UP)
                 );
 
-        Assertions.assertEquals(itemsConvoy,mItemsConvoyConverter.convertToItemsConvoy(itemsConvoyEntity));
+        Assertions.assertEquals(itemsConvoy,mItemsConvoyConverter.convertEntityToItemsConvoy(itemsConvoyEntity));
 
         Assertions.assertEquals(itemsConvoyEntity,mItemsConvoyConverter.convertToEntity(itemsConvoy));
 
@@ -262,7 +262,7 @@ public class ConvertersTest {
 
         SpotEntity spotEntity = new SpotEntity(null,SpotsType.FORREST,6,4,null,null);
 
-        Assertions.assertEquals(spot, mSpotConverter.convertToSpot(spotEntity));
+        Assertions.assertEquals(spot, mSpotConverter.convertEntityToSpot(spotEntity));
 
         Assertions.assertEquals(spotEntity, mSpotConverter.convertToEntity(spot));
     }
@@ -274,7 +274,7 @@ public class ConvertersTest {
 
         StatEmbeddable statEmbeddable = new StatEmbeddable(StatsType.HEALTH,14,66);
 
-        Assertions.assertEquals(stat,mStatConverter.convertToStat(statEmbeddable));
+        Assertions.assertEquals(stat,mStatConverter.convertEntityToStat(statEmbeddable));
 
         Assertions.assertEquals(statEmbeddable,mStatConverter.convertToEntity(stat));
     }
@@ -292,7 +292,7 @@ public class ConvertersTest {
                 1,2,3,4,5,6,7,8,WeaponCategory.BOW
         );
 
-        Assertions.assertEquals(weapon,mWeaponConverter.convertToWeapon(weaponEmbeddable));
+        Assertions.assertEquals(weapon,mWeaponConverter.convertEntityToWeapon(weaponEmbeddable));
 
         Assertions.assertEquals(weaponEmbeddable, mWeaponConverter.convertToEntity(weapon));
     }
@@ -311,7 +311,7 @@ public class ConvertersTest {
 
         Assertions.assertEquals(
                 weaponProgress,
-                mWeaponProgressConverter.convertToWeaponProgress(weaponProgressEmbeddable)
+                mWeaponProgressConverter.convertEntityToWeaponProgress(weaponProgressEmbeddable)
         );
 
         Assertions.assertEquals(

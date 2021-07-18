@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Component
 public class WeaponProgressConverterImpl implements WeaponProgressConverter {
     @Override
-    public WeaponProgress convertToWeaponProgress(WeaponProgressEmbeddable weaponProgressEmbeddable) {
+    public WeaponProgress convertEntityToWeaponProgress(WeaponProgressEmbeddable weaponProgressEmbeddable) {
         return new WeaponProgress(
                 weaponProgressEmbeddable.weaponType,
                 weaponProgressEmbeddable.progress,
@@ -30,9 +30,9 @@ public class WeaponProgressConverterImpl implements WeaponProgressConverter {
     }
 
     @Override
-    public HashMap<WeaponCategory, WeaponProgress> convertListToHashMap(List<WeaponProgressEmbeddable> weaponProgressEmbeddables) {
+    public HashMap<WeaponCategory, WeaponProgress> convertEntityListToHashMap(List<WeaponProgressEmbeddable> weaponProgressEmbeddables) {
         return (HashMap<WeaponCategory, WeaponProgress>) weaponProgressEmbeddables.stream()
-                .collect(Collectors.toMap(data -> data.weaponType, this::convertToWeaponProgress));
+                .collect(Collectors.toMap(data -> data.weaponType, this::convertEntityToWeaponProgress));
     }
 
     @Override

@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface WeaponProgressConverter {
 
-    WeaponProgress convertToWeaponProgress(WeaponProgressEmbeddable weaponProgressEmbeddable);
+    WeaponProgress convertEntityToWeaponProgress(WeaponProgressEmbeddable weaponProgressEmbeddable);
     WeaponProgressEmbeddable convertToEntity(WeaponProgress weaponProgress);
-    HashMap<WeaponCategory, WeaponProgress> convertListToHashMap(List<WeaponProgressEmbeddable> weaponProgressEmbeddables);
+    HashMap<WeaponCategory, WeaponProgress> convertEntityListToHashMap(List<WeaponProgressEmbeddable> weaponProgressEmbeddables);
     List<WeaponProgressEmbeddable> convertListToEntity(List<WeaponProgress> weaponProgresses);
 
 }

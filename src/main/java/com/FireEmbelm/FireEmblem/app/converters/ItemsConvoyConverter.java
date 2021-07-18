@@ -9,9 +9,9 @@ import java.util.List;
 @Component
 public interface ItemsConvoyConverter {
 
-    ItemsConvoy convertToItemsConvoy(ItemsConvoyEntity itemsConvoyEntity);
+    ItemsConvoy convertEntityToItemsConvoy(ItemsConvoyEntity itemsConvoyEntity);
     ItemsConvoyEntity convertToEntity(ItemsConvoy itemsConvoy);
-    List<ItemsConvoy> convertListToItemsConvoy(List<ItemsConvoyEntity> itemsConvoyEntities);
+    List<ItemsConvoy> convertEntityListToItemsConvoy(List<ItemsConvoyEntity> itemsConvoyEntities);
     List<ItemsConvoyEntity> convertListToEntity(List<ItemsConvoy> itemsConvoys);
 
 }

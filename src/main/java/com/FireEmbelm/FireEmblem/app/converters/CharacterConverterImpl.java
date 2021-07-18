@@ -26,7 +26,7 @@ public class CharacterConverterImpl implements CharacterConverter {
     private HealingItemConverter mHealingItemConverter;
 
     @Override
-    public Character convertToCharacter(CharacterEntity characterEntity) {
+    public Character convertEntityToCharacter(CharacterEntity characterEntity) {
         Character character;
 
         if (characterEntity == null)
@@ -38,15 +38,15 @@ public class CharacterConverterImpl implements CharacterConverter {
                     characterEntity.level,
                     characterEntity.exp,
                     characterEntity.remainingHealth,
-                    mStatConverter.convertListToHashMap(characterEntity.stats),
+                    mStatConverter.convertEntityListToHashMap(characterEntity.stats),
                     null,
                     Stream.of(
-                                    mWeaponConverter.convertListToWeapon(characterEntity.weapons),
-                                    mHealingItemConverter.convertListToHealingItem(characterEntity.healingItems),
+                                    mWeaponConverter.convertEntityListToWeapon(characterEntity.weapons),
+                                    mHealingItemConverter.convertEntityListToHealingItem(characterEntity.healingItems),
                                     characterEntity.sealType,
                                     characterEntity.statUpType
                     ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
-                    mWeaponProgressConverter.convertListToHashMap(characterEntity.weaponProgress),
+                    mWeaponProgressConverter.convertEntityListToHashMap(characterEntity.weaponProgress),
                     characterEntity.characterClass,
                     characterEntity.characterState,
                     characterEntity.moved
@@ -99,8 +99,8 @@ public class CharacterConverterImpl implements CharacterConverter {
     }
 
     @Override
-    public List<Character> convertListToCharacter(List<CharacterEntity> characterEntities) {
-        return characterEntities.stream().map(this::convertToCharacter).collect(Collectors.toList());
+    public List<Character> convertEntityListToCharacter(List<CharacterEntity> characterEntities) {
+        return characterEntities.stream().map(this::convertEntityToCharacter).collect(Collectors.toList());
     }
 
     @Override

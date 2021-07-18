@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface StatConverter {
 
-    Stat convertToStat(StatEmbeddable statEmbeddable);
+    Stat convertEntityToStat(StatEmbeddable statEmbeddable);
     StatEmbeddable convertToEntity(Stat stat);
-    HashMap<StatsType,Stat> convertListToHashMap(List<StatEmbeddable> statEmbeddables);
+    HashMap<StatsType,Stat> convertEntityListToHashMap(List<StatEmbeddable> statEmbeddables);
     List<StatEmbeddable> convertListToEntity(List<Stat> stats);
 
 }
