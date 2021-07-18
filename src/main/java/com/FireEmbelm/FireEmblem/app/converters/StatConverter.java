@@ -1,4 +1,4 @@
-package com.FireEmbelm.FireEmblem.app.converters.appBuisness;
+package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.StatEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;

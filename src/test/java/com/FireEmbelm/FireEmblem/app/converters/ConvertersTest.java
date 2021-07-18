@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.app.converters;
 
-import com.FireEmbelm.FireEmblem.app.converters.appBuisness.*;
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.EnemyEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.ItemsConvoyEntity;

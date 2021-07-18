@@ -1,18 +1,14 @@
 package com.FireEmbelm.FireEmblem.app.interactors;
 
-import com.FireEmbelm.FireEmblem.app.converters.appBuisness.CharacterConverter;
-import com.FireEmbelm.FireEmblem.app.converters.appBuisness.EnemyConverter;
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.EnemyEntity;
 import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.EnemyRepository;
-import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GameStatusService {

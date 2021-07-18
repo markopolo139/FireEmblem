@@ -1,17 +1,12 @@
-package com.FireEmbelm.FireEmblem.app.converters.appBuisness;
+package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.EnemyEntity;
-import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
-import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
-import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

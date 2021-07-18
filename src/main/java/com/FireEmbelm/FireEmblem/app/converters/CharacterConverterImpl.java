@@ -1,10 +1,7 @@
-package com.FireEmbelm.FireEmblem.app.converters.appBuisness;
+package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
-import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
-import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
-import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
