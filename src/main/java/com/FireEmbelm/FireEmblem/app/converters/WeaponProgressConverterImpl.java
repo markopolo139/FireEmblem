@@ -3,6 +3,7 @@ package com.FireEmbelm.FireEmblem.app.converters;
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponProgressEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
+import com.FireEmbelm.FireEmblem.web.models.request.WeaponProgressModel;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -38,5 +39,33 @@ public class WeaponProgressConverterImpl implements WeaponProgressConverter {
     @Override
     public List<WeaponProgressEmbeddable> convertListToEntity(List<WeaponProgress> weaponProgresses) {
         return weaponProgresses.stream().map(this::convertToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public WeaponProgress convertModelToWeaponProgress(WeaponProgressModel weaponProgressModel) {
+        return new WeaponProgress(
+                WeaponCategory.valueOf(weaponProgressModel.weaponCategory),
+                weaponProgressModel.progress,
+                weaponProgressModel.rank
+        );
+    }
+
+    @Override
+    public WeaponProgressModel convertToModel(WeaponProgress weaponProgress) {
+        return new WeaponProgressModel(
+                weaponProgress.getWeaponCategory().name(),
+                weaponProgress.getProgress(),
+                weaponProgress.getRank()
+        );
+    }
+
+    @Override
+    public List<WeaponProgress> convertModelListToWeaponProgress(List<WeaponProgressModel> weaponProgressModels) {
+        return weaponProgressModels.stream().map(this::convertModelToWeaponProgress).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WeaponProgressModel> convertListToModel(List<WeaponProgress> weaponProgresses) {
+        return weaponProgresses.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 }

@@ -3,6 +3,7 @@ package com.FireEmbelm.FireEmblem.app.converters;
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
+import com.FireEmbelm.FireEmblem.web.models.request.WeaponModel;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -58,5 +59,47 @@ public class WeaponConverterImpl implements WeaponConverter {
     @Override
     public List<WeaponEmbeddable> convertListToEntity(List<Weapon> weapons) {
         return weapons.stream().map(this::convertToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Weapon convertModelToWeapon(WeaponModel weaponModel) {
+        return new Weapon(
+                weaponModel.name,
+                weaponModel.rank,
+                weaponModel.might,
+                weaponModel.hit,
+                weaponModel.avo,
+                weaponModel.crit,
+                weaponModel.uses,
+                weaponModel.range,
+                weaponModel.worth,
+                WeaponCategory.valueOf(weaponModel.itemCategory)
+        );
+    }
+
+    @Override
+    public WeaponModel convertToModel(Weapon weapon) {
+        return new WeaponModel(
+                weapon.getName(),
+                weapon.getRank(),
+                weapon.getMight(),
+                weapon.getHit(),
+                weapon.getAvo(),
+                weapon.getCrit(),
+                weapon.getUses(),
+                weapon.getRange(),
+                weapon.getWorth(),
+                weapon.getItemCategory().getName()
+        );
+    }
+
+    @Override
+    public List<Weapon> convertModelListToWeapon(List<WeaponModel> weaponModels) {
+        return weaponModels.stream().map(this::convertModelToWeapon).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WeaponModel> convertListToModel(List<Weapon> weapons) {
+        return weapons.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 }
