@@ -4,7 +4,11 @@ import com.FireEmbelm.FireEmblem.app.data.entities.SpotEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
+import com.FireEmbelm.FireEmblem.business.value.field.SpotsType;
+import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
+import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -53,5 +57,40 @@ public class SpotConverterImpl implements SpotConverter {
     @Override
     public List<SpotEntity> convertListToEntity(List<Spot> spots) {
         return spots.stream().map(this::convertToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Spot convertModelToSpot(SpotModel spotModel) {
+        return new Spot(
+                SpotsType.valueOf(spotModel.spotType),
+                spotModel.height,
+                spotModel.width,
+                spotModel.characterOnSpot != null ?
+                        mCharacterConverter.convertModelToCharacter(spotModel.characterOnSpot)
+                        : mEnemyConverter.convertModelToEnemy(spotModel.enemyOnSpot)
+        );
+    }
+
+    @Override
+    public SpotModel convertToModel(Spot spot) {
+        return new SpotModel(
+                spot.getSpotsType().name(),
+                spot.getHeight(),
+                spot.getWidth(),
+                spot.getCharacterOnSpot() instanceof Character ?
+                        mCharacterConverter.convertToModel((Character) spot.getCharacterOnSpot()) : null,
+                spot.getCharacterOnSpot() instanceof Enemy ?
+                        mEnemyConverter.convertToModel((Enemy) spot.getCharacterOnSpot()) : null
+        );
+    }
+
+    @Override
+    public List<Spot> convertModelListToSpot(List<SpotModel> spotModels) {
+        return spotModels.stream().map(this::convertModelToSpot).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SpotModel> convertListToModel(List<Spot> spots) {
+        return spots.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 }

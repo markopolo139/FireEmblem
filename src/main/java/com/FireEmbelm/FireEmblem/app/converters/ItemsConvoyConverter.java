@@ -2,16 +2,24 @@ package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.ItemsConvoyEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
+import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItemWithUses;
+import com.FireEmbelm.FireEmblem.web.models.request.HealingItemModel;
+import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public interface ItemsConvoyConverter {
 
     ItemsConvoy convertEntityToItemsConvoy(ItemsConvoyEntity itemsConvoyEntity);
     ItemsConvoyEntity convertToEntity(ItemsConvoy itemsConvoy);
+
     List<ItemsConvoy> convertEntityListToItemsConvoy(List<ItemsConvoyEntity> itemsConvoyEntities);
     List<ItemsConvoyEntity> convertListToEntity(List<ItemsConvoy> itemsConvoys);
 
+    ItemsConvoy convertModelToItemsConvoy(ItemsConvoyModel itemsConvoyModel);
+    ItemsConvoyModel convertToModel(ItemsConvoy itemsConvoy);
+
+    List<ItemsConvoy> convertModelListToItemsConvoy(List<ItemsConvoyModel> itemsConvoyModels);
+    List<ItemsConvoyModel> convertListToModel(List<ItemsConvoy> itemsConvoys);
 }
