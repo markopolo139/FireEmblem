@@ -60,9 +60,11 @@ public class WeaponProgressConverterImpl implements WeaponProgressConverter {
     }
 
     @Override
-    public List<WeaponProgress> convertModelListToWeaponProgress(List<WeaponProgressModel> weaponProgressModels) {
-        return weaponProgressModels.stream().map(this::convertModelToWeaponProgress).collect(Collectors.toList());
+    public HashMap<WeaponCategory, WeaponProgress> convertModelListToHashMap(List<WeaponProgressModel> weaponProgressModels) {
+        return (HashMap<WeaponCategory, WeaponProgress>) weaponProgressModels.stream().map(this::convertModelToWeaponProgress)
+                .collect(Collectors.toMap(WeaponProgress::getWeaponCategory, data -> data));
     }
+
 
     @Override
     public List<WeaponProgressModel> convertListToModel(List<WeaponProgress> weaponProgresses) {

@@ -3,6 +3,7 @@ package com.FireEmbelm.FireEmblem.app.converters;
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.StatEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
+import com.FireEmbelm.FireEmblem.web.models.request.StatModel;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -39,4 +40,34 @@ public class StatConverterImpl implements StatConverter {
     public List<StatEmbeddable> convertListToEntity(List<Stat> stats) {
         return stats.stream().map(this::convertToEntity).collect(Collectors.toList());
     }
+
+    @Override
+    public Stat convertModelToStat(StatModel statModel) {
+        return new Stat(
+                StatsType.valueOf(statModel.statType),
+                statModel.value,
+                statModel.chanceToIncrease
+        );
+    }
+
+    @Override
+    public StatModel convertToModel(Stat stat) {
+        return new StatModel(
+                stat.getStatsType().name(),
+                stat.getValue(),
+                stat.getChanceToIncrease()
+        );
+    }
+
+    @Override
+    public HashMap<StatsType, Stat> convertModelListToHashMap(List<StatModel> statModels) {
+        return (HashMap<StatsType, Stat>) statModels.stream().map(this::convertModelToStat)
+                .collect(Collectors.toMap(Stat::getStatsType, data -> data));
+    }
+
+    @Override
+    public List<StatModel> convertListToModel(List<Stat> stats) {
+        return stats.stream().map(this::convertToModel).collect(Collectors.toList());
+    }
+
 }

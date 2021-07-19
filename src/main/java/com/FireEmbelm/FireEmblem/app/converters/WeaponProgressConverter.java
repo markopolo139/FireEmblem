@@ -22,7 +22,7 @@ public interface WeaponProgressConverter {
     WeaponProgress convertModelToWeaponProgress(WeaponProgressModel weaponProgressModel);
     WeaponProgressModel convertToModel(WeaponProgress weaponProgress);
 
-    List<WeaponProgress> convertModelListToWeaponProgress(List<WeaponProgressModel> weaponProgressModels);
+    HashMap<WeaponCategory, WeaponProgress> convertModelListToHashMap(List<WeaponProgressModel> weaponProgressModels);
     List<WeaponProgressModel> convertListToModel(List<WeaponProgress> weaponProgresses);
 
 }
