@@ -41,6 +41,10 @@ public class HealingItemsConverterImpl implements HealingItemConverter {
 
     @Override
     public HealingItemWithUses convertModelToHealingItem(HealingItemModel healingItemModel) {
+
+        if (healingItemModel == null)
+            return null;
+
         return new HealingItemWithUses(
                 HealingItems.valueOf(healingItemModel.healingType),
                 healingItemModel.uses
@@ -49,6 +53,10 @@ public class HealingItemsConverterImpl implements HealingItemConverter {
 
     @Override
     public HealingItemModel convertToModel(HealingItemWithUses healingItemWithUses) {
+
+        if (healingItemWithUses == null)
+            return null;
+
         return new HealingItemModel(
                 healingItemWithUses.getHealingItems().name(),
                 healingItemWithUses.getUses()

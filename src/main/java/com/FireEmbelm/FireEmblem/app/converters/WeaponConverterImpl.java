@@ -63,6 +63,10 @@ public class WeaponConverterImpl implements WeaponConverter {
 
     @Override
     public Weapon convertModelToWeapon(WeaponModel weaponModel) {
+
+        if (weaponModel == null)
+            return null;
+
         return new Weapon(
                 weaponModel.name,
                 weaponModel.rank,
@@ -79,6 +83,10 @@ public class WeaponConverterImpl implements WeaponConverter {
 
     @Override
     public WeaponModel convertToModel(Weapon weapon) {
+
+        if (weapon == null)
+            return null;
+
         return new WeaponModel(
                 weapon.getName(),
                 weapon.getRank(),

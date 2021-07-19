@@ -26,7 +26,6 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
     @Override
     public ItemsConvoy convertEntityToItemsConvoy(ItemsConvoyEntity itemsConvoyEntity) {
 
-
         return new ItemsConvoy(
                 itemsConvoyEntity.money,
                 Stream.of(

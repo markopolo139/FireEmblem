@@ -127,6 +127,9 @@ public class EnemyConverterImpl implements EnemyConverter {
     @Override
     public Enemy convertModelToEnemy(EnemyModel enemyModel) {
 
+        if (enemyModel == null)
+            return null;
+
         Enemy enemy = new Enemy(
                 enemyModel.level,
                 enemyModel.exp,
@@ -161,6 +164,10 @@ public class EnemyConverterImpl implements EnemyConverter {
 
     @Override
     public EnemyModel convertToModel(Enemy enemy) {
+
+        if (enemy == null)
+            return null;
+
         return new EnemyModel(
                 enemy.getName(),
                 enemy.getLevel(),
