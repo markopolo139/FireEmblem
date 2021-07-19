@@ -2,6 +2,8 @@ package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.HealingItemEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItemWithUses;
+import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItems;
+import com.FireEmbelm.FireEmblem.web.models.request.HealingItemModel;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -35,5 +37,31 @@ public class HealingItemsConverterImpl implements HealingItemConverter {
     @Override
     public List<HealingItemEmbeddable> convertListToEntity(List<HealingItemWithUses> healingItemWithUses) {
         return healingItemWithUses.stream().map(this::convertToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public HealingItemWithUses convertModelToHealingItem(HealingItemModel healingItemModel) {
+        return new HealingItemWithUses(
+                HealingItems.valueOf(healingItemModel.healingType),
+                healingItemModel.uses
+        );
+    }
+
+    @Override
+    public HealingItemModel convertToModel(HealingItemWithUses healingItemWithUses) {
+        return new HealingItemModel(
+                healingItemWithUses.getHealingItems().name(),
+                healingItemWithUses.getUses()
+        );
+    }
+
+    @Override
+    public List<HealingItemWithUses> convertModelListToHealingItem(List<HealingItemModel> healingItemModels) {
+        return healingItemModels.stream().map(this::convertModelToHealingItem).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<HealingItemModel> convertListToModel(List<HealingItemWithUses> healingItemWithUses) {
+        return healingItemWithUses.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 }

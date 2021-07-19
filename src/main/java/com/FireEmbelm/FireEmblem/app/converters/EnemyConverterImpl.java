@@ -1,9 +1,16 @@
 package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.EnemyEntity;
+import com.FireEmbelm.FireEmblem.business.entitie.Character;
+import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
+import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
+import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
+import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
+import com.FireEmbelm.FireEmblem.web.models.request.EnemyModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -115,5 +122,81 @@ public class EnemyConverterImpl implements EnemyConverter {
     @Override
     public List<EnemyEntity> convertListToEntity(List<Enemy> enemies) {
         return enemies.stream().map(this::convertToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Enemy convertModelToEnemy(EnemyModel enemyModel) {
+
+        Enemy enemy = new Enemy(
+                enemyModel.level,
+                enemyModel.exp,
+                enemyModel.remainingHealth,
+                mStatConverter.convertModelListToHashMap(enemyModel.stats),
+                null,
+                Stream.of(
+                        mWeaponConverter.convertModelListToWeapon(enemyModel.weapons),
+                        mHealingItemConverter.convertModelListToHealingItem(enemyModel.healingItems),
+                        enemyModel.seals,
+                        enemyModel.statsUpItems
+                ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
+                mWeaponProgressConverter.convertModelListToHashMap(enemyModel.weaponProgress),
+                CharacterClass.valueOf(enemyModel.characterClass),
+                CharacterState.valueOf(enemyModel.characterState),
+                enemyModel.moved,
+                null,
+                enemyModel.boss,
+                enemyModel.goldDrop
+        );
+
+        if(enemyModel.currentEquipedItemId != null) {
+            enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyModel.currentEquipedItemId));
+            enemy.getCharacterBattleStats().calculateBattleStats(enemy);
+        }
+
+        if(enemyModel.dropItemId != null)
+            enemy.setDropItem(enemy.getEquipment().get(enemyModel.dropItemId));
+
+        return enemy;
+    }
+
+    @Override
+    public EnemyModel convertToModel(Enemy enemy) {
+        return new EnemyModel(
+                enemy.getName(),
+                enemy.getLevel(),
+                enemy.getExp(),
+                enemy.getRemainingHealth(),
+                mStatConverter.convertListToModel((List<Stat>) enemy.getStats().values()),
+                enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
+                mWeaponConverter.convertListToModel(
+                        enemy.getEquipment().stream().filter(i -> i instanceof Weapon)
+                                .map( i -> (Weapon) i).collect(Collectors.toList())
+                ),
+                mHealingItemConverter.convertListToModel(
+                        enemy.getEquipment().stream().filter(i -> i instanceof HealingItemWithUses)
+                                .map( i -> (HealingItemWithUses) i).collect(Collectors.toList())
+                ),
+                enemy.getEquipment().stream().filter(i -> i instanceof Seals)
+                        .map( i -> (Seals) i).collect(Collectors.toList()),
+                enemy.getEquipment().stream().filter(i -> i instanceof StatsUpItems)
+                        .map( i -> (StatsUpItems) i).collect(Collectors.toList()),
+                mWeaponProgressConverter.convertListToModel((List<WeaponProgress>) enemy.getWeaponProgresses().values()),
+                enemy.getCharacterClass().name(),
+                enemy.getCharacterState().name(),
+                enemy.isMoved(),
+                enemy.getEquipment().indexOf(enemy.getDropItem()),
+                enemy.isBoss(),
+                enemy.getGoldDrop()
+        );
+    }
+
+    @Override
+    public List<Enemy> convertModelListToEnemy(List<EnemyModel> enemyModels) {
+        return enemyModels.stream().map(this::convertModelToEnemy).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EnemyModel> convertListToModel(List<Enemy> enemies) {
+        return enemies.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 }

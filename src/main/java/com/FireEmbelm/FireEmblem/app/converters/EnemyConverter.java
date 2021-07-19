@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public interface EnemyConverter {
 
     Enemy convertEntityToEnemy(EnemyEntity enemyEntity);
@@ -18,10 +17,10 @@ public interface EnemyConverter {
     List<Enemy> convertEntityListToEnemy(List<EnemyEntity> enemyEntities);
     List<EnemyEntity> convertListToEntity(List<Enemy> enemies);
 
-    Enemy convertModelToEnemy(EnemyModel characterModel);
-    EnemyModel convertToModel(Enemy character);
+    Enemy convertModelToEnemy(EnemyModel enemyModel);
+    EnemyModel convertToModel(Enemy enemy);
 
-    List<Enemy> convertModelListToEnemy(List<EnemyModel> characterModel);
-    List<EnemyModel> convertListToModel(List<Enemy> character);
+    List<Enemy> convertModelListToEnemy(List<EnemyModel> enemyModels);
+    List<EnemyModel> convertListToModel(List<Enemy> enemies);
 
 }
