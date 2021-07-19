@@ -86,11 +86,13 @@ public class EnemyConverterImpl implements EnemyConverter {
                 enemy.getLevel(),
                 enemy.getExp(),
                 enemy.getRemainingHealth(),
-                enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
+                !enemy.getEquipment().contains(enemy.getCurrentEquipedItem()) ? null
+                        : enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
                 enemy.getCharacterClass(),
                 enemy.getCharacterState(),
                 enemy.isMoved(),
-                enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
+                !enemy.getEquipment().contains(enemy.getCurrentEquipedItem()) ? null
+                        : enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
                 enemy.isBoss(),
                 enemy.getGoldDrop(),
                 mHealingItemConverter.convertListToEntity(enemy.getEquipment().stream()
@@ -174,7 +176,8 @@ public class EnemyConverterImpl implements EnemyConverter {
                 enemy.getExp(),
                 enemy.getRemainingHealth(),
                 mStatConverter.convertListToModel((List<Stat>) enemy.getStats().values()),
-                enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
+                !enemy.getEquipment().contains(enemy.getCurrentEquipedItem()) ? null
+                        : enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
                 mWeaponConverter.convertListToModel(
                         enemy.getEquipment().stream().filter(i -> i instanceof Weapon)
                                 .map( i -> (Weapon) i).collect(Collectors.toList())
@@ -191,7 +194,8 @@ public class EnemyConverterImpl implements EnemyConverter {
                 enemy.getCharacterClass().name(),
                 enemy.getCharacterState().name(),
                 enemy.isMoved(),
-                enemy.getEquipment().indexOf(enemy.getDropItem()),
+                !enemy.getEquipment().contains(enemy.getDropItem()) ? null
+                        : enemy.getEquipment().indexOf(enemy.getDropItem()),
                 enemy.isBoss(),
                 enemy.getGoldDrop()
         );
