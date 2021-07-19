@@ -2,8 +2,14 @@ package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
+import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
+import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
+import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
+import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
+import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -106,6 +112,83 @@ public class CharacterConverterImpl implements CharacterConverter {
     @Override
     public List<CharacterEntity> convertListToEntity(List<Character> characters) {
         return characters.stream().map(this::convertToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Character convertModelToCharacter(CharacterModel characterModel) {
+
+        if (characterModel == null)
+            return null;
+
+        Character character = new Character(
+                characterModel.name,
+                characterModel.level,
+                characterModel.exp,
+                characterModel.remainingHealth,
+                mStatConverter.convertModelListToHashMap(characterModel.stats),
+                null,
+                Stream.of(
+                        mWeaponConverter.convertModelListToWeapon(characterModel.weapons),
+                        mHealingItemConverter.convertModelListToHealingItem(characterModel.healingItems),
+                        characterModel.seals,
+                        characterModel.statsUpItems
+                ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
+                mWeaponProgressConverter.convertModelListToHashMap(characterModel.weaponProgress),
+                CharacterClass.valueOf(characterModel.characterClass),
+                CharacterState.valueOf(characterModel.characterState),
+                characterModel.moved
+        );
+
+        if(characterModel.currentEquipedItemId != null) {
+            character.setCurrentEquipedItem(character.getEquipment().get(characterModel.currentEquipedItemId));
+            character.getCharacterBattleStats().calculateBattleStats(character);
+        }
+
+        return character;
+
+    }
+
+    @Override
+    public CharacterModel convertToModel(Character character) {
+
+        if (character == null)
+            return null;
+
+        return new CharacterModel(
+                character.getName(),
+                character.getLevel(),
+                character.getExp(),
+                character.getRemainingHealth(),
+                mStatConverter.convertListToModel((List<Stat>) character.getStats().values()),
+                character.getEquipment().indexOf(character.getCurrentEquipedItem()),
+                mWeaponConverter.convertListToModel(
+                        character.getEquipment().stream().filter(i -> i instanceof Weapon)
+                                .map( i -> (Weapon) i).collect(Collectors.toList())
+                ),
+                mHealingItemConverter.convertListToModel(
+                        character.getEquipment().stream().filter(i -> i instanceof HealingItemWithUses)
+                                .map( i -> (HealingItemWithUses) i).collect(Collectors.toList())
+                ),
+                character.getEquipment().stream().filter(i -> i instanceof Seals)
+                        .map( i -> (Seals) i).collect(Collectors.toList()),
+                character.getEquipment().stream().filter(i -> i instanceof StatsUpItems)
+                        .map( i -> (StatsUpItems) i).collect(Collectors.toList()),
+                mWeaponProgressConverter.convertListToModel((List<WeaponProgress>) character.getWeaponProgresses().values()),
+                character.getCharacterClass().name(),
+                character.getCharacterState().name(),
+                character.isMoved()
+        );
+
+    }
+
+    @Override
+    public List<Character> convertModelListToCharacter(List<CharacterModel> characterModel) {
+        return characterModel.stream().map(this::convertModelToCharacter).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CharacterModel> convertListToModel(List<Character> character) {
+        return character.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 
 }
