@@ -9,6 +9,8 @@ import org.springframework.lang.Nullable;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -89,13 +91,13 @@ public class CharacterModel {
                 && remainingHealth == that.remainingHealth
                 && moved == that.moved
                 && Objects.equals(name, that.name)
-                && Objects.equals(stats, that.stats)
+                && stats.containsAll(that.stats) && stats.size() == that.stats.size()
                 && Objects.equals(currentEquipedItemId, that.currentEquipedItemId)
                 && Objects.equals(weapons, that.weapons)
                 && Objects.equals(healingItems, that.healingItems)
                 && Objects.equals(seals, that.seals)
                 && Objects.equals(statsUpItems, that.statsUpItems)
-                && Objects.equals(weaponProgress, that.weaponProgress)
+                && weaponProgress.containsAll(that.weaponProgress) && weaponProgress.size() == that.weaponProgress.size()
                 && Objects.equals(characterClass, that.characterClass)
                 && Objects.equals(characterState, that.characterState);
     }

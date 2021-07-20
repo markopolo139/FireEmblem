@@ -160,7 +160,7 @@ public class CharacterConverterImpl implements CharacterConverter {
                 character.getLevel(),
                 character.getExp(),
                 character.getRemainingHealth(),
-                mStatConverter.convertListToModel((List<Stat>) character.getStats().values()),
+                mStatConverter.convertListToModel(new ArrayList<>(character.getStats().values())),
                 !character.getEquipment().contains(character.getCurrentEquipedItem()) ? null
                         : character.getEquipment().indexOf(character.getCurrentEquipedItem()),
                 mWeaponConverter.convertListToModel(
@@ -175,7 +175,7 @@ public class CharacterConverterImpl implements CharacterConverter {
                         .map( i -> (Seals) i).collect(Collectors.toList()),
                 character.getEquipment().stream().filter(i -> i instanceof StatsUpItems)
                         .map( i -> (StatsUpItems) i).collect(Collectors.toList()),
-                mWeaponProgressConverter.convertListToModel((List<WeaponProgress>) character.getWeaponProgresses().values()),
+                mWeaponProgressConverter.convertListToModel(new ArrayList<>(character.getWeaponProgresses().values())),
                 character.getCharacterClass().name(),
                 character.getCharacterState().name(),
                 character.isMoved()

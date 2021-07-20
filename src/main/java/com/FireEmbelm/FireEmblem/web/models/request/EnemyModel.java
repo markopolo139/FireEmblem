@@ -103,13 +103,13 @@ public class EnemyModel {
                 && boss == that.boss
                 && goldDrop == that.goldDrop
                 && Objects.equals(name, that.name)
-                && Objects.equals(stats, that.stats)
+                && stats.containsAll(that.stats) && stats.size() == that.stats.size()
                 && Objects.equals(currentEquipedItemId, that.currentEquipedItemId)
                 && Objects.equals(weapons, that.weapons)
                 && Objects.equals(healingItems, that.healingItems)
                 && Objects.equals(seals, that.seals)
                 && Objects.equals(statsUpItems, that.statsUpItems)
-                && Objects.equals(weaponProgress, that.weaponProgress)
+                && weaponProgress.containsAll(that.weaponProgress) && weaponProgress.size() == that.weaponProgress.size()
                 && Objects.equals(characterClass, that.characterClass)
                 && Objects.equals(characterState, that.characterState)
                 && Objects.equals(dropItemId, that.dropItemId);

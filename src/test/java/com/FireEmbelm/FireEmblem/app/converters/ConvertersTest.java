@@ -20,6 +20,10 @@ import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 import com.FireEmbelm.FireEmblem.business.value.field.SpotsType;
+import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
+import com.FireEmbelm.FireEmblem.web.models.request.HealingItemModel;
+import com.FireEmbelm.FireEmblem.web.models.request.StatModel;
+import com.FireEmbelm.FireEmblem.web.models.request.WeaponProgressModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,13 +137,54 @@ public class ConvertersTest {
                 )
         );
 
-        Character converted = mCharacterConverter.convertEntityToCharacter(characterEntity);
+        CharacterModel characterModel = new CharacterModel(
+                "test",
+                1,1,1,
+                Arrays.asList(
+                        new StatModel(StatsType.STRENGTH.name(),5,5),
+                        new StatModel(StatsType.HEALTH.name(),2,5),
+                        new StatModel(StatsType.SKILL.name(),2,5),
+                        new StatModel(StatsType.LUCK.name(),2,5),
+                        new StatModel(StatsType.SPEED.name(),2,5)
+                ),
+                0,
+                Collections.singletonList(mWeaponConverter.convertToModel(weapon)),
+                Collections.singletonList(new HealingItemModel(HealingItems.MEND.name(), 20)),
+                Collections.singletonList(Seals.HEART_SEAL),
+                Collections.singletonList(StatsUpItems.STRENGTH_UP),
+                Arrays.asList(
+                        new WeaponProgressModel(WeaponCategory.SWORD.getName(),1,2),
+                        new WeaponProgressModel(WeaponCategory.BOW.getName(),1,2)
+                ),
+                CharacterClass.ARCHER.name(),
+                CharacterState.DEAD.name(),
+                false
+        );
+
+
+        Character convertedFromEntity = mCharacterConverter.convertEntityToCharacter(characterEntity);
 
         CharacterEntity convertedEntity = mCharacterConverter.convertToEntity(character);
 
-        Assertions.assertEquals(character,converted);
+        CharacterModel convertedModel = mCharacterConverter.convertToModel(character);
+
+        Character convertedFromModel = mCharacterConverter.convertModelToCharacter(characterModel);
+
+        Assertions.assertEquals(character,convertedFromEntity);
 
         Assertions.assertEquals(characterEntity,convertedEntity);
+
+        Assertions.assertEquals(character,convertedFromModel);
+
+        Assertions.assertEquals(characterModel,convertedModel);
+
+        Spot spot = new Spot(SpotsType.FORREST, 6, 4, character);
+
+        SpotEntity spotEntity = new SpotEntity(null,SpotsType.FORREST,6,4,characterEntity,null);
+
+        Assertions.assertEquals(spot, mSpotConverter.convertEntityToSpot(spotEntity));
+
+        Assertions.assertEquals(spotEntity, mSpotConverter.convertToEntity(spot));
 
     }
 

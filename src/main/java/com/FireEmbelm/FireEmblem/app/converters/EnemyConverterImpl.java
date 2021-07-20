@@ -175,7 +175,7 @@ public class EnemyConverterImpl implements EnemyConverter {
                 enemy.getLevel(),
                 enemy.getExp(),
                 enemy.getRemainingHealth(),
-                mStatConverter.convertListToModel((List<Stat>) enemy.getStats().values()),
+                mStatConverter.convertListToModel(new ArrayList<>(enemy.getStats().values())),
                 !enemy.getEquipment().contains(enemy.getCurrentEquipedItem()) ? null
                         : enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
                 mWeaponConverter.convertListToModel(
@@ -190,7 +190,7 @@ public class EnemyConverterImpl implements EnemyConverter {
                         .map( i -> (Seals) i).collect(Collectors.toList()),
                 enemy.getEquipment().stream().filter(i -> i instanceof StatsUpItems)
                         .map( i -> (StatsUpItems) i).collect(Collectors.toList()),
-                mWeaponProgressConverter.convertListToModel((List<WeaponProgress>) enemy.getWeaponProgresses().values()),
+                mWeaponProgressConverter.convertListToModel(new ArrayList<>(enemy.getWeaponProgresses().values())),
                 enemy.getCharacterClass().name(),
                 enemy.getCharacterState().name(),
                 enemy.isMoved(),
