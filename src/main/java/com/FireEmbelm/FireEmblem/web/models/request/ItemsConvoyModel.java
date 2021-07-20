@@ -41,10 +41,10 @@ public class ItemsConvoyModel {
         if (o == null || getClass() != o.getClass()) return false;
         ItemsConvoyModel that = (ItemsConvoyModel) o;
         return money == that.money
-                && Objects.equals(weapons, that.weapons)
-                && Objects.equals(healingItems, that.healingItems)
-                && Objects.equals(seals, that.seals)
-                && Objects.equals(statsUpItems, that.statsUpItems);
+                && weapons.containsAll(that.weapons) && weapons.size() == that.weapons.size()
+                && healingItems.containsAll(that.healingItems) && healingItems.size() == that.healingItems.size()
+                && seals.containsAll(that.seals) && seals.size() == that.seals.size()
+                && statsUpItems.containsAll(that.statsUpItems) && statsUpItems.size() == that.statsUpItems.size();
     }
 
     @Override

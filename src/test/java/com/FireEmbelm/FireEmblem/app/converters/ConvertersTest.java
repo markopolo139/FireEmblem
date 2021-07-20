@@ -20,10 +20,7 @@ import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 import com.FireEmbelm.FireEmblem.business.value.field.SpotsType;
-import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
-import com.FireEmbelm.FireEmblem.web.models.request.HealingItemModel;
-import com.FireEmbelm.FireEmblem.web.models.request.StatModel;
-import com.FireEmbelm.FireEmblem.web.models.request.WeaponProgressModel;
+import com.FireEmbelm.FireEmblem.web.models.request.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,9 +179,15 @@ public class ConvertersTest {
 
         SpotEntity spotEntity = new SpotEntity(null,SpotsType.FORREST,6,4,characterEntity,null);
 
+        SpotModel spotModel = new SpotModel("FORREST",6,4,characterModel,null);
+
         Assertions.assertEquals(spot, mSpotConverter.convertEntityToSpot(spotEntity));
 
         Assertions.assertEquals(spotEntity, mSpotConverter.convertToEntity(spot));
+
+        Assertions.assertEquals(spot, mSpotConverter.convertModelToSpot(spotModel));
+
+        Assertions.assertEquals(spotModel, mSpotConverter.convertToModel(spot));
 
     }
 
@@ -242,13 +245,46 @@ public class ConvertersTest {
                 )
         );
 
-        Enemy converted = mEnemyConverter.convertEntityToEnemy(enemyEntity);
+        EnemyModel enemyModel = new EnemyModel(
+                "Ruffian",
+                1,2,3,
+                Arrays.asList(
+                        new StatModel(StatsType.STRENGTH.name(),5,5),
+                        new StatModel(StatsType.HEALTH.name(),2,5),
+                        new StatModel(StatsType.SKILL.name(),2,5),
+                        new StatModel(StatsType.LUCK.name(),2,5),
+                        new StatModel(StatsType.SPEED.name(),2,5)
+                ),
+                0,
+                Collections.singletonList(mWeaponConverter.convertToModel(weapon)),
+                Collections.singletonList(new HealingItemModel(HealingItems.MEND.name(), 20)),
+                Collections.singletonList(Seals.HEART_SEAL),
+                Collections.singletonList(StatsUpItems.STRENGTH_UP),
+                Arrays.asList(
+                        new WeaponProgressModel(WeaponCategory.SWORD.getName(),1,2),
+                        new WeaponProgressModel(WeaponCategory.BOW.getName(),1,2)
+                ),
+                CharacterClass.ARCHER.name(),
+                CharacterState.DEAD.name(),
+                false,
+                0, false, 555
+        );
+
+        Enemy convertedFromEntity = mEnemyConverter.convertEntityToEnemy(enemyEntity);
 
         EnemyEntity convertedEntity = mEnemyConverter.convertToEntity(enemy);
 
-        Assertions.assertEquals(enemy,converted);
+        Enemy convertedFromModel = mEnemyConverter.convertModelToEnemy(enemyModel);
+
+        EnemyModel convertedModel = mEnemyConverter.convertToModel(enemy);
+
+        Assertions.assertEquals(enemy,convertedFromEntity);
 
         Assertions.assertEquals(enemyEntity,convertedEntity);
+
+        Assertions.assertEquals(enemy, convertedFromModel);
+
+        Assertions.assertEquals(enemyModel, convertedModel);
     }
 
     @Test
@@ -258,6 +294,8 @@ public class ConvertersTest {
 
         HealingItemWithUses healingItemWithUses = new HealingItemWithUses(HealingItems.HEAL,31);
 
+        HealingItemModel healingItemModel = new HealingItemModel("HEAL",31);
+
         Assertions.assertEquals(
                 healingItemEmbeddable,
                 mHealingItemConverter.convertToEntity(healingItemWithUses)
@@ -266,6 +304,16 @@ public class ConvertersTest {
         Assertions.assertEquals(
                 healingItemWithUses,
                 mHealingItemConverter.convertEntityToHealingItem(healingItemEmbeddable)
+        );
+
+        Assertions.assertEquals(
+                healingItemModel,
+                mHealingItemConverter.convertToModel(healingItemWithUses)
+        );
+
+        Assertions.assertEquals(
+                healingItemWithUses,
+                mHealingItemConverter.convertModelToHealingItem(healingItemModel)
         );
     }
 
@@ -295,9 +343,23 @@ public class ConvertersTest {
                 Collections.singletonList(StatsUpItems.STRENGTH_UP)
                 );
 
+        ItemsConvoyModel itemsConvoyModel = new ItemsConvoyModel(
+                5412,
+                Collections.singletonList(
+                        new WeaponModel("test",1,2,3,4,5,6,7,8,WeaponCategory.BOW.getName())
+                ),
+                Collections.singletonList(new HealingItemModel(HealingItems.MEND.name(),20)),
+                Collections.singletonList(Seals.HEART_SEAL),
+                Collections.singletonList(StatsUpItems.STRENGTH_UP)
+        );
+
         Assertions.assertEquals(itemsConvoy,mItemsConvoyConverter.convertEntityToItemsConvoy(itemsConvoyEntity));
 
         Assertions.assertEquals(itemsConvoyEntity,mItemsConvoyConverter.convertToEntity(itemsConvoy));
+
+        Assertions.assertEquals(itemsConvoy,mItemsConvoyConverter.convertModelToItemsConvoy(itemsConvoyModel));
+
+        Assertions.assertEquals(itemsConvoyModel,mItemsConvoyConverter.convertToModel(itemsConvoy));
 
     }
 
@@ -307,9 +369,15 @@ public class ConvertersTest {
 
         SpotEntity spotEntity = new SpotEntity(null,SpotsType.FORREST,6,4,null,null);
 
+        SpotModel spotModel = new SpotModel("FORREST",6,4,null,null);
+
         Assertions.assertEquals(spot, mSpotConverter.convertEntityToSpot(spotEntity));
 
         Assertions.assertEquals(spotEntity, mSpotConverter.convertToEntity(spot));
+
+        Assertions.assertEquals(spot, mSpotConverter.convertModelToSpot(spotModel));
+
+        Assertions.assertEquals(spotModel, mSpotConverter.convertToModel(spot));
     }
 
     @Test
@@ -319,9 +387,15 @@ public class ConvertersTest {
 
         StatEmbeddable statEmbeddable = new StatEmbeddable(StatsType.HEALTH,14,66);
 
+        StatModel statModel = new StatModel("HEALTH",14,66);
+
         Assertions.assertEquals(stat,mStatConverter.convertEntityToStat(statEmbeddable));
 
         Assertions.assertEquals(statEmbeddable,mStatConverter.convertToEntity(stat));
+
+        Assertions.assertEquals(stat,mStatConverter.convertModelToStat(statModel));
+
+        Assertions.assertEquals(statModel,mStatConverter.convertToModel(stat));
     }
 
     @Test
@@ -337,9 +411,19 @@ public class ConvertersTest {
                 1,2,3,4,5,6,7,8,WeaponCategory.BOW
         );
 
+        WeaponModel weaponModel = new WeaponModel(
+                "Test",
+                1,2,3,4,5,6,7,8,"BOW"
+        );
+
         Assertions.assertEquals(weapon,mWeaponConverter.convertEntityToWeapon(weaponEmbeddable));
 
         Assertions.assertEquals(weaponEmbeddable, mWeaponConverter.convertToEntity(weapon));
+
+        Assertions.assertEquals(weapon,mWeaponConverter.convertModelToWeapon(weaponModel));
+
+        Assertions.assertEquals(weaponModel, mWeaponConverter.convertToModel(weapon));
+
     }
 
     @Test
@@ -353,6 +437,8 @@ public class ConvertersTest {
 
         WeaponProgress weaponProgress = new WeaponProgress(WeaponCategory.AXE,76,4);
 
+        WeaponProgressModel weaponProgressModel = new WeaponProgressModel("AXE",76,4);
+
 
         Assertions.assertEquals(
                 weaponProgress,
@@ -362,6 +448,16 @@ public class ConvertersTest {
         Assertions.assertEquals(
                 weaponProgressEmbeddable,
                 mWeaponProgressConverter.convertToEntity(weaponProgress)
+        );
+
+        Assertions.assertEquals(
+                weaponProgress,
+                mWeaponProgressConverter.convertModelToWeaponProgress(weaponProgressModel)
+        );
+
+        Assertions.assertEquals(
+                weaponProgressModel,
+                mWeaponProgressConverter.convertToModel(weaponProgress)
         );
     }
 }
