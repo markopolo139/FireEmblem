@@ -34,7 +34,10 @@ public class ShopService {
 
         Equipment selectedItem =  itemsConvoy.getEquipmentCollection().get(itemsConvoyId);
         itemsConvoy.getEquipmentCollection().remove(selectedItem);
-        itemsConvoy.setMoney(itemsConvoy.getMoney() + (int) (selectedItem.getWorth() * SELL_PERCENTAGE));
+
+        int sellValue = (int) (selectedItem.getWorth() * SELL_PERCENTAGE);
+        sellValue = sellValue - (sellValue % 10);
+        itemsConvoy.setMoney(itemsConvoy.getMoney() + sellValue);
 
     }
 
