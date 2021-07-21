@@ -19,7 +19,6 @@ public class ItemsConvoyEntity {
     @GeneratedValue
     public Long convoyId;
 
-    @NaturalId
     public int money;
 
     @ElementCollection
