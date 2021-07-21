@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.web.models.request;
 
+import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.web.validation.ValidWeaponCategory;
@@ -10,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
-public class WeaponModel {
+public class WeaponModel implements Equipment{
 
     @NotBlank
     public String name;
@@ -79,5 +80,56 @@ public class WeaponModel {
     @Override
     public int hashCode() {
         return Objects.hash(name, rank, might, hit, avo, crit, uses, range, worth, itemCategory);
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getMight() {
+        return might;
+    }
+
+    @Override
+    public int getWorth() {
+        return worth;
+    }
+
+    @Override
+    public int getRange() {
+        return range;
+    }
+
+    @Override
+    public int getUses() {
+        return uses;
+    }
+
+    @Override
+    public void setUses(int uses) {
+        this.uses = uses;
+    }
+
+    @Override
+    public ItemCategory getItemCategory() {
+        return WeaponCategory.valueOf(itemCategory);
+    }
+
+    @Override
+    public String getDescription() {
+        return "WeaponModel{" +
+                "name='" + name + '\'' +
+                ", rank=" + rank +
+                ", might=" + might +
+                ", hit=" + hit +
+                ", avo=" + avo +
+                ", crit=" + crit +
+                ", uses=" + uses +
+                ", range=" + range +
+                ", worth=" + worth +
+                ", itemCategory='" + itemCategory + '\'' +
+                '}';
     }
 }
