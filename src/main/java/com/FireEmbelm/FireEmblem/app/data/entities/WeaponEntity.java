@@ -24,7 +24,7 @@ public class WeaponEntity {
         this.quality = quality;
     }
 
-    private WeaponEntity() {
+    protected WeaponEntity() {
     }
 
     @Override

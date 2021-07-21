@@ -42,7 +42,7 @@ public class SpotEntity {
         this.enemyId = enemyId;
     }
 
-    private SpotEntity() {
+    protected SpotEntity() {
     }
 
     @Override

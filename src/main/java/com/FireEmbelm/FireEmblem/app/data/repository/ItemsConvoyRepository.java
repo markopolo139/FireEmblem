@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ItemsConvoyRepository extends JpaRepository<ItemsConvoyEntity, Long> {
-    Optional<ItemsConvoyEntity> findByMoney(int money);
+    ItemsConvoyEntity findByMoney(int money);
 }

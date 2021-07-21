@@ -4,6 +4,7 @@ import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.HealingItemEmbedda
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class ItemsConvoyEntity {
     @GeneratedValue
     public Long convoyId;
 
+    @NaturalId
     public int money;
 
     @ElementCollection
@@ -62,7 +64,7 @@ public class ItemsConvoyEntity {
         this.statUpType = statUpType;
     }
 
-    private ItemsConvoyEntity() {
+    protected ItemsConvoyEntity() {
     }
 
     @Override

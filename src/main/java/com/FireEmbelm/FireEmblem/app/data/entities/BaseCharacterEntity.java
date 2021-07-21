@@ -61,7 +61,7 @@ public class BaseCharacterEntity {
         this.stats = stats;
     }
 
-    private BaseCharacterEntity() {
+    protected BaseCharacterEntity() {
     }
 
     @Override

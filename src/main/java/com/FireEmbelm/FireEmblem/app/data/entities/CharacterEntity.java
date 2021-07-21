@@ -85,7 +85,7 @@ public class CharacterEntity {
     })
     public List<WeaponProgressEmbeddable> weaponProgress;
 
-    private CharacterEntity() {
+    protected CharacterEntity() {
     }
 
     public CharacterEntity(

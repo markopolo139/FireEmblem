@@ -21,7 +21,7 @@ public class HealingItemEntity {
         this.healItemEmbeddable = healItemEmbeddable;
     }
 
-    private HealingItemEntity() {
+    protected HealingItemEntity() {
     }
 
     @Override

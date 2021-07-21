@@ -117,6 +117,8 @@ public class EnemyEntity {
         this.weaponProgress = weaponProgress;
     }
 
+    protected EnemyEntity() {}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
