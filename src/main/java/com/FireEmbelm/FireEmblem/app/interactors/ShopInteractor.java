@@ -3,9 +3,7 @@ package com.FireEmbelm.FireEmblem.app.interactors;
 import com.FireEmbelm.FireEmblem.app.converters.HealingItemConverter;
 import com.FireEmbelm.FireEmblem.app.converters.ItemsConvoyConverter;
 import com.FireEmbelm.FireEmblem.app.converters.WeaponConverter;
-import com.FireEmbelm.FireEmblem.app.data.entities.HealingItemEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.ItemsConvoyEntity;
-import com.FireEmbelm.FireEmblem.app.data.entities.WeaponEntity;
 import com.FireEmbelm.FireEmblem.app.data.repository.HealingItemRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.ItemsConvoyRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.WeaponRepository;
@@ -16,14 +14,12 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
 import com.FireEmbelm.FireEmblem.web.models.request.HealingItemModel;
-import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import com.FireEmbelm.FireEmblem.web.models.request.WeaponModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

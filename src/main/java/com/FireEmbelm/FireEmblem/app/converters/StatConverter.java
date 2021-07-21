@@ -3,10 +3,7 @@ package com.FireEmbelm.FireEmblem.app.converters;
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.StatEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
-import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 import com.FireEmbelm.FireEmblem.web.models.request.StatModel;
-import com.FireEmbelm.FireEmblem.web.models.request.WeaponProgressModel;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;

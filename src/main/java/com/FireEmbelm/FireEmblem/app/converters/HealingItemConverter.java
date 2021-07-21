@@ -1,12 +1,8 @@
 package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.HealingItemEmbeddable;
-import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItemWithUses;
-import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItems;
-import com.FireEmbelm.FireEmblem.web.models.request.EnemyModel;
 import com.FireEmbelm.FireEmblem.web.models.request.HealingItemModel;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

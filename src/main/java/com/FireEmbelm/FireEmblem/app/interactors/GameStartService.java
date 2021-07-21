@@ -5,14 +5,12 @@ import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponProgressEmbeddable;
 import com.FireEmbelm.FireEmblem.app.data.repository.BaseCharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
-import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GameStartService {

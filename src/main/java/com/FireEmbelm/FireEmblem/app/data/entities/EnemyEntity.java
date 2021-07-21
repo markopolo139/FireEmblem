@@ -8,7 +8,6 @@ import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
-import org.hibernate.annotations.NaturalId;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;

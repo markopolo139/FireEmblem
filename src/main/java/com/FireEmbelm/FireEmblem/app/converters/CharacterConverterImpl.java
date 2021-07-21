@@ -4,15 +4,16 @@ import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
-import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
-import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
-import com.FireEmbelm.FireEmblem.business.value.equipment.*;
+import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItemWithUses;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
+import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

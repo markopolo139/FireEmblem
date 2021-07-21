@@ -2,10 +2,7 @@ package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
-import com.FireEmbelm.FireEmblem.business.value.field.Spot;
-import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 import com.FireEmbelm.FireEmblem.web.models.request.WeaponModel;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

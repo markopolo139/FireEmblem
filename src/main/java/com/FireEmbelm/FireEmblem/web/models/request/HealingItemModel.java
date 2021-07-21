@@ -6,7 +6,6 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItems;
 import com.FireEmbelm.FireEmblem.web.validation.ValidHealingItemType;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 public class HealingItemModel implements Equipment{

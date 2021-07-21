@@ -1,11 +1,8 @@
 package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.SpotEntity;
-import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
-import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

@@ -4,7 +4,6 @@ import com.FireEmbelm.FireEmblem.web.validation.ValidSpotType;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Null;
 import java.util.Objects;
 
 public class SpotModel {

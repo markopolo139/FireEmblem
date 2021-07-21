@@ -3,7 +3,6 @@ package com.FireEmbelm.FireEmblem.app.converters;
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

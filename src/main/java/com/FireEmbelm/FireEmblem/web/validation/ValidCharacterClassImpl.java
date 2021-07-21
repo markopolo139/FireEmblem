@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.web.validation;
 
-import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 
 import javax.validation.ConstraintValidator;
