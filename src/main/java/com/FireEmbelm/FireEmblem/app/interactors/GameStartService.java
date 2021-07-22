@@ -2,9 +2,11 @@ package com.FireEmbelm.FireEmblem.app.interactors;
 
 import com.FireEmbelm.FireEmblem.app.converters.internal.BaseCharacterToCharacterConverter;
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
+import com.FireEmbelm.FireEmblem.app.data.entities.ItemsConvoyEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponProgressEmbeddable;
 import com.FireEmbelm.FireEmblem.app.data.repository.BaseCharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
+import com.FireEmbelm.FireEmblem.app.data.repository.ItemsConvoyRepository;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +24,15 @@ public class GameStartService {
     private CharacterRepository mCharacterRepository;
 
     @Autowired
+    private ItemsConvoyRepository mItemsConvoyRepository;
+
+    @Autowired
     private BaseCharacterToCharacterConverter mBaseCharacterToCharacterConverter;
 
     public void startGame() {
 
         mCharacterRepository.deleteAll();
+        mItemsConvoyRepository.deleteAll();
 
         List<CharacterEntity> characterEntities =
                 mBaseCharacterToCharacterConverter.convertListToCharacterEntity(mBaseCharacterRepository.findAll());
@@ -34,6 +40,9 @@ public class GameStartService {
         characterEntities.forEach(this::giveBasicWeaponProgress);
 
         mCharacterRepository.saveAll(characterEntities);
+        mItemsConvoyRepository.save(new ItemsConvoyEntity(
+                1L,3000,null,null,null,null)
+        );
     }
 
     private void giveBasicWeaponProgress(CharacterEntity characterEntity) {

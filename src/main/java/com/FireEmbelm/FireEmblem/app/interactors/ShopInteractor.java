@@ -23,8 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//TODO:
-// in interactor : check status (if dead, set spot to null and save dead character, and spot with null) (if alive, save spot with character
 @Service
 public class ShopInteractor {
 
