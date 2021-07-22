@@ -17,6 +17,8 @@ import java.util.List;
 @Service
 public class GameStartService {
 
+    public static final int START_MONEY = 3000;
+
     @Autowired
     private BaseCharacterRepository mBaseCharacterRepository;
 
@@ -41,7 +43,7 @@ public class GameStartService {
 
         mCharacterRepository.saveAll(characterEntities);
         mItemsConvoyRepository.save(new ItemsConvoyEntity(
-                1L,3000,null,null,null,null)
+                1L,START_MONEY,null,null,null,null)
         );
     }
 

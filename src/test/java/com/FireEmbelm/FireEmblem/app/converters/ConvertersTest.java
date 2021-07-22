@@ -326,6 +326,8 @@ public class ConvertersTest {
                         Arrays.asList(
                                 new HealingItemWithUses(HealingItems.MEND,20),
                                 new Weapon("test",1,2,3,4,5,6,7,8,WeaponCategory.BOW),
+                                new Weapon("test2",1,2,3,4,5,6,7,8,WeaponCategory.BOW),
+                                new Weapon("test3",1,2,3,4,5,6,7,8,WeaponCategory.BOW),
                                 Seals.HEART_SEAL,
                                 StatsUpItems.STRENGTH_UP
                         )
@@ -336,8 +338,10 @@ public class ConvertersTest {
                 null,
                 5412,
                 Collections.singletonList(new HealingItemEmbeddable(HealingItems.MEND,20)),
-                Collections.singletonList(
-                        new WeaponEmbeddable("test",1,2,3,4,5,6,7,8,WeaponCategory.BOW)
+                Arrays.asList(
+                        new WeaponEmbeddable("test",1,2,3,4,5,6,7,8,WeaponCategory.BOW),
+                        new WeaponEmbeddable("test2",1,2,3,4,5,6,7,8,WeaponCategory.BOW),
+                        new WeaponEmbeddable("test3",1,2,3,4,5,6,7,8,WeaponCategory.BOW)
                 ),
                 Collections.singletonList(Seals.HEART_SEAL),
                 Collections.singletonList(StatsUpItems.STRENGTH_UP)
@@ -345,21 +349,27 @@ public class ConvertersTest {
 
         ItemsConvoyModel itemsConvoyModel = new ItemsConvoyModel(
                 5412,
-                Collections.singletonList(
-                        new WeaponModel("test",1,2,3,4,5,6,7,8,WeaponCategory.BOW.getName())
+                Arrays.asList(
+                        new WeaponModel("test",1,2,3,4,5,6,7,8,WeaponCategory.BOW.getName()),
+                        new WeaponModel("test2",1,2,3,4,5,6,7,8,WeaponCategory.BOW.getName()),
+                        new WeaponModel("test3",1,2,3,4,5,6,7,8,WeaponCategory.BOW.getName())
+
                 ),
                 Collections.singletonList(new HealingItemModel(HealingItems.MEND.name(),20)),
                 Collections.singletonList(Seals.HEART_SEAL),
                 Collections.singletonList(StatsUpItems.STRENGTH_UP)
         );
 
+        ItemsConvoy convertedFromModel = mItemsConvoyConverter.convertModelToItemsConvoy(itemsConvoyModel);
+        ItemsConvoyModel convertedToModel = mItemsConvoyConverter.convertToModel(itemsConvoy);
+
         Assertions.assertEquals(itemsConvoy,mItemsConvoyConverter.convertEntityToItemsConvoy(itemsConvoyEntity));
 
         Assertions.assertEquals(itemsConvoyEntity,mItemsConvoyConverter.convertToEntity(itemsConvoy));
 
-        Assertions.assertEquals(itemsConvoy,mItemsConvoyConverter.convertModelToItemsConvoy(itemsConvoyModel));
+        Assertions.assertEquals(itemsConvoy,convertedFromModel);
 
-        Assertions.assertEquals(itemsConvoyModel,mItemsConvoyConverter.convertToModel(itemsConvoy));
+        Assertions.assertEquals(itemsConvoyModel,convertedToModel);
 
     }
 
