@@ -35,8 +35,9 @@ public class EquipmentManagementService {
 
         itemsConvoy.getEquipmentCollection().add(character.getEquipment().get(characterEquipmentId));
 
-        if(character.getCurrentEquipedItem().equals(character.getEquipment().get(characterEquipmentId)))
-            character.setCurrentEquipedItem(null);
+        if(character.getCurrentEquipedItem() != null)
+            if(character.getCurrentEquipedItem().equals(character.getEquipment().get(characterEquipmentId)))
+                character.setCurrentEquipedItem(null);
 
         character.getEquipment().remove(characterEquipmentId);
     }

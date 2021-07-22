@@ -11,7 +11,6 @@ import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.EquipmentLimitException;
 import com.FireEmbelm.FireEmblem.business.service.EquipmentManagementService;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
-import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +44,25 @@ public class EquipmentManagementInteractor {
 
         mEquipmentManagementService.getEquipmentForCharacterFromConvoy(character, itemsConvoy, itemsConvoyId);
 
+        saveResultToBase(enteringConvoy, character, itemsConvoy);
+
+    }
+
+    public void giveEquipmentFromCharacterToConvoy(
+            CharacterModel characterModel, int itemsConvoyMoney, int characterEquipmentId
+    ) {
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoney(itemsConvoyMoney);
+        Character character = mCharacterConverter.convertModelToCharacter(characterModel);
+        ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringConvoy);
+
+        mEquipmentManagementService.giveEquipmentFromCharacterToConvoy(character, itemsConvoy, characterEquipmentId);
+
+        saveResultToBase(enteringConvoy, character, itemsConvoy);
+    }
+
+
+
+    private void saveResultToBase(ItemsConvoyEntity enteringConvoy, Character character, ItemsConvoy itemsConvoy) {
         ItemsConvoyEntity exitingConvoy = mItemsConvoyConverter.convertToEntity(itemsConvoy);
         exitingConvoy.convoyId = enteringConvoy.convoyId;
 
@@ -53,6 +71,6 @@ public class EquipmentManagementInteractor {
 
         mItemsConvoyRepository.save(exitingConvoy);
         mCharacterRepository.save(exitingCharacter);
-
     }
+
 }
