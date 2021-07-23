@@ -19,8 +19,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 
-//TODO:
-// in interactor : check status (if dead, set spot to null and save dead character, and spot with null) (if alive, save spot with character
 @Service
 public class EquipmentManagementInteractor {
 

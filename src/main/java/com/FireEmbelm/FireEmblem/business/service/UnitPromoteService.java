@@ -32,8 +32,9 @@ public class UnitPromoteService {
                         + character.getCharacterClass().getBonusStats().get(StatsType.HEALTH).getValue()
         );
 
-        if(!character.getCharacterClass().getAllowedWeapons().contains(character.getCurrentEquipedItem().getItemCategory())) {
-            character.setCurrentEquipedItem(null);
-        }
+        if(character.getCurrentEquipedItem() != null)
+            if(!character.getCharacterClass().getAllowedWeapons().contains(character.getCurrentEquipedItem().getItemCategory()))
+                character.setCurrentEquipedItem(null);
+
     }
 }
