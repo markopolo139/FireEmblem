@@ -125,6 +125,17 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return convertToResponseEntity(apiError);
     }
 
+    @ExceptionHandler(IndexOutOfBoundsException.class)
+    public ResponseEntity<Object> indexOutOfBoundsExceptionHandler(IndexOutOfBoundsException exception) {
+        ApiError apiError = ApiError.builder()
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .setSuggestedAction("Select item in array bound")
+                .build();
+
+        return convertToResponseEntity(apiError);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> constraintViolationExceptionHandler(ConstraintViolationException exception) {
         List<ApiSubError> apiSubErrors = exception.getConstraintViolations().stream()

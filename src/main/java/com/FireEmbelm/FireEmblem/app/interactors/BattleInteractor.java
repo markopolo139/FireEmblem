@@ -25,8 +25,6 @@ import org.apache.logging.log4j.core.config.plugins.convert.TypeConverters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//TODO:
-// - In character entity weapons first in list
 @Service
 public class BattleInteractor {
 

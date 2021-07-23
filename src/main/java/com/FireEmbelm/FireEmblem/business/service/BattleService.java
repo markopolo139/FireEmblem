@@ -52,9 +52,10 @@ public class BattleService {
 
             mCharacterDevelopmentService.increaseExpNotDead(attacker,defender);
 
-            if (defender.getCurrentEquipedItem().getRange() == attacker.getCurrentEquipedItem().getRange()
-                && defender.getCurrentEquipedItem().getItemCategory() instanceof WeaponCategory) {
+            if (defender.getCurrentEquipedItem() != null)
 
+                if(defender.getCurrentEquipedItem().getRange() == attacker.getCurrentEquipedItem().getRange()
+                        && defender.getCurrentEquipedItem().getItemCategory() instanceof WeaponCategory) {
                 calculateDamageAndSetRemainingHp(defenderSpot, attackerSpot);
                 gettingExpAndMoney(defender, attacker, itemsConvoy);
                 mCharacterDevelopmentService.increaseWeaponProgress(defender);
@@ -63,7 +64,8 @@ public class BattleService {
                 if(defender.getCharacterState().equals(CharacterState.DEAD))
                     addWeaponAndMoneyFromEnemyToConvoy(defender, itemsConvoy);
 
-            }
+                }
+
             else {
                 if(isDoubleAttack(attacker,defender)) {
 

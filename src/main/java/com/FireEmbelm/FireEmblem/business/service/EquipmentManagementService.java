@@ -54,6 +54,9 @@ public class EquipmentManagementService {
 
     public void trade(Character tradeFrom, Character tradeTo, int equipmentId) throws EquipmentLimitException {
 
+        if(equipmentId < 0 || equipmentId >= tradeFrom.getEquipment().size())
+            throw new IndexOutOfBoundsException("Selected item id must be in range of items convoy");
+
         if(tradeTo.getEquipment().size() >= 6)
             throw new EquipmentLimitException();
 
