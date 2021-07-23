@@ -3,10 +3,7 @@ package com.FireEmbelm.FireEmblem.app.converters;
 import com.FireEmbelm.FireEmblem.app.data.entities.ItemsConvoyEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
-import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItemWithUses;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
-import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
+import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,8 +30,8 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
                 Stream.of(
                         mHealingItemConverter.convertEntityListToHealingItem(itemsConvoyEntity.healingItems),
                         mWeaponConverter.convertEntityListToWeapon(itemsConvoyEntity.weapons),
-                        itemsConvoyEntity.sealType,
-                        itemsConvoyEntity.statUpType
+                        itemsConvoyEntity.sealType == null ? new ArrayList<Equipment>() : itemsConvoyEntity.sealType,
+                        itemsConvoyEntity.statUpType == null ? new ArrayList<Equipment>() : itemsConvoyEntity.statUpType
                 ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new))
         );
     }
@@ -75,8 +72,8 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
                 Stream.of(
                         mHealingItemConverter.convertModelListToHealingItem(itemsConvoyModel.healingItems),
                         mWeaponConverter.convertModelListToWeapon(itemsConvoyModel.weapons),
-                        itemsConvoyModel.seals,
-                        itemsConvoyModel.statsUpItems
+                        itemsConvoyModel.seals == null ? new ArrayList<Equipment>() : itemsConvoyModel.seals,
+                        itemsConvoyModel.statsUpItems == null ? new ArrayList<Equipment>() : itemsConvoyModel.statsUpItems
                 ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new))
         );
     }

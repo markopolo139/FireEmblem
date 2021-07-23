@@ -129,8 +129,8 @@ public class CharacterConverterImpl implements CharacterConverter {
                 Stream.of(
                         mWeaponConverter.convertModelListToWeapon(characterModel.weapons),
                         mHealingItemConverter.convertModelListToHealingItem(characterModel.healingItems),
-                        characterModel.seals,
-                        characterModel.statsUpItems
+                        characterModel.seals == null ? new ArrayList<Equipment>() : characterModel.seals,
+                        characterModel.statsUpItems == null ? new ArrayList<Equipment>() : characterModel.statsUpItems
                 ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
                 mWeaponProgressConverter.convertModelListToHashMap(characterModel.weaponProgress),
                 CharacterClass.valueOf(characterModel.characterClass),

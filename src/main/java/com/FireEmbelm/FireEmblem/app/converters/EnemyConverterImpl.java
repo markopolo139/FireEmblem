@@ -4,10 +4,7 @@ import com.FireEmbelm.FireEmblem.app.data.entities.EnemyEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
-import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItemWithUses;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
-import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
+import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import com.FireEmbelm.FireEmblem.web.models.request.EnemyModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,10 +46,10 @@ public class EnemyConverterImpl implements EnemyConverter {
                     mStatConverter.convertEntityListToHashMap(enemyEntity.stats),
                     null,
                     Stream.of(
-                                    mWeaponConverter.convertEntityListToWeapon(enemyEntity.weapons),
-                                    mHealingItemConverter.convertEntityListToHealingItem(enemyEntity.healingItems),
-                                    enemyEntity.sealType,
-                                    enemyEntity.statUpType
+                            mWeaponConverter.convertEntityListToWeapon(enemyEntity.weapons),
+                            mHealingItemConverter.convertEntityListToHealingItem(enemyEntity.healingItems),
+                            enemyEntity.sealType == null ? new ArrayList<Equipment>() : enemyEntity.sealType,
+                            enemyEntity.statUpType == null ? new ArrayList<Equipment>() : enemyEntity.statUpType
                     ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
                     mWeaponProgressConverter.convertEntityListToHashMap(enemyEntity.weaponProgress),
                     enemyEntity.characterClass,
@@ -143,8 +140,8 @@ public class EnemyConverterImpl implements EnemyConverter {
                 Stream.of(
                         mWeaponConverter.convertModelListToWeapon(enemyModel.weapons),
                         mHealingItemConverter.convertModelListToHealingItem(enemyModel.healingItems),
-                        enemyModel.seals,
-                        enemyModel.statsUpItems
+                        enemyModel.seals == null ? new ArrayList<Equipment>() : enemyModel.seals,
+                        enemyModel.statsUpItems == null ? new ArrayList<Equipment>() : enemyModel.statsUpItems
                 ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
                 mWeaponProgressConverter.convertModelListToHashMap(enemyModel.weaponProgress),
                 CharacterClass.valueOf(enemyModel.characterClass),
