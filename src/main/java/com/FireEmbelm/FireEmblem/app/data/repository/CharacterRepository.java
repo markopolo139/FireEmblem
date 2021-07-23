@@ -18,7 +18,6 @@ public interface CharacterRepository extends JpaRepository<CharacterEntity, Long
 
     List<CharacterEntity> findByCharacterState(CharacterState characterState);
 
-    @Query("select max(c.level) from CharacterEntity c")
-    int findMaxLevel();
+    CharacterEntity findFirstByOrderByLevelDesc();
 
 }

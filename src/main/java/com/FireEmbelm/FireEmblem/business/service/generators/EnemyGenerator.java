@@ -20,11 +20,11 @@ public class EnemyGenerator {
     private final Random mRandom = new Random();
     private final CharacterDevelopmentService mCharacterDevelopmentService = new CharacterDevelopmentService();
 
-    public Collection<Enemy> generateEnemy(List<Spot> field, List<Weapon> allWeapon, int highestLevel) {
+    public List<Spot> generateEnemy(List<Spot> field, List<Weapon> allWeapon, int highestLevel) {
 
         int howManyEnemies = (int) (field.size() / 6.25);
         int randomNumber;
-        Collection<Enemy> enemies = new ArrayList<>();
+        List<Spot> spotWithEnemies = new ArrayList<>();
         List<CharacterClass> allowedEnemyClass = Arrays.stream(CharacterClass.values())
                 .filter(i -> i != CharacterClass.PRIEST && i != CharacterClass.LORD && !i.isPromotedClass())
                 .collect(Collectors.toList());
@@ -63,27 +63,32 @@ public class EnemyGenerator {
                 setWeaponAndWeaponProgressForEnemy(enemy, allWeapon, highestLevel);
                 levelUpEnemies(enemy, highestLevel);
 
-                enemies.add(enemy);
+                spotWithEnemies.add(field.get(randomNumber));
 
                 howManyEnemies--;
             }
         }
 
-        return enemies;
+        return spotWithEnemies;
     }
 
     public void setWeaponAndWeaponProgressForEnemy(Enemy enemy, List<Weapon> weapons, int highestLevel) {
 
         int enemyWeaponRank = highestLevel / 8;
 
+        if (enemyWeaponRank == 0)
+            enemyWeaponRank = 1;
+
+        int finalEnemyWeaponRank = enemyWeaponRank;
+
         List<Weapon> allowedWeapons = weapons.stream()
                 .filter(i -> enemy.getCharacterClass().getAllowedWeapons().contains(i.getItemCategory()))
-                .filter(i -> i.getRank() <= enemyWeaponRank )
+                .filter(i -> i.getRank() <= finalEnemyWeaponRank)
                 .collect(Collectors.toList());
 
         enemy.setCurrentEquipedItem(allowedWeapons.get(mRandom.nextInt(allowedWeapons.size())));
 
-        if(mRandom.nextInt(2) == 0)
+        if(mRandom.nextInt(3) == 0)
             enemy.setDropItem(enemy.getCurrentEquipedItem());
 
         for(WeaponCategory wc : enemy.getCharacterClass().getAllowedWeapons()) {
@@ -108,7 +113,7 @@ public class EnemyGenerator {
             highLv -= 20;
         }
 
-        for(int i = 1; i < highLv; i++) {
+        for(int i = 0; i < highLv; i++) {
             mCharacterDevelopmentService.levelUp(enemy);
         }
 

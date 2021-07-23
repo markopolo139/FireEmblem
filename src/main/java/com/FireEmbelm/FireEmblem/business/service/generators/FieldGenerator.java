@@ -17,11 +17,11 @@ public class FieldGenerator {
     private final Random mRandomNumber = new Random();
     private  List<SpotsType> mSpotsTypeProbabilities;
 
-    public Collection<Spot> generateNewField() {
+    public List<Spot> generateNewField() {
          int height = 10 + mRandomNumber.nextInt(RANDOM_HEIGHT);
          int width = 10 + mRandomNumber.nextInt(RANDOM_WIDTH);
 
-         Collection<Spot> field = new ArrayList<>();
+         List<Spot> field = new ArrayList<>();
 
          for(int i = 0; i < height; i++) {
              for(int j = 0; j < width; j++){

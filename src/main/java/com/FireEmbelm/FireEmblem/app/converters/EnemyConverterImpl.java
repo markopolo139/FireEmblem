@@ -63,8 +63,8 @@ public class EnemyConverterImpl implements EnemyConverter {
                     enemyEntity.goldDrop
             );
 
-            if(enemyEntity.currentEquipedItemId !=null) {
-                enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyEntity.currentEquipedItemId));
+            if(enemyEntity.currentEquippedItemId !=null) {
+                enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyEntity.currentEquippedItemId));
                 enemy.setDropItem(enemy.getCurrentEquipedItem());
                 enemy.getCharacterBattleStats().calculateBattleStats(enemy);
             }

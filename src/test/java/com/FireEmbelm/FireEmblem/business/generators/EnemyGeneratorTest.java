@@ -68,8 +68,8 @@ public class EnemyGeneratorTest {
     @Test
     void testEnemyGenerator() {
 
-        List<Spot> field = (List<Spot>) mFieldGenerator.generateNewField();
-        Collection<Enemy> enemies = mEnemyGenerator.generateEnemy(field, mWeapons, 21);
+        List<Spot> field = mFieldGenerator.generateNewField();
+        Collection<Spot> enemies = mEnemyGenerator.generateEnemy(field, mWeapons, 21);
 
         Assertions.assertFalse(enemies.isEmpty());
         Assertions.assertEquals(0, field.stream().filter(i -> i.getCharacterOnSpot() != null && i.getHeight() <= 3).count());

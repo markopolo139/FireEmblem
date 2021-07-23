@@ -22,7 +22,7 @@ create table enemies(
                            'FIGHTER','HERO','MERCENARY','SNIPER','ARCHER','SAGE','MAGE','WAR_MONK','PRIEST') not null,
     character_state ENUM('ALIVE','DEAD') not null,
     moved boolean not null,
-    drop_item_id int not null,
+    drop_item_id int null,
     boss boolean not null,
     gold_drop int not null
 );
