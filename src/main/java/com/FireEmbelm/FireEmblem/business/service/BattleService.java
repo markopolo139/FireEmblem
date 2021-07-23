@@ -58,6 +58,7 @@ public class BattleService {
                 calculateDamageAndSetRemainingHp(defenderSpot, attackerSpot);
                 gettingExpAndMoney(defender, attacker, itemsConvoy);
                 mCharacterDevelopmentService.increaseWeaponProgress(defender);
+                updateWeaponUse(defender);
 
                 if(defender.getCharacterState().equals(CharacterState.DEAD))
                     addWeaponAndMoneyFromEnemyToConvoy(defender, itemsConvoy);
@@ -79,8 +80,6 @@ public class BattleService {
 
         mCharacterDevelopmentService.increaseWeaponProgress(attacker);
         updateWeaponUse(attacker);
-        updateWeaponUse(defender);
-
         attacker.setMoved(true);
 
     }
