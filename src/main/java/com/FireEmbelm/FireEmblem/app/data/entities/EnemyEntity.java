@@ -31,7 +31,7 @@ public class EnemyEntity {
     public int remainingHealth;
 
     @Nullable
-    public Integer currentEquipedItemId;
+    public Integer currentEquippedItemId;
 
     @Enumerated(EnumType.STRING)
     public CharacterClass characterClass;
@@ -41,7 +41,8 @@ public class EnemyEntity {
 
     public boolean moved;
 
-    public int dropItemId;
+    @Nullable
+    public Integer dropItemId;
 
     public boolean boss;
 
@@ -90,18 +91,18 @@ public class EnemyEntity {
     public List<WeaponProgressEmbeddable> weaponProgress;
 
     public EnemyEntity(
-            Long enemyId, String name, int level, int exp, int remainingHealth, @Nullable Integer currentEquipedItemId,
-            CharacterClass characterClass, CharacterState characterState, boolean moved, int dropItemId, boolean boss,
-            int goldDrop, @Nullable List<HealingItemEmbeddable> healingItems, @Nullable List<WeaponEmbeddable> weapons,
-            @Nullable List<Seals> sealType, @Nullable List<StatsUpItems> statUpType, List<StatEmbeddable> stats,
-            List<WeaponProgressEmbeddable> weaponProgress
+            Long enemyId, String name, int level, int exp, int remainingHealth, @Nullable Integer currentEquippedItemId,
+            CharacterClass characterClass, CharacterState characterState, boolean moved, @Nullable Integer dropItemId,
+            boolean boss, int goldDrop, @Nullable List<HealingItemEmbeddable> healingItems,
+            @Nullable List<WeaponEmbeddable> weapons, @Nullable List<Seals> sealType,
+            @Nullable List<StatsUpItems> statUpType, List<StatEmbeddable> stats, List<WeaponProgressEmbeddable> weaponProgress
     ) {
         this.enemyId = enemyId;
         this.name = name;
         this.level = level;
         this.exp = exp;
         this.remainingHealth = remainingHealth;
-        this.currentEquipedItemId = currentEquipedItemId;
+        this.currentEquippedItemId = currentEquippedItemId;
         this.characterClass = characterClass;
         this.characterState = characterState;
         this.moved = moved;

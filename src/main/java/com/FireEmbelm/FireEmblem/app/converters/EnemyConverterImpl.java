@@ -65,9 +65,12 @@ public class EnemyConverterImpl implements EnemyConverter {
 
             if(enemyEntity.currentEquippedItemId !=null) {
                 enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyEntity.currentEquippedItemId));
-                enemy.setDropItem(enemy.getCurrentEquipedItem());
                 enemy.getCharacterBattleStats().calculateBattleStats(enemy);
             }
+
+            if(enemyEntity.dropItemId != null)
+                enemy.setDropItem(enemy.getEquipment().get(enemyEntity.dropItemId));
+
         }
 
         return enemy;
@@ -90,8 +93,8 @@ public class EnemyConverterImpl implements EnemyConverter {
                 enemy.getCharacterClass(),
                 enemy.getCharacterState(),
                 enemy.isMoved(),
-                !enemy.getEquipment().contains(enemy.getCurrentEquipedItem()) ? null
-                        : enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
+                !enemy.getEquipment().contains(enemy.getDropItem()) ? null
+                        : enemy.getEquipment().indexOf(enemy.getDropItem()),
                 enemy.isBoss(),
                 enemy.getGoldDrop(),
                 mHealingItemConverter.convertListToEntity(enemy.getEquipment().stream()
@@ -152,8 +155,8 @@ public class EnemyConverterImpl implements EnemyConverter {
                 enemyModel.goldDrop
         );
 
-        if(enemyModel.currentEquipedItemId != null) {
-            enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyModel.currentEquipedItemId));
+        if(enemyModel.currentEquippedItemId != null) {
+            enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyModel.currentEquippedItemId));
             enemy.getCharacterBattleStats().calculateBattleStats(enemy);
         }
 

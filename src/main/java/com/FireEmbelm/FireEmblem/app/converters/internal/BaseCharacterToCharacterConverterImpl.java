@@ -22,7 +22,7 @@ public class BaseCharacterToCharacterConverterImpl implements BaseCharacterToCha
                 baseCharacterEntity.level,
                 baseCharacterEntity.exp,
                 baseCharacterEntity.remainingHealth,
-                baseCharacterEntity.currentEquipedItemId,
+                baseCharacterEntity.currentEquippedItemId,
                 baseCharacterEntity.characterClass,
                 baseCharacterEntity.characterState,
                 baseCharacterEntity.moved,

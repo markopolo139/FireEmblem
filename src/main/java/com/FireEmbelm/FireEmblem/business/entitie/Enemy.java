@@ -6,6 +6,7 @@ import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.character.related.WeaponProgress;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
+import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.Objects;
 
 public class Enemy extends BaseCharacter {
 
+    @Nullable
     private Equipment mDropItem;
     private boolean mBoss;
     private int mGoldDrop;
@@ -44,7 +46,7 @@ public class Enemy extends BaseCharacter {
     public Enemy(
             int level, int exp, int remainingHealth, HashMap<StatsType, Stat> stats, Equipment currentEquipedItem,
             ArrayList<Equipment> equipment, HashMap<WeaponCategory, WeaponProgress> weaponProgresses, CharacterClass characterClass,
-            CharacterState characterState, boolean moved, Equipment dropItem, boolean boss, int goldDrop
+            CharacterState characterState, boolean moved, @Nullable Equipment dropItem, boolean boss, int goldDrop
     ) {
         super(
                 "Ruffian", level, exp, remainingHealth,

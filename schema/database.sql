@@ -4,7 +4,7 @@ create table characters(
     `level` int not null,
     exp int not null,
     remaining_health int not null,
-    current_equiped_item_id int null,
+    current_equipped_item_id int null,
     character_class ENUM('GREAT_LORD','LORD','PALADIN','CAVALRY','GENERAL','KNIGHT','SWORDMASTER','MYRMIDON','WARRIOR',
                            'FIGHTER','HERO','MERCENARY','SNIPER','ARCHER','SAGE','MAGE','WAR_MONK','PRIEST') not null,
     character_state ENUM('ALIVE','DEAD') not null,
@@ -17,7 +17,7 @@ create table enemies(
     `level` int not null,
     exp int not null,
     remaining_health int not null,
-    current_equiped_item_id int null,
+    current_equipped_item_id int null,
     character_class ENUM('GREAT_LORD','LORD','PALADIN','CAVALRY','GENERAL','KNIGHT','SWORDMASTER','MYRMIDON','WARRIOR',
                            'FIGHTER','HERO','MERCENARY','SNIPER','ARCHER','SAGE','MAGE','WAR_MONK','PRIEST') not null,
     character_state ENUM('ALIVE','DEAD') not null,
@@ -177,7 +177,7 @@ CREATE TABLE base_characters (
     `level` int not null default 1,
     exp int not null default 0,
     remaining_health int not null,
-    current_equiped_item_id int null default null,
+    current_equipped_item_id int null default null,
     character_class ENUM('GREAT_LORD','LORD','PALADIN','CAVALRY','GENERAL','KNIGHT','SWORDMASTER','MYRMIDON','WARRIOR',
                            'FIGHTER','HERO','MERCENARY','SNIPER','ARCHER','SAGE','MAGE','WAR_MONK','PRIEST') not null,
     character_state ENUM('ALIVE','DEAD') not null default 'ALIVE',
@@ -270,7 +270,7 @@ INSERT INTO `all_weapons` (`weapon_id`, `name`, `rank`, `might`, `hit`, `avo`, `
 (24, 'Bolganone', 4, 12, 75, 0, 0, 25, 2, 2000, 'TOME', 4),
 (25, 'Excalibur', 3, 11, 85, 0, 30, 25, 2, 2100, 'TOME', 3);
 
-INSERT INTO `base_characters` (`base_character_id`, `name`, `level`, `exp`, `remaining_health`, `current_equiped_item_id`, `character_class`, `character_state`, `moved`) VALUES
+INSERT INTO `base_characters` (`base_character_id`, `name`, `level`, `exp`, `remaining_health`, `current_equipped_item_id`, `character_class`, `character_state`, `moved`) VALUES
 (1, 'Chrom', 1, 0, 19, NULL, 'LORD', 'ALIVE', 0),
 (2, 'Lissa', 1, 0, 17, NULL, 'PRIEST', 'ALIVE', 0),
 (3, 'Virion', 1, 0, 17, NULL, 'ARCHER', 'ALIVE', 0),

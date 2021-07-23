@@ -33,7 +33,7 @@ public class CharacterEntity {
     public int remainingHealth;
 
     @Nullable
-    public Integer currentEquipedItemId;
+    public Integer currentEquippedItemId;
 
     @Enumerated(EnumType.STRING)
     public CharacterClass characterClass;
@@ -90,7 +90,7 @@ public class CharacterEntity {
 
     public CharacterEntity(
             Long characterId, String name, int level, int exp, int remainingHealth,
-            @Nullable Integer currentEquipedItemId, CharacterClass characterClass,
+            @Nullable Integer currentEquippedItemId, CharacterClass characterClass,
             CharacterState characterState, boolean moved, @Nullable List<HealingItemEmbeddable> healingItems,
             @Nullable List<WeaponEmbeddable> weapons, @Nullable List<Seals> seals,
             @Nullable List<StatsUpItems> statUpType, List<StatEmbeddable> stats,
@@ -101,7 +101,7 @@ public class CharacterEntity {
         this.level = level;
         this.exp = exp;
         this.remainingHealth = remainingHealth;
-        this.currentEquipedItemId = currentEquipedItemId;
+        this.currentEquippedItemId = currentEquippedItemId;
         this.characterClass = characterClass;
         this.characterState = characterState;
         this.moved = moved;

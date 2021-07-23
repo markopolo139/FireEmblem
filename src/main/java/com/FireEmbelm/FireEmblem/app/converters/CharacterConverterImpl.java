@@ -4,10 +4,7 @@ import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
-import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItemWithUses;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
-import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
+import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -50,8 +47,8 @@ public class CharacterConverterImpl implements CharacterConverter {
                     Stream.of(
                                     mWeaponConverter.convertEntityListToWeapon(characterEntity.weapons),
                                     mHealingItemConverter.convertEntityListToHealingItem(characterEntity.healingItems),
-                                    characterEntity.sealType,
-                                    characterEntity.statUpType
+                                    characterEntity.sealType == null ? new ArrayList<Equipment>() : characterEntity.sealType,
+                                    characterEntity.statUpType == null ? new ArrayList<Equipment>() : characterEntity.statUpType
                     ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new)),
                     mWeaponProgressConverter.convertEntityListToHashMap(characterEntity.weaponProgress),
                     characterEntity.characterClass,
@@ -59,8 +56,8 @@ public class CharacterConverterImpl implements CharacterConverter {
                     characterEntity.moved
             );
 
-            if(characterEntity.currentEquipedItemId !=null) {
-                character.setCurrentEquipedItem(character.getEquipment().get(characterEntity.currentEquipedItemId));
+            if(characterEntity.currentEquippedItemId !=null) {
+                character.setCurrentEquipedItem(character.getEquipment().get(characterEntity.currentEquippedItemId));
                 character.getCharacterBattleStats().calculateBattleStats(character);
             }
 

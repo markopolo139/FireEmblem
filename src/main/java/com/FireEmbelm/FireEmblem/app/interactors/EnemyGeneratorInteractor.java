@@ -19,9 +19,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//TODO:
-// - In character entity weapons first in list
-// - In field check if move from have character
 @Service
 public class EnemyGeneratorInteractor {
 

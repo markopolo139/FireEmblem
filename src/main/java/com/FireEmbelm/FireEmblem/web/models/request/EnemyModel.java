@@ -30,7 +30,7 @@ public class EnemyModel {
     public List<StatModel> stats;
 
     @Nullable
-    public Integer currentEquipedItemId;
+    public Integer currentEquippedItemId;
 
     @NotEmpty
     public List<WeaponModel> weapons;
@@ -67,7 +67,7 @@ public class EnemyModel {
 
     public EnemyModel(
             String name, int level, int exp, int remainingHealth, List<StatModel> stats,
-            @Nullable Integer currentEquipedItemId, List<WeaponModel> weapons,
+            @Nullable Integer currentEquippedItemId, List<WeaponModel> weapons,
             List<HealingItemModel> healingItems, List<Seals> seals, List<StatsUpItems> statsUpItems,
             List<WeaponProgressModel> weaponProgress, String characterClass, String characterState,
             boolean moved, @Nullable Integer dropItemId, boolean boss, int goldDrop
@@ -77,7 +77,7 @@ public class EnemyModel {
         this.exp = exp;
         this.remainingHealth = remainingHealth;
         this.stats = stats;
-        this.currentEquipedItemId = currentEquipedItemId;
+        this.currentEquippedItemId = currentEquippedItemId;
         this.weapons = weapons;
         this.healingItems = healingItems;
         this.seals = seals;
@@ -104,7 +104,7 @@ public class EnemyModel {
                 && goldDrop == that.goldDrop
                 && Objects.equals(name, that.name)
                 && stats.containsAll(that.stats) && stats.size() == that.stats.size()
-                && Objects.equals(currentEquipedItemId, that.currentEquipedItemId)
+                && Objects.equals(currentEquippedItemId, that.currentEquippedItemId)
                 && Objects.equals(weapons, that.weapons)
                 && Objects.equals(healingItems, that.healingItems)
                 && Objects.equals(seals, that.seals)
@@ -118,7 +118,7 @@ public class EnemyModel {
     @Override
     public int hashCode() {
         return Objects.hash(
-                name, level, exp, remainingHealth, stats, currentEquipedItemId, weapons, healingItems,
+                name, level, exp, remainingHealth, stats, currentEquippedItemId, weapons, healingItems,
                 seals, statsUpItems, weaponProgress, characterClass, characterState, moved,
                 dropItemId, boss, goldDrop
         );

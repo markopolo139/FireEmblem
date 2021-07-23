@@ -28,7 +28,7 @@ public class BaseCharacterEntity {
     public int remainingHealth;
 
     @Nullable
-    public Integer currentEquipedItemId;
+    public Integer currentEquippedItemId;
 
     @Enumerated(EnumType.STRING)
     public CharacterClass characterClass;
@@ -46,7 +46,7 @@ public class BaseCharacterEntity {
 
     public BaseCharacterEntity(
             Long baseCharacterId, String name, int level, int exp, int remainingHealth,
-            @Nullable Integer currentEquipedItemId, CharacterClass characterClass,
+            @Nullable Integer currentEquippedItemId, CharacterClass characterClass,
             CharacterState characterState, boolean moved, List<StatEmbeddable> stats
     ) {
         this.baseCharacterId = baseCharacterId;
@@ -54,7 +54,7 @@ public class BaseCharacterEntity {
         this.level = level;
         this.exp = exp;
         this.remainingHealth = remainingHealth;
-        this.currentEquipedItemId = currentEquipedItemId;
+        this.currentEquippedItemId = currentEquippedItemId;
         this.characterClass = characterClass;
         this.characterState = characterState;
         this.moved = moved;

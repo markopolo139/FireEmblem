@@ -6,6 +6,7 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItems;
 import com.FireEmbelm.FireEmblem.web.models.request.HealingItemModel;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,11 +32,19 @@ public class HealingItemsConverterImpl implements HealingItemConverter {
 
     @Override
     public List<HealingItemWithUses> convertEntityListToHealingItem(List<HealingItemEmbeddable> healingItemEmbeddables) {
+
+        if (healingItemEmbeddables == null)
+            return Collections.emptyList();
+
         return healingItemEmbeddables.stream().map(this::convertEntityToHealingItem).collect(Collectors.toList());
     }
 
     @Override
     public List<HealingItemEmbeddable> convertListToEntity(List<HealingItemWithUses> healingItemWithUses) {
+
+        if (healingItemWithUses == null)
+            return Collections.emptyList();
+
         return healingItemWithUses.stream().map(this::convertToEntity).collect(Collectors.toList());
     }
 
@@ -65,11 +74,19 @@ public class HealingItemsConverterImpl implements HealingItemConverter {
 
     @Override
     public List<HealingItemWithUses> convertModelListToHealingItem(List<HealingItemModel> healingItemModels) {
+
+        if (healingItemModels == null)
+            return Collections.emptyList();
+
         return healingItemModels.stream().map(this::convertModelToHealingItem).collect(Collectors.toList());
     }
 
     @Override
     public List<HealingItemModel> convertListToModel(List<HealingItemWithUses> healingItemWithUses) {
+
+        if (healingItemWithUses == null)
+            return Collections.emptyList();
+
         return healingItemWithUses.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 }

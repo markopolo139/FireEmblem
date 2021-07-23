@@ -6,6 +6,8 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 import com.FireEmbelm.FireEmblem.web.models.request.WeaponModel;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,11 +55,19 @@ public class WeaponConverterImpl implements WeaponConverter {
 
     @Override
     public List<Weapon> convertEntityListToWeapon(List<WeaponEmbeddable> weaponEmbeddables) {
+
+        if(weaponEmbeddables == null)
+            return Collections.emptyList();
+
         return weaponEmbeddables.stream().map(this::convertEntityToWeapon).collect(Collectors.toList());
     }
 
     @Override
     public List<WeaponEmbeddable> convertListToEntity(List<Weapon> weapons) {
+
+        if (weapons == null)
+            return Collections.emptyList();
+
         return weapons.stream().map(this::convertToEntity).collect(Collectors.toList());
     }
 
@@ -103,11 +113,19 @@ public class WeaponConverterImpl implements WeaponConverter {
 
     @Override
     public List<Weapon> convertModelListToWeapon(List<WeaponModel> weaponModels) {
+
+        if (weaponModels == null)
+            return Collections.emptyList();
+
         return weaponModels.stream().map(this::convertModelToWeapon).collect(Collectors.toList());
     }
 
     @Override
     public List<WeaponModel> convertListToModel(List<Weapon> weapons) {
+
+        if (weapons == null)
+            return Collections.emptyList();
+
         return weapons.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 }
