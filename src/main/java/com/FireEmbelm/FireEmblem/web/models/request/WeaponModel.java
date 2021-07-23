@@ -5,10 +5,7 @@ import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.web.validation.ValidWeaponCategory;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 public class WeaponModel implements Equipment{
@@ -26,7 +23,7 @@ public class WeaponModel implements Equipment{
     @Min(0)
     public int hit;
 
-    @NotEmpty
+    @NotNull
     public int avo;
 
     @Min(0)

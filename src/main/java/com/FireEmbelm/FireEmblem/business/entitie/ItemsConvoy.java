@@ -25,50 +25,30 @@ public class ItemsConvoy {
     }
 
     public ArrayList<Equipment> getWeapons() {
-
-        if (mEquipmentCollection == null)
-            return null;
-
         return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i instanceof Weapon)
                 .collect(Collectors.toList());
     }
 
     public ArrayList<Equipment> getSeals() {
-
-        if (mEquipmentCollection == null)
-            return null;
-
         return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i instanceof Seals)
                 .collect(Collectors.toList());
     }
 
     public ArrayList<Equipment> getStatsUpItems() {
-
-        if (mEquipmentCollection == null)
-            return null;
-
         return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i instanceof StatsUpItems)
                 .collect(Collectors.toList());
     }
 
     public ArrayList<Equipment> getHealingItems() {
-
-        if (mEquipmentCollection == null)
-            return null;
-
         return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i instanceof HealingItemWithUses)
                 .collect(Collectors.toList());
     }
 
     public ArrayList<Equipment> getByItemCategory(ItemCategory itemCategory) {
-
-        if (mEquipmentCollection == null)
-            return null;
-
         return (ArrayList<Equipment>) mEquipmentCollection.stream()
                 .filter(i -> i.getItemCategory().equals(itemCategory))
                 .collect(Collectors.toList());

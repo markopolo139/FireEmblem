@@ -5,12 +5,13 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Objects;
 
 public class ItemsConvoyModel {
 
-    @NotEmpty
+    @Positive
     public int money;
 
     @NotNull
