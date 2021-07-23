@@ -6,6 +6,7 @@ import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.exceptions.CharacterLevelException;
+import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.PromoteException;
 import com.FireEmbelm.FireEmblem.business.service.UnitPromoteService;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
@@ -15,8 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//TODO:
-// in interactor : check status (if dead, set spot to null and save dead character, and spot with null) (if alive, save spot with character
 @Service
 public class UnitPromoteInteractor {
 
@@ -30,7 +29,11 @@ public class UnitPromoteInteractor {
     private CharacterConverter mCharacterConverter;
 
     public List<CharacterClass> getPossibleClassesToPromote(CharacterModel characterModel, Seals seals)
-            throws CharacterLevelException, PromoteException {
+            throws CharacterLevelException, PromoteException, InvalidEquipmentException {
+
+        if (!characterModel.seals.contains(seals))
+            throw new InvalidEquipmentException("This character does not have selected seal");
+
         return  mUnitPromoteService.getPossibleClassesToPromote(
                 mCharacterConverter.convertModelToCharacter(characterModel),seals
         );

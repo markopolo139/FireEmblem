@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface SpotRepository extends JpaRepository<SpotEntity, Long> {
 
-    Optional<SpotEntity> findByHeightAndWidth(int height, int width);
+    SpotEntity findByHeightAndWidth(int height, int width);
 
     List<SpotEntity> findByCharacterIdNotNull();
 

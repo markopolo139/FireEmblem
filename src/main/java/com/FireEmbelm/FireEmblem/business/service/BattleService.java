@@ -39,6 +39,9 @@ public class BattleService {
                 || (attacker instanceof Character && defender instanceof Character))
             throw new InvalidSpotException("Can't attack the same type of characters");
 
+        if (attacker.getCurrentEquipedItem() == null)
+            throw new NoWeaponException("Can't attack without a weapon");
+
         if( !(attacker.getCurrentEquipedItem().getItemCategory() instanceof WeaponCategory) )
             throw new NoWeaponException("Can't attack without a weapon");
 
