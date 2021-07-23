@@ -138,8 +138,8 @@ public class CharacterConverterImpl implements CharacterConverter {
                 characterModel.moved
         );
 
-        if(characterModel.currentEquipedItemId != null) {
-            character.setCurrentEquipedItem(character.getEquipment().get(characterModel.currentEquipedItemId));
+        if(characterModel.currentEquippedItemId != null) {
+            character.setCurrentEquipedItem(character.getEquipment().get(characterModel.currentEquippedItemId));
             character.getCharacterBattleStats().calculateBattleStats(character);
         }
 

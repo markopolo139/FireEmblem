@@ -4,6 +4,7 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,16 +13,16 @@ public class ItemsConvoyModel {
     @NotEmpty
     public int money;
 
-    @NotEmpty
+    @NotNull
     public List<WeaponModel> weapons;
 
-    @NotEmpty
+    @NotNull
     public List<HealingItemModel> healingItems;
 
-    @NotEmpty
+    @NotNull
     public List<Seals> seals;
 
-    @NotEmpty
+    @NotNull
     public List<StatsUpItems> statsUpItems;
 
     public ItemsConvoyModel(

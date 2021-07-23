@@ -470,4 +470,131 @@ public class ConvertersTest {
                 mWeaponProgressConverter.convertToModel(weaponProgress)
         );
     }
+
+    @Test
+    void testEnemyConvertersWithNull() {
+
+        Enemy enemy = new Enemy(
+                1,2,3,
+                new HashMap<>() {{
+                    put(StatsType.STRENGTH,new Stat(StatsType.STRENGTH,5,5));
+                    put(StatsType.HEALTH,new Stat(StatsType.HEALTH,2,5));
+                    put(StatsType.SKILL,new Stat(StatsType.SKILL,2,5));
+                    put(StatsType.SPEED,new Stat(StatsType.SPEED,2,5));
+                    put(StatsType.LUCK,new Stat(StatsType.LUCK,2,5));
+                }},
+                null,
+               new ArrayList<>(),
+                new HashMap<>() {{
+                    put(WeaponCategory.SWORD, new WeaponProgress(WeaponCategory.SWORD,1,2));
+                    put(WeaponCategory.BOW, new WeaponProgress(WeaponCategory.BOW,1,2));
+                }},
+                CharacterClass.ARCHER,
+                CharacterState.DEAD,
+                false,
+                null, false, 555
+        );
+
+        EnemyEntity enemyEntity = new EnemyEntity(
+                null,"Ruffian",1,2,3,null,
+                CharacterClass.ARCHER, CharacterState.DEAD, false, null,
+                false, 555,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                Arrays.asList(
+                        new StatEmbeddable(StatsType.STRENGTH,5,5),
+                        new StatEmbeddable(StatsType.HEALTH,2,5),
+                        new StatEmbeddable(StatsType.SKILL,2,5),
+                        new StatEmbeddable(StatsType.LUCK,2,5),
+                        new StatEmbeddable(StatsType.SPEED,2,5)
+                ),
+                Arrays.asList(
+                        new WeaponProgressEmbeddable(WeaponCategory.SWORD,1,2),
+                        new WeaponProgressEmbeddable(WeaponCategory.BOW,1,2)
+                )
+        );
+
+        EnemyModel enemyModel = new EnemyModel(
+                "Ruffian",
+                1,2,3,
+                Arrays.asList(
+                        new StatModel(StatsType.STRENGTH.name(),5,5),
+                        new StatModel(StatsType.HEALTH.name(),2,5),
+                        new StatModel(StatsType.SKILL.name(),2,5),
+                        new StatModel(StatsType.LUCK.name(),2,5),
+                        new StatModel(StatsType.SPEED.name(),2,5)
+                ),
+                null,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                Arrays.asList(
+                        new WeaponProgressModel(WeaponCategory.SWORD.getName(),1,2),
+                        new WeaponProgressModel(WeaponCategory.BOW.getName(),1,2)
+                ),
+                CharacterClass.ARCHER.name(),
+                CharacterState.DEAD.name(),
+                false,
+                null, false, 555
+        );
+
+        Enemy convertedFromEntity = mEnemyConverter.convertEntityToEnemy(enemyEntity);
+
+        EnemyEntity convertedEntity = mEnemyConverter.convertToEntity(enemy);
+
+        Enemy convertedFromModel = mEnemyConverter.convertModelToEnemy(enemyModel);
+
+        EnemyModel convertedModel = mEnemyConverter.convertToModel(enemy);
+
+        Assertions.assertEquals(enemy,convertedFromEntity);
+
+        Assertions.assertEquals(enemyEntity,convertedEntity);
+
+        Assertions.assertEquals(enemy, convertedFromModel);
+
+        Assertions.assertEquals(enemyModel, convertedModel);
+
+    }
+
+    @Test
+    void testItemsConvoyConvertersWithNull() {
+        ItemsConvoy itemsConvoy = new ItemsConvoy(
+                5412,
+                new ArrayList<>()
+        );
+
+        ItemsConvoyEntity itemsConvoyEntity = new ItemsConvoyEntity(
+                null,
+                5412,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()
+        );
+
+        ItemsConvoyModel itemsConvoyModel = new ItemsConvoyModel(
+                5412,
+               new ArrayList<>(),
+               new ArrayList<>(),
+               new ArrayList<>(),
+               new ArrayList<>()
+        );
+
+        ItemsConvoy convertedFromEntity = mItemsConvoyConverter.convertEntityToItemsConvoy(itemsConvoyEntity);
+        ItemsConvoyEntity convertedEntity = mItemsConvoyConverter.convertToEntity(itemsConvoy);
+
+        Assertions.assertEquals(itemsConvoy,convertedFromEntity);
+
+        Assertions.assertEquals(itemsConvoyEntity,convertedEntity);
+
+        ItemsConvoy convertedFromModel = mItemsConvoyConverter.convertModelToItemsConvoy(itemsConvoyModel);
+        ItemsConvoyModel convertedToModel = mItemsConvoyConverter.convertToModel(itemsConvoy);
+
+        Assertions.assertEquals(itemsConvoy,convertedFromModel);
+
+        Assertions.assertEquals(itemsConvoyModel,convertedToModel);
+    }
 }

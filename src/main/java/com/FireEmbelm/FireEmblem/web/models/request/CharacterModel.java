@@ -8,6 +8,7 @@ import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Objects;
@@ -30,18 +31,18 @@ public class CharacterModel {
     public List<StatModel> stats;
 
     @Nullable
-    public Integer currentEquipedItemId;
+    public Integer currentEquippedItemId;
 
-    @NotEmpty
+    @NotNull
     public List<WeaponModel> weapons;
 
-    @NotEmpty
+    @NotNull
     public List<HealingItemModel> healingItems;
 
-    @NotEmpty
+    @NotNull
     public List<Seals> seals;
 
-    @NotEmpty
+    @NotNull
     public List<StatsUpItems> statsUpItems;
 
     @NotEmpty
@@ -53,12 +54,12 @@ public class CharacterModel {
     @ValidCharacterState
     public String characterState;
 
-    @NotEmpty
+    @NotNull
     public boolean moved;
 
     public CharacterModel(
             String name, int level, int exp, int remainingHealth,
-            List<StatModel> stats, @Nullable Integer currentEquipedItemId,
+            List<StatModel> stats, @Nullable Integer currentEquippedItemId,
             List<WeaponModel> weapons, List<HealingItemModel> healingItems,
             List<Seals> seals, List<StatsUpItems> statsUpItems, List<WeaponProgressModel> weaponProgress,
             String characterClass, String characterState, boolean moved
@@ -68,7 +69,7 @@ public class CharacterModel {
         this.exp = exp;
         this.remainingHealth = remainingHealth;
         this.stats = stats;
-        this.currentEquipedItemId = currentEquipedItemId;
+        this.currentEquippedItemId = currentEquippedItemId;
         this.weapons = weapons;
         this.healingItems = healingItems;
         this.seals = seals;
@@ -90,7 +91,7 @@ public class CharacterModel {
                 && moved == that.moved
                 && Objects.equals(name, that.name)
                 && stats.containsAll(that.stats) && stats.size() == that.stats.size()
-                && Objects.equals(currentEquipedItemId, that.currentEquipedItemId)
+                && Objects.equals(currentEquippedItemId, that.currentEquippedItemId)
                 && Objects.equals(weapons, that.weapons)
                 && Objects.equals(healingItems, that.healingItems)
                 && Objects.equals(seals, that.seals)
@@ -103,7 +104,7 @@ public class CharacterModel {
     @Override
     public int hashCode() {
         return Objects.hash(
-                name, level, exp, remainingHealth, stats, currentEquipedItemId,
+                name, level, exp, remainingHealth, stats, currentEquippedItemId,
                 weapons, healingItems, seals, statsUpItems, weaponProgress, characterClass,
                 characterState, moved
         );

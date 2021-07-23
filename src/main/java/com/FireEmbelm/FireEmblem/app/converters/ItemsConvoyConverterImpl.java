@@ -48,9 +48,9 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
                 mWeaponConverter.convertListToEntity(
                         itemsConvoy.getWeapons().stream()
                                 .map(i -> (Weapon) i).collect(Collectors.toList())),
-                itemsConvoy.getByItemCategory(ConsumableItemCategory.SEALS).stream()
+                itemsConvoy.getSeals().stream()
                         .map(i -> (Seals) i).collect(Collectors.toList()),
-                itemsConvoy.getByItemCategory(ConsumableItemCategory.STATS_UP_ITEMS).stream()
+                itemsConvoy.getStatsUpItems().stream()
                         .map(i -> (StatsUpItems) i).collect(Collectors.toList())
         );
     }
@@ -88,9 +88,9 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
                 mHealingItemConverter.convertListToModel(
                         itemsConvoy.getHealingItems().stream().map(i -> (HealingItemWithUses) i).collect(Collectors.toList())
                 ),
-                itemsConvoy.getByItemCategory(ConsumableItemCategory.SEALS).stream()
+                itemsConvoy.getSeals().stream()
                         .map(i -> (Seals) i).collect(Collectors.toList()),
-                itemsConvoy.getByItemCategory(ConsumableItemCategory.STATS_UP_ITEMS).stream()
+                itemsConvoy.getStatsUpItems().stream()
                         .map(i -> (StatsUpItems) i).collect(Collectors.toList())
         );
     }

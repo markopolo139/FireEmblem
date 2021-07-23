@@ -8,6 +8,7 @@ import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Objects;
@@ -32,16 +33,16 @@ public class EnemyModel {
     @Nullable
     public Integer currentEquippedItemId;
 
-    @NotEmpty
+    @NotNull
     public List<WeaponModel> weapons;
 
-    @NotEmpty
+    @NotNull
     public List<HealingItemModel> healingItems;
 
-    @NotEmpty
+    @NotNull
     public List<Seals> seals;
 
-    @NotEmpty
+    @NotNull
     public List<StatsUpItems> statsUpItems;
 
     @NotEmpty
@@ -53,13 +54,13 @@ public class EnemyModel {
     @ValidCharacterState
     public String characterState;
 
-    @NotEmpty
+    @NotNull
     public boolean moved;
 
     @Nullable
     public Integer dropItemId;
 
-    @NotEmpty
+    @NotNull
     public boolean boss;
 
     @Positive
