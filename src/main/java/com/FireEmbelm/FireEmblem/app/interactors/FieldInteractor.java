@@ -7,6 +7,7 @@ import com.FireEmbelm.FireEmblem.app.data.entities.SpotEntity;
 import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.SpotRepository;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
+import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
 import com.FireEmbelm.FireEmblem.business.service.FieldService;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
@@ -108,6 +109,55 @@ public class FieldInteractor {
             se.characterId.characterId = mCharacterRepository.findByName(se.characterId.name).orElseThrow().characterId;
             mCharacterRepository.save(se.characterId);
         }
+
+    }
+
+    public void useConsumableItem(CharacterModel characterModel, int itemId)
+            throws InvalidEquipmentException {
+
+        Character character = mCharacterConverter.convertModelToCharacter(characterModel);
+
+        mFieldService.useConsumableItem(character,itemId);
+
+        CharacterEntity characterEntity = mCharacterConverter.convertToEntity(character);
+        characterEntity.characterId = mCharacterRepository.findByName(character.getName()).orElseThrow().characterId;
+
+        mCharacterRepository.save(characterEntity);
+
+    }
+
+    public void useHealingItem(CharacterModel characterModel, int itemId) throws InvalidEquipmentException {
+
+        Character character = mCharacterConverter.convertModelToCharacter(characterModel);
+
+        mFieldService.useHealingItem(character,itemId);
+
+        CharacterEntity characterEntity = mCharacterConverter.convertToEntity(character);
+        characterEntity.characterId = mCharacterRepository.findByName(character.getName()).orElseThrow().characterId;
+
+        mCharacterRepository.save(characterEntity);
+
+    }
+
+    public void useStaff(SpotModel healingCharacterModel, SpotModel healedCharacterModel, int itemId) throws InvalidEquipmentException, InvalidSpotException {
+
+        Spot healingCharacter = mSpotConverter.convertModelToSpot(healingCharacterModel);
+        Spot healedCharacter = mSpotConverter.convertModelToSpot(healedCharacterModel);
+
+        mFieldService.useStaff(healingCharacter, healedCharacter, itemId);
+
+
+        SpotEntity healingSpot = mSpotConverter.convertToEntity(healingCharacter);
+        healingSpot.characterId.characterId
+                = mCharacterRepository.findByName(healingSpot.characterId.name).orElseThrow().characterId;
+
+
+        SpotEntity healedSpot = mSpotConverter.convertToEntity(healedCharacter);
+        healedSpot.characterId.characterId
+                = mCharacterRepository.findByName(healedSpot.characterId.name).orElseThrow().characterId;
+
+        mCharacterRepository.save(healingSpot.characterId);
+        mCharacterRepository.save(healedSpot.characterId);
 
     }
 
