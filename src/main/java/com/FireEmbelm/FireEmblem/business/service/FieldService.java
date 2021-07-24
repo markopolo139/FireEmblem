@@ -43,10 +43,6 @@ public class FieldService {
 
     }
 
-    public void endTurn(Character character) {
-        character.setMoved(true);
-    }
-
     public void startTurn(Collection<Spot> charactersSpots) {
 
         for(Spot characterSpot : charactersSpots) {

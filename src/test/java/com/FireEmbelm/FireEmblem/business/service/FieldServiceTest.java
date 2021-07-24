@@ -194,8 +194,8 @@ public class FieldServiceTest {
 
         mHealedSpot.getCharacterOnSpot().setRemainingHealth(mHealedSpot.getCharacterOnSpot().getRemainingHealth() - 1);
 
-        mFieldService.endTurn(mCharacter2);
-        mFieldService.endTurn(mCharacter);
+        mCharacter2.setMoved(true);
+        mCharacter.setMoved(true);
 
         mFieldService.startTurn(Arrays.asList(mAttackerSpot,mHealedSpot));
 
@@ -206,7 +206,7 @@ public class FieldServiceTest {
 
         mCharacter2.setRemainingHealth(1);
 
-        mFieldService.endTurn(mCharacter2);
+        mCharacter2.setMoved(true);
         mFieldService.startTurn(Collections.singletonList(mHealedSpot));
 
         Assertions.assertEquals(
