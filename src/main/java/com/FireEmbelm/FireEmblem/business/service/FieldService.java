@@ -75,6 +75,7 @@ public class FieldService {
                 character.getStats().get(statsUpItems.getBoostedStat()).getValue() + statsUpItems.getHowMuchStatUp());
 
         character.getEquipment().remove(statsUpItems);
+        character.setMoved(true);
 
     }
 
@@ -98,6 +99,8 @@ public class FieldService {
         healingItemWithUses.setUses(healingItemWithUses.getUses() - 1);
         if (healingItemWithUses.getUses() == 0)
             character.getEquipment().remove(itemId);
+
+        character.setMoved(true);
 
     }
 
@@ -136,6 +139,8 @@ public class FieldService {
         staff.setUses(staff.getUses() - 1);
         if (staff.getUses() == 0)
             healingCharacter.getCharacterOnSpot().getEquipment().remove(itemId);
+
+        healingCharacter.getCharacterOnSpot().setMoved(true);
 
     }
 

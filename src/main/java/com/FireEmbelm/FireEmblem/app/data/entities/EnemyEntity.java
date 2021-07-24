@@ -49,18 +49,18 @@ public class EnemyEntity {
     public int goldDrop;
 
     @ElementCollection
-    @CollectionTable(name = "enemies_equipment_heal_items", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
-    })
-    @Nullable
-    public List<HealingItemEmbeddable> healingItems;
-
-    @ElementCollection
     @CollectionTable(name = "enemies_equipment_weapons", joinColumns = {
             @JoinColumn(name = "enemy_id ")
     })
     @Nullable
     public List<WeaponEmbeddable> weapons;
+
+    @ElementCollection
+    @CollectionTable(name = "enemies_equipment_heal_items", joinColumns = {
+            @JoinColumn(name = "enemy_id ")
+    })
+    @Nullable
+    public List<HealingItemEmbeddable> healingItems;
 
     @ElementCollection
     @CollectionTable(name = "enemies_equipment_seals", joinColumns = {
@@ -93,8 +93,8 @@ public class EnemyEntity {
     public EnemyEntity(
             Long enemyId, String name, int level, int exp, int remainingHealth, @Nullable Integer currentEquippedItemId,
             CharacterClass characterClass, CharacterState characterState, boolean moved, @Nullable Integer dropItemId,
-            boolean boss, int goldDrop, @Nullable List<HealingItemEmbeddable> healingItems,
-            @Nullable List<WeaponEmbeddable> weapons, @Nullable List<Seals> sealType,
+            boolean boss, int goldDrop, @Nullable List<WeaponEmbeddable> weapons,
+            @Nullable List<HealingItemEmbeddable> healingItems, @Nullable List<Seals> sealType,
             @Nullable List<StatsUpItems> statUpType, List<StatEmbeddable> stats, List<WeaponProgressEmbeddable> weaponProgress
     ) {
         this.enemyId = enemyId;
@@ -109,8 +109,8 @@ public class EnemyEntity {
         this.dropItemId = dropItemId;
         this.boss = boss;
         this.goldDrop = goldDrop;
-        this.healingItems = healingItems;
         this.weapons = weapons;
+        this.healingItems = healingItems;
         this.sealType = sealType;
         this.statUpType = statUpType;
         this.stats = stats;

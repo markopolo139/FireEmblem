@@ -117,8 +117,8 @@ public class ConvertersTest {
                 CharacterClass.ARCHER,
                 CharacterState.DEAD,
                 false,
-                Collections.singletonList(new HealingItemEmbeddable(HealingItems.MEND, 20)),
                 Collections.singletonList(mWeaponConverter.convertToEntity(weapon)),
+                Collections.singletonList(new HealingItemEmbeddable(HealingItems.MEND, 20)),
                 Collections.singletonList(Seals.HEART_SEAL),
                 Collections.singletonList(StatsUpItems.STRENGTH_UP),
                 Arrays.asList(
@@ -228,8 +228,8 @@ public class ConvertersTest {
                 null,"Ruffian",1,2,3,0,
                 CharacterClass.ARCHER, CharacterState.DEAD, false, 0,
                 false, 555,
-                Collections.singletonList(new HealingItemEmbeddable(HealingItems.MEND, 20)),
                 Collections.singletonList(mWeaponConverter.convertToEntity(weapon)),
+                Collections.singletonList(new HealingItemEmbeddable(HealingItems.MEND, 20)),
                 Collections.singletonList(Seals.HEART_SEAL),
                 Collections.singletonList(StatsUpItems.STRENGTH_UP),
                 Arrays.asList(

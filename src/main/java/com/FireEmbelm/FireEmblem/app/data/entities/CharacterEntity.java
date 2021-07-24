@@ -44,18 +44,18 @@ public class CharacterEntity {
     public boolean moved;
 
     @ElementCollection
-    @CollectionTable(name = "character_equipment_heal_items", joinColumns = {
-            @JoinColumn(name = "character_id")
-    })
-    @Nullable
-    public List<HealingItemEmbeddable> healingItems;
-
-    @ElementCollection
     @CollectionTable(name = "character_equipment_weapons", joinColumns = {
             @JoinColumn(name = "character_id")
     })
     @Nullable
     public List<WeaponEmbeddable> weapons;
+
+    @ElementCollection
+    @CollectionTable(name = "character_equipment_heal_items", joinColumns = {
+            @JoinColumn(name = "character_id")
+    })
+    @Nullable
+    public List<HealingItemEmbeddable> healingItems;
 
     @ElementCollection
     @CollectionTable(name = "character_equipment_seals", joinColumns = {
@@ -91,8 +91,8 @@ public class CharacterEntity {
     public CharacterEntity(
             Long characterId, String name, int level, int exp, int remainingHealth,
             @Nullable Integer currentEquippedItemId, CharacterClass characterClass,
-            CharacterState characterState, boolean moved, @Nullable List<HealingItemEmbeddable> healingItems,
-            @Nullable List<WeaponEmbeddable> weapons, @Nullable List<Seals> seals,
+            CharacterState characterState, boolean moved, @Nullable List<WeaponEmbeddable> weapons,
+            @Nullable List<HealingItemEmbeddable> healingItems, @Nullable List<Seals> seals,
             @Nullable List<StatsUpItems> statUpType, List<StatEmbeddable> stats,
             List<WeaponProgressEmbeddable> weaponProgress
     ) {
@@ -105,8 +105,8 @@ public class CharacterEntity {
         this.characterClass = characterClass;
         this.characterState = characterState;
         this.moved = moved;
-        this.healingItems = healingItems;
         this.weapons = weapons;
+        this.healingItems = healingItems;
         this.sealType = seals;
         this.statUpType = statUpType;
         this.stats = stats;

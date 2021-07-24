@@ -82,14 +82,14 @@ public class CharacterConverterImpl implements CharacterConverter {
                 character.getCharacterClass(),
                 character.getCharacterState(),
                 character.isMoved(),
-                mHealingItemConverter.convertListToEntity(character.getEquipment().stream()
-                        .filter(i -> i instanceof HealingItemWithUses)
-                        .map(i -> (HealingItemWithUses) i)
-                        .collect(Collectors.toList())
-                ),
                 mWeaponConverter.convertListToEntity(character.getEquipment().stream()
                         .filter(i -> i instanceof Weapon)
                         .map(i -> (Weapon) i)
+                        .collect(Collectors.toList())
+                ),
+                mHealingItemConverter.convertListToEntity(character.getEquipment().stream()
+                        .filter(i -> i instanceof HealingItemWithUses)
+                        .map(i -> (HealingItemWithUses) i)
                         .collect(Collectors.toList())
                 ),
                 character.getEquipment().stream()
