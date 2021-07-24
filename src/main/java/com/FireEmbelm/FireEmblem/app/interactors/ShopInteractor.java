@@ -14,6 +14,7 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
 import com.FireEmbelm.FireEmblem.web.models.request.HealingItemModel;
+import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import com.FireEmbelm.FireEmblem.web.models.request.WeaponModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,10 +76,10 @@ public class ShopInteractor {
     }
 
     public void buyItem(
-            int randomItemId, ArrayList<Equipment> randomList, int itemsConvoyMoney
+            int randomItemId, ArrayList<Equipment> randomList, ItemsConvoyModel convoyModel
     ) throws TooSmallAmountOfMoneyException {
 
-        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoney(itemsConvoyMoney);
+        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoney(convoyModel.money);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringEntity);
 
         randomList = randomList.stream().map(i -> {
@@ -100,9 +101,9 @@ public class ShopInteractor {
 
     }
 
-    public void sellItem(int itemsConvoyId, int itemsConvoyMoney) {
+    public void sellItem(int itemsConvoyId, ItemsConvoyModel convoyModel) {
 
-        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoney(itemsConvoyMoney);
+        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoney(convoyModel.money);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringEntity);
 
         mShopService.sellItem(itemsConvoyId,itemsConvoy);

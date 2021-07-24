@@ -20,6 +20,7 @@ import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
 import com.FireEmbelm.FireEmblem.business.service.BattleService;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
+import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 import org.apache.logging.log4j.core.config.plugins.convert.TypeConverters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class BattleInteractor {
     @Autowired
     private ItemsConvoyRepository mItemsConvoyRepository;
 
-    public void initialiseBattle(SpotModel attackerSpotModel, SpotModel defenderSpotModel, int convoyMoney)
+    public void initialiseBattle(SpotModel attackerSpotModel, SpotModel defenderSpotModel, ItemsConvoyModel convoyModel)
             throws NoWeaponException, OutOfRangeException, InvalidSpotException {
 
         SpotEntity startingAttackerEntity = mSpotRepository
@@ -61,7 +62,7 @@ public class BattleInteractor {
         SpotEntity startingDefenderEntity = mSpotRepository
                 .findByHeightAndWidth(defenderSpotModel.height,defenderSpotModel.width);
 
-        ItemsConvoyEntity itemsConvoyEntity = mItemsConvoyRepository.findByMoney(convoyMoney);
+        ItemsConvoyEntity itemsConvoyEntity = mItemsConvoyRepository.findByMoney(convoyModel.money);
 
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(itemsConvoyEntity);
         Spot attackerSpot = mSpotConverter.convertModelToSpot(attackerSpotModel);

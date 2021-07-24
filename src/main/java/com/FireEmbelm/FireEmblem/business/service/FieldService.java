@@ -15,6 +15,18 @@ import java.util.Collection;
 // front end - selecting enemy to attack, selecting item to use, menu (attack, items, wait, check, move)
 public class FieldService {
 
+    public void placeCharacter(Character character, Spot spot) throws InvalidSpotException {
+
+        if(spot.getHeight() > 2)
+            throw new InvalidSpotException("Spot is too far");
+
+        if(spot.getCharacterOnSpot() != null)
+            throw new InvalidSpotException("Can't place character on another character");
+
+        spot.setCharacterOnSpot(character);
+
+    }
+
     public void moveCharacter(Spot characterSpot, Spot moveToSpot) throws InvalidSpotException {
 
         if(moveToSpot.getCharacterOnSpot() != null)
@@ -124,18 +136,6 @@ public class FieldService {
         staff.setUses(staff.getUses() - 1);
         if (staff.getUses() == 0)
             healingCharacter.getCharacterOnSpot().getEquipment().remove(itemId);
-
-    }
-
-    public void placeCharacter(Character character, Spot spot) throws InvalidSpotException {
-
-        if(spot.getHeight() > 2)
-            throw new InvalidSpotException("Spot is too far");
-
-        if(spot.getCharacterOnSpot() != null)
-            throw new InvalidSpotException("Can't place character on another character");
-
-        spot.setCharacterOnSpot(character);
 
     }
 

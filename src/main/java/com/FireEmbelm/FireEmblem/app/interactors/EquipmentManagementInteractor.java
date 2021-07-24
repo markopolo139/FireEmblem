@@ -13,6 +13,7 @@ import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.service.EquipmentManagementService;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
+import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,10 +39,10 @@ public class EquipmentManagementInteractor {
     private ItemsConvoyRepository mItemsConvoyRepository;
 
     public void getEquipmentForCharacterFromConvoy(
-            CharacterModel characterModel, int itemsConvoyMoney, int itemsConvoyId
+            CharacterModel characterModel, ItemsConvoyModel convoyModel, int itemsConvoyId
     ) throws EquipmentLimitException {
 
-        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoney(itemsConvoyMoney);
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoney(convoyModel.money);
         Character character = mCharacterConverter.convertModelToCharacter(characterModel);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringConvoy);
 
@@ -52,9 +53,9 @@ public class EquipmentManagementInteractor {
     }
 
     public void giveEquipmentFromCharacterToConvoy(
-            CharacterModel characterModel, int itemsConvoyMoney, int characterEquipmentId
+            CharacterModel characterModel, ItemsConvoyModel convoyModel, int characterEquipmentId
     ) {
-        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoney(itemsConvoyMoney);
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoney(convoyModel.money);
         Character character = mCharacterConverter.convertModelToCharacter(characterModel);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringConvoy);
 
@@ -63,9 +64,9 @@ public class EquipmentManagementInteractor {
         saveResultToBase(enteringConvoy.convoyId, character, itemsConvoy);
     }
 
-    public void storeAllEquipmentFromCharacters(int itemsConvoyMoney) {
+    public void storeAllEquipmentFromCharacters(ItemsConvoyModel convoyModel) {
 
-        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoney(itemsConvoyMoney);
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoney(convoyModel.money);
         List<Character> characters = mCharacterConverter.convertEntityListToCharacter(
                 mCharacterRepository.findByCharacterState(CharacterState.ALIVE)
         );
