@@ -51,21 +51,21 @@ public class EnemyEntity {
 
     @ElementCollection
     @CollectionTable(name = "enemies_equipment_weapons", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
+            @JoinColumn(name = "enemy_id")
     })
     @Nullable
     public List<WeaponEmbeddable> weapons;
 
     @ElementCollection
     @CollectionTable(name = "enemies_equipment_heal_items", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
+            @JoinColumn(name = "enemy_id")
     })
     @Nullable
     public List<HealingItemEmbeddable> healingItems;
 
     @ElementCollection
     @CollectionTable(name = "enemies_equipment_seals", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
+            @JoinColumn(name = "enemy_id")
     })
     @Nullable
     @Enumerated(EnumType.STRING)
@@ -73,7 +73,7 @@ public class EnemyEntity {
 
     @ElementCollection
     @CollectionTable(name = "enemies_equipment_stats_up", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
+            @JoinColumn(name = "enemy_id")
     })
     @Nullable
     @Enumerated(EnumType.STRING)
@@ -81,13 +81,13 @@ public class EnemyEntity {
 
     @ElementCollection
     @CollectionTable(name = "enemies_stats", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
+            @JoinColumn(name = "enemy_id")
     })
     public List<StatEmbeddable> stats;
 
     @ElementCollection
     @CollectionTable(name = "enemies_weapon_progress", joinColumns = {
-            @JoinColumn(name = "enemy_id ")
+            @JoinColumn(name = "enemy_id")
     })
     public List<WeaponProgressEmbeddable> weaponProgress;
 

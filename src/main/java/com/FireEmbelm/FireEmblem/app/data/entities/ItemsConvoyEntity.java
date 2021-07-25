@@ -23,21 +23,21 @@ public class ItemsConvoyEntity {
 
     @ElementCollection
     @CollectionTable(name = "player_healing_items", joinColumns = {
-            @JoinColumn(name = "convoy_id  ")
+            @JoinColumn(name = "convoy_id")
     })
     @Nullable
     public List<HealingItemEmbeddable> healingItems;
 
     @ElementCollection
     @CollectionTable(name = "player_weapons", joinColumns = {
-            @JoinColumn(name = "convoy_id  ")
+            @JoinColumn(name = "convoy_id")
     })
     @Nullable
     public List<WeaponEmbeddable> weapons;
 
     @ElementCollection
     @CollectionTable(name = "player_seals", joinColumns = {
-            @JoinColumn(name = "convoy_id  ")
+            @JoinColumn(name = "convoy_id")
     })
     @Nullable
     @Enumerated(EnumType.STRING)
@@ -45,7 +45,7 @@ public class ItemsConvoyEntity {
 
     @ElementCollection
     @CollectionTable(name = "player_stat_up_items", joinColumns = {
-            @JoinColumn(name = "convoy_id  ")
+            @JoinColumn(name = "convoy_id")
     })
     @Nullable
     @Enumerated(EnumType.STRING)

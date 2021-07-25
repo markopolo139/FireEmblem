@@ -76,7 +76,7 @@ public class CharacterEntity {
 
     @ElementCollection
     @CollectionTable(name = "character_stats", joinColumns = {
-            @JoinColumn(name = "character_id ")
+            @JoinColumn(name = "character_id")
     })
     public List<StatEmbeddable> stats;
 

@@ -12,12 +12,12 @@ import java.util.Optional;
 @Repository
 public interface CharacterRepository extends JpaRepository<CharacterEntity, Long> {
 
-    Optional<CharacterEntity> findByName(String name);
+    Optional<CharacterEntity> findByNameAndGameId(String name, Long id);
 
-    List<CharacterEntity> findByMovedFalse();
+    List<CharacterEntity> findByMovedFalseAndGameId(Long id));
 
-    List<CharacterEntity> findByCharacterState(CharacterState characterState);
+    List<CharacterEntity> findByCharacterStateAndGameId(CharacterState characterState, Long id));
 
-    CharacterEntity findFirstByOrderByLevelDesc();
+    CharacterEntity findFirstByGameIdOrderByLevelDesc(Long id));
 
 }

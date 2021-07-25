@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ItemsConvoyRepository extends JpaRepository<ItemsConvoyEntity, Long> {
-    ItemsConvoyEntity findByMoney(int money);
+    ItemsConvoyEntity findByMoneyAndGameId(int money, Long id);
 }

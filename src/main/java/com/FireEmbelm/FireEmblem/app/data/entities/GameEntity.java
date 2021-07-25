@@ -1,6 +1,7 @@
 package com.FireEmbelm.FireEmblem.app.data.entities;
 
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +17,7 @@ public class GameEntity {
 
     public String login;
 
+    @JsonIgnore
     public String password;
 
     @OneToMany(mappedBy = "gameId")

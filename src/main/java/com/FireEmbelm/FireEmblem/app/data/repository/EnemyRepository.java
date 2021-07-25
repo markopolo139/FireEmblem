@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface EnemyRepository extends JpaRepository<EnemyEntity, Long> {
 
-    List<EnemyEntity> findByMovedFalse();
+    List<EnemyEntity> findByMovedFalseAndGameId(Long id);
 
-    List<EnemyEntity> findByCharacterState(CharacterState characterState);
+    List<EnemyEntity> findByCharacterStateAndGameId(CharacterState characterState, Long id);
 }

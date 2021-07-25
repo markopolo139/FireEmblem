@@ -10,9 +10,9 @@ import java.util.Optional;
 @Repository
 public interface SpotRepository extends JpaRepository<SpotEntity, Long> {
 
-    SpotEntity findByHeightAndWidth(int height, int width);
+    SpotEntity findByHeightAndWidthAndGameId(int height, int width, Long id);
 
-    List<SpotEntity> findByCharacterIdNotNull();
+    List<SpotEntity> findByCharacterIdNotNullAndGameId(Long id);
 
-    List<SpotEntity> findByEnemyIdNotNull();
+    List<SpotEntity> findByEnemyIdNotNullAndGameId(Long id);
 }
