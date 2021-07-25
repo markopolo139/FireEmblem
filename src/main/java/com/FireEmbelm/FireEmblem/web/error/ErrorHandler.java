@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.web.error;
 
+import com.FireEmbelm.FireEmblem.app.exceptions.CharacterAlreadyMovedException;
 import com.FireEmbelm.FireEmblem.business.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -120,6 +121,17 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                 .setHttpStatus(HttpStatus.BAD_REQUEST)
                 .setErrorMessage(exception.getMessage())
                 .setSuggestedAction("Select item you can afford or quit shop")
+                .build();
+
+        return convertToResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(CharacterAlreadyMovedException.class)
+    public ResponseEntity<Object> characterAlreadyMovedExceptionHandler(CharacterAlreadyMovedException exception) {
+        ApiError apiError = ApiError.builder()
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .setSuggestedAction("Select character that has not moved yet, or start new turn")
                 .build();
 
         return convertToResponseEntity(apiError);

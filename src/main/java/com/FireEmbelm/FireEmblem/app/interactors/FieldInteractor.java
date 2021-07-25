@@ -6,6 +6,7 @@ import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.SpotEntity;
 import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.SpotRepository;
+import com.FireEmbelm.FireEmblem.app.exceptions.CharacterAlreadyMovedException;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
@@ -19,10 +20,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 //TODO:
-// - searching for character by (name and game id [no model]), itemsConvoy by (money, game id [not model])
-// - searching for spot by (int x, int y, game id [no model])
-// - create game entity (in base have only id [give this id to spot, character, convoy and enemies]
-// - In field check if character.move == true
+// - refactor (give beforeChange entity to top of methods)
+
 @Service
 public class FieldInteractor {
 
@@ -69,7 +68,11 @@ public class FieldInteractor {
     }
 
     public void moveCharacter(SpotModel characterSpotModel, SpotModel moveToSpotModel, Long gameId)
-            throws InvalidSpotException {
+            throws InvalidSpotException, CharacterAlreadyMovedException {
+
+        if(characterSpotModel.characterOnSpot != null)
+            if (characterSpotModel.characterOnSpot.moved)
+                throw new CharacterAlreadyMovedException();
 
         SpotEntity beforeChangeCharacterSpot = mSpotRepository
                 .findByHeightAndWidthAndGameId_GameId(characterSpotModel.height,characterSpotModel.width,gameId);
@@ -98,7 +101,10 @@ public class FieldInteractor {
         mSpotRepository.save(moveToSpotEntity);
     }
 
-    public void endTurn(CharacterModel characterModel, Long gameId) {
+    public void endTurn(CharacterModel characterModel, Long gameId) throws CharacterAlreadyMovedException {
+
+        if (characterModel.moved)
+                throw new CharacterAlreadyMovedException();
 
         CharacterEntity characterEntity =
                 mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
@@ -132,7 +138,10 @@ public class FieldInteractor {
     }
 
     public void useConsumableItem(CharacterModel characterModel, int itemId, Long gameId)
-            throws InvalidEquipmentException {
+            throws InvalidEquipmentException, CharacterAlreadyMovedException {
+
+        if (characterModel.moved)
+            throw new CharacterAlreadyMovedException();
 
         CharacterEntity beforeChangeCharacter =
                 mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
@@ -149,7 +158,11 @@ public class FieldInteractor {
 
     }
 
-    public void useHealingItem(CharacterModel characterModel, int itemId, Long gameId) throws InvalidEquipmentException {
+    public void useHealingItem(CharacterModel characterModel, int itemId, Long gameId)
+            throws InvalidEquipmentException, CharacterAlreadyMovedException {
+
+        if (characterModel.moved)
+            throw new CharacterAlreadyMovedException();
 
         CharacterEntity beforeChangeCharacter =
                 mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
@@ -167,7 +180,11 @@ public class FieldInteractor {
     }
 
     public void useStaff(SpotModel healingCharacterModel, SpotModel healedCharacterModel, int itemId, Long gameId)
-            throws InvalidEquipmentException, InvalidSpotException {
+            throws InvalidEquipmentException, InvalidSpotException, CharacterAlreadyMovedException {
+
+        if(healingCharacterModel.characterOnSpot != null )
+            if (healingCharacterModel.characterOnSpot.moved)
+                throw new CharacterAlreadyMovedException();
 
         Spot healingCharacter = mSpotConverter.convertModelToSpot(healingCharacterModel);
         Spot healedCharacter = mSpotConverter.convertModelToSpot(healedCharacterModel);
