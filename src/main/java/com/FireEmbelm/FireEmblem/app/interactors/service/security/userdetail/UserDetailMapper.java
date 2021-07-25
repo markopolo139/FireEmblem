@@ -11,7 +11,7 @@ public class UserDetailMapper {
                 .gameId(userEntity.gameEntity.gameId)
                 .username(userEntity.login)
                 .password(userEntity.password)
-                .authorities(userEntity.userRoles.toArray(String[]::new))
+                .authorities(userEntity.role.toArray(String[]::new))
                 .disabled(!userEntity.enabled)
                 .build();
     }

@@ -18,7 +18,7 @@ public class GameEntity {
 
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "login")
+    @JoinColumn(name = "user_id")
     public UserEntity login;
 
     @OneToMany(mappedBy = "gameId")

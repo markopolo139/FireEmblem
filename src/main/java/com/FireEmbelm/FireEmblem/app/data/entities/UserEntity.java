@@ -1,6 +1,7 @@
 package com.FireEmbelm.FireEmblem.app.data.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -11,6 +12,10 @@ import java.util.Set;
 public class UserEntity {
 
     @Id
+    @GeneratedValue
+    public Long userId;
+
+    @NaturalId
     public String login;
 
     @JsonIgnore
@@ -21,20 +26,22 @@ public class UserEntity {
     @JsonIgnore
     @ElementCollection
     @CollectionTable(name = "user_roles", joinColumns = {
-            @JoinColumn(name = "game_id")
+            @JoinColumn(name = "user_id")
     })
-    public Set<String> userRoles;
+    public Set<String> role;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "login")
+    @OneToOne(mappedBy = "login")
     public GameEntity gameEntity;
 
-    public UserEntity(String login, String password, boolean enabled, Set<String> userRoles, GameEntity gameEntity) {
+    public UserEntity(
+            Long userId, String login, String password, boolean enabled, Set<String> role, GameEntity gameEntity
+    ) {
+        this.userId = userId;
         this.login = login;
         this.password = password;
         this.enabled = enabled;
-        this.userRoles = userRoles;
+        this.role = role;
         this.gameEntity = gameEntity;
     }
 
