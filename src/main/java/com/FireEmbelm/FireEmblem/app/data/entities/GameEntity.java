@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "games")
@@ -15,10 +16,10 @@ public class GameEntity {
     @GeneratedValue
     public Long gameId;
 
-    public String login;
-
     @JsonIgnore
-    public String password;
+    @OneToOne
+    @JoinColumn(name = "login")
+    public UserEntity login;
 
     @OneToMany(mappedBy = "gameId")
     public List<CharacterEntity> characters;
@@ -34,13 +35,11 @@ public class GameEntity {
     public ItemsConvoyEntity itemsConvoy;
 
     public GameEntity(
-            Long gameId, String login, String password,
-            List<CharacterEntity> characters, List<EnemyEntity> enemies,
+            Long gameId, UserEntity login, List<CharacterEntity> characters, List<EnemyEntity> enemies,
             List<SpotEntity> field, ItemsConvoyEntity itemsConvoy
     ) {
         this.gameId = gameId;
         this.login = login;
-        this.password = password;
         this.characters = characters;
         this.enemies = enemies;
         this.field = field;
@@ -55,11 +54,11 @@ public class GameEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GameEntity that = (GameEntity) o;
-        return Objects.equals(login, that.login) && Objects.equals(password, that.password);
+        return Objects.equals(login, that.login);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password);
+        return Objects.hash(login);
     }
 }
