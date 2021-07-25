@@ -43,13 +43,14 @@ public class UnitPromoteInteractor {
             CharacterModel characterModel, List<CharacterClass> possibleClass, int possibleClassId, Long gameId
     ) {
 
+        CharacterEntity beforeChangeEntity =
+                mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
+
         Character character = mCharacterConverter.convertModelToCharacter(characterModel);
 
         mUnitPromoteService.promoteCharacter(character,possibleClass,possibleClassId);
 
         CharacterEntity characterEntity = mCharacterConverter.convertToEntity(character);
-        CharacterEntity beforeChangeEntity =
-                mCharacterRepository.findByNameAndGameId_GameId(characterEntity.name, gameId).orElseThrow();
         characterEntity.characterId = beforeChangeEntity.characterId;
         characterEntity.gameId = beforeChangeEntity.gameId;
 
