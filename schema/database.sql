@@ -1,3 +1,9 @@
+create table games(
+    game_id int not null primary key auto_increment,
+    login varchar(100) not null,
+    password varchar(150) not null
+);
+
 create table characters(
     character_id int not null primary key auto_increment,
     name varchar(50) not null,
@@ -8,7 +14,9 @@ create table characters(
     character_class ENUM('GREAT_LORD','LORD','PALADIN','CAVALRY','GENERAL','KNIGHT','SWORDMASTER','MYRMIDON','WARRIOR',
                            'FIGHTER','HERO','MERCENARY','SNIPER','ARCHER','SAGE','MAGE','WAR_MONK','PRIEST') not null,
     character_state ENUM('ALIVE','DEAD') not null,
-    moved boolean not null
+    moved boolean not null,
+    game_id int not null,
+    constraint character_to_game foreign key (game_id) references games (game_id)
 );
 
 create table enemies(
@@ -24,7 +32,9 @@ create table enemies(
     moved boolean not null,
     drop_item_id int null,
     boss boolean not null,
-    gold_drop int not null
+    gold_drop int not null,
+    game_id int not null,
+    constraint enemy_to_game foreign key (game_id) references games (game_id)
 );
 
 create table character_stats(
@@ -146,8 +156,11 @@ create table spots(
     width int not null,
     character_id int null,
     enemy_id int null,
+    game_id int not null,
     constraint spot_to_character foreign key (character_id) references characters (character_id),
-    constraint spot_to_enemy foreign key (enemy_id) references enemies (enemy_id)
+    constraint spot_to_enemy foreign key (enemy_id) references enemies (enemy_id),
+    constraint spot_to_game foreign key (game_id) references games (game_id)
+
 );
 
 create table all_healing_items(
@@ -195,7 +208,9 @@ create table base_character_stats(
 
 create table player_convoy(
     convoy_id int not null primary key auto_increment,
-    money int not null
+    money int not null,
+    game_id int not null,
+    constraint convoy_to_game foreign key (game_id) references games (game_id)
 );
 
 CREATE TABLE player_healing_items(
