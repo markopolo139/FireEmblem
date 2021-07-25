@@ -24,7 +24,6 @@ public class CharacterEntity {
     @GeneratedValue
     public Long characterId;
 
-    @NaturalId
     public String name;
 
     public int level;

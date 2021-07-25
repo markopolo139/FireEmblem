@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,5 +19,6 @@ public interface SpotRepository extends JpaRepository<SpotEntity, Long> {
     List<SpotEntity> findByEnemyIdNotNullAndGameId_GameId(Long id);
 
     @Modifying
+    @Transactional
     void deleteAllByGameId_GameId(Long id);
 }
