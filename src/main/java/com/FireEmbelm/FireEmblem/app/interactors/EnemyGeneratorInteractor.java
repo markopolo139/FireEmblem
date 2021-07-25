@@ -10,7 +10,6 @@ import com.FireEmbelm.FireEmblem.app.data.repository.EnemyRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.SpotRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.WeaponRepository;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
-import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.service.generators.EnemyGenerator;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,18 +48,19 @@ public class EnemyGeneratorInteractor {
     @Autowired
     private WeaponConverter mWeaponConverter;
 
-    public void generateEnemies() {
+    public void generateEnemies(Long gameId) {
 
         mSpotRepository.saveAll(
-                mSpotRepository.findByEnemyIdNotNull().stream().peek(i -> i.enemyId = null).collect(Collectors.toList())
+                mSpotRepository.findByEnemyIdNotNullAndGameId_GameId(gameId).stream().peek(i -> i.enemyId = null)
+                        .collect(Collectors.toList())
         );
 
-        mEnemyRepository.deleteAll();
+        mEnemyRepository.deleteAllByGameId_GameId(gameId);
 
         List<Spot> field = mSpotConverter.convertEntityListToSpot(mSpotRepository.findAll());
 
         Character maxLevelCharacter =
-                mCharacterConverter.convertEntityToCharacter(mCharacterRepository.findFirstByOrderByLevelDesc());
+                mCharacterConverter.convertEntityToCharacter(mCharacterRepository.findFirstByGameId_GameIdOrderByLevelDesc(gameId));
 
         List<Spot> generatedEnemies = mEnemyGenerator.generateEnemy(
                 field,
@@ -74,7 +74,10 @@ public class EnemyGeneratorInteractor {
         List<SpotEntity> fieldWithEnemies = mSpotConverter.convertListToEntity(generatedEnemies);
 
         for(SpotEntity se : fieldWithEnemies) {
-            se.spotId = mSpotRepository.findByHeightAndWidth(se.height, se.width).spotId;
+            SpotEntity inBaseEntity = mSpotRepository.findByHeightAndWidthAndGameId_GameId(se.height, se.width, gameId);
+            se.spotId = inBaseEntity.spotId;
+            se.gameId = inBaseEntity.gameId;
+            se.enemyId.gameId = inBaseEntity.gameId;
             mEnemyRepository.save(se.enemyId);
             mSpotRepository.save(se);
         }

@@ -16,7 +16,6 @@ import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 //TODO:
@@ -42,8 +41,14 @@ public class FieldInteractor {
     @Autowired
     private CharacterConverter mCharacterConverter;
 
-    public void placeCharacter(CharacterModel characterModel, SpotModel spotModel)
+    public void placeCharacter(CharacterModel characterModel, SpotModel spotModel, Long gameId)
             throws InvalidSpotException {
+
+        CharacterEntity beforeChangeCharacter =
+                mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
+
+        SpotEntity beforeChangeSpot =
+                mSpotRepository.findByHeightAndWidthAndGameId_GameId(spotModel.height,spotModel.width, gameId);
 
         Character character = mCharacterConverter.convertModelToCharacter(characterModel);
         Spot spot = mSpotConverter.convertModelToSpot(spotModel);
@@ -52,18 +57,25 @@ public class FieldInteractor {
 
 
         SpotEntity spotEntity = mSpotConverter.convertToEntity(spot);
-        spotEntity.spotId = mSpotRepository.findByHeightAndWidth(spotEntity.height,spotEntity.width).spotId;
+        spotEntity.spotId = beforeChangeSpot.spotId;
+        spotEntity.gameId = beforeChangeSpot.gameId;
 
-        spotEntity.characterId.characterId =
-                mCharacterRepository.findByName(spotEntity.characterId.name).orElseThrow().characterId;
+        spotEntity.characterId.characterId = beforeChangeCharacter.characterId;
+        spotEntity.characterId.gameId = beforeChangeCharacter.gameId;
 
         mCharacterRepository.save(spotEntity.characterId);
         mSpotRepository.save(spotEntity);
 
     }
 
-    public void moveCharacter(SpotModel characterSpotModel, SpotModel moveToSpotModel)
+    public void moveCharacter(SpotModel characterSpotModel, SpotModel moveToSpotModel, Long gameId)
             throws InvalidSpotException {
+
+        SpotEntity beforeChangeCharacterSpot = mSpotRepository
+                .findByHeightAndWidthAndGameId_GameId(characterSpotModel.height,characterSpotModel.width,gameId);
+
+        SpotEntity beforeChangeMoveToSpot = mSpotRepository
+                .findByHeightAndWidthAndGameId_GameId(moveToSpotModel.height,moveToSpotModel.width, gameId);
 
         Spot characterSpot = mSpotConverter.convertModelToSpot(characterSpotModel);
         Spot moveToSpot = mSpotConverter.convertModelToSpot(moveToSpotModel);
@@ -71,33 +83,34 @@ public class FieldInteractor {
         mFieldService.moveCharacter(characterSpot, moveToSpot);
 
         SpotEntity characterSpotEntity = mSpotConverter.convertToEntity(characterSpot);
-        characterSpotEntity.spotId =
-                mSpotRepository.findByHeightAndWidth(characterSpotEntity.height,characterSpotEntity.width).spotId;
+        characterSpotEntity.spotId = beforeChangeCharacterSpot.spotId;
+        characterSpotEntity.gameId = beforeChangeCharacterSpot.gameId;
 
         SpotEntity moveToSpotEntity = mSpotConverter.convertToEntity(moveToSpot);
-        moveToSpotEntity.spotId =
-                mSpotRepository.findByHeightAndWidth(moveToSpotEntity.height,moveToSpotEntity.width).spotId;
+        moveToSpotEntity.spotId = beforeChangeMoveToSpot.spotId;
+        moveToSpotEntity.gameId = beforeChangeMoveToSpot.gameId;
 
-        moveToSpotEntity.characterId.characterId =
-                mCharacterRepository.findByName(moveToSpotEntity.characterId.name).orElseThrow().characterId;
+        moveToSpotEntity.characterId.characterId = beforeChangeCharacterSpot.characterId.characterId;
+        moveToSpotEntity.characterId.gameId = beforeChangeCharacterSpot.characterId.gameId;
 
         mSpotRepository.save(characterSpotEntity);
         mCharacterRepository.save(moveToSpotEntity.characterId);
         mSpotRepository.save(moveToSpotEntity);
     }
 
-    public void endTurn(CharacterModel characterModel) {
+    public void endTurn(CharacterModel characterModel, Long gameId) {
 
-        CharacterEntity characterEntity = mCharacterRepository.findByName(characterModel.name).orElseThrow();
+        CharacterEntity characterEntity =
+                mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
         characterEntity.moved = true;
 
         mCharacterRepository.save(characterEntity);
 
     }
 
-    public void startTurn() {
+    public void startTurn(Long gameId) {
 
-        List<SpotEntity> entitySpotsWithCharacters = mSpotRepository.findByCharacterIdNotNull();
+        List<SpotEntity> entitySpotsWithCharacters = mSpotRepository.findByCharacterIdNotNullAndGameId_GameId(gameId);
 
         List<Spot> spotsWithCharacters = mSpotConverter.convertEntityListToSpot(entitySpotsWithCharacters);
 
@@ -106,55 +119,76 @@ public class FieldInteractor {
         List<SpotEntity> afterStartTurn = mSpotConverter.convertListToEntity(spotsWithCharacters);
 
         for(SpotEntity se : afterStartTurn) {
-            se.characterId.characterId = mCharacterRepository.findByName(se.characterId.name).orElseThrow().characterId;
+
+            CharacterEntity characterInBase =
+                    mCharacterRepository.findByNameAndGameId_GameId(se.characterId.name,gameId).orElseThrow();
+
+            se.characterId.characterId = characterInBase.characterId;
+            se.characterId.gameId = characterInBase.gameId;
             mCharacterRepository.save(se.characterId);
+
         }
 
     }
 
-    public void useConsumableItem(CharacterModel characterModel, int itemId)
+    public void useConsumableItem(CharacterModel characterModel, int itemId, Long gameId)
             throws InvalidEquipmentException {
+
+        CharacterEntity beforeChangeCharacter =
+                mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
 
         Character character = mCharacterConverter.convertModelToCharacter(characterModel);
 
         mFieldService.useConsumableItem(character,itemId);
 
         CharacterEntity characterEntity = mCharacterConverter.convertToEntity(character);
-        characterEntity.characterId = mCharacterRepository.findByName(character.getName()).orElseThrow().characterId;
+        characterEntity.characterId = beforeChangeCharacter.characterId;
+        characterEntity.gameId = beforeChangeCharacter.gameId;
 
         mCharacterRepository.save(characterEntity);
 
     }
 
-    public void useHealingItem(CharacterModel characterModel, int itemId) throws InvalidEquipmentException {
+    public void useHealingItem(CharacterModel characterModel, int itemId, Long gameId) throws InvalidEquipmentException {
+
+        CharacterEntity beforeChangeCharacter =
+                mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
 
         Character character = mCharacterConverter.convertModelToCharacter(characterModel);
 
         mFieldService.useHealingItem(character,itemId);
 
         CharacterEntity characterEntity = mCharacterConverter.convertToEntity(character);
-        characterEntity.characterId = mCharacterRepository.findByName(character.getName()).orElseThrow().characterId;
+        characterEntity.characterId = beforeChangeCharacter.characterId;
+        characterEntity.gameId = beforeChangeCharacter.gameId;
 
         mCharacterRepository.save(characterEntity);
 
     }
 
-    public void useStaff(SpotModel healingCharacterModel, SpotModel healedCharacterModel, int itemId) throws InvalidEquipmentException, InvalidSpotException {
+    public void useStaff(SpotModel healingCharacterModel, SpotModel healedCharacterModel, int itemId, Long gameId)
+            throws InvalidEquipmentException, InvalidSpotException {
 
         Spot healingCharacter = mSpotConverter.convertModelToSpot(healingCharacterModel);
         Spot healedCharacter = mSpotConverter.convertModelToSpot(healedCharacterModel);
 
         mFieldService.useStaff(healingCharacter, healedCharacter, itemId);
 
-
         SpotEntity healingSpot = mSpotConverter.convertToEntity(healingCharacter);
-        healingSpot.characterId.characterId
-                = mCharacterRepository.findByName(healingSpot.characterId.name).orElseThrow().characterId;
 
+        CharacterEntity beforeChangeHealingCharacter =
+                mCharacterRepository.findByNameAndGameId_GameId(healingSpot.characterId.name, gameId).orElseThrow();
+
+        healingSpot.characterId.characterId = beforeChangeHealingCharacter.characterId;
+        healingSpot.characterId.gameId = beforeChangeHealingCharacter.gameId;
 
         SpotEntity healedSpot = mSpotConverter.convertToEntity(healedCharacter);
-        healedSpot.characterId.characterId
-                = mCharacterRepository.findByName(healedSpot.characterId.name).orElseThrow().characterId;
+
+        CharacterEntity beforeChangeHealedCharacter =
+                mCharacterRepository.findByNameAndGameId_GameId(healedSpot.characterId.name, gameId).orElseThrow();
+
+        healedSpot.characterId.characterId = beforeChangeHealedCharacter.characterId;
+        healedSpot.characterId.gameId = beforeChangeHealedCharacter.gameId;
 
         mCharacterRepository.save(healingSpot.characterId);
         mCharacterRepository.save(healedSpot.characterId);

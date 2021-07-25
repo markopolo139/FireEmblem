@@ -39,14 +39,19 @@ public class UnitPromoteInteractor {
         );
     }
 
-    public void promoteCharacter(CharacterModel characterModel, List<CharacterClass> possibleClass, int possibleClassId) {
+    public void promoteCharacter(
+            CharacterModel characterModel, List<CharacterClass> possibleClass, int possibleClassId, Long gameId
+    ) {
 
         Character character = mCharacterConverter.convertModelToCharacter(characterModel);
 
         mUnitPromoteService.promoteCharacter(character,possibleClass,possibleClassId);
 
         CharacterEntity characterEntity = mCharacterConverter.convertToEntity(character);
-        characterEntity.characterId = mCharacterRepository.findByName(characterEntity.name).orElseThrow().characterId;
+        CharacterEntity beforeChangeEntity =
+                mCharacterRepository.findByNameAndGameId_GameId(characterEntity.name, gameId).orElseThrow();
+        characterEntity.characterId = beforeChangeEntity.characterId;
+        characterEntity.gameId = beforeChangeEntity.gameId;
 
         mCharacterRepository.save(characterEntity);
     }

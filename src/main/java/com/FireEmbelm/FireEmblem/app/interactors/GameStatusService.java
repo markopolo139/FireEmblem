@@ -19,28 +19,32 @@ public class GameStatusService {
     @Autowired
     private EnemyRepository mEnemyRepository;
 
-    public List<EnemyEntity> getAliveEnemies() {
-        return mEnemyRepository.findByCharacterState(CharacterState.ALIVE);
+    public List<EnemyEntity> getAliveEnemies(Long gameId) {
+        return mEnemyRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId);
     }
 
-    public List<CharacterEntity> getAliveCharacters() {
-        return mCharacterRepository.findByCharacterState(CharacterState.ALIVE);
+    public List<CharacterEntity> getAliveCharacters(Long gameId) {
+        return mCharacterRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId);
     }
 
-    public List<CharacterEntity> getNotMovedCharacters() {
-        return mCharacterRepository.findByMovedFalse();
+    public List<CharacterEntity> getNotMovedCharacters(Long gameId) {
+        return mCharacterRepository.findByMovedFalseAndGameId_GameId(gameId);
     }
 
-    public boolean autoEndTurn() {
-        return getNotMovedCharacters().size() == 0;
+    public boolean autoEndTurn(Long gameId) {
+        return getNotMovedCharacters(gameId).size() == 0;
     }
 
-    public boolean isFieldWon() {
-        return getAliveEnemies().size() == 0 && getAliveCharacters().size() != 0;
+    public boolean isFieldWon(Long gameId) {
+        return getAliveEnemies(gameId).size() == 0 && getAliveCharacters(gameId).size() != 0;
     }
 
-    public boolean isPlayerDefeated() {
-        return getAliveCharacters().size() == 0;
+    public boolean isPlayerDefeated(Long gameId) {
+        return getAliveCharacters(gameId).size() == 0;
+    }
+
+    public int maxLevelCharacterInGame(Long gameId) {
+        return mCharacterRepository.findFirstByGameId_GameIdOrderByLevelDesc(gameId).level;
     }
 
 }

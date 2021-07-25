@@ -3,6 +3,7 @@ package com.FireEmbelm.FireEmblem.app.data.repository;
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -12,12 +13,15 @@ import java.util.Optional;
 @Repository
 public interface CharacterRepository extends JpaRepository<CharacterEntity, Long> {
 
-    Optional<CharacterEntity> findByNameAndGameId(String name, Long id);
+    Optional<CharacterEntity> findByNameAndGameId_GameId(String name, Long id);
 
-    List<CharacterEntity> findByMovedFalseAndGameId(Long id));
+    List<CharacterEntity> findByMovedFalseAndGameId_GameId(Long id);
 
-    List<CharacterEntity> findByCharacterStateAndGameId(CharacterState characterState, Long id));
+    List<CharacterEntity> findByCharacterStateAndGameId_GameId(CharacterState characterState, Long id);
 
-    CharacterEntity findFirstByGameIdOrderByLevelDesc(Long id));
+    CharacterEntity findFirstByGameId_GameIdOrderByLevelDesc(Long id);
+
+    @Modifying
+    void deleteAllByGameId_GameId(Long id);
 
 }

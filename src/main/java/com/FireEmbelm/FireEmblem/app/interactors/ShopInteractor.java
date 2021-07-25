@@ -76,10 +76,10 @@ public class ShopInteractor {
     }
 
     public void buyItem(
-            int randomItemId, ArrayList<Equipment> randomList, ItemsConvoyModel convoyModel
+            int randomItemId, ArrayList<Equipment> randomList, ItemsConvoyModel convoyModel, Long gameId
     ) throws TooSmallAmountOfMoneyException {
 
-        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoney(convoyModel.money);
+        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyModel.money, gameId);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringEntity);
 
         randomList = randomList.stream().map(i -> {
@@ -96,20 +96,22 @@ public class ShopInteractor {
 
         ItemsConvoyEntity exitingEntity = mItemsConvoyConverter.convertToEntity(itemsConvoy);
         exitingEntity.convoyId = enteringEntity.convoyId;
+        exitingEntity.gameId = enteringEntity.gameId;
 
         mItemsConvoyRepository.save(exitingEntity);
 
     }
 
-    public void sellItem(int itemsConvoyId, ItemsConvoyModel convoyModel) {
+    public void sellItem(int itemsConvoyId, ItemsConvoyModel convoyModel, Long gameId) {
 
-        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoney(convoyModel.money);
+        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyModel.money, gameId);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringEntity);
 
         mShopService.sellItem(itemsConvoyId,itemsConvoy);
 
         ItemsConvoyEntity exitingEntity = mItemsConvoyConverter.convertToEntity(itemsConvoy);
         exitingEntity.convoyId = enteringEntity.convoyId;
+        exitingEntity.gameId = enteringEntity.gameId;
 
         mItemsConvoyRepository.save(exitingEntity);
 
