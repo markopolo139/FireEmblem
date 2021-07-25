@@ -1,4 +1,4 @@
-package com.FireEmbelm.FireEmblem.app.interactors;
+package com.FireEmbelm.FireEmblem.app.interactors.service;
 
 import com.FireEmbelm.FireEmblem.app.converters.internal.BaseCharacterToCharacterConverter;
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
