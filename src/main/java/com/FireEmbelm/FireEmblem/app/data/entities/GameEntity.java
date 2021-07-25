@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "game")
+@Table(name = "games")
 public class GameEntity {
 
     @Id
@@ -18,16 +18,17 @@ public class GameEntity {
 
     public String password;
 
-    @OneToMany
+    @OneToMany(mappedBy = "gameId")
     public List<CharacterEntity> characters;
 
-    @OneToMany
+    @OneToMany(mappedBy = "gameId")
     public List<EnemyEntity> enemies;
 
-    @OneToMany
+    @OneToMany(mappedBy = "gameId")
     public List<SpotEntity> field;
 
     @OneToOne
+    @JoinColumn(name = "game_id")
     public ItemsConvoyEntity itemsConvoy;
 
     public GameEntity(

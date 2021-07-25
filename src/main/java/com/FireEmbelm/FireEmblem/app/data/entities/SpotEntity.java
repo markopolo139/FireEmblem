@@ -1,6 +1,7 @@
 package com.FireEmbelm.FireEmblem.app.data.entities;
 
 import com.FireEmbelm.FireEmblem.business.value.field.SpotsType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -29,6 +30,11 @@ public class SpotEntity {
     @Nullable
     @JoinColumn(name = "enemy_id")
     public EnemyEntity enemyId;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    public GameEntity gameId;
 
     public SpotEntity(
             Long spotId, SpotsType spotType, int height, int width,

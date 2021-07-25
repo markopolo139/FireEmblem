@@ -8,6 +8,7 @@ import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.lang.Nullable;
 
@@ -84,6 +85,11 @@ public class CharacterEntity {
             @JoinColumn(name = "character_id")
     })
     public List<WeaponProgressEmbeddable> weaponProgress;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    public GameEntity gameId;
 
     protected CharacterEntity() {
     }

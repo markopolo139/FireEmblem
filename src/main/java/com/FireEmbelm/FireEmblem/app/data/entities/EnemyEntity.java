@@ -8,6 +8,7 @@ import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -89,6 +90,11 @@ public class EnemyEntity {
             @JoinColumn(name = "enemy_id ")
     })
     public List<WeaponProgressEmbeddable> weaponProgress;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    public GameEntity gameId;
 
     public EnemyEntity(
             Long enemyId, String name, int level, int exp, int remainingHealth, @Nullable Integer currentEquippedItemId,

@@ -4,6 +4,7 @@ import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.HealingItemEmbedda
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -49,6 +50,11 @@ public class ItemsConvoyEntity {
     @Nullable
     @Enumerated(EnumType.STRING)
     public List<StatsUpItems> statUpType;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "game_id")
+    public GameEntity gameId;
 
     public ItemsConvoyEntity(
             Long convoyId, int money, @Nullable List<HealingItemEmbeddable> healingItems,
