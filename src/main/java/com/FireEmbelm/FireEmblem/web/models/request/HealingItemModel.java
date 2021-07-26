@@ -3,7 +3,7 @@ package com.FireEmbelm.FireEmblem.web.models.request;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.business.value.equipment.HealingItems;
-import com.FireEmbelm.FireEmblem.web.validation.ValidHealingItemType;
+import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidHealingItemType;
 
 import javax.validation.constraints.Min;
 import java.util.Objects;

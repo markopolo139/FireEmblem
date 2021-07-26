@@ -1,4 +1,4 @@
-package com.FireEmbelm.FireEmblem.web.validation;
+package com.FireEmbelm.FireEmblem.web.validation.character;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ValidHealingItemTypeImpl.class)
-public @interface ValidHealingItemType {
-    String message() default "Invalid healing item type";
+@Constraint(validatedBy = ValidCharacterClassListImpl.class)
+public @interface ValidCharacterClassList {
+    String message() default "Invalid character class list";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

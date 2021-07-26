@@ -3,7 +3,7 @@ package com.FireEmbelm.FireEmblem.web.models.request;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
-import com.FireEmbelm.FireEmblem.web.validation.ValidWeaponCategory;
+import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidWeaponCategory;
 
 import javax.validation.constraints.*;
 import java.util.Objects;

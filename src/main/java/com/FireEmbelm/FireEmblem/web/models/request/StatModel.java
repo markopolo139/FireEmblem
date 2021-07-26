@@ -1,6 +1,6 @@
 package com.FireEmbelm.FireEmblem.web.models.request;
 
-import com.FireEmbelm.FireEmblem.web.validation.ValidStatType;
+import com.FireEmbelm.FireEmblem.web.validation.character.ValidStatType;
 
 import javax.validation.constraints.Min;
 import java.util.Objects;

@@ -2,8 +2,10 @@ package com.FireEmbelm.FireEmblem.web.models.request;
 
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
-import com.FireEmbelm.FireEmblem.web.validation.ValidCharacterClass;
-import com.FireEmbelm.FireEmblem.web.validation.ValidCharacterState;
+import com.FireEmbelm.FireEmblem.web.validation.character.ValidCharacterClass;
+import com.FireEmbelm.FireEmblem.web.validation.character.ValidCharacterState;
+import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidSealList;
+import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidStatUpList;
 import org.springframework.lang.Nullable;
 
 import javax.validation.Valid;
@@ -29,29 +31,27 @@ public class CharacterModel {
     public int remainingHealth;
 
     @NotEmpty
-    @Valid
-    public List<StatModel> stats;
+    public List<@Valid StatModel> stats;
 
     @Nullable
     public Integer currentEquippedItemId;
 
     @NotNull
-    @Valid
-    public List<WeaponModel> weapons;
+    public List<@Valid WeaponModel> weapons;
 
     @NotNull
-    @Valid
-    public List<HealingItemModel> healingItems;
+    public List<@Valid HealingItemModel> healingItems;
 
     @NotNull
+    @ValidSealList
     public List<Seals> seals;
 
     @NotNull
+    @ValidStatUpList
     public List<StatsUpItems> statsUpItems;
 
     @NotEmpty
-    @Valid
-    public List<WeaponProgressModel> weaponProgress;
+    public List<@Valid WeaponProgressModel> weaponProgress;
 
     @ValidCharacterClass
     public String characterClass;

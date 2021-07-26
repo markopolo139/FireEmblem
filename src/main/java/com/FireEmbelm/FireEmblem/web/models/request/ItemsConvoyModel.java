@@ -2,9 +2,10 @@ package com.FireEmbelm.FireEmblem.web.models.request;
 
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
+import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidSealList;
+import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidStatUpList;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -16,17 +17,17 @@ public class ItemsConvoyModel {
     public int money;
 
     @NotNull
-    @Valid
-    public List<WeaponModel> weapons;
+    public List<@Valid WeaponModel> weapons;
 
     @NotNull
-    @Valid
-    public List<HealingItemModel> healingItems;
+    public List<@Valid HealingItemModel> healingItems;
 
     @NotNull
+    @ValidSealList
     public List<Seals> seals;
 
     @NotNull
+    @ValidStatUpList
     public List<StatsUpItems> statsUpItems;
 
     public ItemsConvoyModel(

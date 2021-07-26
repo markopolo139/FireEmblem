@@ -1,6 +1,6 @@
 package com.FireEmbelm.FireEmblem.web.models.request;
 
-import com.FireEmbelm.FireEmblem.web.validation.ValidWeaponCategory;
+import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidWeaponCategory;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

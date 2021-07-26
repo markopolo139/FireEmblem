@@ -1,4 +1,5 @@
-package com.FireEmbelm.FireEmblem.web.validation;
+package com.FireEmbelm.FireEmblem.web.validation.character;
+
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,9 +10,9 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ValidCharacterStateImpl.class)
-public @interface ValidCharacterState {
-    String message() default "Invalid character state";
+@Constraint(validatedBy = ValidStatTypeImpl.class)
+public @interface ValidStatType {
+    String message() default "Invalid stat type";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

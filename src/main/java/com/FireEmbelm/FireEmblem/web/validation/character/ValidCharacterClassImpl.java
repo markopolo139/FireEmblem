@@ -1,4 +1,4 @@
-package com.FireEmbelm.FireEmblem.web.validation;
+package com.FireEmbelm.FireEmblem.web.validation.character;
 
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 
