@@ -1,10 +1,15 @@
 package com.FireEmbelm.FireEmblem.app.interactors.service;
 
+import com.FireEmbelm.FireEmblem.app.converters.CharacterConverter;
+import com.FireEmbelm.FireEmblem.app.converters.EnemyConverter;
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.EnemyEntity;
 import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.EnemyRepository;
+import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
+import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
+import com.FireEmbelm.FireEmblem.web.models.request.EnemyModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +24,37 @@ public class GameStatusService {
     @Autowired
     private EnemyRepository mEnemyRepository;
 
-    public List<EnemyEntity> getAliveEnemies(Long gameId) {
-        return mEnemyRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId);
+    @Autowired
+    private CharacterConverter mCharacterConverter;
+
+    @Autowired
+    private EnemyConverter mEnemyConverter;
+
+    public List<EnemyModel> getAliveEnemies(Long gameId) {
+        List<EnemyEntity> enemyEntities =
+                mEnemyRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId);
+
+        return mEnemyConverter.convertListToModel(mEnemyConverter.convertEntityListToEnemy(enemyEntities));
     }
 
-    public List<CharacterEntity> getAliveCharacters(Long gameId) {
-        return mCharacterRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId);
+    public List<CharacterModel> getAliveCharacters(Long gameId) {
+
+        List<CharacterEntity> characterEntities =
+                mCharacterRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId);
+
+        return mCharacterConverter.convertListToModel(
+                mCharacterConverter.convertEntityListToCharacter(characterEntities)
+        );
     }
 
-    public List<CharacterEntity> getNotMovedCharacters(Long gameId) {
-        return mCharacterRepository.findByMovedFalseAndGameId_GameId(gameId);
+    public List<CharacterModel> getNotMovedCharacters(Long gameId) {
+
+        List<CharacterEntity> characterEntities =
+                mCharacterRepository.findByMovedFalseAndGameId_GameId(gameId);
+
+        return mCharacterConverter.convertListToModel(
+                mCharacterConverter.convertEntityListToCharacter(characterEntities)
+        );
     }
 
     public boolean autoEndTurn(Long gameId) {
