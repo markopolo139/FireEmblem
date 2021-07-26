@@ -1,4 +1,4 @@
-package com.FireEmbelm.FireEmblem.web.models.payload;
+package com.FireEmbelm.FireEmblem.web.models.payload.battle;
 
 import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;

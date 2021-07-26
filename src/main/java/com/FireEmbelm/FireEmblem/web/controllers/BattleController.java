@@ -5,9 +5,7 @@ import com.FireEmbelm.FireEmblem.app.interactors.service.security.userdetail.Use
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
 import com.FireEmbelm.FireEmblem.business.exceptions.NoWeaponException;
 import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
-import com.FireEmbelm.FireEmblem.web.models.payload.BattlePayload;
-import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
-import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
+import com.FireEmbelm.FireEmblem.web.models.payload.battle.BattlePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
