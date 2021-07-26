@@ -31,7 +31,7 @@ public class UserEntity {
     public Set<String> role;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "login")
+    @OneToOne(mappedBy = "login", fetch = FetchType.EAGER)
     public GameEntity gameEntity;
 
     public UserEntity(

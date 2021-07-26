@@ -2,6 +2,7 @@ package com.FireEmbelm.FireEmblem.web.controllers;
 
 import com.FireEmbelm.FireEmblem.app.interactors.EquipmentManagementInteractor;
 import com.FireEmbelm.FireEmblem.app.interactors.service.security.userdetail.UserDetail;
+import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import com.FireEmbelm.FireEmblem.business.exceptions.EquipmentLimitException;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.web.models.payload.equipment.EquipPayload;
@@ -24,6 +25,9 @@ public class EquipmentManagementController {
     @Autowired
     private EquipmentManagementInteractor mEquipmentManagementInteractor;
 
+    @Autowired
+    private AppUtils mAppUtils;
+
     @PutMapping("/api/v1/getEquipmentFromConvoy")
     public void getEquipmentForCharacterFromConvoy(
             Principal principal, @Valid @RequestBody EquipmentConvoyPayload equipmentConvoyPayload
@@ -31,7 +35,7 @@ public class EquipmentManagementController {
 
         mEquipmentManagementInteractor.getEquipmentForCharacterFromConvoy(
                 equipmentConvoyPayload.characterModel, equipmentConvoyPayload.itemsConvoyModel,
-                equipmentConvoyPayload.elementId, ((UserDetail) principal).getGameId()
+                equipmentConvoyPayload.elementId, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
@@ -43,7 +47,7 @@ public class EquipmentManagementController {
 
         mEquipmentManagementInteractor.giveEquipmentFromCharacterToConvoy(
                 equipmentConvoyPayload.characterModel, equipmentConvoyPayload.itemsConvoyModel,
-                equipmentConvoyPayload.elementId, ((UserDetail) principal).getGameId()
+                equipmentConvoyPayload.elementId, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
@@ -54,7 +58,7 @@ public class EquipmentManagementController {
     ) {
 
         mEquipmentManagementInteractor.storeAllEquipmentFromCharacters(
-                itemsConvoyModel, ((UserDetail) principal).getGameId()
+                itemsConvoyModel, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
@@ -66,7 +70,7 @@ public class EquipmentManagementController {
 
         mEquipmentManagementInteractor.trade(
                 tradePayload.tradeFromCharacter, tradePayload.tradeToCharacter,
-                tradePayload.equipmentId, ((UserDetail) principal).getGameId()
+                tradePayload.equipmentId, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
@@ -77,7 +81,7 @@ public class EquipmentManagementController {
     ) throws InvalidEquipmentException {
 
         mEquipmentManagementInteractor.equipItem(
-                equipPayload.characterModel, equipPayload.equipmentId, ((UserDetail) principal).getGameId()
+                equipPayload.characterModel, equipPayload.equipmentId, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }

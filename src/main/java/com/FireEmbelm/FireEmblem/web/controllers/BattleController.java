@@ -2,6 +2,7 @@ package com.FireEmbelm.FireEmblem.web.controllers;
 
 import com.FireEmbelm.FireEmblem.app.interactors.BattleInteractor;
 import com.FireEmbelm.FireEmblem.app.interactors.service.security.userdetail.UserDetail;
+import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
 import com.FireEmbelm.FireEmblem.business.exceptions.NoWeaponException;
 import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
@@ -19,6 +20,9 @@ public class BattleController {
     @Autowired
     private BattleInteractor mBattleInteractor;
 
+    @Autowired
+    private AppUtils mAppUtils;
+
     @PutMapping("/api/v1/initialiseBattle")
     public void initialiseBattle(
             Principal principal, @Valid @RequestBody BattlePayload battlePayload
@@ -26,7 +30,7 @@ public class BattleController {
 
         mBattleInteractor.initialiseBattle(
                 battlePayload.attackerSpot,battlePayload.defenderSpot,
-                battlePayload.itemsConvoyModel, ((UserDetail) principal).getGameId()
+                battlePayload.itemsConvoyModel, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
