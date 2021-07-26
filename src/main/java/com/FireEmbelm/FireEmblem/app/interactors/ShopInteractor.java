@@ -4,6 +4,7 @@ import com.FireEmbelm.FireEmblem.app.converters.HealingItemConverter;
 import com.FireEmbelm.FireEmblem.app.converters.ItemsConvoyConverter;
 import com.FireEmbelm.FireEmblem.app.converters.WeaponConverter;
 import com.FireEmbelm.FireEmblem.app.data.entities.ItemsConvoyEntity;
+import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.HealingItemRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.ItemsConvoyRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.WeaponRepository;
@@ -48,7 +49,12 @@ public class ShopInteractor {
     @Autowired
     private HealingItemRepository mHealingItemRepository;
 
-    public ArrayList<Equipment> checkShopItemList(int maxLevelCharacter) {
+    @Autowired
+    private CharacterRepository mCharacterRepository;
+
+    public ArrayList<Equipment> checkShopItemList(Long gameId) {
+
+        int maxLevelCharacter = mCharacterRepository.findFirstByGameId_GameIdOrderByLevelDesc(gameId).level;
 
         int weaponQuality = maxLevelCharacter / 4;
 
