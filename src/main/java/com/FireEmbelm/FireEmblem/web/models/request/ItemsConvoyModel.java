@@ -3,6 +3,7 @@ package com.FireEmbelm.FireEmblem.web.models.request;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -15,9 +16,11 @@ public class ItemsConvoyModel {
     public int money;
 
     @NotNull
+    @Valid
     public List<WeaponModel> weapons;
 
     @NotNull
+    @Valid
     public List<HealingItemModel> healingItems;
 
     @NotNull

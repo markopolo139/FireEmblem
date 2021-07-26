@@ -3,6 +3,7 @@ package com.FireEmbelm.FireEmblem.web.models.request;
 import com.FireEmbelm.FireEmblem.web.validation.ValidSpotType;
 import org.springframework.lang.Nullable;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.Objects;
 
@@ -18,9 +19,11 @@ public class SpotModel {
     public int width;
 
     @Nullable
+    @Valid
     public CharacterModel characterOnSpot;
 
     @Nullable
+    @Valid
     public EnemyModel enemyOnSpot;
 
     public SpotModel(

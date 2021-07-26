@@ -6,6 +6,7 @@ import com.FireEmbelm.FireEmblem.web.validation.ValidCharacterClass;
 import com.FireEmbelm.FireEmblem.web.validation.ValidCharacterState;
 import org.springframework.lang.Nullable;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -28,15 +29,18 @@ public class CharacterModel {
     public int remainingHealth;
 
     @NotEmpty
+    @Valid
     public List<StatModel> stats;
 
     @Nullable
     public Integer currentEquippedItemId;
 
     @NotNull
+    @Valid
     public List<WeaponModel> weapons;
 
     @NotNull
+    @Valid
     public List<HealingItemModel> healingItems;
 
     @NotNull
@@ -46,6 +50,7 @@ public class CharacterModel {
     public List<StatsUpItems> statsUpItems;
 
     @NotEmpty
+    @Valid
     public List<WeaponProgressModel> weaponProgress;
 
     @ValidCharacterClass
