@@ -38,36 +38,43 @@ public class EquipmentManagementInteractor {
     private ItemsConvoyRepository mItemsConvoyRepository;
 
     public void getEquipmentForCharacterFromConvoy(
-            CharacterModel characterModel, ItemsConvoyModel convoyModel, int itemsConvoyId, Long gameId
+            String characterName, int convoyMoney, int itemsConvoyId, Long gameId
     ) throws EquipmentLimitException {
 
-        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyModel.money, gameId);
 
-        Character character = mCharacterConverter.convertModelToCharacter(characterModel);
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
+
+        CharacterEntity beforeChange =
+                mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow();
+
+        Character character = mCharacterConverter.convertEntityToCharacter(beforeChange);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringConvoy);
 
         mEquipmentManagementService.getEquipmentForCharacterFromConvoy(character, itemsConvoy, itemsConvoyId);
 
-        saveResultToBase(enteringConvoy, character, itemsConvoy, gameId);
+        saveResultToBase(enteringConvoy, character, itemsConvoy, beforeChange);
 
     }
 
     public void giveEquipmentFromCharacterToConvoy(
-            CharacterModel characterModel, ItemsConvoyModel convoyModel, int characterEquipmentId, Long gameId
+            String characterName, int convoyMoney, int characterEquipmentId, Long gameId
     ) {
-        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyModel.money, gameId);
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
 
-        Character character = mCharacterConverter.convertModelToCharacter(characterModel);
+        CharacterEntity beforeChange =
+                mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow();
+
+        Character character = mCharacterConverter.convertEntityToCharacter(beforeChange);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringConvoy);
 
         mEquipmentManagementService.giveEquipmentFromCharacterToConvoy(character, itemsConvoy, characterEquipmentId);
 
-        saveResultToBase(enteringConvoy, character, itemsConvoy, gameId);
+        saveResultToBase(enteringConvoy, character, itemsConvoy, beforeChange);
     }
 
-    public void storeAllEquipmentFromCharacters(ItemsConvoyModel convoyModel, Long gameId) {
+    public void storeAllEquipmentFromCharacters(int convoyMoney, Long gameId) {
 
-        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyModel.money, gameId);
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
 
         List<Character> characters = mCharacterConverter.convertEntityListToCharacter(
                 mCharacterRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId)
@@ -95,38 +102,38 @@ public class EquipmentManagementInteractor {
         mCharacterRepository.saveAll(exitingCharacters);
     }
 
-    public void trade(CharacterModel tradeFrom, CharacterModel tradeTo, int equipmentId, Long gameId)
+    public void trade(String tradeFromCharacterName, String tradeToCharacterName, int equipmentId, Long gameId)
             throws EquipmentLimitException {
 
-        CharacterEntity beforeTradeCharacter =
-                mCharacterRepository.findByNameAndGameId_GameId(tradeFrom.name, gameId).orElseThrow();
+        CharacterEntity beforeTradeFromCharacter =
+                mCharacterRepository.findByNameAndGameId_GameId(tradeFromCharacterName, gameId).orElseThrow();
 
-        Character tradeFromCharacter = mCharacterConverter.convertModelToCharacter(tradeFrom);
-        Character tradeToCharacter = mCharacterConverter.convertModelToCharacter(tradeTo);
+        CharacterEntity beforeTradeToCharacter =
+                mCharacterRepository.findByNameAndGameId_GameId(tradeToCharacterName, gameId).orElseThrow();
+
+        Character tradeFromCharacter = mCharacterConverter.convertEntityToCharacter(beforeTradeFromCharacter);
+        Character tradeToCharacter = mCharacterConverter.convertEntityToCharacter(beforeTradeToCharacter);
 
         mEquipmentManagementService.trade(tradeFromCharacter, tradeToCharacter, equipmentId);
 
         CharacterEntity tradeFromEntity = mCharacterConverter.convertToEntity(tradeFromCharacter);
-        tradeFromEntity.characterId = beforeTradeCharacter.characterId;
-        tradeFromEntity.gameId = beforeTradeCharacter.gameId;
-
-        beforeTradeCharacter =
-                mCharacterRepository.findByNameAndGameId_GameId(tradeTo.name, gameId).orElseThrow();
+        tradeFromEntity.characterId = beforeTradeFromCharacter.characterId;
+        tradeFromEntity.gameId = beforeTradeFromCharacter.gameId;
 
         CharacterEntity tradeToEntity = mCharacterConverter.convertToEntity(tradeToCharacter);
-        tradeToEntity.characterId = beforeTradeCharacter.characterId;
-        tradeToEntity.gameId = beforeTradeCharacter.gameId;
+        tradeToEntity.characterId = beforeTradeToCharacter.characterId;
+        tradeToEntity.gameId = beforeTradeToCharacter.gameId;
 
         mCharacterRepository.save(tradeFromEntity);
         mCharacterRepository.save(tradeToEntity);
     }
 
-    public void equipItem(CharacterModel characterModel, int equipmentId, Long gameId) throws InvalidEquipmentException {
+    public void equipItem(String characterName, int equipmentId, Long gameId) throws InvalidEquipmentException {
 
         CharacterEntity beforeEquip =
-                mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
+                mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow();
 
-        Character character = mCharacterConverter.convertModelToCharacter(characterModel);
+        Character character = mCharacterConverter.convertEntityToCharacter(beforeEquip);
 
         mEquipmentManagementService.equipItem(character, equipmentId);
 
@@ -138,11 +145,8 @@ public class EquipmentManagementInteractor {
     }
 
     private void saveResultToBase(
-            ItemsConvoyEntity enteringConvoy, Character character, ItemsConvoy itemsConvoy, Long gameId
+            ItemsConvoyEntity enteringConvoy, Character character, ItemsConvoy itemsConvoy, CharacterEntity beforeChange
     ) {
-
-        CharacterEntity beforeChange =
-                mCharacterRepository.findByNameAndGameId_GameId(character.getName(), gameId).orElseThrow();
 
         ItemsConvoyEntity exitingConvoy = mItemsConvoyConverter.convertToEntity(itemsConvoy);
         exitingConvoy.convoyId = enteringConvoy.convoyId;

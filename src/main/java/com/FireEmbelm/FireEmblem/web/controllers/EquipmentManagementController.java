@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 
 @CrossOrigin
@@ -34,7 +36,7 @@ public class EquipmentManagementController {
     ) throws EquipmentLimitException {
 
         mEquipmentManagementInteractor.getEquipmentForCharacterFromConvoy(
-                equipmentConvoyPayload.characterModel, equipmentConvoyPayload.itemsConvoyModel,
+                equipmentConvoyPayload.characterName, equipmentConvoyPayload.convoyMoney,
                 equipmentConvoyPayload.elementId, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
@@ -46,7 +48,7 @@ public class EquipmentManagementController {
     ) {
 
         mEquipmentManagementInteractor.giveEquipmentFromCharacterToConvoy(
-                equipmentConvoyPayload.characterModel, equipmentConvoyPayload.itemsConvoyModel,
+                equipmentConvoyPayload.characterName, equipmentConvoyPayload.convoyMoney,
                 equipmentConvoyPayload.elementId, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
@@ -54,11 +56,11 @@ public class EquipmentManagementController {
 
     @PutMapping("/api/v1/storeAllEquipment")
     public void storeAllEquipmentFromCharacters(
-            Principal principal, @Valid @RequestBody ItemsConvoyModel itemsConvoyModel
+            Principal principal, @Valid @NotNull @Min(0) @RequestBody Integer convoyMoney
     ) {
 
         mEquipmentManagementInteractor.storeAllEquipmentFromCharacters(
-                itemsConvoyModel, mAppUtils.getGameIdFromLogin(principal.getName())
+                convoyMoney, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
@@ -69,7 +71,7 @@ public class EquipmentManagementController {
     ) throws EquipmentLimitException {
 
         mEquipmentManagementInteractor.trade(
-                tradePayload.tradeFromCharacter, tradePayload.tradeToCharacter,
+                tradePayload.tradeFromCharacterName, tradePayload.tradeToCharacterName,
                 tradePayload.equipmentId, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
@@ -81,7 +83,7 @@ public class EquipmentManagementController {
     ) throws InvalidEquipmentException {
 
         mEquipmentManagementInteractor.equipItem(
-                equipPayload.characterModel, equipPayload.equipmentId, mAppUtils.getGameIdFromLogin(principal.getName())
+                equipPayload.characterName, equipPayload.equipmentId, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }

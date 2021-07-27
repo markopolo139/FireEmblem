@@ -36,7 +36,7 @@ public class ShopController {
         mShopInteractor.buyItem(
                 buyPayload.randomListId,
                 (ArrayList<Equipment>) buyPayload.randomList,
-                buyPayload.itemsConvoyModel,
+                buyPayload.convoyMoney,
                 mAppUtils.getGameIdFromLogin(principal.getName())
         );
     }
@@ -45,7 +45,7 @@ public class ShopController {
     public void sellItem(@Valid @RequestBody SellPayLoad sellPayLoad, Principal principal) throws TooSmallAmountOfMoneyException {
         mShopInteractor.sellItem(
                 sellPayLoad.convoyId,
-                sellPayLoad.itemsConvoyModel,
+                sellPayLoad.convoyMoney,
                 mAppUtils.getGameIdFromLogin(principal.getName())
         );
     }

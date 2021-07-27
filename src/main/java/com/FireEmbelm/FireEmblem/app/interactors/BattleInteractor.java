@@ -50,21 +50,21 @@ public class BattleInteractor {
     private ItemsConvoyRepository mItemsConvoyRepository;
 
     public void initialiseBattle(
-            SpotModel attackerSpotModel, SpotModel defenderSpotModel, ItemsConvoyModel convoyModel, Long gameId
+            int attackerHeight, int attackerWidth, int defenderHeight, int defenderWidth, int convoyMoney, Long gameId
     )
             throws NoWeaponException, OutOfRangeException, InvalidSpotException {
 
         SpotEntity startingAttackerEntity = mSpotRepository
-                .findByHeightAndWidthAndGameId_GameId(attackerSpotModel.height,attackerSpotModel.width, gameId);
+                .findByHeightAndWidthAndGameId_GameId(attackerHeight, attackerWidth, gameId);
 
         SpotEntity startingDefenderEntity = mSpotRepository
-                .findByHeightAndWidthAndGameId_GameId(defenderSpotModel.height,defenderSpotModel.width, gameId);
+                .findByHeightAndWidthAndGameId_GameId(defenderHeight, defenderWidth, gameId);
 
-        ItemsConvoyEntity itemsConvoyEntity = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyModel.money, gameId);
+        ItemsConvoyEntity itemsConvoyEntity = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
 
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(itemsConvoyEntity);
-        Spot attackerSpot = mSpotConverter.convertModelToSpot(attackerSpotModel);
-        Spot defenderSpot = mSpotConverter.convertModelToSpot(defenderSpotModel);
+        Spot attackerSpot = mSpotConverter.convertEntityToSpot(startingAttackerEntity);
+        Spot defenderSpot = mSpotConverter.convertEntityToSpot(startingDefenderEntity);
 
         mBattleService.initialiseBattle(attackerSpot,defenderSpot,itemsConvoy);
 

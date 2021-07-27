@@ -13,11 +13,11 @@ public class SellPayLoad {
     public Integer convoyId;
 
     @NotNull
-    @Valid
-    public ItemsConvoyModel itemsConvoyModel;
+    @Min(0)
+    public Integer convoyMoney;
 
-    public SellPayLoad(Integer convoyId, ItemsConvoyModel itemsConvoyModel) {
+    public SellPayLoad(Integer convoyId, Integer convoyMoney) {
         this.convoyId = convoyId;
-        this.itemsConvoyModel = itemsConvoyModel;
+        this.convoyMoney = convoyMoney;
     }
 }

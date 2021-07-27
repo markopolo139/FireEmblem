@@ -28,25 +28,31 @@ public class UnitPromoteInteractor {
     @Autowired
     private CharacterConverter mCharacterConverter;
 
-    public List<CharacterClass> getPossibleClassesToPromote(CharacterModel characterModel, Seals seals)
+    public List<CharacterClass> getPossibleClassesToPromote(String characterName, Long gameId, Seals seals)
             throws CharacterLevelException, PromoteException, InvalidEquipmentException {
 
-        if (!characterModel.seals.contains(seals))
+        CharacterEntity characterEntity =
+                mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow();
+
+        if(characterEntity.sealType != null)
+            if (!characterEntity.sealType.contains(seals))
+                throw new InvalidEquipmentException("This character does not have selected seal");
+        else
             throw new InvalidEquipmentException("This character does not have selected seal");
 
         return  mUnitPromoteService.getPossibleClassesToPromote(
-                mCharacterConverter.convertModelToCharacter(characterModel),seals
+                mCharacterConverter.convertEntityToCharacter(characterEntity),seals
         );
     }
 
     public void promoteCharacter(
-            CharacterModel characterModel, List<CharacterClass> possibleClass, int possibleClassId, Long gameId
+            String characterName, List<CharacterClass> possibleClass, int possibleClassId, Long gameId
     ) {
 
         CharacterEntity beforeChangeEntity =
-                mCharacterRepository.findByNameAndGameId_GameId(characterModel.name, gameId).orElseThrow();
+                mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow();
 
-        Character character = mCharacterConverter.convertModelToCharacter(characterModel);
+        Character character = mCharacterConverter.convertEntityToCharacter(beforeChangeEntity);
 
         mUnitPromoteService.promoteCharacter(character,possibleClass,possibleClassId);
 

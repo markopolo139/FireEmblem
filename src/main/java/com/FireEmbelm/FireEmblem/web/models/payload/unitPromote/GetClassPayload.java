@@ -5,20 +5,20 @@ import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidSeal;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class GetClassPayload {
 
-    @NotNull
-    @Valid
-    public CharacterModel characterModel;
+    @NotBlank
+    public String characterName;
 
     @NotNull
     @ValidSeal
     public Seals seals;
 
-    public GetClassPayload(CharacterModel characterModel, Seals seals) {
-        this.characterModel = characterModel;
+    public GetClassPayload(String characterName, Seals seals) {
+        this.characterName = characterName;
         this.seals = seals;
     }
 }

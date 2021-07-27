@@ -29,8 +29,9 @@ public class BattleController {
     ) throws NoWeaponException, OutOfRangeException, InvalidSpotException {
 
         mBattleInteractor.initialiseBattle(
-                battlePayload.attackerSpot,battlePayload.defenderSpot,
-                battlePayload.itemsConvoyModel, mAppUtils.getGameIdFromLogin(principal.getName())
+                battlePayload.attackerSpotHeight,battlePayload.attackerSpotWidth,
+                battlePayload.defenderSpotHeight,battlePayload.defenderSpotWidth,
+                battlePayload.convoyMoney, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }

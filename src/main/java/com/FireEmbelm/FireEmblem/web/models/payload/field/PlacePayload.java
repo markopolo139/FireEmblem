@@ -4,20 +4,26 @@ import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class PlacePayload {
 
-    @NotNull
-    @Valid
-    public CharacterModel characterModel;
+    @NotBlank
+    public String characterName;
 
     @NotNull
-    @Valid
-    public SpotModel spotModel;
+    @Min(0)
+    public Integer spotHeight;
 
-    public PlacePayload(CharacterModel characterModel, SpotModel spotModel) {
-        this.characterModel = characterModel;
-        this.spotModel = spotModel;
+    @NotNull
+    @Min(0)
+    public Integer spotWidth;
+
+    public PlacePayload(String characterName, Integer spotHeight, Integer spotWidth) {
+        this.characterName = characterName;
+        this.spotHeight = spotHeight;
+        this.spotWidth = spotWidth;
     }
 }

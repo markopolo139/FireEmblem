@@ -4,25 +4,24 @@ import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class TradePayload {
 
-    @NotNull
-    @Valid
-    public CharacterModel tradeFromCharacter;
+    @NotBlank
+    public String tradeFromCharacterName;
 
-    @NotNull
-    @Valid
-    public CharacterModel tradeToCharacter;
+    @NotBlank
+    public String tradeToCharacterName;
 
     @NotNull
     @Min(0)
     public Integer equipmentId;
 
-    public TradePayload(CharacterModel tradeFromCharacter, CharacterModel tradeToCharacter, Integer equipmentId) {
-        this.tradeFromCharacter = tradeFromCharacter;
-        this.tradeToCharacter = tradeToCharacter;
+    public TradePayload(String tradeFromCharacterName, String tradeToCharacterName, Integer equipmentId) {
+        this.tradeFromCharacterName = tradeFromCharacterName;
+        this.tradeToCharacterName = tradeToCharacterName;
         this.equipmentId = equipmentId;
     }
 }

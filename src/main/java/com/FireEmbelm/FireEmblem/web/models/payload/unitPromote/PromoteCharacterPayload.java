@@ -7,15 +7,15 @@ import com.FireEmbelm.FireEmblem.web.validation.character.ValidCharacterClassLis
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class PromoteCharacterPayload {
 
-    @NotNull
-    @Valid
-    public CharacterModel characterModel;
+    @NotBlank
+    public String characterName;
 
     @NotEmpty
     @ValidCharacterClassList
@@ -25,10 +25,8 @@ public class PromoteCharacterPayload {
     @Min(0)
     public Integer listId;
 
-    public PromoteCharacterPayload(
-            CharacterModel characterModel, List<CharacterClass> characterClassList, Integer listId
-    ) {
-        this.characterModel = characterModel;
+    public PromoteCharacterPayload(String characterName, List<CharacterClass> characterClassList, Integer listId) {
+        this.characterName = characterName;
         this.characterClassList = characterClassList;
         this.listId = listId;
     }

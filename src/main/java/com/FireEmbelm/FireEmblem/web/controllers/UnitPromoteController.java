@@ -28,10 +28,10 @@ public class UnitPromoteController {
 
     @GetMapping("/api/v1/classToPromote")
     public List<CharacterClass> getPossibleClassesToPromote(
-            @Valid @RequestBody GetClassPayload getClassPayload
+            Principal principal, @Valid @RequestBody GetClassPayload getClassPayload
     ) throws InvalidEquipmentException, CharacterLevelException, PromoteException {
         return mUnitPromoteInteractor.getPossibleClassesToPromote(
-                getClassPayload.characterModel,getClassPayload.seals
+                getClassPayload.characterName, mAppUtils.getGameIdFromLogin(principal.getName()),getClassPayload.seals
         );
     }
 
@@ -41,7 +41,7 @@ public class UnitPromoteController {
             Principal principal
     ) {
         mUnitPromoteInteractor.promoteCharacter(
-                promoteCharacterPayload.characterModel,
+                promoteCharacterPayload.characterName,
                 promoteCharacterPayload.characterClassList,
                 promoteCharacterPayload.listId,
                 mAppUtils.getGameIdFromLogin(principal.getName())

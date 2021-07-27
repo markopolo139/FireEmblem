@@ -4,20 +4,33 @@ import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class MovePayload {
 
     @NotNull
-    @Valid
-    public SpotModel moveFrom;
+    @Min(0)
+    public Integer moveFromSpotHeight;
 
     @NotNull
-    @Valid
-    public SpotModel moveTo;
+    @Min(0)
+    public Integer moveFromSpotWidth;
 
-    public MovePayload(SpotModel moveFrom, SpotModel moveTo) {
-        this.moveFrom = moveFrom;
-        this.moveTo = moveTo;
+    @NotNull
+    @Min(0)
+    public Integer moveToSpotHeight;
+
+    @NotNull
+    @Min(0)
+    public Integer moveToSpotWidth;
+
+    public MovePayload(
+            Integer moveFromSpotHeight, Integer moveFromSpotWidth, Integer moveToSpotHeight, Integer moveToSpotWidth
+    ) {
+        this.moveFromSpotHeight = moveFromSpotHeight;
+        this.moveFromSpotWidth = moveFromSpotWidth;
+        this.moveToSpotHeight = moveToSpotHeight;
+        this.moveToSpotWidth = moveToSpotWidth;
     }
 }

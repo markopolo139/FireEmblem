@@ -3,25 +3,40 @@ package com.FireEmbelm.FireEmblem.web.models.payload.field;
 import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class UseStaffPayload {
 
     @NotNull
-    @Valid
-    public SpotModel healingSpot;
+    @Min(0)
+    public Integer healingSpotHeight;
 
     @NotNull
-    @Valid
-    public SpotModel healedSpot;
+    @Min(0)
+    public Integer healingSpotWidth;
+
+    @NotNull
+    @Min(0)
+    public Integer healedSpotHeight;
+
+    @NotNull
+    @Min(0)
+    public Integer healedSpotWidth;
 
     @NotNull
     @Valid
     public Integer itemId;
 
-    public UseStaffPayload(SpotModel healingSpot, SpotModel healedSpot, Integer itemId) {
-        this.healingSpot = healingSpot;
-        this.healedSpot = healedSpot;
+    public UseStaffPayload(
+            Integer healingSpotHeight, Integer healingSpotWidth,
+            Integer healedSpotHeight, Integer healedSpotWidth,
+            Integer itemId
+    ) {
+        this.healingSpotHeight = healingSpotHeight;
+        this.healingSpotWidth = healingSpotWidth;
+        this.healedSpotHeight = healedSpotHeight;
+        this.healedSpotWidth = healedSpotWidth;
         this.itemId = itemId;
     }
 }

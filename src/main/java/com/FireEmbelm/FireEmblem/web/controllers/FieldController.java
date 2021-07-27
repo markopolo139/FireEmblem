@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.security.Principal;
 
 @CrossOrigin
@@ -34,8 +35,8 @@ public class FieldController {
             throws InvalidSpotException {
 
         mFieldInteractor.placeCharacter(
-                placePayload.characterModel,
-                placePayload.spotModel,
+                placePayload.characterName,
+                placePayload.spotHeight, placePayload.spotWidth,
                 mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
@@ -46,19 +47,19 @@ public class FieldController {
             throws CharacterAlreadyMovedException, InvalidSpotException {
 
         mFieldInteractor.moveCharacter(
-                movePayload.moveFrom,
-                movePayload.moveTo,
+                movePayload.moveFromSpotHeight, movePayload.moveFromSpotWidth,
+                movePayload.moveToSpotHeight, movePayload.moveToSpotWidth,
                 mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
 
     @PutMapping("/api/v1/turn/end")
-    public void endTurn(Principal principal, @Valid @RequestBody CharacterModel characterModel)
+    public void endTurn(Principal principal, @Valid @NotBlank @RequestBody String characterName)
             throws CharacterAlreadyMovedException {
 
         mFieldInteractor.endTurn(
-                characterModel, mAppUtils.getGameIdFromLogin(principal.getName())
+                characterName, mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
@@ -73,7 +74,7 @@ public class FieldController {
             throws CharacterAlreadyMovedException, InvalidEquipmentException {
 
         mFieldInteractor.useConsumableItem(
-                useItemPayload.characterModel,
+                useItemPayload.characterName,
                 useItemPayload.itemId,
                 mAppUtils.getGameIdFromLogin(principal.getName())
         );
@@ -85,7 +86,7 @@ public class FieldController {
             throws CharacterAlreadyMovedException, InvalidEquipmentException {
 
         mFieldInteractor.useHealingItem(
-                useItemPayload.characterModel,
+                useItemPayload.characterName,
                 useItemPayload.itemId,
                 mAppUtils.getGameIdFromLogin(principal.getName())
         );
@@ -97,8 +98,8 @@ public class FieldController {
             throws CharacterAlreadyMovedException, InvalidEquipmentException, InvalidSpotException {
 
         mFieldInteractor.useStaff(
-                useStaffPayload.healingSpot,
-                useStaffPayload.healedSpot,
+                useStaffPayload.healingSpotHeight, useStaffPayload.healingSpotWidth,
+                useStaffPayload.healedSpotHeight, useStaffPayload.healedSpotWidth,
                 useStaffPayload.itemId,
                 mAppUtils.getGameIdFromLogin(principal.getName())
         );

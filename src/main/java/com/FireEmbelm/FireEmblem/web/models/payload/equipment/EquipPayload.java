@@ -4,20 +4,20 @@ import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class EquipPayload {
 
-    @NotNull
-    @Valid
-    public CharacterModel characterModel;
+    @NotBlank
+    public String characterName;
 
     @NotNull
     @Min(0)
     public Integer equipmentId;
 
-    public EquipPayload(CharacterModel characterModel, Integer equipmentId) {
-        this.characterModel = characterModel;
+    public EquipPayload(String characterName, Integer equipmentId) {
+        this.characterName = characterName;
         this.equipmentId = equipmentId;
     }
 }

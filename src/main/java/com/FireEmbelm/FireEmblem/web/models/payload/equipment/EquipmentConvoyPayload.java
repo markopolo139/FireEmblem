@@ -5,25 +5,25 @@ import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class EquipmentConvoyPayload {
 
-    @NotNull
-    @Valid
-    public CharacterModel characterModel;
+    @NotBlank
+    public String characterName;
 
     @NotNull
-    @Valid
-    public ItemsConvoyModel itemsConvoyModel;
+    @Min(0)
+    public Integer convoyMoney;
 
     @NotNull
     @Min(0)
     public Integer elementId;
 
-    public EquipmentConvoyPayload(CharacterModel characterModel, ItemsConvoyModel itemsConvoyModel, Integer elementId) {
-        this.characterModel = characterModel;
-        this.itemsConvoyModel = itemsConvoyModel;
+    public EquipmentConvoyPayload(String characterName, Integer convoyMoney, Integer elementId) {
+        this.characterName = characterName;
+        this.convoyMoney = convoyMoney;
         this.elementId = elementId;
     }
 }
