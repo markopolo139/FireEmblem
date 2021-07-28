@@ -27,8 +27,8 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
         return new ItemsConvoy(
                 itemsConvoyEntity.money,
                 Stream.of(
-                        mHealingItemConverter.convertEntityListToHealingItem(itemsConvoyEntity.healingItems),
                         mWeaponConverter.convertEntityListToWeapon(itemsConvoyEntity.weapons),
+                        mHealingItemConverter.convertEntityListToHealingItem(itemsConvoyEntity.healingItems),
                         itemsConvoyEntity.sealType == null ? new ArrayList<Equipment>() : itemsConvoyEntity.sealType,
                         itemsConvoyEntity.statUpType == null ? new ArrayList<Equipment>() : itemsConvoyEntity.statUpType
                 ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new))
@@ -69,8 +69,8 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
         return new ItemsConvoy(
                 itemsConvoyModel.money,
                 Stream.of(
-                        mHealingItemConverter.convertModelListToHealingItem(itemsConvoyModel.healingItems),
                         mWeaponConverter.convertModelListToWeapon(itemsConvoyModel.weapons),
+                        mHealingItemConverter.convertModelListToHealingItem(itemsConvoyModel.healingItems),
                         itemsConvoyModel.seals == null ? new ArrayList<Equipment>() : itemsConvoyModel.seals,
                         itemsConvoyModel.statsUpItems == null ? new ArrayList<Equipment>() : itemsConvoyModel.statsUpItems
                 ).flatMap(List::stream).collect(Collectors.toCollection(ArrayList::new))

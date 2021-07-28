@@ -324,10 +324,10 @@ public class ConvertersTest {
                 5412,
                 new ArrayList<>(
                         Arrays.asList(
-                                new HealingItemWithUses(HealingItems.MEND,20),
                                 new Weapon("test",1,2,3,4,5,6,7,8,WeaponCategory.BOW),
                                 new Weapon("test2",1,2,3,4,5,6,7,8,WeaponCategory.BOW),
                                 new Weapon("test3",1,2,3,4,5,6,7,8,WeaponCategory.BOW),
+                                new HealingItemWithUses(HealingItems.MEND,20),
                                 Seals.HEART_SEAL,
                                 StatsUpItems.STRENGTH_UP
                         )
