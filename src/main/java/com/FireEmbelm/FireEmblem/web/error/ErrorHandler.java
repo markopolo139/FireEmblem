@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -144,6 +145,17 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                 .setHttpStatus(HttpStatus.BAD_REQUEST)
                 .setErrorMessage(exception.getMessage())
                 .setSuggestedAction("Select item in array bound")
+                .build();
+
+        return convertToResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<Object> noSuchElementExceptionHandler(NoSuchElementException exception) {
+        ApiError apiError = ApiError.builder()
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .setSuggestedAction("Type name of the actual character")
                 .build();
 
         return convertToResponseEntity(apiError);

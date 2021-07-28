@@ -9,6 +9,7 @@ import com.FireEmbelm.FireEmblem.web.models.payload.equipment.EquipPayload;
 import com.FireEmbelm.FireEmblem.web.models.payload.equipment.EquipmentConvoyPayload;
 import com.FireEmbelm.FireEmblem.web.models.payload.equipment.TradePayload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@Validated
 public class EquipmentManagementController {
 
     @Autowired
