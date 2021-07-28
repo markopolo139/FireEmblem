@@ -53,10 +53,10 @@ public class BattleInteractor {
             throws NoWeaponException, OutOfRangeException, InvalidSpotException {
 
         SpotEntity startingAttackerEntity = mSpotRepository
-                .findByHeightAndWidthAndGameId_GameId(attackerHeight, attackerWidth, gameId);
+                .findByHeightAndWidthAndGameId_GameId(attackerHeight, attackerWidth, gameId).orElseThrow();
 
         SpotEntity startingDefenderEntity = mSpotRepository
-                .findByHeightAndWidthAndGameId_GameId(defenderHeight, defenderWidth, gameId);
+                .findByHeightAndWidthAndGameId_GameId(defenderHeight, defenderWidth, gameId).orElseThrow();
 
         ItemsConvoyEntity itemsConvoyEntity = mItemsConvoyRepository.findByGameId_GameId(gameId);
 

@@ -42,7 +42,7 @@ public class FieldInteractor {
                 mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow();
 
         SpotEntity beforeChangeSpot =
-                mSpotRepository.findByHeightAndWidthAndGameId_GameId(spotHeight, spotWidth, gameId);
+                mSpotRepository.findByHeightAndWidthAndGameId_GameId(spotHeight, spotWidth, gameId).orElseThrow();
 
         Character character = mCharacterConverter.convertEntityToCharacter(beforeChangeCharacter);
         Spot spot = mSpotConverter.convertEntityToSpot(beforeChangeSpot);
@@ -69,7 +69,7 @@ public class FieldInteractor {
             throws InvalidSpotException, CharacterAlreadyMovedException {
 
         SpotEntity beforeChangeCharacterSpot = mSpotRepository
-                .findByHeightAndWidthAndGameId_GameId(characterSpotHeight, characterSpotWidth, gameId);
+                .findByHeightAndWidthAndGameId_GameId(characterSpotHeight, characterSpotWidth, gameId).orElseThrow();
 
         if(beforeChangeCharacterSpot.characterId == null)
             throw new InvalidSpotException("Can't select spot without character on it");
@@ -78,7 +78,7 @@ public class FieldInteractor {
                 throw new CharacterAlreadyMovedException();
 
         SpotEntity beforeChangeMoveToSpot = mSpotRepository
-                .findByHeightAndWidthAndGameId_GameId(moveToSpotHeight, moveToSpotWidth, gameId);
+                .findByHeightAndWidthAndGameId_GameId(moveToSpotHeight, moveToSpotWidth, gameId).orElseThrow();
 
         Spot characterSpot = mSpotConverter.convertEntityToSpot(beforeChangeCharacterSpot);
         Spot moveToSpot = mSpotConverter.convertEntityToSpot(beforeChangeMoveToSpot);
@@ -188,10 +188,11 @@ public class FieldInteractor {
     )
             throws InvalidEquipmentException, InvalidSpotException, CharacterAlreadyMovedException {
 
-        SpotEntity beforeChangeHealingSpot =
-                mSpotRepository.findByHeightAndWidthAndGameId_GameId(healingSpotHeight, healingSpotWidth, gameId);
-        SpotEntity beforeChangeHealedSpot=
-                mSpotRepository.findByHeightAndWidthAndGameId_GameId(healedSpotHeight, healedSpotWidth, gameId);
+        SpotEntity beforeChangeHealingSpot = mSpotRepository
+                .findByHeightAndWidthAndGameId_GameId(healingSpotHeight, healingSpotWidth, gameId).orElseThrow();
+
+        SpotEntity beforeChangeHealedSpot= mSpotRepository
+                .findByHeightAndWidthAndGameId_GameId(healedSpotHeight, healedSpotWidth, gameId).orElseThrow();
 
         if (beforeChangeHealingSpot.characterId == null || beforeChangeHealedSpot.characterId == null)
             throw new InvalidSpotException("Can't select spot without character on it");

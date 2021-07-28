@@ -7,11 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SpotRepository extends JpaRepository<SpotEntity, Long> {
 
-    SpotEntity findByHeightAndWidthAndGameId_GameId(int height, int width, Long id);
+    Optional<SpotEntity> findByHeightAndWidthAndGameId_GameId(int height, int width, Long id);
 
     List<SpotEntity> findByCharacterIdNotNullAndGameId_GameId(Long id);
 

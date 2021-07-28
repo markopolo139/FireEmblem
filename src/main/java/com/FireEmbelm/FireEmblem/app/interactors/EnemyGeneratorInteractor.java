@@ -74,7 +74,8 @@ public class EnemyGeneratorInteractor {
         List<SpotEntity> fieldWithEnemies = mSpotConverter.convertListToEntity(generatedEnemies);
 
         for(SpotEntity se : fieldWithEnemies) {
-            SpotEntity inBaseEntity = mSpotRepository.findByHeightAndWidthAndGameId_GameId(se.height, se.width, gameId);
+            SpotEntity inBaseEntity =
+                    mSpotRepository.findByHeightAndWidthAndGameId_GameId(se.height, se.width, gameId).orElseThrow();
             se.spotId = inBaseEntity.spotId;
             se.gameId = inBaseEntity.gameId;
             se.enemyId.gameId = inBaseEntity.gameId;
