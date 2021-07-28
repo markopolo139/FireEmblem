@@ -6,6 +6,7 @@ import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.exceptions.CharacterLevelException;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.PromoteException;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.web.models.payload.unitPromote.GetClassPayload;
 import com.FireEmbelm.FireEmblem.web.models.payload.unitPromote.PromoteCharacterPayload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -30,7 +32,8 @@ public class UnitPromoteController {
             Principal principal, @Valid @RequestBody GetClassPayload getClassPayload
     ) throws InvalidEquipmentException, CharacterLevelException, PromoteException {
         return mUnitPromoteInteractor.getPossibleClassesToPromote(
-                getClassPayload.characterName, mAppUtils.getGameIdFromLogin(principal.getName()),getClassPayload.seals
+                getClassPayload.characterName, mAppUtils.getGameIdFromLogin(principal.getName()),
+                Seals.valueOf(getClassPayload.seals)
         );
     }
 
@@ -41,7 +44,8 @@ public class UnitPromoteController {
     ) {
         mUnitPromoteInteractor.promoteCharacter(
                 promoteCharacterPayload.characterName,
-                promoteCharacterPayload.characterClassList,
+                promoteCharacterPayload.characterClassList
+                        .stream().map(CharacterClass::valueOf).collect(Collectors.toList()),
                 promoteCharacterPayload.listId,
                 mAppUtils.getGameIdFromLogin(principal.getName())
         );

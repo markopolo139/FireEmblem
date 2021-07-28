@@ -33,11 +33,12 @@ public class UnitPromoteInteractor {
         CharacterEntity characterEntity =
                 mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow();
 
-        if(characterEntity.sealType != null)
-            if (!characterEntity.sealType.contains(seals))
+        if(characterEntity.sealType == null)
                 throw new InvalidEquipmentException("This character does not have selected seal");
-        else
-            throw new InvalidEquipmentException("This character does not have selected seal");
+
+        if (!characterEntity.sealType.contains(seals))
+                throw new InvalidEquipmentException("This character does not have selected seal");
+
 
         return  mUnitPromoteService.getPossibleClassesToPromote(
                 mCharacterConverter.convertEntityToCharacter(characterEntity),seals

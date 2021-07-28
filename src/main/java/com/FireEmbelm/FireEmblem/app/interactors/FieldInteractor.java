@@ -72,7 +72,7 @@ public class FieldInteractor {
                 .findByHeightAndWidthAndGameId_GameId(characterSpotHeight, characterSpotWidth, gameId);
 
         if(beforeChangeCharacterSpot.characterId == null)
-            throw new CharacterAlreadyMovedException();
+            throw new InvalidSpotException("Can't select spot without character on it");
 
         if (beforeChangeCharacterSpot.characterId.moved)
                 throw new CharacterAlreadyMovedException();
@@ -194,7 +194,7 @@ public class FieldInteractor {
                 mSpotRepository.findByHeightAndWidthAndGameId_GameId(healedSpotHeight, healedSpotWidth, gameId);
 
         if (beforeChangeHealingSpot.characterId == null || beforeChangeHealedSpot.characterId == null)
-            throw new CharacterAlreadyMovedException();
+            throw new InvalidSpotException("Can't select spot without character on it");
 
         if (beforeChangeHealingSpot.characterId.moved)
                 throw new CharacterAlreadyMovedException();

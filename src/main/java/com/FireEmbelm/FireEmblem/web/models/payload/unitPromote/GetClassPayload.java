@@ -13,9 +13,9 @@ public class GetClassPayload {
 
     @NotNull
     @ValidSeal
-    public Seals seals;
+    public String seals;
 
-    public GetClassPayload(String characterName, Seals seals) {
+    public GetClassPayload(String characterName, String seals) {
         this.characterName = characterName;
         this.seals = seals;
     }

@@ -48,7 +48,7 @@ public class ShopController {
     }
 
     @GetMapping("/api/v1/item/check")
-    public String checkItem(@Valid @ValidEquipment Equipment equipment) {
+    public String checkItem(@Valid @ValidEquipment @RequestBody Equipment equipment) {
         return mShopInteractor.checkItem(equipment);
     }
 

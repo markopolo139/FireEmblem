@@ -16,13 +16,13 @@ public class PromoteCharacterPayload {
 
     @NotEmpty
     @ValidCharacterClassList
-    public List<CharacterClass> characterClassList;
+    public List<String> characterClassList;
 
     @NotNull
     @Min(0)
     public Integer listId;
 
-    public PromoteCharacterPayload(String characterName, List<CharacterClass> characterClassList, Integer listId) {
+    public PromoteCharacterPayload(String characterName, List<String> characterClassList, Integer listId) {
         this.characterName = characterName;
         this.characterClassList = characterClassList;
         this.listId = listId;
