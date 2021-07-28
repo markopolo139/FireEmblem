@@ -44,8 +44,6 @@ public class FieldGenerator {
         mSpotsTypeProbabilities = new ArrayList<>() {{
            add(SpotsType.GATE);
            add(SpotsType.FORT);
-           add(SpotsType.FORT);
-           add(SpotsType.FORREST);
            add(SpotsType.FORREST);
            add(SpotsType.FORREST);
            add(SpotsType.FORREST);

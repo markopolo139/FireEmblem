@@ -17,9 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//TODO:
-// - use string name instead of model and in spot (use height and width)
-
 @Service
 public class FieldInteractor {
 
