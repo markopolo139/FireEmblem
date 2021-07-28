@@ -13,6 +13,9 @@ import java.util.List;
 public class ValidEquipmentListImpl implements ConstraintValidator<ValidEquipmentList, List<Equipment>> {
     @Override
     public boolean isValid(List<Equipment> value, ConstraintValidatorContext context) {
+        if (value == null)
+            return false;
+
         for(Equipment e : value) {
             if(!(e instanceof WeaponModel))
                 if(!(e instanceof HealingItemModel))

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -153,7 +154,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         List<ApiSubError> apiSubErrors = exception.getConstraintViolations().stream()
                 .map(i -> new ApiSubError(
                                 "Check the rejected value",
-                                "Validation failed for" + i.getInvalidValue() + " - " + i.getMessage()
+                                "Validation failed for " + i.getInvalidValue() + " - " + i.getMessage()
                         )
                 ).collect(Collectors.toList());
 
@@ -174,7 +175,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         List<ApiSubError> apiSubErrors = ex.getBindingResult().getFieldErrors().stream()
                 .map(i -> new ApiSubError(
                         "Check the rejected value",
-                        "Validation failed for" + i.getRejectedValue() + " - " + i.getDefaultMessage()
+                        "Validation failed for " + i.getRejectedValue() + " - " + i.getDefaultMessage()
                         )
                 ).collect(Collectors.toList());
 
@@ -188,4 +189,17 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
     }
 
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request
+    ) {
+
+        ApiError apiError = ApiError.builder()
+                .setHttpStatus(status)
+                .setErrorMessage(ex.getMessage())
+                .setSuggestedAction("Correct errors below")
+                .build();
+
+        return convertToResponseEntity(apiError);
+    }
 }

@@ -5,11 +5,13 @@ import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.exceptions.PromoteException;
 import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@JsonTypeName("seals")
 public enum Seals implements Equipment {
     MASTER_SEAL(
             "Master Seal", 2500,
