@@ -2,7 +2,6 @@ package com.FireEmbelm.FireEmblem.app.converters;
 
 import com.FireEmbelm.FireEmblem.app.data.entities.ItemsConvoyEntity;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
-import com.FireEmbelm.FireEmblem.business.value.categories.ConsumableItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import org.springframework.beans.factory.annotation.Autowired;

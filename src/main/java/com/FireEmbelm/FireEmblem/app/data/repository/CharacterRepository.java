@@ -4,7 +4,6 @@ import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;

@@ -17,8 +17,6 @@ import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
 import com.FireEmbelm.FireEmblem.business.service.BattleService;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
-import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
-import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

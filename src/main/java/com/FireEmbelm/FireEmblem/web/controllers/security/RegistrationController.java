@@ -4,7 +4,6 @@ import com.FireEmbelm.FireEmblem.app.data.entities.GameEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.UserEntity;
 import com.FireEmbelm.FireEmblem.app.data.repository.GameRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.UserRepository;
-import com.FireEmbelm.FireEmblem.app.interactors.service.security.userdetail.UserDetail;
 import com.FireEmbelm.FireEmblem.web.models.request.LoginModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,8 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
 

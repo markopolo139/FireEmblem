@@ -1,11 +1,8 @@
 package com.FireEmbelm.FireEmblem.web.models.payload.unitPromote;
 
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
-import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
-import com.FireEmbelm.FireEmblem.web.validation.character.ValidCharacterClass;
 import com.FireEmbelm.FireEmblem.web.validation.character.ValidCharacterClassList;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;

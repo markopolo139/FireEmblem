@@ -1,7 +1,5 @@
 package com.FireEmbelm.FireEmblem.web.models.payload.field;
 
-import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

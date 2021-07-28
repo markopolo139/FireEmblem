@@ -1,9 +1,5 @@
 package com.FireEmbelm.FireEmblem.web.controllers;
 
-import com.FireEmbelm.FireEmblem.app.converters.CharacterConverter;
-import com.FireEmbelm.FireEmblem.app.converters.EnemyConverter;
-import com.FireEmbelm.FireEmblem.app.data.entities.EnemyEntity;
-import com.FireEmbelm.FireEmblem.app.interactors.ShopInteractor;
 import com.FireEmbelm.FireEmblem.app.interactors.service.GameStatusService;
 import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;

@@ -15,7 +15,6 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
 import com.FireEmbelm.FireEmblem.web.models.request.HealingItemModel;
-import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import com.FireEmbelm.FireEmblem.web.models.request.WeaponModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

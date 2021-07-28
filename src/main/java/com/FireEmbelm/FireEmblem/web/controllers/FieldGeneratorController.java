@@ -1,7 +1,6 @@
 package com.FireEmbelm.FireEmblem.web.controllers;
 
 import com.FireEmbelm.FireEmblem.app.interactors.FieldGeneratorInteractor;
-import com.FireEmbelm.FireEmblem.app.interactors.service.security.userdetail.UserDetail;
 import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

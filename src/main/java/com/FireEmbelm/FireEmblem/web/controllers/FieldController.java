@@ -9,7 +9,6 @@ import com.FireEmbelm.FireEmblem.web.models.payload.field.MovePayload;
 import com.FireEmbelm.FireEmblem.web.models.payload.field.PlacePayload;
 import com.FireEmbelm.FireEmblem.web.models.payload.field.UseItemPayload;
 import com.FireEmbelm.FireEmblem.web.models.payload.field.UseStaffPayload;
-import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

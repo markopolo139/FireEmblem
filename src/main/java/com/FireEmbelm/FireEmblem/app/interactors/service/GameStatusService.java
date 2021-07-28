@@ -8,7 +8,6 @@ import com.FireEmbelm.FireEmblem.app.data.entities.EnemyEntity;
 import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.EnemyRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.SpotRepository;
-import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import com.FireEmbelm.FireEmblem.web.models.request.EnemyModel;

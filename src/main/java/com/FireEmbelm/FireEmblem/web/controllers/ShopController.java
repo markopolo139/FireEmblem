@@ -1,12 +1,10 @@
 package com.FireEmbelm.FireEmblem.web.controllers;
 
-import com.FireEmbelm.FireEmblem.app.interactors.FieldInteractor;
 import com.FireEmbelm.FireEmblem.app.interactors.ShopInteractor;
 import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import com.FireEmbelm.FireEmblem.business.exceptions.TooSmallAmountOfMoneyException;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
 import com.FireEmbelm.FireEmblem.web.models.payload.shop.BuyPayload;
-import com.FireEmbelm.FireEmblem.web.models.payload.shop.SellPayLoad;
 import com.FireEmbelm.FireEmblem.web.validation.shop.ValidEquipment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

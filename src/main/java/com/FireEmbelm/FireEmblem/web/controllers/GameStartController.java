@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.web.controllers;
 
-import com.FireEmbelm.FireEmblem.app.interactors.ShopInteractor;
 import com.FireEmbelm.FireEmblem.app.interactors.service.GameStartService;
 import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;

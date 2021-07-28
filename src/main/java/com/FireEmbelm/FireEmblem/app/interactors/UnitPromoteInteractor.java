@@ -10,7 +10,6 @@ import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.PromoteException;
 import com.FireEmbelm.FireEmblem.business.service.UnitPromoteService;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
-import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

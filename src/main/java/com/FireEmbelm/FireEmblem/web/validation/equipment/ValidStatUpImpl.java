@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.web.validation.equipment;
 
-import com.FireEmbelm.FireEmblem.business.value.equipment.Seals;
 import com.FireEmbelm.FireEmblem.business.value.equipment.StatsUpItems;
 
 import javax.validation.ConstraintValidator;

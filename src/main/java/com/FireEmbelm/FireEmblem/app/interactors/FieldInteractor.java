@@ -12,8 +12,6 @@ import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
 import com.FireEmbelm.FireEmblem.business.service.FieldService;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
-import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
-import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

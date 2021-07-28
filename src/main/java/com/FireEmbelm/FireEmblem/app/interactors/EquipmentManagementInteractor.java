@@ -13,7 +13,6 @@ import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.service.EquipmentManagementService;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
-import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,5 @@
 package com.FireEmbelm.FireEmblem.web.validation.shop;
 
-import com.FireEmbelm.FireEmblem.web.validation.ValidSpotTypeImpl;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.ElementType;

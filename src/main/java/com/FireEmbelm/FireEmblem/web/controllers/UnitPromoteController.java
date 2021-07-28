@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.web.controllers;
 
-import com.FireEmbelm.FireEmblem.app.interactors.FieldInteractor;
 import com.FireEmbelm.FireEmblem.app.interactors.UnitPromoteInteractor;
 import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;

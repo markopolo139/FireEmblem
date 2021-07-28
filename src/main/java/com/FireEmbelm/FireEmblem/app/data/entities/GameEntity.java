@@ -1,12 +1,10 @@
 package com.FireEmbelm.FireEmblem.app.data.entities;
 
-import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "games")

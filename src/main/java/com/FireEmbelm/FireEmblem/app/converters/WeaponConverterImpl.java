@@ -6,7 +6,6 @@ import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 import com.FireEmbelm.FireEmblem.web.models.request.WeaponModel;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
