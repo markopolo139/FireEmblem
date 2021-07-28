@@ -26,20 +26,14 @@ public class BattlePayload {
     @Min(0)
     public Integer defenderSpotWidth;
 
-    @NotNull
-    @Min(0)
-    public Integer convoyMoney;
-
     public BattlePayload(
             Integer attackerSpotHeight, Integer attackerSpotWidth,
-            Integer defenderSpotHeight, Integer defenderSpotWidth,
-            Integer convoyMoney
+            Integer defenderSpotHeight, Integer defenderSpotWidth
     ) {
         this.attackerSpotHeight = attackerSpotHeight;
         this.attackerSpotWidth = attackerSpotWidth;
         this.defenderSpotHeight = defenderSpotHeight;
         this.defenderSpotWidth = defenderSpotWidth;
-        this.convoyMoney = convoyMoney;
     }
 
 }

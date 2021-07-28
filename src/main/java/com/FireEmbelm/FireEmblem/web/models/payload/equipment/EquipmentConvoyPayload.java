@@ -15,15 +15,10 @@ public class EquipmentConvoyPayload {
 
     @NotNull
     @Min(0)
-    public Integer convoyMoney;
-
-    @NotNull
-    @Min(0)
     public Integer elementId;
 
-    public EquipmentConvoyPayload(String characterName, Integer convoyMoney, Integer elementId) {
+    public EquipmentConvoyPayload(String characterName, Integer elementId) {
         this.characterName = characterName;
-        this.convoyMoney = convoyMoney;
         this.elementId = elementId;
     }
 }

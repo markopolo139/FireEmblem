@@ -50,7 +50,7 @@ public class BattleInteractor {
     private ItemsConvoyRepository mItemsConvoyRepository;
 
     public void initialiseBattle(
-            int attackerHeight, int attackerWidth, int defenderHeight, int defenderWidth, int convoyMoney, Long gameId
+            int attackerHeight, int attackerWidth, int defenderHeight, int defenderWidth, Long gameId
     )
             throws NoWeaponException, OutOfRangeException, InvalidSpotException {
 
@@ -60,7 +60,7 @@ public class BattleInteractor {
         SpotEntity startingDefenderEntity = mSpotRepository
                 .findByHeightAndWidthAndGameId_GameId(defenderHeight, defenderWidth, gameId);
 
-        ItemsConvoyEntity itemsConvoyEntity = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
+        ItemsConvoyEntity itemsConvoyEntity = mItemsConvoyRepository.findByGameId_GameId(gameId);
 
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(itemsConvoyEntity);
         Spot attackerSpot = mSpotConverter.convertEntityToSpot(startingAttackerEntity);

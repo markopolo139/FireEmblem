@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,18 +38,15 @@ public class ShopController {
         mShopInteractor.buyItem(
                 buyPayload.randomListId,
                 (ArrayList<Equipment>) buyPayload.randomList,
-                buyPayload.convoyMoney,
                 mAppUtils.getGameIdFromLogin(principal.getName())
         );
     }
 
     @PutMapping("/api/v1/item/sell")
-    public void sellItem(@Valid @RequestBody SellPayLoad sellPayLoad, Principal principal) throws TooSmallAmountOfMoneyException {
-        mShopInteractor.sellItem(
-                sellPayLoad.convoyId,
-                sellPayLoad.convoyMoney,
-                mAppUtils.getGameIdFromLogin(principal.getName())
-        );
+    public void sellItem(
+            @Valid @NotNull @Min(0) @RequestParam(name = "convoyItemId") Integer convoyId, Principal principal
+    ) throws TooSmallAmountOfMoneyException {
+        mShopInteractor.sellItem(convoyId, mAppUtils.getGameIdFromLogin(principal.getName()));
     }
 
     @GetMapping("/api/v1/item/check")

@@ -11,10 +11,7 @@ import com.FireEmbelm.FireEmblem.web.models.payload.field.UseItemPayload;
 import com.FireEmbelm.FireEmblem.web.models.payload.field.UseStaffPayload;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -55,8 +52,9 @@ public class FieldController {
     }
 
     @PutMapping("/api/v1/turn/end")
-    public void endTurn(Principal principal, @Valid @NotBlank @RequestBody String characterName)
-            throws CharacterAlreadyMovedException {
+    public void endTurn(
+            Principal principal, @Valid @NotBlank @RequestParam(name = "characterName") String characterName
+    ) throws CharacterAlreadyMovedException {
 
         mFieldInteractor.endTurn(
                 characterName, mAppUtils.getGameIdFromLogin(principal.getName())

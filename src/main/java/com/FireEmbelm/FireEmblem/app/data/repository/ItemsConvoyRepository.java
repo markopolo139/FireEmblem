@@ -10,8 +10,6 @@ import javax.transaction.Transactional;
 @Repository
 public interface ItemsConvoyRepository extends JpaRepository<ItemsConvoyEntity, Long> {
 
-    ItemsConvoyEntity findByMoneyAndGameId_GameId(int money, Long id);
-
     ItemsConvoyEntity findByGameId_GameId(Long id);
 
     @Modifying

@@ -41,8 +41,8 @@ public class EquipmentManagementController {
     ) throws EquipmentLimitException {
 
         mEquipmentManagementInteractor.getEquipmentForCharacterFromConvoy(
-                equipmentConvoyPayload.characterName, equipmentConvoyPayload.convoyMoney,
-                equipmentConvoyPayload.elementId, mAppUtils.getGameIdFromLogin(principal.getName())
+                equipmentConvoyPayload.characterName, equipmentConvoyPayload.elementId,
+                mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
@@ -53,19 +53,17 @@ public class EquipmentManagementController {
     ) {
 
         mEquipmentManagementInteractor.giveEquipmentFromCharacterToConvoy(
-                equipmentConvoyPayload.characterName, equipmentConvoyPayload.convoyMoney,
-                equipmentConvoyPayload.elementId, mAppUtils.getGameIdFromLogin(principal.getName())
+                equipmentConvoyPayload.characterName, equipmentConvoyPayload.elementId,
+                mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }
 
     @PutMapping("/api/v1/storeAllEquipment")
-    public void storeAllEquipmentFromCharacters(
-            Principal principal, @Valid @NotNull @Min(0) @RequestBody Integer convoyMoney
-    ) {
+    public void storeAllEquipmentFromCharacters(Principal principal) {
 
         mEquipmentManagementInteractor.storeAllEquipmentFromCharacters(
-                convoyMoney, mAppUtils.getGameIdFromLogin(principal.getName())
+                mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }

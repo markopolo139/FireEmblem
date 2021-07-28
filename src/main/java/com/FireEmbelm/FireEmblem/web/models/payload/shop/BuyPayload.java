@@ -20,13 +20,9 @@ public class BuyPayload {
     @ValidEquipmentList
     public List<Equipment> randomList;
 
-    @NotNull
-    @Min(0)
-    public Integer convoyMoney;
 
-    public BuyPayload(Integer randomListId, List<Equipment> randomList, Integer convoyMoney) {
+    public BuyPayload(Integer randomListId, List<Equipment> randomList) {
         this.randomListId = randomListId;
         this.randomList = randomList;
-        this.convoyMoney = convoyMoney;
     }
 }

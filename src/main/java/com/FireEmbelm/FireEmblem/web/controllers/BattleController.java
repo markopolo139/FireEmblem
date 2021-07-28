@@ -31,7 +31,7 @@ public class BattleController {
         mBattleInteractor.initialiseBattle(
                 battlePayload.attackerSpotHeight,battlePayload.attackerSpotWidth,
                 battlePayload.defenderSpotHeight,battlePayload.defenderSpotWidth,
-                battlePayload.convoyMoney, mAppUtils.getGameIdFromLogin(principal.getName())
+                mAppUtils.getGameIdFromLogin(principal.getName())
         );
 
     }

@@ -42,11 +42,11 @@ public class EquipmentManagementInteractor {
     private ItemsConvoyRepository mItemsConvoyRepository;
 
     public void getEquipmentForCharacterFromConvoy(
-            String characterName, int convoyMoney, int itemsConvoyId, Long gameId
+            String characterName, int itemsConvoyId, Long gameId
     ) throws EquipmentLimitException {
 
 
-        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByGameId_GameId(gameId);
 
         CharacterEntity beforeChange =
                 mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow();
@@ -61,9 +61,9 @@ public class EquipmentManagementInteractor {
     }
 
     public void giveEquipmentFromCharacterToConvoy(
-            String characterName, int convoyMoney, int characterEquipmentId, Long gameId
+            String characterName, int characterEquipmentId, Long gameId
     ) {
-        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByGameId_GameId(gameId);
 
         CharacterEntity beforeChange =
                 mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow();
@@ -76,9 +76,9 @@ public class EquipmentManagementInteractor {
         saveResultToBase(enteringConvoy, character, itemsConvoy, beforeChange);
     }
 
-    public void storeAllEquipmentFromCharacters(int convoyMoney, Long gameId) {
+    public void storeAllEquipmentFromCharacters(Long gameId) {
 
-        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
+        ItemsConvoyEntity enteringConvoy = mItemsConvoyRepository.findByGameId_GameId(gameId);
 
         List<Character> characters = mCharacterConverter.convertEntityListToCharacter(
                 mCharacterRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId)

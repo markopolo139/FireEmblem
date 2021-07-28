@@ -82,10 +82,10 @@ public class ShopInteractor {
     }
 
     public void buyItem(
-            int randomItemId, ArrayList<Equipment> randomList, int convoyMoney, Long gameId
+            int randomItemId, ArrayList<Equipment> randomList, Long gameId
     ) throws TooSmallAmountOfMoneyException {
 
-        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
+        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByGameId_GameId(gameId);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringEntity);
 
         randomList = randomList.stream().map(i -> {
@@ -108,9 +108,9 @@ public class ShopInteractor {
 
     }
 
-    public void sellItem(int itemsConvoyId, int convoyMoney, Long gameId) {
+    public void sellItem(int itemsConvoyId, Long gameId) {
 
-        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByMoneyAndGameId_GameId(convoyMoney, gameId);
+        ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByGameId_GameId(gameId);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringEntity);
 
         mShopService.sellItem(itemsConvoyId,itemsConvoy);
