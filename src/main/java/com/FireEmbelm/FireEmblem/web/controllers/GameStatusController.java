@@ -8,6 +8,7 @@ import com.FireEmbelm.FireEmblem.app.interactors.service.GameStatusService;
 import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import com.FireEmbelm.FireEmblem.web.models.request.EnemyModel;
+import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +60,11 @@ public class GameStatusController {
     @GetMapping("/api/v1/maxLevel")
     public int maxLevelCharacterInGame(Principal principal) {
         return mGameStatusService.maxLevelCharacterInGame(mAppUtils.getGameIdFromLogin(principal.getName()));
+    }
+
+    @GetMapping("/api/v1/getField")
+    public List<SpotModel> getCurrentField(Principal principal) {
+        return mGameStatusService.getCurrentField(mAppUtils.getGameIdFromLogin(principal.getName()));
     }
 
 }

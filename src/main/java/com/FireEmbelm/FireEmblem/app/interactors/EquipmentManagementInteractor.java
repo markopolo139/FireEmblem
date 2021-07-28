@@ -12,12 +12,16 @@ import com.FireEmbelm.FireEmblem.business.exceptions.EquipmentLimitException;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.service.EquipmentManagementService;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Equipment;
+import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import com.FireEmbelm.FireEmblem.web.models.request.ItemsConvoyModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class EquipmentManagementInteractor {
@@ -142,6 +146,42 @@ public class EquipmentManagementInteractor {
         characterEntity.gameId = beforeEquip.gameId;
 
         mCharacterRepository.save(characterEntity);
+    }
+
+    public List<Equipment> getItemsConvoyEquipment(Long gameId) {
+
+        ItemsConvoy itemsConvoy =
+                mItemsConvoyConverter.convertEntityToItemsConvoy(mItemsConvoyRepository.findByGameId_GameId(gameId));
+
+        ItemsConvoyModel itemsConvoyModel = mItemsConvoyConverter.convertToModel(itemsConvoy);
+
+        return Stream.of(
+                itemsConvoyModel.weapons,
+                itemsConvoyModel.healingItems,
+                itemsConvoyModel.seals,
+                itemsConvoyModel.statsUpItems
+        ).flatMap(List::stream).collect(Collectors.toList());
+
+    }
+
+    public int getConvoyMoney(Long gameId) {
+        return mItemsConvoyRepository.findByGameId_GameId(gameId).money;
+    }
+
+    public List<Equipment> getCharacterEquipment(String characterName, Long gameId) {
+
+        Character character = mCharacterConverter.convertEntityToCharacter(
+                mCharacterRepository.findByNameAndGameId_GameId(characterName, gameId).orElseThrow()
+        );
+
+        CharacterModel characterModel = mCharacterConverter.convertToModel(character);
+
+        return Stream.of(
+                characterModel.weapons,
+                characterModel.healingItems,
+                characterModel.seals,
+                characterModel.statsUpItems
+        ).flatMap(List::stream).collect(Collectors.toList());
     }
 
     private void saveResultToBase(

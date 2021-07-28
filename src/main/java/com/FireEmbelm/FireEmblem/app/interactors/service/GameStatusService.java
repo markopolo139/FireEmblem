@@ -2,14 +2,17 @@ package com.FireEmbelm.FireEmblem.app.interactors.service;
 
 import com.FireEmbelm.FireEmblem.app.converters.CharacterConverter;
 import com.FireEmbelm.FireEmblem.app.converters.EnemyConverter;
+import com.FireEmbelm.FireEmblem.app.converters.SpotConverter;
 import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.EnemyEntity;
 import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.EnemyRepository;
+import com.FireEmbelm.FireEmblem.app.data.repository.SpotRepository;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import com.FireEmbelm.FireEmblem.web.models.request.EnemyModel;
+import com.FireEmbelm.FireEmblem.web.models.request.SpotModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,12 @@ public class GameStatusService {
 
     @Autowired
     private EnemyConverter mEnemyConverter;
+
+    @Autowired
+    private SpotRepository mSpotRepository;
+
+    @Autowired
+    private SpotConverter mSpotConverter;
 
     public List<EnemyModel> getAliveEnemies(Long gameId) {
         List<EnemyEntity> enemyEntities =
@@ -73,4 +82,9 @@ public class GameStatusService {
         return mCharacterRepository.findFirstByGameId_GameIdOrderByLevelDesc(gameId).level;
     }
 
+    public List<SpotModel> getCurrentField(Long gameId) {
+        return mSpotConverter.convertListToModel(
+                mSpotConverter.convertEntityListToSpot(mSpotRepository.findByGameId_GameId(gameId))
+        );
+    }
 }
