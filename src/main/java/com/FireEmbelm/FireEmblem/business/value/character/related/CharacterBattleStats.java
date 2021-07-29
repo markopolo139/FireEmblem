@@ -19,32 +19,16 @@ public class CharacterBattleStats {
         return mAttack;
     }
 
-    public void setAttack(int attack) {
-        mAttack = attack;
-    }
-
     public int getHitRate() {
         return mHitRate;
-    }
-
-    public void setHitRate(int hitRate) {
-        mHitRate = hitRate;
     }
 
     public int getCritical() {
         return mCritical;
     }
 
-    public void setCritical(int critical) {
-        mCritical = critical;
-    }
-
     public int getAvoid() {
         return mAvoid;
-    }
-
-    public void setAvoid(int avoid) {
-        mAvoid = avoid;
     }
 
     public CharacterBattleStats(BaseCharacter baseCharacter) {
@@ -59,21 +43,18 @@ public class CharacterBattleStats {
 
             if( !(currentEquippedItem.getItemCategory() instanceof ConsumableItemCategory)
             && !(currentEquippedItem.getItemCategory().equals(WeaponCategory.STAFF))) {
+
                 calculateAttack(baseCharacter, currentEquippedItem);
-                mHitRate = ((Weapon) currentEquippedItem).getHit()
-                        + ( ( ( baseCharacter.getStats().get(StatsType.SKILL).getValue()
-                        + baseCharacter.getCharacterClass().getBonusStats().get(StatsType.SKILL).getValue() ) * 3
-                        + baseCharacter.getStats().get(StatsType.LUCK).getValue()) / 2 );
-                mCritical = ((Weapon) currentEquippedItem).getCrit()
-                        + ( ( baseCharacter.getStats().get(StatsType.SKILL).getValue()
-                        +  baseCharacter.getCharacterClass().getBonusStats().get(StatsType.SKILL).getValue() )/ 2 );
+
+                calculateHitRate(baseCharacter,currentEquippedItem);
+
+                calculateCritical(baseCharacter, currentEquippedItem);
             }
 
         }
 
-        mAvoid = ( ( baseCharacter.getStats().get(StatsType.SPEED).getValue()
-                +  baseCharacter.getCharacterClass().getBonusStats().get(StatsType.SPEED).getValue() ) * 3
-                + baseCharacter.getStats().get(StatsType.LUCK).getValue() ) / 2;
+        calculateAvo(baseCharacter);
+
     }
 
     private void calculateAttack(BaseCharacter baseCharacter, Equipment currentEquippedItem) {
@@ -86,6 +67,25 @@ public class CharacterBattleStats {
             mAttack = baseCharacter.getStats().get(StatsType.STRENGTH).getValue() + currentEquippedItem.getMight()
                     + baseCharacter.getCharacterClass().getBonusStats().get(StatsType.STRENGTH).getValue();
         }
+    }
+
+    private void calculateAvo(BaseCharacter baseCharacter) {
+        mAvoid = ( ( baseCharacter.getStats().get(StatsType.SPEED).getValue()
+                +  baseCharacter.getCharacterClass().getBonusStats().get(StatsType.SPEED).getValue() ) * 3
+                + baseCharacter.getStats().get(StatsType.LUCK).getValue() ) / 2;
+    }
+
+    private void calculateHitRate(BaseCharacter baseCharacter, Equipment currentEquippedItem) {
+        mHitRate = ((Weapon) currentEquippedItem).getHit()
+                + ( ( ( baseCharacter.getStats().get(StatsType.SKILL).getValue()
+                + baseCharacter.getCharacterClass().getBonusStats().get(StatsType.SKILL).getValue() ) * 3
+                + baseCharacter.getStats().get(StatsType.LUCK).getValue()) / 2 );
+    }
+
+    private void calculateCritical(BaseCharacter baseCharacter, Equipment currentEquippedItem) {
+        mCritical = ((Weapon) currentEquippedItem).getCrit()
+                + ( ( baseCharacter.getStats().get(StatsType.SKILL).getValue()
+                +  baseCharacter.getCharacterClass().getBonusStats().get(StatsType.SKILL).getValue() )/ 2 );
     }
 
     @Override
