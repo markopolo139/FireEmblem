@@ -1,5 +1,5 @@
 package com.FireEmbelm.FireEmblem.business.value;
-//Percentage
+//TODO : add in future (add column in game table with difficulty setting)
 public enum DifficultySettings {
     EASY(
             "Easy",

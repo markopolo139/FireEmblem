@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class FieldGenerator {
 
-    private static final int NUMBER_OF_PROBABILITIES = 22;
+    private static final int NUMBER_OF_PROBABILITIES = 20;
     private static final int RANDOM_HEIGHT = 7;
     private static final int RANDOM_WIDTH = 8;
 

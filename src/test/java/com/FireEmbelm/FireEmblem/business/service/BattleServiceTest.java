@@ -78,8 +78,8 @@ public class BattleServiceTest {
                 mItemsConvoy.getWeapons().get(0),
                 new ArrayList<>(
                         Arrays.asList(
-                                mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
                                 mItemsConvoy.getWeapons().get(0)
                         )
                 ),
@@ -106,8 +106,8 @@ public class BattleServiceTest {
                 mItemsConvoy.getWeapons().get(1),
                 new ArrayList<>(
                         Arrays.asList(
-                                mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
                                 mItemsConvoy.getWeapons().get(0),
                                 mItemsConvoy.getWeapons().get(1)
                         )
@@ -129,14 +129,14 @@ public class BattleServiceTest {
 
     @Test
     void testCurrentEquipedItemIsWeapon() {
-        Assertions.assertTrue(mCharacter.getCurrentEquipedItem().getItemCategory() instanceof WeaponCategory);
+        Assertions.assertTrue(mCharacter.getCurrentEquippedItem().getItemCategory() instanceof WeaponCategory);
     }
 
     @Test
     void testCalculateDamage() {
         Assertions.assertEquals(1, mBattleService.calculateDamageDealt(mAttackerSpot,mDefenderSpot));
 
-        mCharacter.setCurrentEquipedItem(
+        mCharacter.setCurrentEquippedItem(
                 mItemsConvoy.getWeapons().stream()
                         .filter(i -> i.getItemCategory().equals(WeaponCategory.TOME))
                         .findFirst()
@@ -167,7 +167,7 @@ public class BattleServiceTest {
 
         Assertions.assertNotEquals(0,mCharacter.getExp());
         Assertions.assertEquals(6000, mItemsConvoy.getMoney());
-        Assertions.assertTrue(mItemsConvoy.getEquipmentCollection().contains(Seals.HEART_SEAL));
+        Assertions.assertTrue(mItemsConvoy.getPlayerItems().contains(Seals.HEART_SEAL));
     }
 
     @Test
@@ -193,14 +193,14 @@ public class BattleServiceTest {
 
         mEnemy.setCharacterState(CharacterState.DEAD);
         mBattleService.updateWeaponUse(mEnemy);
-        Assertions.assertEquals(50, mEnemy.getCurrentEquipedItem().getUses());
+        Assertions.assertEquals(50, mEnemy.getCurrentEquippedItem().getUses());
 
         mBattleService.updateWeaponUse(mCharacter);
-        Assertions.assertEquals(49,mCharacter.getCurrentEquipedItem().getUses());
+        Assertions.assertEquals(49,mCharacter.getCurrentEquippedItem().getUses());
 
-        mCharacter.getCurrentEquipedItem().setUses(1);
+        mCharacter.getCurrentEquippedItem().setUses(1);
         mBattleService.updateWeaponUse(mCharacter);
-        Assertions.assertNull(mCharacter.getCurrentEquipedItem());
+        Assertions.assertNull(mCharacter.getCurrentEquippedItem());
 
     }
 }

@@ -13,11 +13,11 @@ import java.util.HashMap;
 public class Character extends BaseCharacter {
     public Character(
             String name, int level, int exp, int remainingHealth, HashMap<StatsType, Stat> stats,
-            Equipment currentEquipedItem, ArrayList<Equipment> equipment, HashMap<WeaponCategory, WeaponProgress> weaponProgresses,
+            Equipment currentEquippedItem, ArrayList<Equipment> equipment, HashMap<WeaponCategory, WeaponProgress> weaponProgresses,
             CharacterClass characterClass, CharacterState characterState, boolean moved
     ) {
         super(
-                name, level, exp, remainingHealth, stats, currentEquipedItem, equipment,
+                name, level, exp, remainingHealth, stats, currentEquippedItem, equipment,
                 weaponProgresses, characterClass, characterState, moved
         );
     }

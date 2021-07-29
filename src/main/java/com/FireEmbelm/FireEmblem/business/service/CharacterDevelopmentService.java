@@ -15,21 +15,21 @@ public class CharacterDevelopmentService {
 
     public void increaseWeaponProgress(BaseCharacter baseCharacter) {
 
-        baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquipedItem().getItemCategory()).setProgress(
+        baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquippedItem().getItemCategory()).setProgress(
                 baseCharacter.getWeaponProgresses()
-                        .get(baseCharacter.getCurrentEquipedItem().getItemCategory()).getProgress() + 5
+                        .get(baseCharacter.getCurrentEquippedItem().getItemCategory()).getProgress() + 5
         );
 
         if (
                 baseCharacter.getWeaponProgresses()
-                .get(baseCharacter.getCurrentEquipedItem().getItemCategory()).getProgress() == 100
+                .get(baseCharacter.getCurrentEquippedItem().getItemCategory()).getProgress() == 100
         ) {
-            baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquipedItem().getItemCategory()).setRank(
+            baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquippedItem().getItemCategory()).setRank(
                     baseCharacter.getWeaponProgresses()
-                            .get(baseCharacter.getCurrentEquipedItem().getItemCategory()).getRank() + 1
+                            .get(baseCharacter.getCurrentEquippedItem().getItemCategory()).getRank() + 1
             );
 
-            baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquipedItem().getItemCategory())
+            baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquippedItem().getItemCategory())
                     .setProgress(0);
         }
     }

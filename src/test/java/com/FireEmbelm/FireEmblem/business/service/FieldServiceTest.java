@@ -83,10 +83,10 @@ public class FieldServiceTest {
                 null,
                 new ArrayList<>(
                         Arrays.asList(
-                                mItemsConvoy.getEquipmentCollection().get(1),
-                                mItemsConvoy.getEquipmentCollection().get(3),
-                                mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getEquipmentCollection().get(5)
+                                mItemsConvoy.getPlayerItems().get(1),
+                                mItemsConvoy.getPlayerItems().get(3),
+                                mItemsConvoy.getPlayerItems().get(0),
+                                mItemsConvoy.getPlayerItems().get(5)
                         )
                 ),
                 Utils.startUpWeaponProgress(),
@@ -113,9 +113,9 @@ public class FieldServiceTest {
                 null,
                 new ArrayList<>(
                         Arrays.asList(
-                                mItemsConvoy.getEquipmentCollection().get(1),
-                                mItemsConvoy.getEquipmentCollection().get(3),
-                                mItemsConvoy.getEquipmentCollection().get(0)
+                                mItemsConvoy.getPlayerItems().get(1),
+                                mItemsConvoy.getPlayerItems().get(3),
+                                mItemsConvoy.getPlayerItems().get(0)
                         )
                 ),
                 Utils.startUpWeaponProgress(),
@@ -141,8 +141,8 @@ public class FieldServiceTest {
                 mItemsConvoy.getWeapons().get(1),
                 new ArrayList<>(
                         Arrays.asList(
-                                mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
                                 mItemsConvoy.getWeapons().get(0),
                                 mItemsConvoy.getWeapons().get(1)
                         )
@@ -246,7 +246,7 @@ public class FieldServiceTest {
         mFieldService.useHealingItem(mCharacter,0);
 
         Assertions.assertEquals(characterMaxHp, mCharacter.getRemainingHealth());
-        Assertions.assertFalse(mCharacter.getEquipment().contains(mItemsConvoy.getEquipmentCollection().get(1)));
+        Assertions.assertFalse(mCharacter.getEquipment().contains(mItemsConvoy.getPlayerItems().get(1)));
 
         mCharacter.setRemainingHealth(1);
 
@@ -283,7 +283,7 @@ public class FieldServiceTest {
         mFieldService.useStaff(mAttackerSpot,mHealedSpot,2);
 
         Assertions.assertEquals(character2MaxHp, mCharacter2.getRemainingHealth());
-        Assertions.assertFalse(mCharacter.getEquipment().contains(mItemsConvoy.getEquipmentCollection().get(0)));
+        Assertions.assertFalse(mCharacter.getEquipment().contains(mItemsConvoy.getPlayerItems().get(0)));
 
     }
 }

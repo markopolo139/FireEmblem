@@ -61,7 +61,7 @@ public class EnemyConverterImpl implements EnemyConverter {
             );
 
             if(enemyEntity.currentEquippedItemId !=null) {
-                enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyEntity.currentEquippedItemId));
+                enemy.setCurrentEquippedItem(enemy.getEquipment().get(enemyEntity.currentEquippedItemId));
                 enemy.getCharacterBattleStats().calculateBattleStats(enemy);
             }
 
@@ -85,8 +85,8 @@ public class EnemyConverterImpl implements EnemyConverter {
                 enemy.getLevel(),
                 enemy.getExp(),
                 enemy.getRemainingHealth(),
-                !enemy.getEquipment().contains(enemy.getCurrentEquipedItem()) ? null
-                        : enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
+                !enemy.getEquipment().contains(enemy.getCurrentEquippedItem()) ? null
+                        : enemy.getEquipment().indexOf(enemy.getCurrentEquippedItem()),
                 enemy.getCharacterClass(),
                 enemy.getCharacterState(),
                 enemy.isMoved(),
@@ -153,7 +153,7 @@ public class EnemyConverterImpl implements EnemyConverter {
         );
 
         if(enemyModel.currentEquippedItemId != null) {
-            enemy.setCurrentEquipedItem(enemy.getEquipment().get(enemyModel.currentEquippedItemId));
+            enemy.setCurrentEquippedItem(enemy.getEquipment().get(enemyModel.currentEquippedItemId));
             enemy.getCharacterBattleStats().calculateBattleStats(enemy);
         }
 
@@ -175,8 +175,8 @@ public class EnemyConverterImpl implements EnemyConverter {
                 enemy.getExp(),
                 enemy.getRemainingHealth(),
                 mStatConverter.convertListToModel(new ArrayList<>(enemy.getStats().values())),
-                !enemy.getEquipment().contains(enemy.getCurrentEquipedItem()) ? null
-                        : enemy.getEquipment().indexOf(enemy.getCurrentEquipedItem()),
+                !enemy.getEquipment().contains(enemy.getCurrentEquippedItem()) ? null
+                        : enemy.getEquipment().indexOf(enemy.getCurrentEquippedItem()),
                 mWeaponConverter.convertListToModel(
                         enemy.getEquipment().stream().filter(i -> i instanceof Weapon)
                                 .map( i -> (Weapon) i).collect(Collectors.toList())

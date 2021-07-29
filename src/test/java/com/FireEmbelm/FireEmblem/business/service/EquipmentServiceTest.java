@@ -78,8 +78,8 @@ public class EquipmentServiceTest {
                 mItemsConvoy.getWeapons().get(0),
                 new ArrayList<>(
                         Arrays.asList(
-                                mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
                                 mItemsConvoy.getWeapons().get(0),
                                 mItemsConvoy.getWeapons().get(2),
                                 mItemsConvoy.getWeapons().get(1)
@@ -109,8 +109,8 @@ public class EquipmentServiceTest {
                 mItemsConvoy.getWeapons().get(0),
                 new ArrayList<>(
                         Arrays.asList(
-                                mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
                                 mItemsConvoy.getWeapons().get(0),
                                 mItemsConvoy.getWeapons().get(2),
                                 mItemsConvoy.getWeapons().get(1)
@@ -128,7 +128,7 @@ public class EquipmentServiceTest {
         mEquipmentManagementService.getEquipmentForCharacterFromConvoy(mCharacter,mItemsConvoy,4);
 
         Assertions.assertTrue(mCharacter.getEquipment().contains(Seals.MASTER_SEAL));
-        Assertions.assertFalse(mItemsConvoy.getEquipmentCollection().contains(Seals.MASTER_SEAL));
+        Assertions.assertFalse(mItemsConvoy.getPlayerItems().contains(Seals.MASTER_SEAL));
 
         Assertions.assertThrows(EquipmentLimitException.class,
                 () -> mEquipmentManagementService.getEquipmentForCharacterFromConvoy(mCharacter,mItemsConvoy,4));
@@ -142,13 +142,13 @@ public class EquipmentServiceTest {
         mEquipmentManagementService.giveEquipmentFromCharacterToConvoy(mCharacter,mItemsConvoy,0);
 
         Assertions.assertEquals(4,mCharacter.getEquipment().size());
-        Assertions.assertEquals(12,mItemsConvoy.getEquipmentCollection().size());
+        Assertions.assertEquals(12,mItemsConvoy.getPlayerItems().size());
 
         mEquipmentManagementService.giveEquipmentFromCharacterToConvoy(mCharacter,mItemsConvoy,1);
 
         Assertions.assertEquals(3,mCharacter.getEquipment().size());
-        Assertions.assertNull(mCharacter.getCurrentEquipedItem());
-        Assertions.assertEquals(13,mItemsConvoy.getEquipmentCollection().size());
+        Assertions.assertNull(mCharacter.getCurrentEquippedItem());
+        Assertions.assertEquals(13,mItemsConvoy.getPlayerItems().size());
 
         Assertions.assertThrows(IndexOutOfBoundsException.class,
                 () -> mEquipmentManagementService.giveEquipmentFromCharacterToConvoy(mCharacter,mItemsConvoy,6));
@@ -160,16 +160,16 @@ public class EquipmentServiceTest {
         mEquipmentManagementService.storeAllEquipmentFromCharacters(Collections.singletonList(mCharacter),mItemsConvoy);
 
         Assertions.assertEquals(0,mCharacter.getEquipment().size());
-        Assertions.assertNull(mCharacter.getCurrentEquipedItem());
+        Assertions.assertNull(mCharacter.getCurrentEquippedItem());
 
-        Assertions.assertEquals(16,mItemsConvoy.getEquipmentCollection().size());
+        Assertions.assertEquals(16,mItemsConvoy.getPlayerItems().size());
     }
 
     @Test
     void testTrade() throws EquipmentLimitException {
         mEquipmentManagementService.trade(mCharacter,mCharacter2,2);
 
-        Assertions.assertNull(mCharacter.getCurrentEquipedItem());
+        Assertions.assertNull(mCharacter.getCurrentEquippedItem());
         Assertions.assertEquals(4,mCharacter.getEquipment().size());
         Assertions.assertEquals(6,mCharacter2.getEquipment().size());
 
@@ -191,6 +191,6 @@ public class EquipmentServiceTest {
         mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD).setRank(2);
         mEquipmentManagementService.equipItem(mCharacter,4);
 
-        Assertions.assertEquals(mItemsConvoy.getWeapons().get(1), mCharacter.getCurrentEquipedItem());
+        Assertions.assertEquals(mItemsConvoy.getWeapons().get(1), mCharacter.getCurrentEquippedItem());
     }
 }

@@ -86,16 +86,16 @@ public class EnemyGenerator {
                 .filter(i -> i.getRank() <= finalEnemyWeaponRank)
                 .collect(Collectors.toList());
 
-        enemy.setCurrentEquipedItem(allowedWeapons.get(mRandom.nextInt(allowedWeapons.size())));
+        enemy.setCurrentEquippedItem(allowedWeapons.get(mRandom.nextInt(allowedWeapons.size())));
 
         if(mRandom.nextInt(3) == 0)
-            enemy.setDropItem(enemy.getCurrentEquipedItem());
+            enemy.setDropItem(enemy.getCurrentEquippedItem());
 
         for(WeaponCategory wc : enemy.getCharacterClass().getAllowedWeapons()) {
             enemy.getWeaponProgresses().put(wc,new WeaponProgress(wc,0, enemyWeaponRank));
         }
 
-        enemy.getEquipment().add(enemy.getCurrentEquipedItem());
+        enemy.getEquipment().add(enemy.getCurrentEquippedItem());
 
     }
 

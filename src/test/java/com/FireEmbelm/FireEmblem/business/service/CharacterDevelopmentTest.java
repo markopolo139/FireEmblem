@@ -72,8 +72,8 @@ public class CharacterDevelopmentTest {
                 mItemsConvoy.getWeapons().get(0),
                 new ArrayList<>(
                         Arrays.asList(
-                                mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
                                 mItemsConvoy.getWeapons().get(0)
                         )
                 ),
@@ -100,8 +100,8 @@ public class CharacterDevelopmentTest {
                 mItemsConvoy.getWeapons().get(0),
                 new ArrayList<>(
                         Arrays.asList(
-                                mItemsConvoy.getEquipmentCollection().get(0),
-                                mItemsConvoy.getEquipmentCollection().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
+                                mItemsConvoy.getPlayerItems().get(0),
                                 mItemsConvoy.getWeapons().get(0)
                         )
                 ),
@@ -173,7 +173,7 @@ public class CharacterDevelopmentTest {
         Assertions.assertEquals(0,mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD).getProgress());
         Assertions.assertEquals(2,mCharacter.getWeaponProgresses().get(WeaponCategory.SWORD).getRank());
 
-        mCharacter.setCurrentEquipedItem(mItemsConvoy.getWeapons().get(2));
+        mCharacter.setCurrentEquippedItem(mItemsConvoy.getWeapons().get(2));
         mCharacterDevelopmentService.increaseWeaponProgress(mCharacter);
 
         Assertions.assertEquals(5,mCharacter.getWeaponProgresses().get(WeaponCategory.AXE).getProgress());

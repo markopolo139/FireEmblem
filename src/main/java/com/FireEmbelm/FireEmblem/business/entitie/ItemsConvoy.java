@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 public class ItemsConvoy {
 
     private int mMoney;
-    private final ArrayList<Equipment> mEquipmentCollection;
+    private final ArrayList<Equipment> mPlayerItems;
 
-    public ArrayList<Equipment> getEquipmentCollection() {
-        return mEquipmentCollection;
+    public ArrayList<Equipment> getPlayerItems() {
+        return mPlayerItems;
     }
 
     public int getMoney() {
@@ -25,38 +25,38 @@ public class ItemsConvoy {
     }
 
     public ArrayList<Equipment> getWeapons() {
-        return (ArrayList<Equipment>) mEquipmentCollection.stream()
+        return (ArrayList<Equipment>) mPlayerItems.stream()
                 .filter(i -> i instanceof Weapon)
                 .collect(Collectors.toList());
     }
 
     public ArrayList<Equipment> getSeals() {
-        return (ArrayList<Equipment>) mEquipmentCollection.stream()
+        return (ArrayList<Equipment>) mPlayerItems.stream()
                 .filter(i -> i instanceof Seals)
                 .collect(Collectors.toList());
     }
 
     public ArrayList<Equipment> getStatsUpItems() {
-        return (ArrayList<Equipment>) mEquipmentCollection.stream()
+        return (ArrayList<Equipment>) mPlayerItems.stream()
                 .filter(i -> i instanceof StatsUpItems)
                 .collect(Collectors.toList());
     }
 
     public ArrayList<Equipment> getHealingItems() {
-        return (ArrayList<Equipment>) mEquipmentCollection.stream()
+        return (ArrayList<Equipment>) mPlayerItems.stream()
                 .filter(i -> i instanceof HealingItemWithUses)
                 .collect(Collectors.toList());
     }
 
     public ArrayList<Equipment> getByItemCategory(ItemCategory itemCategory) {
-        return (ArrayList<Equipment>) mEquipmentCollection.stream()
+        return (ArrayList<Equipment>) mPlayerItems.stream()
                 .filter(i -> i.getItemCategory().equals(itemCategory))
                 .collect(Collectors.toList());
     }
 
-    public ItemsConvoy(int money, ArrayList<Equipment> equipmentCollection) {
+    public ItemsConvoy(int money, ArrayList<Equipment> playerItems) {
         mMoney = money;
-        mEquipmentCollection = equipmentCollection;
+        mPlayerItems = playerItems;
     }
 
     @Override
@@ -65,11 +65,11 @@ public class ItemsConvoy {
         if (o == null || getClass() != o.getClass()) return false;
         ItemsConvoy that = (ItemsConvoy) o;
         return getMoney() == that.getMoney()
-                && Objects.equals(getEquipmentCollection(), that.getEquipmentCollection());
+                && Objects.equals(getPlayerItems(), that.getPlayerItems());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMoney(), getEquipmentCollection());
+        return Objects.hash(getMoney(), getPlayerItems());
     }
 }

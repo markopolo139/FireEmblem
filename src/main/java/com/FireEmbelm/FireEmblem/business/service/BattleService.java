@@ -39,10 +39,10 @@ public class BattleService {
                 || (attacker instanceof Character && defender instanceof Character))
             throw new InvalidSpotException("Can't attack the same type of characters");
 
-        if (attacker.getCurrentEquipedItem() == null)
+        if (attacker.getCurrentEquippedItem() == null)
             throw new NoWeaponException("Can't attack without a weapon");
 
-        if( !(attacker.getCurrentEquipedItem().getItemCategory() instanceof WeaponCategory) )
+        if( !(attacker.getCurrentEquippedItem().getItemCategory() instanceof WeaponCategory) )
             throw new NoWeaponException("Can't attack without a weapon");
 
         isDefenderInWeaponRange(attackerSpot,defenderSpot);
@@ -52,10 +52,10 @@ public class BattleService {
 
             mCharacterDevelopmentService.increaseExpNotDead(attacker,defender);
 
-            if (defender.getCurrentEquipedItem() != null)
+            if (defender.getCurrentEquippedItem() != null)
 
-                if(defender.getCurrentEquipedItem().getRange() == attacker.getCurrentEquipedItem().getRange()
-                        && defender.getCurrentEquipedItem().getItemCategory() instanceof WeaponCategory) {
+                if(defender.getCurrentEquippedItem().getRange() == attacker.getCurrentEquippedItem().getRange()
+                        && defender.getCurrentEquippedItem().getItemCategory() instanceof WeaponCategory) {
                 calculateDamageAndSetRemainingHp(defenderSpot, attackerSpot);
                 gettingExpAndMoney(defender, attacker, itemsConvoy);
                 mCharacterDevelopmentService.increaseWeaponProgress(defender);
@@ -90,7 +90,7 @@ public class BattleService {
         int distanceBetweenCharacter = Math.abs(attackerSpot.getHeight() - defenderSpot.getHeight())
                 + Math.abs(attackerSpot.getWidth() - defenderSpot.getWidth());
 
-        if(attackerSpot.getCharacterOnSpot().getCurrentEquipedItem().getRange() != distanceBetweenCharacter)
+        if(attackerSpot.getCharacterOnSpot().getCurrentEquippedItem().getRange() != distanceBetweenCharacter)
             throw new OutOfRangeException("Attacked character is out of range, with current equiped weapon");
     }
 
@@ -118,7 +118,7 @@ public class BattleService {
     }
 
     public int calculateDamageDealt(Spot attackingCharacterSpot, Spot defendingCharacterSpot) {
-        if(! attackingCharacterSpot.getCharacterOnSpot().getCurrentEquipedItem().getItemCategory().equals(WeaponCategory.TOME)) {
+        if(! attackingCharacterSpot.getCharacterOnSpot().getCurrentEquippedItem().getItemCategory().equals(WeaponCategory.TOME)) {
             return  attackingCharacterSpot.getCharacterOnSpot().getCharacterBattleStats().getAttack()
                     - ( defendingCharacterSpot.getCharacterOnSpot().getStats().get(StatsType.DEFENSE).getValue()
                     + defendingCharacterSpot.getSpotsType().getDefBoost()
@@ -167,7 +167,7 @@ public class BattleService {
             itemsConvoy.setMoney(itemsConvoy.getMoney() + ((Enemy) deadCharacter).getGoldDrop());
 
             if(((Enemy) deadCharacter).getDropItem() != null)
-                itemsConvoy.getEquipmentCollection().add(((Enemy) deadCharacter).getDropItem());
+                itemsConvoy.getPlayerItems().add(((Enemy) deadCharacter).getDropItem());
 
         }
     }
@@ -178,9 +178,9 @@ public class BattleService {
             return;
         }
 
-        baseCharacter.getCurrentEquipedItem().setUses(baseCharacter.getCurrentEquipedItem().getUses() - 1);
-        if (baseCharacter.getCurrentEquipedItem().getUses() == 0) {
-            baseCharacter.setCurrentEquipedItem(null);
+        baseCharacter.getCurrentEquippedItem().setUses(baseCharacter.getCurrentEquippedItem().getUses() - 1);
+        if (baseCharacter.getCurrentEquippedItem().getUses() == 0) {
+            baseCharacter.setCurrentEquippedItem(null);
         }
     }
 

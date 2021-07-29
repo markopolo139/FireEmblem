@@ -81,10 +81,10 @@ public class ShopServiceTest {
         mShopService.buyItem(0, mRandomItems,mItemsConvoy);
 
         Assertions.assertEquals(mItemsConvoy.getMoney(), 3500);
-        Assertions.assertEquals(mItemsConvoy.getEquipmentCollection().size(), 12);
+        Assertions.assertEquals(mItemsConvoy.getPlayerItems().size(), 12);
         Assertions.assertEquals(mRandomItems.size(), 5);
         Assertions.assertEquals(
-                mItemsConvoy.getEquipmentCollection().get(mItemsConvoy.getEquipmentCollection().size() - 1),
+                mItemsConvoy.getPlayerItems().get(mItemsConvoy.getPlayerItems().size() - 1),
                 new HealingItemWithUses(HealingItems.MEND, 20));
 
     }
@@ -95,11 +95,11 @@ public class ShopServiceTest {
         mShopService.sellItem(10, mItemsConvoy);
 
         Assertions.assertEquals(mItemsConvoy.getMoney(), 6000);
-        Assertions.assertEquals(mItemsConvoy.getEquipmentCollection().size(), 10);
+        Assertions.assertEquals(mItemsConvoy.getPlayerItems().size(), 10);
 
         mShopService.buyItem(5,mRandomItems,mItemsConvoy);
 
-        Assertions.assertEquals(mItemsConvoy.getEquipmentCollection().size(), 11);
+        Assertions.assertEquals(mItemsConvoy.getPlayerItems().size(), 11);
         Assertions.assertEquals(mItemsConvoy.getMoney(), 0);
         Assertions.assertEquals(mRandomItems.size(), 5);
 

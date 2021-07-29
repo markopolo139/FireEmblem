@@ -57,7 +57,7 @@ public class CharacterConverterImpl implements CharacterConverter {
             );
 
             if(characterEntity.currentEquippedItemId !=null) {
-                character.setCurrentEquipedItem(character.getEquipment().get(characterEntity.currentEquippedItemId));
+                character.setCurrentEquippedItem(character.getEquipment().get(characterEntity.currentEquippedItemId));
                 character.getCharacterBattleStats().calculateBattleStats(character);
             }
 
@@ -77,8 +77,8 @@ public class CharacterConverterImpl implements CharacterConverter {
                 character.getLevel(),
                 character.getExp(),
                 character.getRemainingHealth(),
-                !character.getEquipment().contains(character.getCurrentEquipedItem()) ? null
-                        : character.getEquipment().indexOf(character.getCurrentEquipedItem()),
+                !character.getEquipment().contains(character.getCurrentEquippedItem()) ? null
+                        : character.getEquipment().indexOf(character.getCurrentEquippedItem()),
                 character.getCharacterClass(),
                 character.getCharacterState(),
                 character.isMoved(),
@@ -139,7 +139,7 @@ public class CharacterConverterImpl implements CharacterConverter {
         );
 
         if(characterModel.currentEquippedItemId != null) {
-            character.setCurrentEquipedItem(character.getEquipment().get(characterModel.currentEquippedItemId));
+            character.setCurrentEquippedItem(character.getEquipment().get(characterModel.currentEquippedItemId));
             character.getCharacterBattleStats().calculateBattleStats(character);
         }
 
@@ -159,8 +159,8 @@ public class CharacterConverterImpl implements CharacterConverter {
                 character.getExp(),
                 character.getRemainingHealth(),
                 mStatConverter.convertListToModel(new ArrayList<>(character.getStats().values())),
-                !character.getEquipment().contains(character.getCurrentEquipedItem()) ? null
-                        : character.getEquipment().indexOf(character.getCurrentEquipedItem()),
+                !character.getEquipment().contains(character.getCurrentEquippedItem()) ? null
+                        : character.getEquipment().indexOf(character.getCurrentEquippedItem()),
                 mWeaponConverter.convertListToModel(
                         character.getEquipment().stream().filter(i -> i instanceof Weapon)
                                 .map( i -> (Weapon) i).collect(Collectors.toList())

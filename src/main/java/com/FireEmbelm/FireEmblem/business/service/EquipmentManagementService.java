@@ -18,14 +18,14 @@ public class EquipmentManagementService {
     public void getEquipmentForCharacterFromConvoy(Character character, ItemsConvoy itemsConvoy, int itemsConvoyId)
             throws EquipmentLimitException {
 
-        if(itemsConvoyId < 0 || itemsConvoyId >= itemsConvoy.getEquipmentCollection().size())
+        if(itemsConvoyId < 0 || itemsConvoyId >= itemsConvoy.getPlayerItems().size())
             throw new IndexOutOfBoundsException("Selected item id must be in range of items convoy");
 
         if(character.getEquipment().size() >= EQUIPMENT_LIMIT)
             throw new EquipmentLimitException();
 
-        character.getEquipment().add(itemsConvoy.getEquipmentCollection().get(itemsConvoyId));
-        itemsConvoy.getEquipmentCollection().remove(itemsConvoyId);
+        character.getEquipment().add(itemsConvoy.getPlayerItems().get(itemsConvoyId));
+        itemsConvoy.getPlayerItems().remove(itemsConvoyId);
     }
 
     public void giveEquipmentFromCharacterToConvoy(Character character, ItemsConvoy itemsConvoy, int characterEquipmentId) {
@@ -33,11 +33,11 @@ public class EquipmentManagementService {
         if(characterEquipmentId < 0 || characterEquipmentId >= EQUIPMENT_LIMIT )
             throw new IndexOutOfBoundsException("Selected item id must be in range of character equipment");
 
-        itemsConvoy.getEquipmentCollection().add(character.getEquipment().get(characterEquipmentId));
+        itemsConvoy.getPlayerItems().add(character.getEquipment().get(characterEquipmentId));
 
-        if(character.getCurrentEquipedItem() != null)
-            if(character.getCurrentEquipedItem().equals(character.getEquipment().get(characterEquipmentId)))
-                character.setCurrentEquipedItem(null);
+        if(character.getCurrentEquippedItem() != null)
+            if(character.getCurrentEquippedItem().equals(character.getEquipment().get(characterEquipmentId)))
+                character.setCurrentEquippedItem(null);
 
         character.getEquipment().remove(characterEquipmentId);
     }
@@ -45,9 +45,9 @@ public class EquipmentManagementService {
     public void storeAllEquipmentFromCharacters(Collection<Character> characters, ItemsConvoy itemsConvoy) {
 
         for(Character character : characters) {
-            itemsConvoy.getEquipmentCollection().addAll(character.getEquipment());
+            itemsConvoy.getPlayerItems().addAll(character.getEquipment());
             character.getEquipment().clear();
-            character.setCurrentEquipedItem(null);
+            character.setCurrentEquippedItem(null);
         }
 
     }
@@ -60,8 +60,8 @@ public class EquipmentManagementService {
         if(tradeTo.getEquipment().size() >= 6)
             throw new EquipmentLimitException();
 
-        if(tradeFrom.getEquipment().get(equipmentId).equals(tradeFrom.getCurrentEquipedItem()))
-            tradeFrom.setCurrentEquipedItem(null);
+        if(tradeFrom.getEquipment().get(equipmentId).equals(tradeFrom.getCurrentEquippedItem()))
+            tradeFrom.setCurrentEquippedItem(null);
 
         tradeTo.getEquipment().add(tradeFrom.getEquipment().get(equipmentId));
         tradeFrom.getEquipment().remove(equipmentId);
@@ -87,6 +87,6 @@ public class EquipmentManagementService {
                 throw new InvalidEquipmentException();
         }
 
-        character.setCurrentEquipedItem(selectedItem);
+        character.setCurrentEquippedItem(selectedItem);
     }
 }

@@ -53,9 +53,9 @@ public class CharacterBattleStats {
 
     public void calculateBattleStats(BaseCharacter baseCharacter) {
 
-        if(!(baseCharacter.getCurrentEquipedItem() == null)) {
+        if(!(baseCharacter.getCurrentEquippedItem() == null)) {
 
-            Equipment currentEquippedItem = baseCharacter.getCurrentEquipedItem();
+            Equipment currentEquippedItem = baseCharacter.getCurrentEquippedItem();
 
             if( !(currentEquippedItem.getItemCategory() instanceof ConsumableItemCategory)
             && !(currentEquippedItem.getItemCategory().equals(WeaponCategory.STAFF))) {
@@ -76,7 +76,7 @@ public class CharacterBattleStats {
                 + baseCharacter.getStats().get(StatsType.LUCK).getValue() ) / 2;
     }
 
-    public void calculateAttack(BaseCharacter baseCharacter, Equipment currentEquippedItem) {
+    private void calculateAttack(BaseCharacter baseCharacter, Equipment currentEquippedItem) {
 
         if(currentEquippedItem.getItemCategory().equals(WeaponCategory.TOME)) {
             mAttack = baseCharacter.getStats().get(StatsType.MAGICK).getValue() + currentEquippedItem.getMight()

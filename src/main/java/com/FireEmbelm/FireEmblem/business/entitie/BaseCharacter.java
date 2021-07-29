@@ -15,7 +15,7 @@ public abstract class BaseCharacter {
     private int mExp;
     private int mRemainingHealth;
     private HashMap<StatsType, Stat> mStats;
-    private Equipment mCurrentEquipedItem;
+    private Equipment mCurrentEquippedItem;
     private ArrayList<Equipment> mEquipment;
     private HashMap<WeaponCategory, WeaponProgress> mWeaponProgresses;
     private CharacterClass mCharacterClass;
@@ -83,12 +83,12 @@ public abstract class BaseCharacter {
         return mName;
     }
 
-    public Equipment getCurrentEquipedItem() {
-        return mCurrentEquipedItem;
+    public Equipment getCurrentEquippedItem() {
+        return mCurrentEquippedItem;
     }
 
-    public void setCurrentEquipedItem(Equipment currentEquipedItem) {
-        mCurrentEquipedItem = currentEquipedItem;
+    public void setCurrentEquippedItem(Equipment currentEquippedItem) {
+        mCurrentEquippedItem = currentEquippedItem;
     }
 
     public CharacterBattleStats getCharacterBattleStats() {
@@ -117,7 +117,7 @@ public abstract class BaseCharacter {
 
     public BaseCharacter(
             String name, int level, int exp, int remainingHealth, HashMap<StatsType, Stat> stats,
-            Equipment currentEquipedItem, ArrayList<Equipment> equipment, HashMap<WeaponCategory, WeaponProgress> weaponProgresses,
+            Equipment currentEquippedItem, ArrayList<Equipment> equipment, HashMap<WeaponCategory, WeaponProgress> weaponProgresses,
             CharacterClass characterClass, CharacterState characterState, boolean moved
     ) {
         mName = name;
@@ -126,7 +126,8 @@ public abstract class BaseCharacter {
         mRemainingHealth = remainingHealth;
         mStats = stats;
         mEquipment = equipment;
-        mCurrentEquipedItem = mEquipment.stream().filter(i -> i.equals(currentEquipedItem)).findAny().orElse(null);
+        mCurrentEquippedItem =
+                mEquipment.stream().filter(i -> i.equals(currentEquippedItem)).findAny().orElse(null);
         mWeaponProgresses = weaponProgresses;
         mCharacterClass = characterClass;
         mCharacterBattleStats = new CharacterBattleStats(this);
@@ -145,7 +146,7 @@ public abstract class BaseCharacter {
                 && isMoved() == that.isMoved()
                 && Objects.equals(getName(), that.getName())
                 && Objects.equals(getStats(), that.getStats())
-                && Objects.equals(getCurrentEquipedItem(), that.getCurrentEquipedItem())
+                && Objects.equals(getCurrentEquippedItem(), that.getCurrentEquippedItem())
                 && Objects.equals(getEquipment(), that.getEquipment())
                 && Objects.equals(getWeaponProgresses(), that.getWeaponProgresses())
                 && getCharacterClass() == that.getCharacterClass()
@@ -156,7 +157,7 @@ public abstract class BaseCharacter {
     @Override
     public int hashCode() {
         int result = Objects.hash(
-                getName(), getLevel(), getExp(), getRemainingHealth(), getStats(), getCurrentEquipedItem(),
+                getName(), getLevel(), getExp(), getRemainingHealth(), getStats(), getCurrentEquippedItem(),
                 getWeaponProgresses(), getCharacterClass(), getCharacterBattleStats(), getCharacterState(), isMoved()
         );
         result = 31 * result + getEquipment().hashCode();

@@ -24,16 +24,16 @@ public class ShopService {
             throw new TooSmallAmountOfMoneyException();
 
         randomEquipment.remove(randomItemId);
-        itemsConvoy.getEquipmentCollection().add(selectedItem);
+        itemsConvoy.getPlayerItems().add(selectedItem);
         itemsConvoy.setMoney(itemsConvoy.getMoney() - selectedItem.getWorth());
     }
 
     public void sellItem(int itemsConvoyId, ItemsConvoy itemsConvoy) {
-        if(itemsConvoyId < 0 || itemsConvoyId > itemsConvoy.getEquipmentCollection().size())
+        if(itemsConvoyId < 0 || itemsConvoyId > itemsConvoy.getPlayerItems().size())
             throw new IndexOutOfBoundsException("Selected ID is out of bounds");
 
-        Equipment selectedItem =  itemsConvoy.getEquipmentCollection().get(itemsConvoyId);
-        itemsConvoy.getEquipmentCollection().remove(selectedItem);
+        Equipment selectedItem =  itemsConvoy.getPlayerItems().get(itemsConvoyId);
+        itemsConvoy.getPlayerItems().remove(selectedItem);
 
         int sellValue = (int) (selectedItem.getWorth() * SELL_PERCENTAGE);
         sellValue = sellValue - (sellValue % 10);

@@ -44,13 +44,13 @@ public class Enemy extends BaseCharacter {
     }
 
     public Enemy(
-            int level, int exp, int remainingHealth, HashMap<StatsType, Stat> stats, Equipment currentEquipedItem,
+            int level, int exp, int remainingHealth, HashMap<StatsType, Stat> stats, Equipment currentEquippedItem,
             ArrayList<Equipment> equipment, HashMap<WeaponCategory, WeaponProgress> weaponProgresses, CharacterClass characterClass,
             CharacterState characterState, boolean moved, @Nullable Equipment dropItem, boolean boss, int goldDrop
     ) {
         super(
                 "Ruffian", level, exp, remainingHealth,
-                stats, currentEquipedItem, equipment, weaponProgresses,
+                stats, currentEquippedItem, equipment, weaponProgresses,
                 characterClass, characterState, moved
         );
         mDropItem = dropItem;
