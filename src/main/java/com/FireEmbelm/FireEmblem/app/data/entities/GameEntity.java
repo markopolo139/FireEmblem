@@ -15,7 +15,7 @@ public class GameEntity {
     public Long gameId;
 
     @JsonIgnore
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public UserEntity login;
 
@@ -28,7 +28,7 @@ public class GameEntity {
     @OneToMany(mappedBy = "gameId")
     public List<SpotEntity> field;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     public ItemsConvoyEntity itemsConvoy;
 

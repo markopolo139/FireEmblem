@@ -21,18 +21,18 @@ public class SpotEntity {
     public int height;
     public int width;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @Nullable
     @JoinColumn(name = "character_id")
     public CharacterEntity characterId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @Nullable
     @JoinColumn(name = "enemy_id")
     public EnemyEntity enemyId;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     public GameEntity gameId;
 

@@ -52,7 +52,7 @@ public class ItemsConvoyEntity {
     public List<StatsUpItems> statUpType;
 
     @JsonIgnore
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     public GameEntity gameId;
 

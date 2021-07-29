@@ -85,7 +85,7 @@ public class CharacterEntity {
     public List<WeaponProgressEmbeddable> weaponProgress;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     public GameEntity gameId;
 
