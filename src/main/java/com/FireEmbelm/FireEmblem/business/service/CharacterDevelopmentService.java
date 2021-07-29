@@ -1,6 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.service;
 
 import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
+import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 
@@ -15,22 +16,19 @@ public class CharacterDevelopmentService {
 
     public void increaseWeaponProgress(BaseCharacter baseCharacter) {
 
-        baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquippedItem().getItemCategory()).setProgress(
-                baseCharacter.getWeaponProgresses()
-                        .get(baseCharacter.getCurrentEquippedItem().getItemCategory()).getProgress() + 5
+        ItemCategory currentEquippedItemCategory = baseCharacter.getCurrentEquippedItem().getItemCategory();
+
+        baseCharacter.getWeaponProgresses().get(currentEquippedItemCategory).setProgress(
+                baseCharacter.getWeaponProgresses().get(currentEquippedItemCategory).getProgress() + 5
         );
 
-        if (
-                baseCharacter.getWeaponProgresses()
-                .get(baseCharacter.getCurrentEquippedItem().getItemCategory()).getProgress() == 100
-        ) {
-            baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquippedItem().getItemCategory()).setRank(
-                    baseCharacter.getWeaponProgresses()
-                            .get(baseCharacter.getCurrentEquippedItem().getItemCategory()).getRank() + 1
+        if (baseCharacter.getWeaponProgresses().get(currentEquippedItemCategory).getProgress() == 100) {
+
+            baseCharacter.getWeaponProgresses().get(currentEquippedItemCategory).setRank(
+                    baseCharacter.getWeaponProgresses().get(currentEquippedItemCategory).getRank() + 1
             );
 
-            baseCharacter.getWeaponProgresses().get(baseCharacter.getCurrentEquippedItem().getItemCategory())
-                    .setProgress(0);
+            baseCharacter.getWeaponProgresses().get(currentEquippedItemCategory).setProgress(0);
         }
     }
 

@@ -72,21 +72,25 @@ public class EquipmentManagementService {
 
         Equipment selectedItem = character.getEquipment().get(equipmentId);
 
+        validateItemToEquip(character,selectedItem);
+
+        character.setCurrentEquippedItem(selectedItem);
+    }
+
+    private void validateItemToEquip(Character character, Equipment selectedItem) throws InvalidEquipmentException {
         if(selectedItem == null)
             throw new InvalidEquipmentException();
 
-        if(selectedItem.getItemCategory() instanceof ConsumableItemCategory)
-            throw new InvalidEquipmentException();
+        if(!(selectedItem.getItemCategory() instanceof WeaponCategory)
+                || selectedItem.getItemCategory().equals(WeaponCategory.STAFF))
+            throw new InvalidEquipmentException("Character can equip only weapons");
 
-        if( (!character.getCharacterClass().getAllowedWeapons().contains(selectedItem.getItemCategory())
-                && selectedItem.getItemCategory() instanceof WeaponCategory))
-            throw new InvalidEquipmentException();
+        if(!character.getCharacterClass().getAllowedWeapons().contains(selectedItem.getItemCategory()))
+            throw new InvalidEquipmentException("Selected weapon is not allowed for this character class");
 
         if(selectedItem instanceof Weapon) {
             if(((Weapon) selectedItem).getRank() > character.getWeaponProgresses().get(selectedItem.getItemCategory()).getRank())
-                throw new InvalidEquipmentException();
+                throw new InvalidEquipmentException("Character rank level is too low");
         }
-
-        character.setCurrentEquippedItem(selectedItem);
     }
 }

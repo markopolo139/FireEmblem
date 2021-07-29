@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.service;
 
+import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
 import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
@@ -47,15 +48,16 @@ public class FieldService {
 
         for(Spot characterSpot : charactersSpots) {
 
-            characterSpot.getCharacterOnSpot().setMoved(false);
+            BaseCharacter characterOnSpot = characterSpot.getCharacterOnSpot();
+            characterOnSpot.setMoved(false);
 
-            int characterMaxHp = characterSpot.getCharacterOnSpot().getStats().get(StatsType.HEALTH).getValue()
-                    + characterSpot.getCharacterOnSpot().getCharacterClass().getBonusStats().get(StatsType.HEALTH).getValue();
+            int characterMaxHp = characterOnSpot.getStats().get(StatsType.HEALTH).getValue()
+                    + characterOnSpot.getCharacterClass().getBonusStats().get(StatsType.HEALTH).getValue();
 
             int spotHeal = characterSpot.getSpotsType().getPercentHeal() * characterMaxHp / 100;
 
-            characterSpot.getCharacterOnSpot().setRemainingHealth(
-                    Math.min(spotHeal + characterSpot.getCharacterOnSpot().getRemainingHealth(), characterMaxHp)
+            characterOnSpot.setRemainingHealth(
+                    Math.min(spotHeal + characterOnSpot.getRemainingHealth(), characterMaxHp)
             );
         }
     }
@@ -85,59 +87,57 @@ public class FieldService {
         if(healingItemWithUses.getItemCategory().equals(WeaponCategory.STAFF))
             throw new InvalidEquipmentException("Can't use Staff");
 
-        int characterMaxHp = character.getStats().get(StatsType.HEALTH).getValue()
-                + character.getCharacterClass().getBonusStats().get(StatsType.HEALTH).getValue();
-
-        character.setRemainingHealth(
-                Math.min(healingItemWithUses.getHealingItems().getHealValue() + character.getRemainingHealth(), characterMaxHp)
-        );
-
-        healingItemWithUses.setUses(healingItemWithUses.getUses() - 1);
-        if (healingItemWithUses.getUses() == 0)
-            character.getEquipment().remove(itemId);
-
-        character.setMoved(true);
+        healAndUpdateItem(itemId, character, character, healingItemWithUses);
 
     }
 
-    public void useStaff(Spot healingCharacter, Spot healedCharacter, int itemId)
+    public void useStaff(Spot healingCharacterSpot, Spot healedCharacterSpot, int itemId)
             throws InvalidEquipmentException, InvalidSpotException {
 
+        BaseCharacter healingCharacter = healingCharacterSpot.getCharacterOnSpot();
+        BaseCharacter healedCharacter = healedCharacterSpot.getCharacterOnSpot();
+
         if(!HealingItemWithUses.class.isAssignableFrom(
-                healingCharacter.getCharacterOnSpot().getEquipment().get(itemId).getClass()
+                healingCharacter.getEquipment().get(itemId).getClass()
         ))
             throw new InvalidEquipmentException("Selected item is not an healing item");
 
-        HealingItemWithUses staff = (HealingItemWithUses) healingCharacter.getCharacterOnSpot().getEquipment().get(itemId);
+        HealingItemWithUses staff = (HealingItemWithUses) healingCharacter.getEquipment().get(itemId);
 
         if(!staff.getItemCategory().equals(WeaponCategory.STAFF))
             throw new InvalidEquipmentException("Selected item is not a staff");
 
-        if(!healingCharacter.getCharacterOnSpot().getCharacterClass().getAllowedWeapons().contains(WeaponCategory.STAFF))
+        if(!healingCharacter.getCharacterClass().getAllowedWeapons().contains(WeaponCategory.STAFF))
             throw new InvalidEquipmentException("This class can't use staffs");
 
-        int distance = Math.abs(healingCharacter.getHeight() - healedCharacter.getHeight())
-                + Math.abs(healingCharacter.getWidth() - healedCharacter.getWidth());
+        int distance = Math.abs(healingCharacterSpot.getHeight() - healedCharacterSpot.getHeight())
+                + Math.abs(healingCharacterSpot.getWidth() - healedCharacterSpot.getWidth());
 
         if(distance != 1)
             throw new InvalidSpotException("Selected spot is out of staff range");
 
-        int characterMaxHp = healedCharacter.getCharacterOnSpot().getStats().get(StatsType.HEALTH).getValue()
-                + healedCharacter.getCharacterOnSpot().getCharacterClass().getBonusStats().get(StatsType.HEALTH).getValue();
+        healAndUpdateItem(itemId, healingCharacter, healedCharacter, staff);
 
-        healedCharacter.getCharacterOnSpot().setRemainingHealth(
+    }
+
+    private void healAndUpdateItem(
+            int itemId, BaseCharacter healingCharacter, BaseCharacter healedCharacter, HealingItemWithUses healingItem
+    ) {
+        int characterMaxHp = healedCharacter.getStats().get(StatsType.HEALTH).getValue()
+                + healedCharacter.getCharacterClass().getBonusStats().get(StatsType.HEALTH).getValue();
+
+        healedCharacter.setRemainingHealth(
                 Math.min(
-                        staff.getHealingItems().getHealValue()
-                                + healedCharacter.getCharacterOnSpot().getRemainingHealth(), characterMaxHp
+                        healingItem.getHealingItems().getHealValue() + healedCharacter.getRemainingHealth(),
+                        characterMaxHp
                 )
         );
 
-        staff.setUses(staff.getUses() - 1);
-        if (staff.getUses() == 0)
-            healingCharacter.getCharacterOnSpot().getEquipment().remove(itemId);
+        healingItem.setUses(healingItem.getUses() - 1);
+        if (healingItem.getUses() == 0)
+            healingCharacter.getEquipment().remove(itemId);
 
-        healingCharacter.getCharacterOnSpot().setMoved(true);
-
+        healingCharacter.setMoved(true);
     }
 
 }
