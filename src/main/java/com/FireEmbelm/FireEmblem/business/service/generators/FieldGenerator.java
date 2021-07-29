@@ -14,7 +14,7 @@ public class FieldGenerator {
     private static final int RANDOM_WIDTH = 8;
 
     private final Random mRandomNumber = new Random();
-    private  List<SpotsType> mSpotsTypeProbabilities;
+    private List<SpotsType> mSpotsTypeProbabilities;
 
     public List<Spot> generateNewField() {
          int height = 10 + mRandomNumber.nextInt(RANDOM_HEIGHT);

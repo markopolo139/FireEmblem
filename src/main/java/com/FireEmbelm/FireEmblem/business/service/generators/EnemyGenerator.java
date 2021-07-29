@@ -19,60 +19,64 @@ public class EnemyGenerator {
     public static final int BASE_MONEY = 400;
     private final Random mRandom = new Random();
     private final CharacterDevelopmentService mCharacterDevelopmentService = new CharacterDevelopmentService();
+    private final List<CharacterClass> allowedEnemyClass = Arrays.stream(CharacterClass.values())
+            .filter(i -> i != CharacterClass.PRIEST && i != CharacterClass.LORD && !i.isPromotedClass())
+            .collect(Collectors.toList());
 
-    public List<Spot> generateEnemy(List<Spot> field, List<Weapon> allWeapon, int highestLevel) {
+    public List<Spot> generateEnemy(List<Spot> field, List<Weapon> possibleWeapons, int highestLevel) {
 
         int howManyEnemies = (int) (field.size() / 6.25);
         int randomNumber;
-        List<Spot> spotWithEnemies = new ArrayList<>();
-        List<CharacterClass> allowedEnemyClass = Arrays.stream(CharacterClass.values())
-                .filter(i -> i != CharacterClass.PRIEST && i != CharacterClass.LORD && !i.isPromotedClass())
-                .collect(Collectors.toList());
+        List<Spot> spotsWithEnemies = new ArrayList<>();
 
         while(howManyEnemies > 0) {
             randomNumber = mRandom.nextInt(field.size());
 
             if(field.get(randomNumber).getCharacterOnSpot() == null && field.get(randomNumber).getHeight() > 3) {
 
-                Enemy enemy = new Enemy(
-                        1,
-                        0,
-                        0,
-                        Utils.createStats(
-                                1, 10 + mRandom.nextInt(65),
-                                1, 5 + mRandom.nextInt(15),
-                                1, 5 + mRandom.nextInt(15),
-                                1, 10 + mRandom.nextInt(20),
-                                1, 5 + mRandom.nextInt(10),
-                                1, 3 + mRandom.nextInt(5),
-                                1, 5 + mRandom.nextInt(10),
-                                1, 5 + mRandom.nextInt(10)
-                        ),
-                        null,
-                        new ArrayList<>(),
-                        new HashMap<>(),
-                        allowedEnemyClass.get(mRandom.nextInt(allowedEnemyClass.size())),
-                        CharacterState.ALIVE,
-                        false,
-                        null,
-                        false,
-                        ( (BASE_MONEY + mRandom.nextInt(201) ) / 10) * 10
-                );
+                Enemy enemy = createEnemy();
 
                 field.get(randomNumber).setCharacterOnSpot(enemy);
-                setWeaponAndWeaponProgressForEnemy(enemy, allWeapon, highestLevel);
+                setWeaponAndWeaponProgressForEnemy(enemy, possibleWeapons, highestLevel);
                 levelUpEnemies(enemy, highestLevel);
 
-                spotWithEnemies.add(field.get(randomNumber));
+                spotsWithEnemies.add(field.get(randomNumber));
 
                 howManyEnemies--;
             }
         }
 
-        return spotWithEnemies;
+        return spotsWithEnemies;
     }
 
-    public void setWeaponAndWeaponProgressForEnemy(Enemy enemy, List<Weapon> weapons, int highestLevel) {
+    private Enemy createEnemy() {
+        return new Enemy(
+                1,
+                0,
+                0,
+                Utils.createStats(
+                        1, 10 + mRandom.nextInt(65),
+                        1, 5 + mRandom.nextInt(15),
+                        1, 5 + mRandom.nextInt(15),
+                        1, 10 + mRandom.nextInt(20),
+                        1, 5 + mRandom.nextInt(10),
+                        1, 3 + mRandom.nextInt(5),
+                        1, 5 + mRandom.nextInt(10),
+                        1, 5 + mRandom.nextInt(10)
+                ),
+                null,
+                new ArrayList<>(),
+                new HashMap<>(),
+                allowedEnemyClass.get(mRandom.nextInt(allowedEnemyClass.size())),
+                CharacterState.ALIVE,
+                false,
+                null,
+                false,
+                ( (BASE_MONEY + mRandom.nextInt(201) ) / 10) * 10
+        );
+    }
+
+    private void setWeaponAndWeaponProgressForEnemy(Enemy enemy, List<Weapon> weapons, int highestLevel) {
 
         int enemyWeaponRank = highestLevel / 8;
 
@@ -99,7 +103,7 @@ public class EnemyGenerator {
 
     }
 
-    public void levelUpEnemies(Enemy enemy, int highestLevel) {
+    private void levelUpEnemies(Enemy enemy, int highestLevel) {
 
         int highLv = highestLevel;
 

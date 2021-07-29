@@ -128,7 +128,7 @@ public class BattleServiceTest {
     }
 
     @Test
-    void testCurrentEquipedItemIsWeapon() {
+    void testCurrentEquippedItemIsWeapon() {
         Assertions.assertTrue(mCharacter.getCurrentEquippedItem().getItemCategory() instanceof WeaponCategory);
     }
 
@@ -163,7 +163,7 @@ public class BattleServiceTest {
     void testGettingMoneyItemAndExp() {
         mEnemy.setCharacterState(CharacterState.DEAD);
 
-        mBattleService.gettingExpAndMoney(mCharacter,mEnemy,mItemsConvoy);
+        mBattleService.getExpAndMoney(mCharacter,mEnemy,mItemsConvoy);
 
         Assertions.assertNotEquals(0,mCharacter.getExp());
         Assertions.assertEquals(6000, mItemsConvoy.getMoney());
@@ -192,14 +192,18 @@ public class BattleServiceTest {
     void testUpdateWeaponUse() {
 
         mEnemy.setCharacterState(CharacterState.DEAD);
-        mBattleService.updateWeaponUse(mEnemy);
+        mBattleService.updateWeaponUseAndProgress(mEnemy);
         Assertions.assertEquals(50, mEnemy.getCurrentEquippedItem().getUses());
 
-        mBattleService.updateWeaponUse(mCharacter);
+        mBattleService.updateWeaponUseAndProgress(mCharacter);
         Assertions.assertEquals(49,mCharacter.getCurrentEquippedItem().getUses());
+        Assertions.assertEquals(
+                2,
+                mCharacter.getWeaponProgresses().get(mCharacter.getCurrentEquippedItem().getItemCategory()).getRank()
+        );
 
         mCharacter.getCurrentEquippedItem().setUses(1);
-        mBattleService.updateWeaponUse(mCharacter);
+        mBattleService.updateWeaponUseAndProgress(mCharacter);
         Assertions.assertNull(mCharacter.getCurrentEquippedItem());
 
     }
