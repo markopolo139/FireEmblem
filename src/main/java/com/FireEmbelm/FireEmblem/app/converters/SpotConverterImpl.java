@@ -91,4 +91,37 @@ public class SpotConverterImpl implements SpotConverter {
     public List<SpotModel> convertListToModel(List<Spot> spots) {
         return spots.stream().map(this::convertToModel).collect(Collectors.toList());
     }
+
+    @Override
+    public SpotEntity convertModelToEntity(SpotModel spotModel) {
+        return new SpotEntity(
+                null,
+                SpotsType.valueOf(spotModel.spotType),
+                spotModel.height,
+                spotModel.width,
+                mCharacterConverter.convertModelToEntity(spotModel.characterOnSpot),
+                mEnemyConverter.convertModelToEntity(spotModel.enemyOnSpot)
+        );
+    }
+
+    @Override
+    public SpotModel convertEntityToModel(SpotEntity spotEntity) {
+        return new SpotModel(
+                spotEntity.spotType.name(),
+                spotEntity.height,
+                spotEntity.width,
+                mCharacterConverter.convertEntityToModel(spotEntity.characterId),
+                mEnemyConverter.convertEntityToModel(spotEntity.enemyId)
+        );
+    }
+
+    @Override
+    public List<SpotEntity> convertModelListToEntity(List<SpotModel> spotModels) {
+        return spotModels.stream().map(this::convertModelToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SpotModel> convertEntityListToModel(List<SpotEntity> spotEntities) {
+        return spotEntities.stream().map(this::convertEntityToModel).collect(Collectors.toList());
+    }
 }

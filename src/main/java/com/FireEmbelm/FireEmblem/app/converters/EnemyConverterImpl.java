@@ -209,4 +209,69 @@ public class EnemyConverterImpl implements EnemyConverter {
     public List<EnemyModel> convertListToModel(List<Enemy> enemies) {
         return enemies.stream().map(this::convertToModel).collect(Collectors.toList());
     }
+
+    @Override
+    public EnemyEntity convertModelToEntity(EnemyModel enemyModel) {
+
+        if (enemyModel == null)
+            return null;
+
+        return new EnemyEntity(
+                null,
+                enemyModel.name,
+                enemyModel.level,
+                enemyModel.exp,
+                enemyModel.remainingHealth,
+                enemyModel.currentEquippedItemId,
+                CharacterClass.valueOf(enemyModel.characterClass),
+                CharacterState.valueOf(enemyModel.characterState),
+                enemyModel.moved,
+                enemyModel.dropItemId,
+                enemyModel.boss,
+                enemyModel.goldDrop,
+                mWeaponConverter.convertModelListToEntity(enemyModel.weapons),
+                mHealingItemConverter.convertModelListToEntity(enemyModel.healingItems),
+                enemyModel.seals,
+                enemyModel.statsUpItems,
+                mStatConverter.convertModelListToEntity(enemyModel.stats),
+                mWeaponProgressConverter.convertModelListToEntity(enemyModel.weaponProgress)
+        );
+    }
+
+    @Override
+    public EnemyModel convertEntityToModel(EnemyEntity enemyEntity) {
+
+        if (enemyEntity == null)
+            return null;
+
+        return new EnemyModel(
+                enemyEntity.name,
+                enemyEntity.level,
+                enemyEntity.exp,
+                enemyEntity.remainingHealth,
+                mStatConverter.convertEntityListToModel(enemyEntity.stats),
+                enemyEntity.currentEquippedItemId,
+                mWeaponConverter.convertEntityListToModel(enemyEntity.weapons),
+                mHealingItemConverter.convertEntityListToModel(enemyEntity.healingItems),
+                enemyEntity.sealType,
+                enemyEntity.statUpType,
+                mWeaponProgressConverter.convertEntityListToModel(enemyEntity.weaponProgress),
+                enemyEntity.characterClass.name(),
+                enemyEntity.characterState.name(),
+                enemyEntity.moved,
+                enemyEntity.dropItemId,
+                enemyEntity.boss,
+                enemyEntity.goldDrop
+        );
+    }
+
+    @Override
+    public List<EnemyEntity> convertModelListToEntity(List<EnemyModel> enemyModels) {
+        return enemyModels.stream().map(this::convertModelToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EnemyModel> convertEntityListToModel(List<EnemyEntity> enemyEntities) {
+        return enemyEntities.stream().map(this::convertEntityToModel).collect(Collectors.toList());
+    }
 }
