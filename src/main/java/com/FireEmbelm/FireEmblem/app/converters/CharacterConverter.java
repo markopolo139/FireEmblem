@@ -20,4 +20,10 @@ public interface CharacterConverter {
     List<Character> convertModelListToCharacter(List<CharacterModel> characterModel);
     List<CharacterModel> convertListToModel(List<Character> character);
 
+    CharacterEntity convertModelToEntity(CharacterModel characterModel);
+    CharacterModel convertEntityToModel(CharacterEntity characterEntity);
+
+    List<CharacterEntity> convertModelListToEntity(List<CharacterModel> characterModels);
+    List<CharacterModel> convertEntityListToModel(List<CharacterEntity> characterEntities);
+
 }

@@ -191,4 +191,63 @@ public class CharacterConverterImpl implements CharacterConverter {
         return character.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 
+    @Override
+    public CharacterEntity convertModelToEntity(CharacterModel characterModel) {
+
+        if (characterModel == null)
+            return null;
+
+        return new CharacterEntity(
+                null,
+                characterModel.name,
+                characterModel.level,
+                characterModel.exp,
+                characterModel.remainingHealth,
+                characterModel.currentEquippedItemId,
+                CharacterClass.valueOf(characterModel.characterClass),
+                CharacterState.valueOf(characterModel.characterState),
+                characterModel.moved,
+                mWeaponConverter.convertModelListToEntity(characterModel.weapons),
+                mHealingItemConverter.convertModelListToEntity(characterModel.healingItems),
+                characterModel.seals,
+                characterModel.statsUpItems,
+                mStatConverter.convertModelListToEntity(characterModel.stats),
+                mWeaponProgressConverter.convertModelListToEntity(characterModel.weaponProgress)
+        );
+    }
+
+    @Override
+    public CharacterModel convertEntityToModel(CharacterEntity characterEntity) {
+
+        if (characterEntity == null)
+            return null;
+
+        return new CharacterModel(
+                characterEntity.name,
+                characterEntity.level,
+                characterEntity.exp,
+                characterEntity.remainingHealth,
+                mStatConverter.convertEntityListToModel(characterEntity.stats),
+                characterEntity.currentEquippedItemId,
+                mWeaponConverter.convertEntityListToModel(characterEntity.weapons),
+                mHealingItemConverter.convertEntityListToModel(characterEntity.healingItems),
+                characterEntity.sealType,
+                characterEntity.statUpType,
+                mWeaponProgressConverter.convertEntityListToModel(characterEntity.weaponProgress),
+                characterEntity.characterClass.name(),
+                characterEntity.characterState.name(),
+                characterEntity.moved
+        );
+    }
+
+    @Override
+    public List<CharacterEntity> convertModelListToEntity(List<CharacterModel> characterModels) {
+        return characterModels.stream().map(this::convertModelToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CharacterModel> convertEntityListToModel(List<CharacterEntity> characterEntities) {
+        return characterEntities.stream().map(this::convertEntityToModel).collect(Collectors.toList());
+    }
+
 }

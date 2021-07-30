@@ -103,4 +103,37 @@ public class ItemsConvoyConverterImpl implements ItemsConvoyConverter {
     public List<ItemsConvoyModel> convertListToModel(List<ItemsConvoy> itemsConvoys) {
         return itemsConvoys.stream().map(this::convertToModel).collect(Collectors.toList());
     }
+
+    @Override
+    public ItemsConvoyEntity convertModelToEntity(ItemsConvoyModel itemsConvoyModel) {
+        return new ItemsConvoyEntity(
+                null,
+                itemsConvoyModel.money,
+                mHealingItemConverter.convertModelListToEntity(itemsConvoyModel.healingItems),
+                mWeaponConverter.convertModelListToEntity(itemsConvoyModel.weapons),
+                itemsConvoyModel.seals,
+                itemsConvoyModel.statsUpItems
+        );
+    }
+
+    @Override
+    public ItemsConvoyModel convertEntityToModel(ItemsConvoyEntity itemsConvoyEntity) {
+        return new ItemsConvoyModel(
+                itemsConvoyEntity.money,
+                mWeaponConverter.convertEntityListToModel(itemsConvoyEntity.weapons),
+                mHealingItemConverter.convertEntityListToModel(itemsConvoyEntity.healingItems),
+                itemsConvoyEntity.sealType,
+                itemsConvoyEntity.statUpType
+        );
+    }
+
+    @Override
+    public List<ItemsConvoyEntity> convertModelListToEntity(List<ItemsConvoyModel> itemsConvoyModels) {
+        return itemsConvoyModels.stream().map(this::convertModelToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ItemsConvoyModel> convertEntityListToModel(List<ItemsConvoyEntity> itemsConvoyEntities) {
+        return itemsConvoyEntities.stream().map(this::convertEntityToModel).collect(Collectors.toList());
+    }
 }
