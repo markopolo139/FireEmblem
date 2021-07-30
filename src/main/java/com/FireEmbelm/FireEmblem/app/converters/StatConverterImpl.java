@@ -70,4 +70,32 @@ public class StatConverterImpl implements StatConverter {
         return stats.stream().map(this::convertToModel).collect(Collectors.toList());
     }
 
+    @Override
+    public StatEmbeddable convertModelToEntity(StatModel statModel) {
+        return new StatEmbeddable(
+                StatsType.valueOf(statModel.statType),
+                statModel.value,
+                statModel.chanceToIncrease
+        );
+    }
+
+    @Override
+    public StatModel convertEntityToModel(StatEmbeddable statEmbeddable) {
+        return new StatModel(
+                statEmbeddable.statType.name(),
+                statEmbeddable.value,
+                statEmbeddable.increaseChance
+        );
+    }
+
+    @Override
+    public List<StatEmbeddable> convertModelListToEntity(List<StatModel> statModels) {
+        return statModels.stream().map(this::convertModelToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StatModel> convertEntityListToModel(List<StatEmbeddable> statEmbeddables) {
+        return statEmbeddables.stream().map(this::convertEntityToModel).collect(Collectors.toList());
+    }
+
 }

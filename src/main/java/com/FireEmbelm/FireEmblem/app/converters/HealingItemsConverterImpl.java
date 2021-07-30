@@ -89,4 +89,40 @@ public class HealingItemsConverterImpl implements HealingItemConverter {
 
         return healingItemWithUses.stream().map(this::convertToModel).collect(Collectors.toList());
     }
+
+    @Override
+    public HealingItemEmbeddable convertModelToEntity(HealingItemModel healingItemModel) {
+
+        if (healingItemModel == null)
+            return null;
+
+        return new HealingItemEmbeddable(HealingItems.valueOf(healingItemModel.healingType), healingItemModel.uses);
+    }
+
+    @Override
+    public HealingItemModel convertEntityToModel(HealingItemEmbeddable healingItemEmbeddable) {
+
+        if (healingItemEmbeddable == null)
+            return null;
+
+        return  new HealingItemModel(healingItemEmbeddable.healType.name(),healingItemEmbeddable.uses);
+    }
+
+    @Override
+    public List<HealingItemEmbeddable> convertModelListToEntity(List<HealingItemModel> healingItemModels) {
+
+        if (healingItemModels == null)
+            return Collections.emptyList();
+
+        return healingItemModels.stream().map(this::convertModelToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<HealingItemModel> convertEntityListToModel(List<HealingItemEmbeddable> healingItemEmbeddables) {
+
+        if (healingItemEmbeddables == null)
+            return Collections.emptyList();
+
+        return healingItemEmbeddables.stream().map(this::convertEntityToModel).collect(Collectors.toList());
+    }
 }
