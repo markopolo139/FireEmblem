@@ -70,4 +70,32 @@ public class WeaponProgressConverterImpl implements WeaponProgressConverter {
     public List<WeaponProgressModel> convertListToModel(List<WeaponProgress> weaponProgresses) {
         return weaponProgresses.stream().map(this::convertToModel).collect(Collectors.toList());
     }
+
+    @Override
+    public WeaponProgressEmbeddable convertModelToEntity(WeaponProgressModel weaponProgressModel) {
+        return new WeaponProgressEmbeddable(
+                WeaponCategory.valueOf(weaponProgressModel.weaponCategory),
+                weaponProgressModel.progress,
+                weaponProgressModel.rank
+        );
+    }
+
+    @Override
+    public WeaponProgressModel convertEntityToModel(WeaponProgressEmbeddable weaponProgressEmbeddable) {
+        return new WeaponProgressModel(
+                weaponProgressEmbeddable.weaponType.getName(),
+                weaponProgressEmbeddable.progress,
+                weaponProgressEmbeddable.rank
+        );
+    }
+
+    @Override
+    public List<WeaponProgressEmbeddable> convertModelListToEntity(List<WeaponProgressModel> weaponProgressModels) {
+        return weaponProgressModels.stream().map(this::convertModelToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WeaponProgressModel> convertEntityListToModel(List<WeaponProgressEmbeddable> weaponProgressEmbeddables) {
+        return weaponProgressEmbeddables.stream().map(this::convertEntityToModel).collect(Collectors.toList());
+    }
 }

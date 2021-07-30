@@ -127,4 +127,62 @@ public class WeaponConverterImpl implements WeaponConverter {
 
         return weapons.stream().map(this::convertToModel).collect(Collectors.toList());
     }
+
+    @Override
+    public WeaponEmbeddable convertModelToEntity(WeaponModel weaponModel) {
+
+        if (weaponModel == null)
+            return null;
+
+        return new WeaponEmbeddable(
+                weaponModel.name,
+                weaponModel.rank,
+                weaponModel.might,
+                weaponModel.hit,
+                weaponModel.avo,
+                weaponModel.crit,
+                weaponModel.uses,
+                weaponModel.range,
+                weaponModel.worth,
+                WeaponCategory.valueOf(weaponModel.itemCategory)
+        );
+    }
+
+    @Override
+    public WeaponModel convertEntityToModel(WeaponEmbeddable weaponEmbeddable) {
+
+        if (weaponEmbeddable == null)
+            return null;
+
+        return new WeaponModel(
+                weaponEmbeddable.name,
+                weaponEmbeddable.rank,
+                weaponEmbeddable.might,
+                weaponEmbeddable.hit,
+                weaponEmbeddable.avo,
+                weaponEmbeddable.crit,
+                weaponEmbeddable.uses,
+                weaponEmbeddable.range,
+                weaponEmbeddable.worth,
+                weaponEmbeddable.itemCategory.name()
+        );
+    }
+
+    @Override
+    public List<WeaponEmbeddable> convertModelListToEntity(List<WeaponModel> weaponModels) {
+
+        if (weaponModels == null)
+            return Collections.emptyList();
+
+        return weaponModels.stream().map(this::convertModelToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WeaponModel> convertEntityListToModel(List<WeaponEmbeddable> weaponEmbeddables) {
+
+        if (weaponEmbeddables == null)
+            return Collections.emptyList();
+
+        return weaponEmbeddables.stream().map(this::convertEntityToModel).collect(Collectors.toList());
+    }
 }

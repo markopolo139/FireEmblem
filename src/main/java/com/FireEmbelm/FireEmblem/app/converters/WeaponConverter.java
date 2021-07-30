@@ -1,7 +1,9 @@
 package com.FireEmbelm.FireEmblem.app.converters;
 
+import com.FireEmbelm.FireEmblem.app.data.entities.CharacterEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.embeddable.WeaponEmbeddable;
 import com.FireEmbelm.FireEmblem.business.value.equipment.Weapon;
+import com.FireEmbelm.FireEmblem.web.models.request.CharacterModel;
 import com.FireEmbelm.FireEmblem.web.models.request.WeaponModel;
 
 import java.util.List;
@@ -19,5 +21,11 @@ public interface WeaponConverter {
 
     List<Weapon> convertModelListToWeapon(List<WeaponModel> weaponModels);
     List<WeaponModel> convertListToModel(List<Weapon> weapons);
+
+    WeaponEmbeddable convertModelToEntity(WeaponModel weaponModel);
+    WeaponModel convertEntityToModel(WeaponEmbeddable weaponEmbeddable);
+
+    List<WeaponEmbeddable> convertModelListToEntity(List<WeaponModel> weaponModels);
+    List<WeaponModel> convertEntityListToModel(List<WeaponEmbeddable> weaponEmbeddables);
 
 }
