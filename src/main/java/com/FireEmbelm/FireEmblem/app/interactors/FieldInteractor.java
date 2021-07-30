@@ -50,14 +50,9 @@ public class FieldInteractor {
         mFieldService.placeCharacter(character,spot);
 
         SpotEntity spotEntity = mSpotConverter.convertToEntity(spot);
-        spotEntity.spotId = beforeChangeSpot.spotId;
-        spotEntity.gameId = beforeChangeSpot.gameId;
 
-        spotEntity.characterId.characterId = beforeChangeCharacter.characterId;
-        spotEntity.characterId.gameId = beforeChangeCharacter.gameId;
-
-        mCharacterRepository.save(spotEntity.characterId);
-        mSpotRepository.save(spotEntity);
+        saveCharacter(spotEntity.characterId,  beforeChangeCharacter);
+        saveSpot(spotEntity, beforeChangeSpot);
 
     }
 
@@ -86,19 +81,12 @@ public class FieldInteractor {
         mFieldService.moveCharacter(characterSpot, moveToSpot);
 
         SpotEntity characterSpotEntity = mSpotConverter.convertToEntity(characterSpot);
-        characterSpotEntity.spotId = beforeChangeCharacterSpot.spotId;
-        characterSpotEntity.gameId = beforeChangeCharacterSpot.gameId;
 
         SpotEntity moveToSpotEntity = mSpotConverter.convertToEntity(moveToSpot);
-        moveToSpotEntity.spotId = beforeChangeMoveToSpot.spotId;
-        moveToSpotEntity.gameId = beforeChangeMoveToSpot.gameId;
 
-        moveToSpotEntity.characterId.characterId = beforeChangeCharacterSpot.characterId.characterId;
-        moveToSpotEntity.characterId.gameId = beforeChangeCharacterSpot.characterId.gameId;
-
-        mSpotRepository.save(characterSpotEntity);
-        mCharacterRepository.save(moveToSpotEntity.characterId);
-        mSpotRepository.save(moveToSpotEntity);
+        saveSpot(characterSpotEntity, beforeChangeCharacterSpot);
+        saveCharacter(moveToSpotEntity.characterId,beforeChangeCharacterSpot.characterId);
+        saveSpot(moveToSpotEntity,beforeChangeMoveToSpot);
     }
 
     public void endTurn(String characterName, Long gameId) throws CharacterAlreadyMovedException {
@@ -126,14 +114,10 @@ public class FieldInteractor {
         List<SpotEntity> afterStartTurn = mSpotConverter.convertListToEntity(spotsWithCharacters);
 
         for(SpotEntity se : afterStartTurn) {
-
-            CharacterEntity characterInBase =
-                    mCharacterRepository.findByNameAndGameId_GameId(se.characterId.name,gameId).orElseThrow();
-
-            se.characterId.characterId = characterInBase.characterId;
-            se.characterId.gameId = characterInBase.gameId;
-            mCharacterRepository.save(se.characterId);
-
+            saveCharacter(
+                    se.characterId, mCharacterRepository
+                            .findByNameAndGameId_GameId(se.characterId.name,gameId).orElseThrow()
+            );
         }
 
     }
@@ -151,11 +135,7 @@ public class FieldInteractor {
 
         mFieldService.useConsumableItem(character,itemId);
 
-        CharacterEntity characterEntity = mCharacterConverter.convertToEntity(character);
-        characterEntity.characterId = beforeChangeCharacter.characterId;
-        characterEntity.gameId = beforeChangeCharacter.gameId;
-
-        mCharacterRepository.save(characterEntity);
+        saveCharacter(mCharacterConverter.convertToEntity(character), beforeChangeCharacter);
 
     }
 
@@ -173,11 +153,7 @@ public class FieldInteractor {
 
         mFieldService.useHealingItem(character,itemId);
 
-        CharacterEntity characterEntity = mCharacterConverter.convertToEntity(character);
-        characterEntity.characterId = beforeChangeCharacter.characterId;
-        characterEntity.gameId = beforeChangeCharacter.gameId;
-
-        mCharacterRepository.save(characterEntity);
+        saveCharacter(mCharacterConverter.convertToEntity(character),beforeChangeCharacter);
 
     }
 
@@ -205,20 +181,28 @@ public class FieldInteractor {
 
         mFieldService.useStaff(healingCharacter, healedCharacter, itemId);
 
-        SpotEntity healingSpot = mSpotConverter.convertToEntity(healingCharacter);
+        saveCharacter
+                (mSpotConverter.convertToEntity(healingCharacter).characterId, beforeChangeHealingSpot.characterId
+                );
 
-        healingSpot.characterId.characterId = beforeChangeHealingSpot.characterId.characterId;
-        healingSpot.characterId.gameId = beforeChangeHealingSpot.gameId;
+        saveCharacter(
+                mSpotConverter.convertToEntity(healedCharacter).characterId, beforeChangeHealedSpot.characterId
+        );
 
-        SpotEntity healedSpot = mSpotConverter.convertToEntity(healedCharacter);
+    }
 
+    private void saveCharacter(CharacterEntity toSave, CharacterEntity beforeSave) {
+        toSave.characterId = beforeSave.characterId;
+        toSave.gameId = beforeSave.gameId;
 
-        healedSpot.characterId.characterId = beforeChangeHealedSpot.characterId.characterId;
-        healedSpot.characterId.gameId = beforeChangeHealedSpot.gameId;
+        mCharacterRepository.save(toSave);
+    }
 
-        mCharacterRepository.save(healingSpot.characterId);
-        mCharacterRepository.save(healedSpot.characterId);
+    private void saveSpot(SpotEntity toSave, SpotEntity beforeSave) {
+        toSave.spotId = beforeSave.spotId;
+        toSave.gameId = beforeSave.gameId;
 
+        mSpotRepository.save(toSave);
     }
 
 }

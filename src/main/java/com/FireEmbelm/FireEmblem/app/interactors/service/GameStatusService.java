@@ -39,10 +39,11 @@ public class GameStatusService {
     private SpotConverter mSpotConverter;
 
     public List<EnemyModel> getAliveEnemies(Long gameId) {
+
         List<EnemyEntity> enemyEntities =
                 mEnemyRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId);
 
-        return mEnemyConverter.convertListToModel(mEnemyConverter.convertEntityListToEnemy(enemyEntities));
+        return mEnemyConverter.convertEntityListToModel(enemyEntities);
     }
 
     public List<CharacterModel> getAliveCharacters(Long gameId) {
@@ -50,9 +51,7 @@ public class GameStatusService {
         List<CharacterEntity> characterEntities =
                 mCharacterRepository.findByCharacterStateAndGameId_GameId(CharacterState.ALIVE, gameId);
 
-        return mCharacterConverter.convertListToModel(
-                mCharacterConverter.convertEntityListToCharacter(characterEntities)
-        );
+        return mCharacterConverter.convertEntityListToModel(characterEntities);
     }
 
     public List<CharacterModel> getNotMovedCharacters(Long gameId) {
@@ -60,9 +59,7 @@ public class GameStatusService {
         List<CharacterEntity> characterEntities =
                 mCharacterRepository.findByMovedFalseAndGameId_GameId(gameId);
 
-        return mCharacterConverter.convertListToModel(
-                mCharacterConverter.convertEntityListToCharacter(characterEntities)
-        );
+        return mCharacterConverter.convertEntityListToModel(characterEntities);
     }
 
     public boolean autoEndTurn(Long gameId) {
@@ -82,8 +79,6 @@ public class GameStatusService {
     }
 
     public List<SpotModel> getCurrentField(Long gameId) {
-        return mSpotConverter.convertListToModel(
-                mSpotConverter.convertEntityListToSpot(mSpotRepository.findByGameId_GameId(gameId))
-        );
+        return mSpotConverter.convertEntityListToModel(mSpotRepository.findByGameId_GameId(gameId));
     }
 }

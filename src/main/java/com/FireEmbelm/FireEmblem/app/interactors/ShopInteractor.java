@@ -61,13 +61,13 @@ public class ShopInteractor {
             weaponQuality = 1;
 
         List<WeaponModel> potentialWeapons = mWeaponRepository.findByQuality(weaponQuality)
-                .stream().map(i -> mWeaponConverter.convertEntityToWeapon(i.weaponEmbeddable))
-                .map(i -> mWeaponConverter.convertToModel(i)).collect(Collectors.toList());
+                .stream().map(i -> mWeaponConverter.convertEntityToModel(i.weaponEmbeddable))
+                .collect(Collectors.toList());
 
 
         List<HealingItemModel> healingItems = mHealingItemRepository.findAll()
-                .stream().map(i -> mHealingItemConverter.convertEntityToHealingItem(i.healItemEmbeddable))
-                .map(i -> mHealingItemConverter.convertToModel(i)).collect(Collectors.toList());
+                .stream().map(i -> mHealingItemConverter.convertEntityToModel(i.healItemEmbeddable))
+                .collect(Collectors.toList());
 
         List<Seals> seals = Arrays.asList(Seals.values());
         List<StatsUpItems> statsUpItems = Arrays.asList(StatsUpItems.values());
@@ -87,23 +87,11 @@ public class ShopInteractor {
         ItemsConvoyEntity enteringEntity = mItemsConvoyRepository.findByGameId_GameId(gameId);
         ItemsConvoy itemsConvoy = mItemsConvoyConverter.convertEntityToItemsConvoy(enteringEntity);
 
-        randomList = randomList.stream().map(i -> {
-            if (i instanceof WeaponModel)
-                i = mWeaponConverter.convertModelToWeapon((WeaponModel) i);
-
-            if(i instanceof HealingItemModel)
-                i = mHealingItemConverter.convertModelToHealingItem((HealingItemModel) i);
-
-            return i;
-        }).collect(Collectors.toCollection(ArrayList::new));
+        randomList = convertModelsInListToBusiness(randomList);
 
         mShopService.buyItem(randomItemId,randomList,itemsConvoy);
 
-        ItemsConvoyEntity exitingEntity = mItemsConvoyConverter.convertToEntity(itemsConvoy);
-        exitingEntity.convoyId = enteringEntity.convoyId;
-        exitingEntity.gameId = enteringEntity.gameId;
-
-        mItemsConvoyRepository.save(exitingEntity);
+        saveItemsConvoy(mItemsConvoyConverter.convertToEntity(itemsConvoy), enteringEntity);
 
     }
 
@@ -114,11 +102,7 @@ public class ShopInteractor {
 
         mShopService.sellItem(itemsConvoyId,itemsConvoy);
 
-        ItemsConvoyEntity exitingEntity = mItemsConvoyConverter.convertToEntity(itemsConvoy);
-        exitingEntity.convoyId = enteringEntity.convoyId;
-        exitingEntity.gameId = enteringEntity.gameId;
-
-        mItemsConvoyRepository.save(exitingEntity);
+        saveItemsConvoy(mItemsConvoyConverter.convertToEntity(itemsConvoy), enteringEntity);
 
     }
 
@@ -126,4 +110,26 @@ public class ShopInteractor {
         return mShopService.checkItem(equipment);
     }
 
+    private void saveItemsConvoy(ItemsConvoyEntity saveConvoy, ItemsConvoyEntity beforeSave) {
+
+        saveConvoy.convoyId = beforeSave.convoyId;
+        saveConvoy.gameId = beforeSave.gameId;
+
+        mItemsConvoyRepository.save(saveConvoy);
+
+    }
+
+    private ArrayList<Equipment> convertModelsInListToBusiness(List<Equipment> list) {
+
+        return list.stream().map(i -> {
+            if (i instanceof WeaponModel)
+                i = mWeaponConverter.convertModelToWeapon((WeaponModel) i);
+
+            if(i instanceof HealingItemModel)
+                i = mHealingItemConverter.convertModelToHealingItem((HealingItemModel) i);
+
+            return i;
+        }).collect(Collectors.toCollection(ArrayList::new));
+
+    }
 }

@@ -72,7 +72,11 @@ public class EnemyGeneratorInteractor {
         );
 
         List<SpotEntity> fieldWithEnemies = mSpotConverter.convertListToEntity(generatedEnemies);
+        saveSpots(fieldWithEnemies,gameId);
 
+    }
+
+    private void saveSpots(List<SpotEntity> fieldWithEnemies, Long gameId) {
         for(SpotEntity se : fieldWithEnemies) {
             SpotEntity inBaseEntity =
                     mSpotRepository.findByHeightAndWidthAndGameId_GameId(se.height, se.width, gameId).orElseThrow();
@@ -82,6 +86,5 @@ public class EnemyGeneratorInteractor {
             mEnemyRepository.save(se.enemyId);
             mSpotRepository.save(se);
         }
-
     }
 }
