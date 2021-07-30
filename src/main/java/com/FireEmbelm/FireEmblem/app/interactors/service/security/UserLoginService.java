@@ -21,7 +21,8 @@ public class UserLoginService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserEntity userEntity = mUserRepository.findByLogin(username);
+        UserEntity userEntity = mUserRepository.findByLogin(username)
+                .orElseThrow(() -> new UsernameNotFoundException("This login already exist"));
 
         return mUserDetailMapper.toUserDetail(userEntity);
     }

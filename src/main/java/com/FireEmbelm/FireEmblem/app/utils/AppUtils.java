@@ -11,7 +11,7 @@ public class AppUtils {
     private UserRepository mUserRepository;
 
     public Long getGameIdFromLogin(String login) {
-        return mUserRepository.findByLogin(login).gameEntity.gameId;
+        return mUserRepository.findByLogin(login).orElseThrow().gameEntity.gameId;
     }
 
 }

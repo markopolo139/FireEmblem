@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -160,6 +161,19 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
         return convertToResponseEntity(apiError);
     }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<Object> usernameNotFoundExceptionHandler(UsernameNotFoundException exception) {
+        ApiError apiError = ApiError.builder()
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .setSuggestedAction("Type login, that is already registered")
+                .build();
+
+        return convertToResponseEntity(apiError);
+    }
+
+
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> constraintViolationExceptionHandler(ConstraintViolationException exception) {
