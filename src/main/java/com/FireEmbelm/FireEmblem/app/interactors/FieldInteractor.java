@@ -84,9 +84,9 @@ public class FieldInteractor {
 
         SpotEntity moveToSpotEntity = mSpotConverter.convertToEntity(moveToSpot);
 
-        saveSpot(characterSpotEntity, beforeChangeCharacterSpot);
         saveCharacter(moveToSpotEntity.characterId,beforeChangeCharacterSpot.characterId);
         saveSpot(moveToSpotEntity,beforeChangeMoveToSpot);
+        saveSpot(characterSpotEntity, beforeChangeCharacterSpot);
     }
 
     public void endTurn(String characterName, Long gameId) throws CharacterAlreadyMovedException {
