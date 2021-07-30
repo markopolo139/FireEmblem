@@ -175,6 +175,10 @@ public class ConvertersTest {
 
         Assertions.assertEquals(characterModel,convertedModel);
 
+        Assertions.assertEquals(characterModel,mCharacterConverter.convertEntityToModel(characterEntity));
+
+        Assertions.assertEquals(characterEntity,mCharacterConverter.convertModelToEntity(characterModel));
+
         Spot spot = new Spot(SpotsType.FORREST, 6, 4, character);
 
         SpotEntity spotEntity = new SpotEntity(null,SpotsType.FORREST,6,4,characterEntity,null);
@@ -188,6 +192,12 @@ public class ConvertersTest {
         Assertions.assertEquals(spot, mSpotConverter.convertModelToSpot(spotModel));
 
         Assertions.assertEquals(spotModel, mSpotConverter.convertToModel(spot));
+
+        Assertions.assertEquals(spotModel, mSpotConverter.convertEntityToModel(spotEntity));
+
+        Assertions.assertEquals(spotEntity, mSpotConverter.convertModelToEntity(spotModel));
+
+
 
     }
 
@@ -285,6 +295,10 @@ public class ConvertersTest {
         Assertions.assertEquals(enemy, convertedFromModel);
 
         Assertions.assertEquals(enemyModel, convertedModel);
+
+        Assertions.assertEquals(enemyModel, mEnemyConverter.convertEntityToModel(enemyEntity));
+
+        Assertions.assertEquals(enemyEntity, mEnemyConverter.convertModelToEntity(enemyModel));
     }
 
     @Test
@@ -314,6 +328,16 @@ public class ConvertersTest {
         Assertions.assertEquals(
                 healingItemWithUses,
                 mHealingItemConverter.convertModelToHealingItem(healingItemModel)
+        );
+
+        Assertions.assertEquals(
+                healingItemEmbeddable,
+                mHealingItemConverter.convertModelToEntity(healingItemModel)
+        );
+
+        Assertions.assertEquals(
+                healingItemModel,
+                mHealingItemConverter.convertEntityToModel(healingItemEmbeddable)
         );
     }
 
@@ -371,6 +395,10 @@ public class ConvertersTest {
 
         Assertions.assertEquals(itemsConvoyModel,convertedToModel);
 
+        Assertions.assertEquals(itemsConvoyModel, mItemsConvoyConverter.convertEntityToModel(itemsConvoyEntity));
+
+        Assertions.assertEquals(itemsConvoyEntity,mItemsConvoyConverter.convertModelToEntity(itemsConvoyModel));
+
     }
 
     @Test
@@ -388,6 +416,10 @@ public class ConvertersTest {
         Assertions.assertEquals(spot, mSpotConverter.convertModelToSpot(spotModel));
 
         Assertions.assertEquals(spotModel, mSpotConverter.convertToModel(spot));
+
+        Assertions.assertEquals(spotModel, mSpotConverter.convertEntityToModel(spotEntity));
+
+        Assertions.assertEquals(spotEntity, mSpotConverter.convertModelToEntity(spotModel));
     }
 
     @Test
@@ -406,6 +438,10 @@ public class ConvertersTest {
         Assertions.assertEquals(stat,mStatConverter.convertModelToStat(statModel));
 
         Assertions.assertEquals(statModel,mStatConverter.convertToModel(stat));
+
+        Assertions.assertEquals(statModel,mStatConverter.convertEntityToModel(statEmbeddable));
+
+        Assertions.assertEquals(statEmbeddable,mStatConverter.convertModelToEntity(statModel));
     }
 
     @Test
@@ -433,6 +469,10 @@ public class ConvertersTest {
         Assertions.assertEquals(weapon,mWeaponConverter.convertModelToWeapon(weaponModel));
 
         Assertions.assertEquals(weaponModel, mWeaponConverter.convertToModel(weapon));
+
+        Assertions.assertEquals(weaponModel, mWeaponConverter.convertEntityToModel(weaponEmbeddable));
+
+        Assertions.assertEquals(weaponEmbeddable, mWeaponConverter.convertModelToEntity(weaponModel));
 
     }
 
@@ -468,6 +508,16 @@ public class ConvertersTest {
         Assertions.assertEquals(
                 weaponProgressModel,
                 mWeaponProgressConverter.convertToModel(weaponProgress)
+        );
+
+        Assertions.assertEquals(
+                weaponProgressModel,
+                mWeaponProgressConverter.convertEntityToModel(weaponProgressEmbeddable)
+        );
+
+        Assertions.assertEquals(
+                weaponProgressEmbeddable,
+                mWeaponProgressConverter.convertModelToEntity(weaponProgressModel)
         );
     }
 
@@ -557,6 +607,10 @@ public class ConvertersTest {
 
         Assertions.assertEquals(enemyModel, convertedModel);
 
+        Assertions.assertEquals(enemyModel, mEnemyConverter.convertEntityToModel(enemyEntity));
+
+        Assertions.assertEquals(enemyEntity, mEnemyConverter.convertModelToEntity(enemyModel));
+
     }
 
     @Test
@@ -596,5 +650,9 @@ public class ConvertersTest {
         Assertions.assertEquals(itemsConvoy,convertedFromModel);
 
         Assertions.assertEquals(itemsConvoyModel,convertedToModel);
+
+        Assertions.assertEquals(itemsConvoyModel, mItemsConvoyConverter.convertEntityToModel(itemsConvoyEntity));
+
+        Assertions.assertEquals(itemsConvoyEntity, mItemsConvoyConverter.convertModelToEntity(itemsConvoyModel));
     }
 }
