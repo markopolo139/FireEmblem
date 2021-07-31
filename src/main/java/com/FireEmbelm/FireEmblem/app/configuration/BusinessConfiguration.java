@@ -58,4 +58,10 @@ public class BusinessConfiguration {
         return new UnitPromoteService();
     }
 
+    @Bean
+    @Scope("singleton")
+    public BlacksmithService getBlacksmithService() {
+        return new BlacksmithService();
+    }
+
 }
