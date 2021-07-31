@@ -12,6 +12,7 @@ public class WeaponProgressModel {
     public String weaponCategory;
 
     @Min(0)
+    @Max(99)
     public int progress;
 
     @Min(1)

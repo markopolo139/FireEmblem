@@ -9,10 +9,7 @@ import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidStatUpList;
 import org.springframework.lang.Nullable;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,10 +18,12 @@ public class EnemyModel {
     @NotBlank
     public String name;
 
-    @Positive
+    @Min(1)
+    @Max(20)
     public int level;
 
-    @Positive
+    @Min(0)
+    @Max(99)
     public int exp;
 
     @Positive
