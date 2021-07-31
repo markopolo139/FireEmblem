@@ -33,6 +33,16 @@ dependencies {
 	configurations {
 		all*.exclude module : 'spring-boot-starter-logging'
 	}
+
+	//PDF generation
+	implementation "org.thymeleaf:thymeleaf:3.0.11.RELEASE"
+	implementation "org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE"
+
+
+	implementation "com.openhtmltopdf:openhtmltopdf-core:1.0.8"
+	implementation "com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.8"
+	implementation "com.openhtmltopdf:openhtmltopdf-java2d:1.0.8"
+	implementation "com.openhtmltopdf:openhtmltopdf-slf4j:1.0.8"
 }
 
 test {
