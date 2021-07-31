@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.business.service;
 
+import com.FireEmbelm.FireEmblem.business.entitie.Character;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.TooSmallAmountOfMoneyException;
@@ -10,7 +11,12 @@ public class BlacksmithService {
 
     public static final int UPGRADE_COST = 1500;
 
-    public Weapon upgradeWeapon(Weapon weapon, ItemsConvoy itemsConvoy) throws InvalidEquipmentException, TooSmallAmountOfMoneyException {
+    public void upgradeWeapon(Character character, int itemId, ItemsConvoy itemsConvoy) throws InvalidEquipmentException, TooSmallAmountOfMoneyException {
+
+        if(!(character.getEquipment().get(itemId) instanceof Weapon))
+            throw new InvalidEquipmentException("Can upgrade only weapons");
+
+        Weapon weapon = (Weapon) character.getEquipment().get(itemId);
 
         if (weapon.getName().endsWith("+"))
             throw new InvalidEquipmentException("This weapon is already upgraded");
@@ -20,17 +26,20 @@ public class BlacksmithService {
 
         itemsConvoy.setMoney(itemsConvoy.getMoney() - UPGRADE_COST);
 
-        return new Weapon(
-                weapon.getName() + "+",
-                weapon.getRank(),
-                weapon.getMight() + 3,
-                weapon.getHit() + 10,
-                weapon.getAvo() + 5,
-                weapon.getCrit() + 3,
-                40,
-                weapon.getRange(),
-                weapon.getWorth() + 500,
-                (WeaponCategory) weapon.getItemCategory()
+        character.getEquipment().set(
+                itemId,
+                new Weapon(
+                    weapon.getName() + "+",
+                    weapon.getRank(),
+                    weapon.getMight() + 3,
+                    weapon.getHit() + 10,
+                    weapon.getAvo() + 5,
+                    weapon.getCrit() + 3,
+                    40,
+                    weapon.getRange(),
+                    weapon.getWorth() + 500,
+                    (WeaponCategory) weapon.getItemCategory()
+                )
         );
 
     }

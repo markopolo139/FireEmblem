@@ -1,9 +1,13 @@
 package com.FireEmbelm.FireEmblem.business.service;
 
+import com.FireEmbelm.FireEmblem.business.entitie.Character;
+import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidEquipmentException;
 import com.FireEmbelm.FireEmblem.business.exceptions.TooSmallAmountOfMoneyException;
+import com.FireEmbelm.FireEmblem.business.utils.Utils;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
+import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +20,7 @@ public class BlacksmithServiceTest {
 
     private Weapon weaponToUpgrade;
     private Weapon errorWeapon;
+    private Character mCharacter;
     private ItemsConvoy mItemsConvoy;
 
     private BlacksmithService mBlacksmithService = new BlacksmithService();
@@ -35,26 +40,59 @@ public class BlacksmithServiceTest {
                 5000,
                 new ArrayList<>()
         );
+
+        mCharacter = new Character(
+                "TestCharacter",
+                1,
+                0,
+                15,
+                Utils.createStats(
+                        1,100,
+                        1,80,
+                        1,0,
+                        1,0,
+                        1,0,
+                        1,0,
+                        1,0,
+                        1,0
+                ),
+                null,
+                new ArrayList<>(
+                        Arrays.asList(
+                                weaponToUpgrade,
+                                errorWeapon
+                        )
+                ),
+                Utils.startUpWeaponProgress(),
+                CharacterClass.LORD,
+                CharacterState.ALIVE,
+                false
+        );
     }
 
     @Test
     void testUpgradeWeapon() throws InvalidEquipmentException, TooSmallAmountOfMoneyException {
         Assertions.assertThrows(
                 InvalidEquipmentException.class,
-                () -> mBlacksmithService.upgradeWeapon(errorWeapon, mItemsConvoy)
-        );
-
-        Assertions.assertEquals(
-                errorWeapon.getName(),
-                mBlacksmithService.upgradeWeapon(weaponToUpgrade, mItemsConvoy).getName()
+                () -> mBlacksmithService.upgradeWeapon(mCharacter, 1, mItemsConvoy)
         );
 
         mItemsConvoy.setMoney(1000);
-
         Assertions.assertThrows(
                 TooSmallAmountOfMoneyException.class,
-                () -> mBlacksmithService.upgradeWeapon(weaponToUpgrade, mItemsConvoy)
+                () -> mBlacksmithService.upgradeWeapon(mCharacter, 0, mItemsConvoy)
         );
+
+        mItemsConvoy.setMoney(1500);
+
+        mBlacksmithService.upgradeWeapon(mCharacter, 0, mItemsConvoy);
+
+    Assertions.assertEquals(
+                errorWeapon.getName(),
+                mCharacter.getEquipment().get(0).getName()
+        );
+
+
 
     }
 }
