@@ -68,7 +68,7 @@ public class EnemyGeneratorTest {
     @Test
     void testEnemyGenerator() {
 
-        List<Spot> field = mFieldGenerator.generateNewField();
+        List<Spot> field = mFieldGenerator.generateNewField(null,null);
         Collection<Spot> enemies = mEnemyGenerator.generateEnemy(field, mWeapons, 21);
 
         Assertions.assertFalse(enemies.isEmpty());

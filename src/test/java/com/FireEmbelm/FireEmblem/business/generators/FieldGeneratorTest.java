@@ -14,7 +14,7 @@ public class FieldGeneratorTest {
     //DO manual debug to test
     @Test
     void testGenerator() {
-        Collection<Spot> field = mFieldGenerator.generateNewField();
+        Collection<Spot> field = mFieldGenerator.generateNewField(null, null);
 
         Assertions.assertNotNull(field);
     }

@@ -34,7 +34,7 @@ public class FieldGeneratorInteractor {
 
         mSpotRepository.deleteAllByGameId_GameId(gameId);
 
-        List<Spot> generatedSpots = mFieldGenerator.generateNewField();
+        List<Spot> generatedSpots = mFieldGenerator.generateNewField(null, null);
         List<SpotEntity> generatedSpotEntities = mSpotConverter.convertListToEntity(generatedSpots);
         generatedSpotEntities =
                 generatedSpotEntities.stream().peek(i -> i.gameId = gameEntity).collect(Collectors.toList());
