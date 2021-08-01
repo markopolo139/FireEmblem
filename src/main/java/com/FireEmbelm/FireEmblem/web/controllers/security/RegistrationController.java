@@ -7,6 +7,7 @@ import com.FireEmbelm.FireEmblem.app.data.repository.UserRepository;
 import com.FireEmbelm.FireEmblem.web.models.request.LoginModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,9 @@ public class RegistrationController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public void register(@Valid @RequestBody LoginModel loginModel) {
 
+        if (mUserRepository.findByLogin(loginModel.login).isPresent())
+            throw new UsernameNotFoundException("This login already exist");
+
         UserEntity userEntity = new UserEntity(
                 null, loginModel.login, mPasswordEncoder.encode(loginModel.password),
                 true, Set.of("USER"), null
@@ -40,6 +44,7 @@ public class RegistrationController {
                 null, userEntity, new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(), null
         );
+
 
         mUserRepository.save(userEntity);
         mGameRepository.save(gameEntity);
