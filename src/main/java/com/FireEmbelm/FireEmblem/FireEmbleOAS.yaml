@@ -1,0 +1,1457 @@
+openapi: 3.0.3
+info:
+  title: Fire Emblem
+  description: Application in Spring basing on Fire Embelm Game.
+  version: 1.0.0
+servers:
+  - url: http://localhost:4200/api/v1
+    description: local development server
+tags:
+  - name: "Login"
+  - name: "Game Status"
+    description: "All about current game status"
+  - name: "Battle"
+  - name: "Blacksmith"
+  - name: "Enemy Generator"
+  - name: "Field Generator"
+  - name: "Equipment Management"
+  - name: "Field"
+  - name: "Game Start"
+  - name: "Shop"
+  - name: "Unit Promote"
+
+components:
+  schemas:
+    ApiSubError:
+      description: A standard sub error schema
+      type: object
+      properties:
+        message:
+          type: string
+        suggestedAction:
+          type: string
+    ApiError:
+      description: A standard error schema
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          description: A HTTP error code
+        message:
+          type: string
+        suggestedAction:
+          type: string
+        subErrors:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiSubError"
+    LoginModel:
+      description: model for registration
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+    CharacterState:
+      type: string
+      enum:
+        - ALIVE
+        - DEAD
+    CharacterClass:
+      type: string
+      enum:
+        - GREAT_LORD
+        - LORD
+        - PALADIN
+        - CAVALRY
+        - GENERAL
+        - KNIGHT
+        - SWORDMASTER
+        - MYRMIDON
+        - WARRIOR
+        - FIGHTER
+        - HERO
+        - MERCENARY
+        - SNIPER
+        - ARCHER
+        - SAGE
+        - MAGE
+        - WAR_MONK
+        - PRIEST
+    Equipment:
+      type: object
+      required:
+        - equipmentType
+      properties:
+        equipmentType:
+          type: string
+      discriminator:
+        propertyName: equipmentType
+        mapping:
+          weaponModel: WeaponModel
+          healingItemModel: HealingItemModel
+          seals: Seal
+          statsUpItems: StatsUpItem
+    Seal:
+      allOf:
+        - $ref: "#/components/schemas/Equipment"
+        - type: string
+          enum:
+            - MASTER_SEAL
+            - HEART_SEAL
+    StatsUpItem:
+      allOf:
+        - $ref: "#/components/schemas/Equipment"
+        - type: string
+          enum:
+            - STRENGTH_UP
+            - MAGICK_UP
+            - DEFENSE_UP
+            - RESISTANCE_UP
+            - LUCK_UP
+            - SKILL_UP
+            - SPEED_UP
+    StatType:
+      type: string
+      enum:
+        - HEALTH
+        - STRENGTH
+        - MAGICK
+        - DEFENSE
+        - RESISTANCE
+        - LUCK
+        - SKILL
+        - SPEED
+    WeaponCategory:
+      type: string
+      enum:
+        - SWORD
+        - AXE
+        - LANCE
+        - TOME
+        - BOW
+        - STAFF
+    HealingItems:
+      type: string
+      enum:
+        - VULNERARY
+        - CONCOCTIONS
+        - ELIXIR
+        - MEND
+        - HEAL
+    SpotType:
+      type: string
+      enum:
+        - FORREST
+        - FORT
+        - GATE
+        - GRASS
+        - PLAIN
+    StatModel:
+      type: object
+      properties:
+        statType:
+          $ref: "#/components/schemas/StatType"
+        value:
+          type: integer
+          minimum: 0
+        chanceToIncrease:
+          type: integer
+          minimum: 0
+    WeaponProgressModel:
+      type: object
+      properties:
+        weaponCategory:
+          $ref: "#/components/schemas/WeaponCategory"
+        progress:
+          type: integer
+          minimum: 0
+          maxItems: 99
+        rank:
+          type: integer
+          minimum: 1
+          maxItems: 5
+    HealingItemModel:
+      allOf:
+        - $ref: "#/components/schemas/Equipment"
+        - type: object
+          properties:
+            healingType:
+              $ref: "#/components/schemas/HealingItems"
+            uses:
+              type: integer
+              minimum: 0
+    WeaponModel:
+      allOf:
+        - $ref: "#/components/schemas/Equipment"
+        - type: object
+          properties:
+            name:
+              type: string
+            rank:
+              type: integer
+              minimum: 1
+              maximum: 5
+            might:
+              type: integer
+              minimum: 0
+            hit:
+              type: integer
+              minimum: 0
+            avo:
+              type: integer
+              minimum: 0
+            crit:
+              type: integer
+              minimum: 0
+            uses:
+              type: integer
+              minimum: 0
+            range:
+              type: integer
+              minimum: 1
+            worth:
+              type: integer
+              minimum: 0
+            itemCategory:
+              $ref: "#/components/schemas/WeaponCategory"
+    CharacterModel:
+      description: "Character model"
+      type: object
+      properties:
+        name:
+          type: string
+        level:
+          type: integer
+          minimum: 1
+          maximum: 20
+        exp:
+          type: integer
+          minimum: 0
+          maximum: 99
+        remainingHealth:
+          type: integer
+          minimum: 0
+        stats:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatModel"
+          minItems: 7
+          maxItems: 7
+        currentEquippedItemId:
+          type: integer
+          minimum: 0
+          nullable: true
+        weapons:
+          type: array
+          items:
+            $ref: "#/components/schemas/WeaponModel"
+          minItems: 0
+        healingItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/HealingItemModel"
+          minItems: 0
+        seals:
+          type: array
+          items:
+            $ref: "#/components/schemas/Seal"
+          minItems: 0
+        statsUpItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatsUpItem"
+          minItems: 0
+        weaponProgress:
+          type: array
+          items:
+            $ref: "#/components/schemas/WeaponProgressModel"
+        characterClass:
+          $ref: "#/components/schemas/CharacterClass"
+        characterState:
+          $ref: "#/components/schemas/CharacterState"
+        moved:
+          type: boolean
+      nullable: true
+    EnemyModel:
+      description: "Enemy model"
+      type: object
+      properties:
+        name:
+          type: string
+        level:
+          type: integer
+          minimum: 1
+          maximum: 20
+        exp:
+          type: integer
+          minimum: 0
+          maximum: 99
+        remainingHealth:
+          type: integer
+          minimum: 0
+        stats:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatModel"
+          minItems: 7
+          maxItems: 7
+        currentEquippedItemId:
+          type: integer
+          minimum: 0
+          nullable: true
+        weapons:
+          type: array
+          items:
+            $ref: "#/components/schemas/WeaponModel"
+          minItems: 0
+        healingItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/HealingItemModel"
+          minItems: 0
+        seals:
+          type: array
+          items:
+            $ref: "#/components/schemas/Seal"
+          minItems: 0
+        statsUpItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatsUpItem"
+          minItems: 0
+        weaponProgress:
+          type: array
+          items:
+            $ref: "#/components/schemas/WeaponProgressModel"
+        characterClass:
+          $ref: "#/components/schemas/CharacterClass"
+        characterState:
+          $ref: "#/components/schemas/CharacterState"
+        moved:
+          type: boolean
+        dropItemId:
+          type: integer
+          nullable: true
+        boss:
+          type: boolean
+        goldDrop:
+          type: integer
+          minimum: 0
+      nullable: true
+    ItemsConvoyModel:
+      type: object
+      properties:
+        money:
+          type: integer
+          minimum: 0
+        weapons:
+          type: array
+          items:
+            $ref: "#/components/schemas/WeaponModel"
+          minItems: 0
+        healingItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/HealingItemModel"
+          minItems: 0
+        seals:
+          type: array
+          items:
+            $ref: "#/components/schemas/Seal"
+          minItems: 0
+        statsUpItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatsUpItem"
+          minItems: 0
+    SpotModel:
+      type: object
+      properties:
+        spotType:
+          $ref: "#/components/schemas/SpotType"
+        height:
+          type: integer
+          minimum: 0
+        width:
+          type: integer
+          minimum: 0
+        characterOnSpot:
+          $ref: "#/components/schemas/CharacterModel"
+        enemyOnSpot:
+          $ref: "#/components/schemas/EnemyModel"
+    BuyPayload:
+      type: object
+      properties:
+        randomListId:
+          type: integer
+          minimum: 0
+        randomList:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/HealingItemModel"
+              - $ref: "#/components/schemas/WeaponModel"
+              - $ref: "#/components/schemas/Seal"
+              - $ref: "#/components/schemas/StatsUpItem"
+          minItems: 1
+    BattlePayload:
+      type: object
+      properties:
+        attackerSpotHeight:
+          type: integer
+          minimum: 0
+        attackerSpotWidth:
+          type: integer
+          minimum: 0
+        defenderSpotHeight:
+          type: integer
+          minimum: 0
+        defenderSpotWidth:
+          type: integer
+          minimum: 0
+    GetClassPayload:
+      type: object
+      properties:
+        characterName:
+          type: string
+          minLength: 1
+        seals:
+          $ref: "#/components/schemas/Seal"
+    PromoteCharacterPayload:
+      type: object
+      properties:
+        characterName:
+          type: string
+          minLength: 0
+        characterClassList:
+          type: array
+          items:
+            $ref: "#/components/schemas/CharacterClass"
+          minItems: 1
+        listId:
+          type: integer
+          minimum: 0
+    EquipmentConvoyPayload:
+      type: object
+      properties:
+        characterName:
+          type: string
+          minLength: 1
+        elementId:
+          type: integer
+          minimum: 0
+    EquipPayload:
+      type: object
+      properties:
+        characterName:
+          type: string
+          minLength: 1
+        equipmentId:
+          type: integer
+          minimum: 0
+    TradePayload:
+      type: object
+      properties:
+        tradeFromCharacterName:
+          type: string
+          minLength: 1
+        tradeToCharacterName:
+          type: string
+          minLength: 1
+        equipmentId:
+          type: integer
+          minimum: 0
+    MovePayload:
+      type: object
+      properties:
+        moveFromSpotHeight:
+          type: integer
+          minimum: 0
+        moveFromSpotWidth:
+          type: integer
+          minimum: 0
+        moveToSpotHeight:
+          type: integer
+          minimum: 0
+        moveToSpotWidth:
+          type: integer
+          minimum: 0
+    PlacePayload:
+      type: object
+      properties:
+        characterName:
+          type: string
+          minLength: 1
+        spotHeight:
+          type: integer
+          minimum: 0
+        spotWidth:
+          type: integer
+          minimum: 0
+    UseItemPayload:
+      type: object
+      properties:
+        characterName:
+          type: string
+          minLength: 1
+        itemId:
+          type: integer
+          minimum: 0
+    UseStaffPayload:
+      type: object
+      properties:
+        healingSpotHeight:
+          type: integer
+          minimum: 0
+        healingSpotWidth:
+          type: integer
+          minimum: 0
+        healedSpotHeight:
+          type: integer
+          minimum: 0
+        healedSpotWidth:
+          type: integer
+          minimum: 0
+        itemId:
+          type: integer
+          minimum: 0
+
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+
+  responses:
+    ErrorResponse:
+       description: A response sent upon an error
+       content:
+         application/json:
+           schema:
+             $ref: "#/components/schemas/ApiError"
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+    CharacterList:
+      description: List of character models
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/CharacterModel"
+          example:
+            value: [ {
+              "name": "Chrom",
+              "level": 1,
+              "exp": 0,
+              "remainingHealth": 26,
+              "stats": [
+                {
+                  "statType": "DEFENSE",
+                  "value": 3,
+                  "chanceToIncrease": 35
+                },
+                {
+                  "statType": "SKILL",
+                  "value": 3,
+                  "chanceToIncrease": 40
+                },
+                {
+                  "statType": "SPEED",
+                  "value": 3,
+                  "chanceToIncrease": 40
+                },
+                {
+                  "statType": "STRENGTH",
+                  "value": 4,
+                  "chanceToIncrease": 40
+                },
+                {
+                  "statType": "HEALTH",
+                  "value": 3,
+                  "chanceToIncrease": 45
+                },
+                {
+                  "statType": "MAGICK",
+                  "value": 3,
+                  "chanceToIncrease": 10
+                },
+                {
+                  "statType": "LUCK",
+                  "value": 3,
+                  "chanceToIncrease": 70
+                },
+                {
+                  "statType": "RESISTANCE",
+                  "value": 3,
+                  "chanceToIncrease": 20
+                }
+              ],
+              "currentEquippedItemId": null,
+              "weapons": [
+                {
+                  "equipmentType": "weaponModel",
+                  "name": "Bronze Lance",
+                  "rank": 1,
+                  "might": 3,
+                  "hit": 90,
+                  "avo": 0,
+                  "crit": 0,
+                  "uses": 50,
+                  "range": 1,
+                  "worth": 350,
+                  "itemCategory": "LANCE",
+                  "description": "WeaponModel{name='Bronze Lance', rank=1, might=3, hit=90, avo=0, crit=0, uses=50, range=1, worth=350, itemCategory='LANCE'}"
+                }
+              ],
+              "healingItems": [
+                {
+                  "equipmentType": "healingItemModel",
+                  "healingType": "VULNERARY",
+                  "uses": 2,
+                  "name": "Vulnerary",
+                  "range": 0,
+                  "might": 0,
+                  "worth": 300,
+                  "itemCategory": "RECOVERY_ITEM",
+                  "description": "ItemName = 'Vulnerary\n HealValue = 10\n Worth = 300\n Range = 0"
+                }
+              ],
+              "seals": [ ],
+              "statsUpItems": [ ],
+              "weaponProgress": [
+                {
+                  "weaponCategory": "SWORD",
+                  "progress": 0,
+                  "rank": 1
+                },
+                {
+                  "weaponCategory": "STAFF",
+                  "progress": 0,
+                  "rank": 1
+                },
+                {
+                  "weaponCategory": "BOW",
+                  "progress": 0,
+                  "rank": 1
+                },
+                {
+                  "weaponCategory": "TOME",
+                  "progress": 0,
+                  "rank": 1
+                },
+                {
+                  "weaponCategory": "LANCE",
+                  "progress": 0,
+                  "rank": 1
+                },
+                {
+                  "weaponCategory": "AXE",
+                  "progress": 0,
+                  "rank": 1
+                }
+              ],
+              "characterClass": "GREAT_LORD",
+              "characterState": "ALIVE",
+              "moved": false
+            } ]
+    EnemyList:
+      description: List of Enemy models
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/EnemyModel"
+            example:
+              value: [{
+                  "name": "Ruffian",
+                  "level": 2,
+                  "exp": 0,
+                  "remainingHealth": 18,
+                  "stats": [
+                    {
+                      "statType": "RESISTANCE",
+                      "value": 2,
+                      "chanceToIncrease": 6
+                    },
+                    {
+                      "statType": "STRENGTH",
+                      "value": 1,
+                      "chanceToIncrease": 17
+                    },
+                    {
+                      "statType": "SPEED",
+                      "value": 2,
+                      "chanceToIncrease": 12
+                    },
+                    {
+                      "statType": "LUCK",
+                      "value": 1,
+                      "chanceToIncrease": 5
+                    },
+                    {
+                      "statType": "SKILL",
+                      "value": 1,
+                      "chanceToIncrease": 21
+                    },
+                    {
+                      "statType": "MAGICK",
+                      "value": 2,
+                      "chanceToIncrease": 17
+                    },
+                    {
+                      "statType": "DEFENSE",
+                      "value": 2,
+                      "chanceToIncrease": 5
+                    },
+                    {
+                      "statType": "HEALTH",
+                      "value": 2,
+                      "chanceToIncrease": 15
+                    }
+                  ],
+                  "currentEquippedItemId": 0,
+                  "weapons": [
+                    {
+                      "equipmentType": "weaponModel",
+                      "name": "Bronze Sword",
+                      "rank": 1,
+                      "might": 3,
+                      "hit": 100,
+                      "avo": 0,
+                      "crit": 0,
+                      "uses": 50,
+                      "range": 1,
+                      "worth": 350,
+                      "itemCategory": "SWORD",
+                      "description": "WeaponModel{name='Bronze Sword', rank=1, might=3, hit=100, avo=0, crit=0, uses=50, range=1, worth=350, itemCategory='SWORD'}"
+                    }
+                  ],
+                  "healingItems": [],
+                  "seals": [],
+                  "statsUpItems": [],
+                  "weaponProgress": [
+                    {
+                      "weaponCategory": "SWORD",
+                      "progress": 0,
+                      "rank": 1
+                    }
+                  ],
+                  "characterClass": "MYRMIDON",
+                  "characterState": "ALIVE",
+                  "moved": false,
+                  "dropItemId": null,
+                  "boss": false,
+                  "goldDrop": 420
+                }]
+    BooleanResponse:
+      description: A response sent upon an boolean
+      content:
+        application/json:
+          schema:
+            type: boolean
+    FieldList:
+      description: List of field models
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/SpotModel"
+          example:
+            valuse: [{
+                  "spotType": "GRASS",
+                  "height": 0,
+                  "width": 0,
+                  "characterOnSpot": null,
+                  "enemyOnSpot": null
+                },{
+                  "spotType": "PLAIN",
+                  "height": 0,
+                  "width": 1,
+                  "characterOnSpot": null,
+                  "enemyOnSpot": null
+                }]
+    EquipmentList:
+      description: List of equipment
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              anyOf:
+                - $ref: "#/components/schemas/HealingItemModel"
+                - $ref: "#/components/schemas/WeaponModel"
+                - $ref: "#/components/schemas/Seal"
+                - $ref: "#/components/schemas/StatsUpItem"
+            example:
+              values:
+                [
+                  [
+                      "seals",
+                      "HEART_SEAL"
+                  ],
+                  [
+                      "statsUpItems",
+                      "STRENGTH_UP"
+                  ],
+                  {
+                    "equipmentType": "healingItemModel",
+                    "healingType": "VULNERARY",
+                    "uses": 3,
+                    "name": "Vulnerary",
+                    "description": "ItemName = 'Vulnerary\n HealValue = 10\n Worth = 300\n Range = 0",
+                    "range": 0,
+                    "worth": 300,
+                    "itemCategory": "RECOVERY_ITEM",
+                    "might": 0
+                  }
+                ]
+    ClassToPromote:
+      description: List of random equipment
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/CharacterClass"
+          example:
+            value:
+              [
+                  "GREAT_LORD"
+              ]
+
+  requestBodies:
+    login:
+      description: Request body for registration
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/LoginModel"
+      required: true
+    buyPayload:
+      description: Request body for buying item from shop
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BuyPayload"
+      required: true
+    battlePayload:
+      description: Request body for battle
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BattlePayload"
+      required: true
+    getClassPayload:
+      description: Request body for getting classes to promote
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetClassPayload"
+      required: true
+    promoteCharacterPayload:
+      description: Request body for promoting character
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PromoteCharacterPayload"
+      required: true
+    equipmentConvoyPayload:
+      description: Request body for getting and giving item from/to convoy
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/EquipmentConvoyPayload"
+      required: true
+    equipPayload:
+      description: Request body for equiping item
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/EquipPayload"
+      required: true
+    tradePayload:
+      description: Request body for trding between characters
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TradePayload"
+      required: true
+    movePayload:
+      description: Request body for moving character on field
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MovePayload"
+      required: true
+    placePayload:
+      description: Request body for placing character on field
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PlacePayload"
+      required: true
+    useItemPayload:
+      description: Request body for using items
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UseItemPayload"
+      required: true
+    useStaffPayload:
+      description: Request body for using staff
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UseStaffPayload"
+      required: true
+
+security:
+  - basicAuth: []
+
+paths:
+  /registration:
+    post:
+      tags:
+        - "Login"
+      summary: "POST api/v1/registration"
+      operationId: "register"
+      description: "Path used to register new user"
+      security: []
+      requestBody:
+        $ref: "#/components/requestBodies/login"
+      responses:
+        '201':
+          description: "User registered"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /alive/enemies:
+    get:
+      tags:
+        - "Game Status"
+      summary: "GET api/v1/alive/enemies"
+      operationId: "getAliveEnemies"
+      responses:
+        "200":
+          $ref: "#/components/responses/EnemyList"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /alive/characters:
+    get:
+      tags:
+        - "Game Status"
+      summary: "GET api/v1/alive/characters"
+      operationId: "getAliveCharacters"
+      description: "get all alive characters in game from base"
+      responses:
+        "200":
+          $ref: "#/components/responses/CharacterList"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /notMoved/characters:
+    get:
+      tags:
+        - "Game Status"
+      summary: "GET api/v1/notMoved/characters"
+      operationId: "getNotMovedCharacters"
+      responses:
+        "200":
+          $ref: "#/components/responses/CharacterList"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /autoEndTurn:
+    get:
+      tags:
+        - "Game Status"
+      summary: "GET api/v1/autoEndTurn"
+      operationId: "autoEndTurn"
+      responses:
+        "200":
+          $ref: "#/components/responses/BooleanResponse"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /fieldWon:
+    get:
+      tags:
+        - "Game Status"
+      summary: "GET api/v1/fieldWon"
+      operationId: "isFieldWon"
+      responses:
+        "200":
+          $ref: "#/components/responses/BooleanResponse"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /playerDefeated:
+    get:
+      tags:
+        - "Game Status"
+      summary: "GET api/v1/playerDefeated"
+      operationId: "isPlayerDefeated"
+      responses:
+        "200":
+          $ref: "#/components/responses/BooleanResponse"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /maxLevel:
+    get:
+      tags:
+        - "Game Status"
+      summary: "GET api/v1/maxLevel"
+      operationId: "maxLevelCharacterInGame"
+      responses:
+        "200":
+          description: "Returns highest level of character"
+          content:
+            application/json:
+              schema:
+                type: integer
+
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /getField:
+    get:
+      tags:
+        - "Game Status"
+      summary: "GET api/v1/getField"
+      operationId: "getCurrentField"
+      responses:
+        "200":
+          $ref: "#/components/responses/FieldList"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /initialiseBattle:
+    put:
+      tags:
+        - "Battle"
+      summary: "PUT api/v1/initialiseBattle"
+      operationId: "initialiseBattle"
+      requestBody:
+        $ref: "#/components/requestBodies/battlePayload"
+      responses:
+        "200":
+          description: "Battle went successfully"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /weapon/upgrade:
+    put:
+      tags:
+        - "Blacksmith"
+      summary: "PUT api/v1/weapon/upgrade"
+      operationId: "upgradeWeapon"
+      parameters:
+        - name: "characterName"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "itemId"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "Weapons is upgraded"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /generateEnemy:
+    post:
+      tags:
+        - "Enemy Generator"
+      summary: "POST api/v1/generateEnemy"
+      operationId: "generateEnemy"
+      responses:
+        "200":
+          description: "Enemies are generated"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /generateField:
+    post:
+      tags:
+        - "Field Generator"
+      summary: "POST api/v1/generateField"
+      operationId: "generateField"
+      responses:
+        "200":
+          description: "Field is generated"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /startNewGame:
+    post:
+      tags:
+        - "Game Start"
+      summary: "POST api/v1/startNewGame"
+      operationId: "startGame"
+      responses:
+        "200":
+          description: "New game created"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /classToPromote:
+    post:
+      tags:
+        - "Unit Promote"
+      summary: "GET api/v1/classToPromote"
+      operationId: "getPossibleClassesToPromote"
+      requestBody:
+        $ref: "#/components/requestBodies/getClassPayload"
+      responses:
+        "200":
+          $ref: "#/components/responses/ClassToPromote"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /promoteCharacter:
+    put:
+      tags:
+        - "Unit Promote"
+      summary: "PUT api/v1/promoteCharacter"
+      operationId: "promoteCharacter"
+      requestBody:
+        $ref: "#/components/requestBodies/promoteCharacterPayload"
+      responses:
+        "200":
+          description: "Unit has been promoted"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /shopList:
+    get:
+      tags:
+        - "Shop"
+      summary: "GET api/v1/shopList"
+      operationId: "checkShopItemList"
+      responses:
+        "200":
+          $ref: "#/components/responses/EquipmentList"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /item/buy:
+    put:
+      tags:
+        - "Shop"
+      summary: "PUT api/v1/item/buy"
+      operationId: "buyItem"
+      requestBody:
+        $ref: "#/components/requestBodies/buyPayload"
+      responses:
+        "200":
+          description: "Selected item bought"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /item/sell:
+    put:
+      tags:
+        - "Shop"
+      summary: "PUT api/v1/item/sell"
+      operationId: "sellItem"
+      parameters:
+        - name: "convoyItemId"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "Selected item sold"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /item/check:
+    post:
+      tags:
+        - "Shop"
+      summary: "GET api/v1/item/check"
+      operationId: "checkItem"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: "#/components/schemas/HealingItemModel"
+                - $ref: "#/components/schemas/WeaponModel"
+                - $ref: "#/components/schemas/Seal"
+                - $ref: "#/components/schemas/StatsUpItem"
+        required: true
+      responses:
+        "200":
+          description: Item description
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /getEquipmentFromConvoy:
+    put:
+      tags:
+        - "Equipment Management"
+      summary: "PUT api/v1/getEquipmentFromConvoy"
+      operationId: "getEquipmentForCharacterFromConvoy"
+      requestBody:
+        $ref: "#/components/requestBodies/equipmentConvoyPayload"
+      responses:
+        "200":
+          description: "Operation went successfully"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /giveEquipmentFromConvoy:
+    put:
+      tags:
+        - "Equipment Management"
+      summary: "PUT api/v1/giveEquipmentFromConvoy"
+      operationId: "giveEquipmentForCharacterFromConvoy"
+      requestBody:
+        $ref: "#/components/requestBodies/equipmentConvoyPayload"
+      responses:
+        "200":
+          description: "Operation went successfully"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /storeAllEquipment:
+    put:
+      tags:
+        - "Equipment Management"
+      summary: "PUT api/v1/storeAllEquipment"
+      operationId: "storeAllEquipmentFromCharacters"
+      responses:
+        "200":
+          description: "Items from character stored in convoy"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /trade:
+    put:
+      tags:
+        - "Equipment Management"
+      summary: "PUT api/v1/trade"
+      operationId: "trade"
+      requestBody:
+        $ref: "#/components/requestBodies/tradePayload"
+      responses:
+        "200":
+          description: "Operation went successfully"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /equipItem:
+    put:
+      tags:
+        - "Equipment Management"
+      summary: "PUT api/v1/equipItem"
+      operationId: "equipItem"
+      requestBody:
+        $ref: "#/components/requestBodies/equipPayload"
+      responses:
+        "200":
+          description: "Operation went successfully"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /equipment/convoy:
+    get:
+      tags:
+        - "Equipment Management"
+      summary: "GET api/v1/equipment/convoy"
+      operationId: "getItemsConvoyEquipment"
+      responses:
+        "200":
+          $ref: "#/components/responses/EquipmentList"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /equipment/character:
+    get:
+      tags:
+        - "Equipment Management"
+      summary: "GET api/v1/equipment/character"
+      operationId: "getCharacterEquipment"
+      parameters:
+        - name: "characterName"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          $ref: "#/components/responses/EquipmentList"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /convoy/money:
+    get:
+      tags:
+        - "Equipment Management"
+      summary: "GET api/v1/convoy/money"
+      operationId: "getConvoyMoney"
+      responses:
+        "200":
+          description: Get convoy money
+          content:
+            application/json:
+              schema:
+                type: integer
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /character/place:
+    put:
+      tags:
+        - "Field"
+      summary: "PUT api/v1/character/place"
+      operationId: "placeCharacter"
+      requestBody:
+        $ref: "#/components/requestBodies/placePayload"
+      responses:
+        "200":
+          description: "Character placed"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /character/move:
+    put:
+      tags:
+        - "Field"
+      summary: "PUT api/v1/character/move"
+      operationId: "moveCharacter"
+      requestBody:
+        $ref: "#/components/requestBodies/movePayload"
+      responses:
+        "200":
+          description: "Character moved"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /turn/end:
+    put:
+      tags:
+        - "Field"
+      summary: "PUT api/v1/turn/end"
+      operationId: "endTurn"
+      parameters:
+        - name: "characterName"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "Character turn ended"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /turn/start:
+    put:
+      tags:
+        - "Field"
+      summary: "PUT api/v1/turn/start"
+      operationId: "startTurn"
+      responses:
+        "200":
+          description: "Started new turn"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /use/consumable:
+    put:
+      tags:
+        - "Field"
+      summary: "PUT api/v1/use/consumable"
+      operationId: "useConsumableItem"
+      requestBody:
+        $ref: "#/components/requestBodies/useItemPayload"
+      responses:
+        "200":
+          description: "Used stats up item"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /use/healing:
+    put:
+      tags:
+        - "Field"
+      summary: "PUT api/v1/use/healing"
+      operationId: "useHealingItem"
+      requestBody:
+        $ref: "#/components/requestBodies/useItemPayload"
+      responses:
+        "200":
+          description: "Used healing item"
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /use/staff:
+    put:
+      tags:
+        - "Field"
+      summary: "PUT api/v1/use/staff"
+      operationId: "useStaff"
+      requestBody:
+        $ref: "#/components/requestBodies/useStaffPayload"
+      responses:
+        "200":
+          description: "Used staff
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"

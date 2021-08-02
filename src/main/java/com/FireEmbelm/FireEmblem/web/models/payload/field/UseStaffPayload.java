@@ -23,7 +23,7 @@ public class UseStaffPayload {
     public Integer healedSpotWidth;
 
     @NotNull
-    @Valid
+    @Min(0)
     public Integer itemId;
 
     public UseStaffPayload(
