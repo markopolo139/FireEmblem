@@ -27,7 +27,7 @@ public class UnitPromoteController {
     @Autowired
     private AppUtils mAppUtils;
 
-    @GetMapping("/api/v1/classToPromote")
+    @PostMapping("/api/v1/classToPromote")
     public List<CharacterClass> getPossibleClassesToPromote(
             Principal principal, @Valid @RequestBody GetClassPayload getClassPayload
     ) throws InvalidEquipmentException, CharacterLevelException, PromoteException {

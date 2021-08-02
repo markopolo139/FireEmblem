@@ -49,7 +49,7 @@ public class ShopController {
         mShopInteractor.sellItem(convoyId, mAppUtils.getGameIdFromLogin(principal.getName()));
     }
 
-    @GetMapping("/api/v1/item/check")
+    @PostMapping("/api/v1/item/check")
     public String checkItem(@Valid @ValidEquipment @RequestBody Equipment equipment) {
         return mShopInteractor.checkItem(equipment);
     }
