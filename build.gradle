@@ -44,6 +44,8 @@ dependencies {
 	implementation "com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.8"
 	implementation "com.openhtmltopdf:openhtmltopdf-java2d:1.0.8"
 	implementation "com.openhtmltopdf:openhtmltopdf-slf4j:1.0.8"
+
+	implementation 'org.springframework.boot:spring-boot-starter-mail:1.2.0.RELEASE'
 }
 
 test {
