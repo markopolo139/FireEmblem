@@ -33,6 +33,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
+                .formLogin()
+                .and()
+                .logout()
+                .deleteCookies("JSESSIONID")
+                .and()
                 .httpBasic();
     }
 
