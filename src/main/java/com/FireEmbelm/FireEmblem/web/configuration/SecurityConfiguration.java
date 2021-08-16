@@ -34,8 +34,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
+                .permitAll()
                 .and()
                 .logout()
+                .permitAll()
                 .deleteCookies("JSESSIONID")
                 .and()
                 .httpBasic();
