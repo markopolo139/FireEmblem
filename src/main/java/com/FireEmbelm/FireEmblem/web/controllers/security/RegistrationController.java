@@ -36,8 +36,8 @@ public class RegistrationController {
             throw new UsernameNotFoundException("This login already exist");
 
         UserEntity userEntity = new UserEntity(
-                null, loginModel.login, mPasswordEncoder.encode(loginModel.password),
-                true, Set.of("USER"), null
+                null, loginModel.login, mPasswordEncoder.encode(loginModel.password), loginModel.email,
+                null, true, Set.of("USER"), null
         );
 
         GameEntity gameEntity = new GameEntity(

@@ -12,9 +12,13 @@ public class LoginModel {
     @NotNull
     public String password;
 
-    public LoginModel(String login, String password) {
+    @NotNull
+    public String email;
+
+    public LoginModel(String login, String password, String email) {
         this.login = login;
         this.password = password;
+        this.email = email;
     }
 
     @Override

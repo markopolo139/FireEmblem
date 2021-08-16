@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl-pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Characters in base</title>
+    <style>
+
+    @page {
+        size: A4 portrait;
+    }
+
+    * {
+            font-family: 'Open Sans';
+            box-sizing: border-box;
+    }
+
+    </style>
+</head>
+<body>
+
+<table th:if="${#lists.size(schedule.payments)} > 0" class="scheduleTable">
+
+    <tr th:each="payment: ${paymentsList}">
+        <td th:text="${payment.index}"></td>
+        <td th:text="${#temporals.format(payment.date,'dd.MM.YYYY')}"></td>
+        <td th:text="${#numbers.formatDecimal(payment.interestInstallment,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></td>
+        <td th:text="${#numbers.formatDecimal(payment.capitalInstallment,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></td>
+        <td th:text="${#numbers.formatDecimal(payment.capitalInstallment + payment.interestInstallment,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></td>
+        <td th:text="${#numbers.formatDecimal(payment.remainingDebt,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></td>
+        <td th:if="${conf.insurance}">
+            <span th:if="${payment.insurancePremium != null}" th:text="${#numbers.formatDecimal(payment.insurancePremium,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></span>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

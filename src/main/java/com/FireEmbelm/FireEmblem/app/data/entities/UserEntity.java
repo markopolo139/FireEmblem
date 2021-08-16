@@ -2,6 +2,7 @@ package com.FireEmbelm.FireEmblem.app.data.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -21,6 +22,13 @@ public class UserEntity {
     @JsonIgnore
     public String password;
 
+    @JsonIgnore
+    public String email;
+
+    @JsonIgnore
+    @Nullable
+    public String passwordToken;
+
     public boolean enabled;
 
     @JsonIgnore
@@ -35,11 +43,14 @@ public class UserEntity {
     public GameEntity gameEntity;
 
     public UserEntity(
-            Long userId, String login, String password, boolean enabled, Set<String> role, GameEntity gameEntity
+            Long userId, String login, String password, String email, String passwordToken,
+            boolean enabled, Set<String> role, GameEntity gameEntity
     ) {
         this.userId = userId;
         this.login = login;
         this.password = password;
+        this.email = email;
+        this.passwordToken = passwordToken;
         this.enabled = enabled;
         this.role = role;
         this.gameEntity = gameEntity;
