@@ -1,6 +1,7 @@
 package com.FireEmbelm.FireEmblem.web.error;
 
 import com.FireEmbelm.FireEmblem.app.exceptions.CharacterAlreadyMovedException;
+import com.FireEmbelm.FireEmblem.app.exceptions.UserNotFoundException;
 import com.FireEmbelm.FireEmblem.business.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -154,9 +155,20 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> noSuchElementExceptionHandler(NoSuchElementException exception) {
         ApiError apiError = ApiError.builder()
-                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setHttpStatus(HttpStatus.NOT_FOUND)
                 .setErrorMessage(exception.getMessage())
                 .setSuggestedAction("Type name of the actual character")
+                .build();
+
+        return convertToResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> userNotFoundExceptionHandler(UserNotFoundException exception) {
+        ApiError apiError = ApiError.builder()
+                .setHttpStatus(HttpStatus.NOT_FOUND)
+                .setErrorMessage(exception.getMessage())
+                .setSuggestedAction("Type user email that exists")
                 .build();
 
         return convertToResponseEntity(apiError);
