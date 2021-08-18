@@ -1,6 +1,5 @@
 package com.FireEmbelm.FireEmblem.web.controllers.security;
 
-import com.FireEmbelm.FireEmblem.app.data.entities.UserEntity;
 import com.FireEmbelm.FireEmblem.app.exceptions.UserNotFoundException;
 import com.FireEmbelm.FireEmblem.app.interactors.PasswordRecoveryInteractor;
 import com.FireEmbelm.FireEmblem.web.utils.WebUtils;
@@ -9,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.util.StringUtils;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -37,6 +36,9 @@ public class ForgotPasswordController {
     @Autowired
     private JavaMailSender mJavaMailSender;
 
+    @Autowired
+    private PasswordEncoder mPasswordEncoder;
+
     @GetMapping("/forgotPassword")
     public String getForgotPassword() {
         return "forgotPassword";
@@ -49,8 +51,7 @@ public class ForgotPasswordController {
         String randomToken = RandomString.make(30);
 
         try{
-            UserEntity userEntity = mPasswordRecoveryInteractor.getUserByEmail(email);
-            mPasswordRecoveryInteractor.updateToken(userEntity,randomToken);
+            mPasswordRecoveryInteractor.updateToken(email,randomToken);
             String passwordRecoveryLink = WebUtils.getServerPath(request) + "/passwordRecovery?token=" + randomToken;
             sendMassage(email, passwordRecoveryLink);
             model.addAttribute("message", "Email successfully send");
@@ -92,11 +93,28 @@ public class ForgotPasswordController {
 
     @GetMapping("/passwordRecovery")
     public String getPasswordRecovery(@RequestParam("token") String resetToken, Model model) {
+
+        try {
+            mPasswordRecoveryInteractor.getUserByPasswordToken(resetToken);
+            model.addAttribute("token", resetToken);
+            model.addAttribute("message", "You can now create new password");
+        }
+        catch (UserNotFoundException ex) {
+            model.addAttribute("error", "Try again, there was error.");
+        }
+
         return "newPassword";
     }
 
     @PostMapping("/passwordRecovery")
-    public String postPasswordRecovery(HttpServletRequest request, Model model) {
+    public String postPasswordRecovery(HttpServletRequest request, Model model) throws UserNotFoundException {
+
+        String token = request.getParameter("token");
+        String password = mPasswordEncoder.encode(request.getParameter("password"));
+
+        mPasswordRecoveryInteractor.updatePassword(token, password);
+        model.addAttribute("message", "Password updated");
+
         return "newPassword";
     }
 

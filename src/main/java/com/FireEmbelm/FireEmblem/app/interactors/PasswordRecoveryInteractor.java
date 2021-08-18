@@ -16,17 +16,19 @@ public class PasswordRecoveryInteractor {
         return mUserRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
-    public UserEntity getUserByResetToken(String token) throws UserNotFoundException {
+    public UserEntity getUserByPasswordToken(String token) throws UserNotFoundException {
         return mUserRepository.findByPasswordToken(token).orElseThrow(UserNotFoundException::new);
     }
 
-    public void updatePassword(UserEntity userEntity, String newPassword) {
+    public void updatePassword(String token, String newPassword) throws UserNotFoundException {
+        UserEntity userEntity = getUserByPasswordToken(token);
         userEntity.password = newPassword;
         userEntity.passwordToken = null;
         mUserRepository.save(userEntity);
     }
 
-    public void updateToken(UserEntity userEntity, String resetToken) {
+    public void updateToken(String email, String resetToken) throws UserNotFoundException {
+        UserEntity userEntity = getUserByEmail(email);
         userEntity.passwordToken = resetToken;
         mUserRepository.save(userEntity);
     }
