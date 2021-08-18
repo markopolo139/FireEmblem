@@ -19,6 +19,7 @@ tags:
   - name: "Game Start"
   - name: "Shop"
   - name: "Unit Promote"
+  - name: "Security"
 
 components:
   schemas:
@@ -1450,8 +1451,62 @@ paths:
         $ref: "#/components/requestBodies/useStaffPayload"
       responses:
         "200":
-          description: "Used staff
+          description: "Used staff"
         '401':
           $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /login:
+    get:
+      tags:
+        - "Security"
+      summary: "get /login"
+      responses:
+        "200":
+          description: "Page for login"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /forgotPassword:
+    get:
+      tags:
+        - "Security"
+      summary: "get /forgotPassword"
+      responses:
+        "200":
+          description: "Page for recovering password"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+    post:
+      tags:
+        - "Security"
+      summary: "post /forgotPassword"
+      responses:
+        "200":
+          description: "Post used for submitting form"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  /passwordRecovery:
+    get:
+      tags:
+        - "Security"
+      summary: "get /passwordRecovery"
+      parameters:
+        - name: "token"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "Page for changing password"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+    post:
+      tags:
+        - "Security"
+      summary: "post /passwordRecovery"
+      responses:
+        "200":
+          description: "Post used for submitting form"
         default:
           $ref: "#/components/responses/ErrorResponse"

@@ -2,7 +2,9 @@ package com.FireEmbelm.FireEmblem.web.controllers.security;
 
 import com.FireEmbelm.FireEmblem.app.exceptions.UserNotFoundException;
 import com.FireEmbelm.FireEmblem.app.interactors.PasswordRecoveryInteractor;
+import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import com.FireEmbelm.FireEmblem.web.utils.WebUtils;
+import com.FireEmbelm.FireEmblem.web.validation.equipment.ValidWeaponCategory;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -110,10 +112,16 @@ public class ForgotPasswordController {
     public String postPasswordRecovery(HttpServletRequest request, Model model) throws UserNotFoundException {
 
         String token = request.getParameter("token");
-        String password = mPasswordEncoder.encode(request.getParameter("password"));
+        String password = request.getParameter("password");
 
-        mPasswordRecoveryInteractor.updatePassword(token, password);
-        model.addAttribute("message", "Password updated");
+        if(AppUtils.validatePassword(password)) {
+            mPasswordRecoveryInteractor.updatePassword(token, mPasswordEncoder.encode(password));
+            model.addAttribute("message", "Password updated");
+        }
+        else
+            model.addAttribute("message", "Password is not correct " +
+                    "(Password must have at least : 1 uppercase character, 1 digit, 1 special character (@,#)," +
+                    " no whitespaces, and length from 8 to 30");
 
         return "newPassword";
     }
