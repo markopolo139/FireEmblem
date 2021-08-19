@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+      *{
+        text-align: center;
+        width: 100%;
+        margin: 5px;
+      }
+    </style>
+</head>
+<body>
+
+<div th:if="${message != null}">
+  <p th:text="${message}"></p>
+</div>
+
+<div th:if="${error != null}">
+  <p th:text="${error}"></p>
+</div>
+
+<h2>
+  Site for registration
+</h2>
+
+<form th:action="@{/api/v1/registration}" th:method="post" style="max-width: 420px; margin: 0 auto;">
+
+  <input type="hidden" th:name="'token'" th:value="${token}">
+  <label>Type username: </label>
+  <input type="text" th:name="'username'" id="username">
+  <br>
+  <label>Type email: </label>
+  <input type="email" th:name="'email'" id="email">
+  <br>
+  <label>New Password:</label>
+  <input type="password" th:name="'password'" th:placeholder="'Write here your new password'" id="password">
+  <br>
+  <label>Write password again:</label>
+  <input type="password" th:name="'check'" id="check">
+  <p id="isPasswordCorrect"></p>
+  <input type="button" value="Check and Submit" id="btn" >
+
+</form>
+<script>
+
+  document.getElementById("btn").addEventListener("click", () => {
+    if(document.getElementById("email").value === ""){
+      document.getElementById("isPasswordCorrect").innerHTML="Email is empty"
+    }
+    else{
+      if(document.getElementById("username").value === ""){
+        document.getElementById("isPasswordCorrect").innerHTML="Username is empty"
+      }
+      else{
+        if (document.getElementById("password").value === ""){
+          document.getElementById("isPasswordCorrect").innerHTML="Passwords is incorrect"
+        }
+        else{
+          if (!(password.value === check.value)){
+            document.getElementById("isPasswordCorrect").innerHTML="Passwords are not the same"
+          }
+          else{
+            document.getElementById("isPasswordCorrect").innerHTML=""
+            let forms = document.getElementsByTagName("form")
+            forms[0].submit()
+          }
+        }
+      }
+    }
+  })
+
+</script>
+</body>
+</html>

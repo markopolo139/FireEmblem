@@ -919,6 +919,17 @@ security:
 
 paths:
   /registration:
+    get:
+      tags:
+        - "Login"
+      summary: "get api/v1/registration"
+      description: "Path used to return site to register new user"
+      security: [ ]
+      responses:
+        '200':
+          description: "Page returned"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
     post:
       tags:
         - "Login"
@@ -926,8 +937,6 @@ paths:
       operationId: "register"
       description: "Path used to register new user"
       security: []
-      requestBody:
-        $ref: "#/components/requestBodies/login"
       responses:
         '201':
           description: "User registered"
