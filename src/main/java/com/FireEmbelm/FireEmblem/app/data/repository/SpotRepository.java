@@ -18,7 +18,7 @@ public interface SpotRepository extends JpaRepository<SpotEntity, Long> {
 
     List<SpotEntity> findByEnemyIdNotNullAndGameId_GameId(Long id);
 
-    List<SpotEntity> findByGameId_GameId(Long id);
+    List<SpotEntity> findAllByGameId_GameId(Long id);
 
     @Modifying
     @Transactional

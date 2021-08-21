@@ -79,6 +79,6 @@ public class GameStatusService {
     }
 
     public List<SpotModel> getCurrentField(Long gameId) {
-        return mSpotConverter.convertEntityListToModel(mSpotRepository.findByGameId_GameId(gameId));
+        return mSpotConverter.convertEntityListToModel(mSpotRepository.findAllByGameId_GameId(gameId));
     }
 }

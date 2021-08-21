@@ -21,6 +21,8 @@ public interface CharacterRepository extends JpaRepository<CharacterEntity, Long
 
     CharacterEntity findFirstByGameId_GameIdOrderByLevelDesc(Long id);
 
+    List<CharacterEntity> findAllByGameId_GameId(Long id);
+
     @Modifying
     @Transactional
     void deleteAllByGameId_GameId(Long id);

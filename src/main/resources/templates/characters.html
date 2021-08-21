@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl-pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"></meta>
     <title>Characters in base</title>
@@ -9,29 +9,84 @@
         size: A4 portrait;
     }
 
-    * {
-            font-family: 'Open Sans';
-            box-sizing: border-box;
+    *{
+        width: 100%;
+        margin: 5px;
+    }
+
+    tr td{
+        width: 10%;
     }
 
     </style>
 </head>
 <body>
-
-<table th:if="${#lists.size(schedule.payments)} > 0" class="scheduleTable">
-
-    <tr th:each="payment: ${paymentsList}">
-        <td th:text="${payment.index}"></td>
-        <td th:text="${#temporals.format(payment.date,'dd.MM.YYYY')}"></td>
-        <td th:text="${#numbers.formatDecimal(payment.interestInstallment,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></td>
-        <td th:text="${#numbers.formatDecimal(payment.capitalInstallment,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></td>
-        <td th:text="${#numbers.formatDecimal(payment.capitalInstallment + payment.interestInstallment,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></td>
-        <td th:text="${#numbers.formatDecimal(payment.remainingDebt,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></td>
-        <td th:if="${conf.insurance}">
-            <span th:if="${payment.insurancePremium != null}" th:text="${#numbers.formatDecimal(payment.insurancePremium,1,'WHITESPACE',2,'COMMA')}  + ' zł'"></span>
-        </td>
-    </tr>
-</table>
+    <h1 th:if="!${isPdf}">List of characters in current game : </h1>
+    <ul th:if="!${isPdf}">
+        <li th:each="character : ${player_characters}" th:object="${character}">
+            <a th:href="'#' + *{name}" th:text="*{name}"></a>
+        </li>
+    </ul>
+    <br></br>
+    <h1>
+        Characters:
+    </h1>
+    <div th:each="character : ${player_characters}" th:object="${character}" th:id="${character.name}">
+        <h3>Name: </h3>
+        <h3 th:text="*{name}"></h3>
+        <br></br>
+        <h3>Character Class: </h3>
+        <p th:text="*{characterClass.name()}"></p>
+        <br></br>
+        <h3>Level: </h3>
+        <p th:text="*{level}"></p>
+        <br></br>
+        <h3>Exp : </h3>
+        <p th:text="*{exp}"></p>
+        <br></br>
+        <h3>Character State: </h3>
+        <p th:text="*{characterState.name()}"></p>
+        <br></br>
+        <h3>Did move: </h3>
+        <p th:text="*{moved}"></p>
+        <br></br>
+        <h3>Remaining health: </h3>
+        <p th:text="*{remainingHealth}"></p>
+        <br></br>
+        <h3>Stats: </h3>
+        <br></br>
+        <table>
+            <tr>
+                <td>Stat name</td>
+                <td>Value</td>
+                <td>Increase chance</td>
+            </tr>
+            <tr th:each="stat : ${character.stats}" th:object="${stat}">
+                <td th:text="*{statType.name()}"></td>
+                <td th:text="${stat.value} + ${character.characterClass.getBonusStats().get(stat.statType).value}"></td>
+                <td th:text="${stat.increaseChance} + ${character.characterClass.getBonusStats().get(stat.statType).chanceToIncrease}"></td>
+            </tr>
+        </table>
+        <br></br>
+        <h3>Weapon progress: </h3>
+        <br></br>
+        <table>
+            <tr>
+                <td>Weapon type</td>
+                <td>Rank</td>
+                <td>Progress</td>
+            </tr>
+            <tr th:each="weaponProgress : ${character.weaponProgress}" th:object="${weaponProgress}">
+                <td th:text="*{weaponType.name()}"></td>
+                <td th:text="*{rank}"></td>
+                <td th:text="*{progress}"></td>
+            </tr>
+        </table>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+    </div>
 
 </body>
 </html>
