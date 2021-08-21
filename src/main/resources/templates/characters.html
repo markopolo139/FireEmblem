@@ -83,6 +83,46 @@
             </tr>
         </table>
         <br></br>
+        <h3>Character equipment: </h3>
+        <br></br>
+        <table>
+            <tr>
+                <td>Item name</td>
+                <td>Might</td>
+                <td>Range</td>
+                <td>Uses</td>
+                <td>Item Category</td>
+            </tr>
+            <tr th:if="!${character.weapons.isEmpty()}" th:each="weapons : ${character.weapons}" th:object="${weapons}">
+                <td th:text="*{name}"></td>
+                <td th:text="*{might}"></td>
+                <td th:text="*{range}"></td>
+                <td th:text="*{uses}"></td>
+                <td th:text="*{itemCategory.getName()}"></td>
+            </tr>
+            <tr th:if="!${character.healingItems.isEmpty()}" th:each="healingItem : ${character.healingItems}" th:object="${healingItem}">
+                <td th:text="*{healType.getName()}"></td>
+                <td th:text="*{healType.getMight()}"></td>
+                <td th:text="*{healType.getRange()}"></td>
+                <td th:text="*{uses}"></td>
+                <td th:text="*{healType.getItemCategory().getName()}"></td>
+            </tr>
+            <tr th:if="!${character.sealType.isEmpty()}" th:each="seal : ${character.sealType}" th:object="${seal}">
+                <td th:text="*{getName()}"></td>
+                <td th:text="*{getMight()}"></td>
+                <td th:text="*{getRange()}"></td>
+                <td th:text="*{getUses()}"></td>
+                <td th:text="*{getItemCategory().getName()}"></td>
+            </tr>
+            <tr th:if="!${character.statUpType.isEmpty()}" th:each="statUpItem : ${character.statUpType}" th:object="${statUpItem}">
+                <td th:text="*{getName()}"></td>
+                <td th:text="*{getMight()}"></td>
+                <td th:text="*{getRange()}"></td>
+                <td th:text="*{getUses()}"></td>
+                <td th:text="*{getItemCategory().getName()}"></td>
+            </tr>
+        </table>
+        <br></br>
         <br></br>
         <br></br>
         <br></br>
