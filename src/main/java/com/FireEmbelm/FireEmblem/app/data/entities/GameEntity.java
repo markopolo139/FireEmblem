@@ -1,5 +1,6 @@
 package com.FireEmbelm.FireEmblem.app.data.entities;
 
+import com.FireEmbelm.FireEmblem.business.value.DifficultySettings;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -19,6 +20,9 @@ public class GameEntity {
     @JoinColumn(name = "user_id")
     public UserEntity login;
 
+    @Enumerated(EnumType.STRING)
+    public DifficultySettings difficultySetting;
+
     @OneToMany(mappedBy = "gameId")
     public List<CharacterEntity> characters;
 
@@ -33,11 +37,12 @@ public class GameEntity {
     public ItemsConvoyEntity itemsConvoy;
 
     public GameEntity(
-            Long gameId, UserEntity login, List<CharacterEntity> characters, List<EnemyEntity> enemies,
-            List<SpotEntity> field, ItemsConvoyEntity itemsConvoy
+            Long gameId, UserEntity login, DifficultySettings difficultySetting, List<CharacterEntity> characters,
+            List<EnemyEntity> enemies, List<SpotEntity> field, ItemsConvoyEntity itemsConvoy
     ) {
         this.gameId = gameId;
         this.login = login;
+        this.difficultySetting = difficultySetting;
         this.characters = characters;
         this.enemies = enemies;
         this.field = field;

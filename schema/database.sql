@@ -16,6 +16,7 @@ create table user_roles(
 create table games(
     game_id int not null primary key auto_increment,
     user_id int not null,
+    difficulty_setting ENUM('EASY','NORMAL','HARD') not null,
     constraint game_to_user foreign key (user_id) references user_info (user_id)
 );
 

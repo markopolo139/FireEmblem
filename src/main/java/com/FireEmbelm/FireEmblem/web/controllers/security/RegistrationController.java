@@ -6,6 +6,7 @@ import com.FireEmbelm.FireEmblem.app.data.repository.GameRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.UserRepository;
 import com.FireEmbelm.FireEmblem.app.interactors.RegistrationInteractor;
 import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
+import com.FireEmbelm.FireEmblem.business.value.DifficultySettings;
 import com.FireEmbelm.FireEmblem.web.models.request.LoginModel;
 import com.FireEmbelm.FireEmblem.web.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,7 @@ public class RegistrationController {
                 );
 
                 GameEntity gameEntity = new GameEntity(
-                        null, userEntity, new ArrayList<>(),
+                        null, userEntity, DifficultySettings.NORMAL, new ArrayList<>(),
                         new ArrayList<>(), new ArrayList<>(), null
                 );
 

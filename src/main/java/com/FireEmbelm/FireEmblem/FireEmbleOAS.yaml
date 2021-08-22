@@ -54,6 +54,13 @@ components:
           type: string
         password:
           type: string
+
+    DifficultySetting:
+      type: string
+      enum:
+        - EASY
+        - NORMAL
+        - HARD
     CharacterState:
       type: string
       enum:
@@ -1124,6 +1131,13 @@ paths:
         - "Game Start"
       summary: "POST api/v1/startNewGame"
       operationId: "startGame"
+      requestBody:
+        required: true
+        description: "Request for starting game"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DifficultySetting"
       responses:
         "200":
           description: "New game created"

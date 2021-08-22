@@ -9,6 +9,7 @@ import com.FireEmbelm.FireEmblem.app.data.repository.BaseCharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.GameRepository;
 import com.FireEmbelm.FireEmblem.app.data.repository.ItemsConvoyRepository;
+import com.FireEmbelm.FireEmblem.business.value.DifficultySettings;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +37,10 @@ public class GameStartService {
     @Autowired
     private GameRepository mGameRepository;
 
-    public void startGame(Long gameId) {
+    public void startGame(Long gameId, String difficulty) {
 
         GameEntity gameEntity = mGameRepository.findById(gameId).orElseThrow();
+        setDifficultyForGame(gameId,difficulty);
 
         mCharacterRepository.deleteAllByGameId_GameId(gameId);
         mItemsConvoyRepository.deleteByGameId_GameId(gameId);
@@ -68,6 +70,10 @@ public class GameStartService {
             add(new WeaponProgressEmbeddable(WeaponCategory.TOME, 0, 1));
             add(new WeaponProgressEmbeddable(WeaponCategory.STAFF, 0, 1));
         }};
+    }
+
+    public void setDifficultyForGame(Long gameId, String difficulty) {
+        mGameRepository.updateDifficultySetting(difficulty, gameId);
     }
 
 }
