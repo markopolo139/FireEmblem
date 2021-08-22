@@ -4,6 +4,7 @@ import com.FireEmbelm.FireEmblem.app.interactors.service.GameStartService;
 import com.FireEmbelm.FireEmblem.app.utils.AppUtils;
 import com.FireEmbelm.FireEmblem.web.validation.ValidDifficultySetting;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import java.security.Principal;
 
 @CrossOrigin
 @RestController
+@Validated
 public class GameStartController {
 
     @Autowired
@@ -24,9 +26,16 @@ public class GameStartController {
 
     @PostMapping("/api/v1/startNewGame")
     public void startGame(
-            Principal principal, @Valid @ValidDifficultySetting @RequestParam(name = "difficulty") String difficulty
+            Principal principal, @ValidDifficultySetting @RequestParam(name = "difficulty") String difficulty
     ) {
         mGameStartService.startGame(mAppUtils.getGameIdFromLogin(principal.getName()), difficulty);
+    }
+
+    @PostMapping("/api/v1/changeDifficulty")
+    public void setDifficulty(
+            Principal principal, @ValidDifficultySetting @RequestParam(name = "difficulty") String difficulty
+    ) {
+        mGameStartService.setDifficultyForGame(mAppUtils.getGameIdFromLogin(principal.getName()), difficulty);
     }
 
 }

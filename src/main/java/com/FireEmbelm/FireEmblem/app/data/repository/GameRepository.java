@@ -14,6 +14,6 @@ public interface GameRepository extends JpaRepository<GameEntity, Long> {
 
     @Transactional
     @Modifying
-    @Query("update GameEntity ge set ge.difficultySetting = :difficulty where ge.gameId < :id")
+    @Query(value = "update games set difficulty_setting = :difficulty where game_id = :id", nativeQuery = true)
     void updateDifficultySetting(@Param("difficulty") String difficulty, @Param("id") long id);
 }
