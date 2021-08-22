@@ -35,7 +35,7 @@ public class ThymeLeafConfiguration {
     public ITemplateEngine getTemplateEngine(ITemplateResolver iTemplateResolver) {
         TemplateEngine templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(iTemplateResolver);
-        templateEngine.setDialect(new Java8TimeDialect());
+        templateEngine.addDialect(new Java8TimeDialect());
         return templateEngine;
     }
 }

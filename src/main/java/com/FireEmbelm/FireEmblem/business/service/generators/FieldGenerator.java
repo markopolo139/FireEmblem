@@ -10,8 +10,8 @@ import java.util.Random;
 public class FieldGenerator {
 
     private static final int NUMBER_OF_PROBABILITIES = 20;
-    private static final int RANDOM_HEIGHT = 7;
-    private static final int RANDOM_WIDTH = 8;
+    private static final int RANDOM_HEIGHT = 8;
+    private static final int RANDOM_WIDTH = 9;
 
     private final Random mRandomNumber = new Random();
     private List<SpotsType> mSpotsTypeProbabilities;
@@ -26,8 +26,8 @@ public class FieldGenerator {
 
          List<Spot> field = new ArrayList<>();
 
-         for(int i = 0; i < height; i++) {
-             for(int j = 0; j < width; j++){
+         for(int i = 1; i < height; i++) {
+             for(int j = 1; j < width; j++){
                  field.add(randomSpotWithPosition(i,j));
              }
          }
