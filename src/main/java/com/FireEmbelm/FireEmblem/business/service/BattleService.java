@@ -7,6 +7,7 @@ import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
 import com.FireEmbelm.FireEmblem.business.exceptions.NoWeaponException;
 import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
+import com.FireEmbelm.FireEmblem.business.value.DifficultySettings;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterBattleStats;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
@@ -22,7 +23,9 @@ public class BattleService {
     private final Random mRandom = new Random();
     private final CharacterDevelopmentService mCharacterDevelopmentService;
 
-    public void initialiseBattle(Spot attackerSpot, Spot defenderSpot, ItemsConvoy itemsConvoy)
+    public void initialiseBattle(
+            Spot attackerSpot, Spot defenderSpot, ItemsConvoy itemsConvoy, DifficultySettings difficultySettings
+    )
             throws NoWeaponException, OutOfRangeException, InvalidSpotException {
 
         BaseCharacter attacker = attackerSpot.getCharacterOnSpot();
@@ -31,18 +34,18 @@ public class BattleService {
         validateCharactersOnSpots(attacker,defender);
 
         isDefenderInWeaponRange(attackerSpot,defenderSpot);
-        calculateDamageAndSetRemainingHp(attackerSpot,defenderSpot);
+        calculateDamageAndSetRemainingHp(attackerSpot,defenderSpot, difficultySettings);
 
         if(defender.getCharacterState().equals(CharacterState.ALIVE)) {
 
-            mCharacterDevelopmentService.increaseExpNotDead(attacker,defender);
+            mCharacterDevelopmentService.increaseExpNotDead(attacker, defender, difficultySettings);
 
             if (defender.getCurrentEquippedItem() != null)
                 if(defender.getCurrentEquippedItem().getRange() == attacker.getCurrentEquippedItem().getRange()
                         && defender.getCurrentEquippedItem().getItemCategory() instanceof WeaponCategory) {
 
-                    calculateDamageAndSetRemainingHp(defenderSpot, attackerSpot);
-                    getExpAndMoney(defender, attacker, itemsConvoy);
+                    calculateDamageAndSetRemainingHp(defenderSpot, attackerSpot, difficultySettings);
+                    getExpAndMoney(defender, attacker, itemsConvoy, difficultySettings);
                     updateWeaponUseAndProgress(defender);
 
                     if(attacker.getCharacterState().equals(CharacterState.DEAD)) {
@@ -53,13 +56,13 @@ public class BattleService {
                 }
 
             if(isDoubleAttack(attacker,defender)) {
-                calculateDamageAndSetRemainingHp(attackerSpot, defenderSpot);
-                getExpAndMoney(attacker, defender, itemsConvoy);
+                calculateDamageAndSetRemainingHp(attackerSpot, defenderSpot, difficultySettings);
+                getExpAndMoney(attacker, defender, itemsConvoy, difficultySettings);
             }
 
         }
         else {
-            mCharacterDevelopmentService.increaseExpDead(attacker,defender);
+            mCharacterDevelopmentService.increaseExpDead(attacker, defender, difficultySettings);
             addWeaponAndMoneyFromEnemyToConvoy(defender, itemsConvoy);
         }
 
@@ -93,11 +96,11 @@ public class BattleService {
             throw new OutOfRangeException("Attacked character is out of range, with current equipped weapon");
     }
 
-    public void calculateDamageAndSetRemainingHp(Spot attackerSpot, Spot defenderSpot) {
+    public void calculateDamageAndSetRemainingHp(Spot attackerSpot, Spot defenderSpot, DifficultySettings difficultySettings) {
 
-        if(didAttackHit(attackerSpot, defenderSpot)) {
+        if(didAttackHit(attackerSpot, defenderSpot, difficultySettings)) {
 
-            int howMuchDamageDealt = calculateDamageDealt(attackerSpot, defenderSpot);
+            int howMuchDamageDealt = calculateDamageDealt(attackerSpot, defenderSpot, difficultySettings);
 
             if(isAttackCrit(
                     attackerSpot.getCharacterOnSpot().getCharacterBattleStats(),
@@ -116,24 +119,38 @@ public class BattleService {
         }
     }
 
-    public int calculateDamageDealt(Spot attackerSpot, Spot defenderSpot) {
+    public int calculateDamageDealt(Spot attackerSpot, Spot defenderSpot, DifficultySettings difficultySettings) {
+
+        int damageDealt;
+
         if(! attackerSpot.getCharacterOnSpot().getCurrentEquippedItem().getItemCategory().equals(WeaponCategory.TOME)) {
-            return  attackerSpot.getCharacterOnSpot().getCharacterBattleStats().getAttack()
+            damageDealt = attackerSpot.getCharacterOnSpot().getCharacterBattleStats().getAttack()
                     - ( defenderSpot.getCharacterOnSpot().getStats().get(StatsType.DEFENSE).getValue()
                     + defenderSpot.getSpotsType().getDefBoost()
                     + defenderSpot.getCharacterOnSpot().getCharacterClass().getBonusStats().get(StatsType.DEFENSE).getValue());
         }
         else {
-            return  attackerSpot.getCharacterOnSpot().getCharacterBattleStats().getAttack()
+            damageDealt = attackerSpot.getCharacterOnSpot().getCharacterBattleStats().getAttack()
                     - ( defenderSpot.getCharacterOnSpot().getStats().get(StatsType.RESISTANCE).getValue()
                     + defenderSpot.getCharacterOnSpot().getCharacterClass().getBonusStats().get(StatsType.RESISTANCE).getValue());
         }
+
+        return (int) (attackerSpot.getCharacterOnSpot() instanceof Enemy ?
+                damageDealt * difficultySettings.getEnemyDamageBoost()
+                : damageDealt * difficultySettings.getEnemyDamageReceived());
     }
 
-    public boolean didAttackHit(Spot attackerSpot, Spot defenderSpot) {
-        return ( attackerSpot.getCharacterOnSpot().getCharacterBattleStats().getHitRate()
-                - defenderSpot.getCharacterOnSpot().getCharacterBattleStats().getAvoid()
-                - defenderSpot.getSpotsType().getAvoBoost() ) >= mRandom.nextInt(101);
+    public boolean didAttackHit(Spot attackerSpot, Spot defenderSpot, DifficultySettings difficultySettings) {
+
+        int hitRate = (int) (attackerSpot.getCharacterOnSpot().getCharacterBattleStats().getHitRate() *
+                        (attackerSpot.getCharacterOnSpot() instanceof Enemy ? difficultySettings.getEnemyHitBoost() : 1));
+
+        int avoRate = (int) (defenderSpot.getCharacterOnSpot().getCharacterBattleStats().getAvoid() *
+                         (defenderSpot.getCharacterOnSpot() instanceof Enemy ? difficultySettings.getEnemyAvoBoost() : 1));
+
+        int hitPercent = hitRate - avoRate - defenderSpot.getSpotsType().getAvoBoost();
+
+        return hitPercent >= mRandom.nextInt(101);
     }
 
     public boolean isAttackCrit(CharacterBattleStats attackerStats, BaseCharacter defender) {
@@ -149,16 +166,17 @@ public class BattleService {
     }
 
     public void getExpAndMoney(
-            BaseCharacter getExperienceCharacter, BaseCharacter checkIfDeadCharacter, ItemsConvoy itemsConvoy
+            BaseCharacter getExperienceCharacter, BaseCharacter checkIfDeadCharacter, ItemsConvoy itemsConvoy,
+            DifficultySettings difficultySettings
     ) {
 
         if(checkIfDeadCharacter.getCharacterState().equals(CharacterState.DEAD)) {
-            mCharacterDevelopmentService.increaseExpDead(getExperienceCharacter,checkIfDeadCharacter);
+            mCharacterDevelopmentService.increaseExpDead(getExperienceCharacter,checkIfDeadCharacter, difficultySettings);
             addWeaponAndMoneyFromEnemyToConvoy(checkIfDeadCharacter, itemsConvoy);
 
         }
         else {
-            mCharacterDevelopmentService.increaseExpNotDead(getExperienceCharacter,checkIfDeadCharacter);
+            mCharacterDevelopmentService.increaseExpNotDead(getExperienceCharacter,checkIfDeadCharacter, difficultySettings);
         }
     }
 

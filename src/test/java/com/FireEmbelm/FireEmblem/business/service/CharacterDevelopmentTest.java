@@ -5,6 +5,7 @@ import com.FireEmbelm.FireEmblem.business.entitie.CharacterClass;
 import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.utils.Utils;
+import com.FireEmbelm.FireEmblem.business.value.DifficultySettings;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
@@ -121,7 +122,7 @@ public class CharacterDevelopmentTest {
     void testGetExpALive() {
         mEnemy.setLevel(3);
 
-        mCharacterDevelopmentService.increaseExpNotDead(mCharacter,mEnemy);
+        mCharacterDevelopmentService.increaseExpNotDead(mCharacter,mEnemy, DifficultySettings.NORMAL);
 
         Assertions.assertEquals(11, mCharacter.getExp());
 
@@ -129,14 +130,14 @@ public class CharacterDevelopmentTest {
         mCharacter.setLevel(2);
         mCharacter.setExp(0);
 
-        mCharacterDevelopmentService.increaseExpNotDead(mCharacter, mEnemy);
+        mCharacterDevelopmentService.increaseExpNotDead(mCharacter, mEnemy, DifficultySettings.NORMAL);
 
         Assertions.assertEquals(10, mCharacter.getExp());
 
         mCharacter.setLevel(5);
         mCharacter.setExp(0);
 
-        mCharacterDevelopmentService.increaseExpNotDead(mCharacter, mEnemy);
+        mCharacterDevelopmentService.increaseExpNotDead(mCharacter, mEnemy, DifficultySettings.NORMAL);
 
         Assertions.assertEquals( 9, mCharacter.getExp());
     }
@@ -145,7 +146,7 @@ public class CharacterDevelopmentTest {
     void testGetExpDead() {
         mEnemy.setLevel(3);
 
-        mCharacterDevelopmentService.increaseExpDead(mCharacter,mEnemy);
+        mCharacterDevelopmentService.increaseExpDead(mCharacter,mEnemy, DifficultySettings.NORMAL);
 
         Assertions.assertEquals(26, mCharacter.getExp());
 
@@ -153,14 +154,14 @@ public class CharacterDevelopmentTest {
         mCharacter.setLevel(2);
         mCharacter.setExp(0);
 
-        mCharacterDevelopmentService.increaseExpDead(mCharacter, mEnemy);
+        mCharacterDevelopmentService.increaseExpDead(mCharacter, mEnemy, DifficultySettings.NORMAL);
 
         Assertions.assertEquals(20, mCharacter.getExp());
 
         mCharacter.setLevel(5);
         mCharacter.setExp(0);
 
-        mCharacterDevelopmentService.increaseExpDead(mCharacter, mEnemy);
+        mCharacterDevelopmentService.increaseExpDead(mCharacter, mEnemy, DifficultySettings.NORMAL);
 
         Assertions.assertEquals( 14, mCharacter.getExp());
 
@@ -183,7 +184,7 @@ public class CharacterDevelopmentTest {
     @Test
     void testLevelUp() {
         mCharacter.setExp(99);
-        mCharacterDevelopmentService.increaseExpDead(mCharacter,mEnemy);
+        mCharacterDevelopmentService.increaseExpDead(mCharacter,mEnemy, DifficultySettings.NORMAL);
 
         Assertions.assertEquals(2,mCharacter.getLevel());
         Assertions.assertEquals(0,mCharacter.getExp());

@@ -6,8 +6,10 @@ import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
 import com.FireEmbelm.FireEmblem.business.utils.Utils;
+import com.FireEmbelm.FireEmblem.business.value.DifficultySettings;
 import com.FireEmbelm.FireEmblem.business.value.categories.WeaponCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
+import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
 import com.FireEmbelm.FireEmblem.business.value.equipment.*;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
@@ -133,8 +135,22 @@ public class BattleServiceTest {
     }
 
     @Test
+    void testCalculateDamageHardDifficulty() {
+
+        mCharacter.getStats().put(StatsType.STRENGTH, new Stat(StatsType.STRENGTH, 10, 0));
+        mEnemy.getStats().put(StatsType.STRENGTH, new Stat(StatsType.STRENGTH, 10, 0));
+
+        mCharacter.getCharacterBattleStats().calculateBattleStats(mCharacter);
+        mEnemy.getCharacterBattleStats().calculateBattleStats(mEnemy);
+
+        Assertions.assertEquals(8, mBattleService.calculateDamageDealt(mAttackerSpot,mDefenderSpot, DifficultySettings.HARD));
+        Assertions.assertEquals(12, mBattleService.calculateDamageDealt(mDefenderSpot,mAttackerSpot, DifficultySettings.HARD));
+
+    }
+
+    @Test
     void testCalculateDamage() {
-        Assertions.assertEquals(1, mBattleService.calculateDamageDealt(mAttackerSpot,mDefenderSpot));
+        Assertions.assertEquals(1, mBattleService.calculateDamageDealt(mAttackerSpot,mDefenderSpot, DifficultySettings.NORMAL));
 
         mCharacter.setCurrentEquippedItem(
                 mItemsConvoy.getWeapons().stream()
@@ -143,18 +159,18 @@ public class BattleServiceTest {
                         .get()
         );
         mCharacter.getCharacterBattleStats().calculateBattleStats(mCharacter);
-        Assertions.assertEquals(2, mBattleService.calculateDamageDealt(mAttackerSpot,mDefenderSpot));
+        Assertions.assertEquals(2, mBattleService.calculateDamageDealt(mAttackerSpot,mDefenderSpot, DifficultySettings.NORMAL));
     }
 
     @Test
     void testSettingRemainingHp() {
-        mBattleService.calculateDamageAndSetRemainingHp(mDefenderSpot,mAttackerSpot);
+        mBattleService.calculateDamageAndSetRemainingHp(mDefenderSpot,mAttackerSpot, DifficultySettings.NORMAL);
 
         Assertions.assertEquals(15,mAttackerSpot.getCharacterOnSpot().getRemainingHealth());
-        Assertions.assertFalse(mBattleService.didAttackHit(mDefenderSpot,mAttackerSpot));
+        Assertions.assertFalse(mBattleService.didAttackHit(mDefenderSpot,mAttackerSpot, DifficultySettings.NORMAL));
 
         mEnemy.setRemainingHealth(1);
-        mBattleService.calculateDamageAndSetRemainingHp(mAttackerSpot,mDefenderSpot);
+        mBattleService.calculateDamageAndSetRemainingHp(mAttackerSpot,mDefenderSpot, DifficultySettings.NORMAL);
         Assertions.assertEquals(-2, mDefenderSpot.getCharacterOnSpot().getRemainingHealth());
         Assertions.assertEquals(CharacterState.DEAD, mEnemy.getCharacterState());
     }
@@ -163,7 +179,7 @@ public class BattleServiceTest {
     void testGettingMoneyItemAndExp() {
         mEnemy.setCharacterState(CharacterState.DEAD);
 
-        mBattleService.getExpAndMoney(mCharacter,mEnemy,mItemsConvoy);
+        mBattleService.getExpAndMoney(mCharacter,mEnemy,mItemsConvoy, DifficultySettings.NORMAL);
 
         Assertions.assertNotEquals(0,mCharacter.getExp());
         Assertions.assertEquals(6000, mItemsConvoy.getMoney());

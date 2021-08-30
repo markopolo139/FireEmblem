@@ -5,16 +5,14 @@ import com.FireEmbelm.FireEmblem.app.converters.ItemsConvoyConverter;
 import com.FireEmbelm.FireEmblem.app.converters.SpotConverter;
 import com.FireEmbelm.FireEmblem.app.data.entities.ItemsConvoyEntity;
 import com.FireEmbelm.FireEmblem.app.data.entities.SpotEntity;
-import com.FireEmbelm.FireEmblem.app.data.repository.CharacterRepository;
-import com.FireEmbelm.FireEmblem.app.data.repository.EnemyRepository;
-import com.FireEmbelm.FireEmblem.app.data.repository.ItemsConvoyRepository;
-import com.FireEmbelm.FireEmblem.app.data.repository.SpotRepository;
+import com.FireEmbelm.FireEmblem.app.data.repository.*;
 import com.FireEmbelm.FireEmblem.business.entitie.Enemy;
 import com.FireEmbelm.FireEmblem.business.entitie.ItemsConvoy;
 import com.FireEmbelm.FireEmblem.business.exceptions.InvalidSpotException;
 import com.FireEmbelm.FireEmblem.business.exceptions.NoWeaponException;
 import com.FireEmbelm.FireEmblem.business.exceptions.OutOfRangeException;
 import com.FireEmbelm.FireEmblem.business.service.BattleService;
+import com.FireEmbelm.FireEmblem.business.value.DifficultySettings;
 import com.FireEmbelm.FireEmblem.business.value.character.related.CharacterState;
 import com.FireEmbelm.FireEmblem.business.value.field.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +34,6 @@ public class BattleInteractor {
     private EnemyRepository mEnemyRepository;
 
     @Autowired
-    private CharacterConverter mCharacterConverter;
-
-    @Autowired
     private CharacterRepository mCharacterRepository;
 
     @Autowired
@@ -47,10 +42,15 @@ public class BattleInteractor {
     @Autowired
     private ItemsConvoyRepository mItemsConvoyRepository;
 
+    @Autowired
+    private GameRepository mGameRepository;
+
     public void initialiseBattle(
             int attackerHeight, int attackerWidth, int defenderHeight, int defenderWidth, Long gameId
     )
             throws NoWeaponException, OutOfRangeException, InvalidSpotException {
+
+        DifficultySettings difficulty = mGameRepository.findById(gameId).orElseThrow().difficultySetting;
 
         SpotEntity startingAttackerEntity = mSpotRepository
                 .findByHeightAndWidthAndGameId_GameId(attackerHeight, attackerWidth, gameId).orElseThrow();
@@ -64,7 +64,7 @@ public class BattleInteractor {
         Spot attackerSpot = mSpotConverter.convertEntityToSpot(startingAttackerEntity);
         Spot defenderSpot = mSpotConverter.convertEntityToSpot(startingDefenderEntity);
 
-        mBattleService.initialiseBattle(attackerSpot,defenderSpot,itemsConvoy);
+        mBattleService.initialiseBattle(attackerSpot,defenderSpot,itemsConvoy, difficulty);
 
         ItemsConvoyEntity exitingEntity = mItemsConvoyConverter.convertToEntity(itemsConvoy);
         exitingEntity.convoyId = itemsConvoyEntity.convoyId;

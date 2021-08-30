@@ -1,6 +1,7 @@
 package com.FireEmbelm.FireEmblem.business.service;
 
 import com.FireEmbelm.FireEmblem.business.entitie.BaseCharacter;
+import com.FireEmbelm.FireEmblem.business.value.DifficultySettings;
 import com.FireEmbelm.FireEmblem.business.value.categories.ItemCategory;
 import com.FireEmbelm.FireEmblem.business.value.character.related.Stat;
 import com.FireEmbelm.FireEmblem.business.value.character.related.StatsType;
@@ -32,18 +33,24 @@ public class CharacterDevelopmentService {
         }
     }
 
-    public void increaseExpNotDead(BaseCharacter characterGetExp, BaseCharacter characterNotDead) {
+    public void increaseExpNotDead(
+            BaseCharacter characterGetExp, BaseCharacter characterNotDead, DifficultySettings difficultySettings
+    ) {
         int levelDifference = characterNotDead.getLevel() - characterGetExp.getLevel();
+        int expGained = 0;
 
-        if(levelDifference <= -2) {
-            characterGetExp.setExp(characterGetExp.getExp() + Math.max((33 + levelDifference)/3, 1));
-        }
-        if(levelDifference == -1) {
-            characterGetExp.setExp(characterGetExp.getExp() + 10);
-        }
-        if(levelDifference >= 0) {
-            characterGetExp.setExp(characterGetExp.getExp() + (31 + levelDifference)/3);
-        }
+        if(levelDifference <= -2)
+            expGained = (int) (
+                    characterGetExp.getExp() + Math.max((33 + levelDifference)/3, 1) * difficultySettings.getExpGained()
+            );
+
+        if(levelDifference == -1)
+            expGained = (int) (characterGetExp.getExp() + 10 * difficultySettings.getExpGained());
+
+        if(levelDifference >= 0)
+            expGained = (int) (characterGetExp.getExp() + (31 + levelDifference)/3 * difficultySettings.getExpGained());
+
+        characterGetExp.setExp(expGained);
 
         if (characterGetExp.getExp() >= 100) {
             characterGetExp.setExp(0);
@@ -51,18 +58,28 @@ public class CharacterDevelopmentService {
         }
     }
 
-    public void increaseExpDead(BaseCharacter characterGetExp, BaseCharacter characterNotDead) {
+    public void increaseExpDead(
+            BaseCharacter characterGetExp, BaseCharacter characterNotDead, DifficultySettings difficultySettings
+    ) {
         int levelDifference = characterNotDead.getLevel() - characterGetExp.getLevel();
+        int expGained = 0;
 
-        if(levelDifference <= -2) {
-            characterGetExp.setExp(characterGetExp.getExp() + Math.max(26 + (levelDifference * 3), 7));
-        }
-        if(levelDifference == -1) {
-            characterGetExp.setExp(characterGetExp.getExp() + 20);
-        }
-        if(levelDifference >= 0) {
-            characterGetExp.setExp(characterGetExp.getExp() + 20 + (levelDifference * 3));
-        }
+        if(levelDifference <= -2)
+            expGained = (int) (
+                    characterGetExp.getExp() + Math.max(26 + (levelDifference * 3), 7) * difficultySettings.getExpGained()
+            );
+
+        if(levelDifference == -1)
+            expGained = (int) (
+                    characterGetExp.getExp() + 20 * difficultySettings.getExpGained()
+            );
+
+        if(levelDifference >= 0)
+            expGained = (int) (
+                    characterGetExp.getExp() + 20 + (levelDifference * 3) * difficultySettings.getExpGained()
+            );
+
+        characterGetExp.setExp(expGained);
 
         if (characterGetExp.getExp() >= 100) {
             characterGetExp.setExp(0);
